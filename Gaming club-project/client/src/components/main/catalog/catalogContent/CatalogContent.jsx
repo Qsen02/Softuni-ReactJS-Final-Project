@@ -1,12 +1,17 @@
 import styles from "./CatalogContent.module.css"
 
-export default function CatalogContent() {
+export default function CatalogContent({
+    id,
+    category,
+    image,
+    name
+}) {
     return (
         <div className={styles.catalogContent}>
-            <img src="asdasd" alt="asdasd" />
-            <h1>fdgdfhgdfh</h1>
-            <h3>Category: fghfghjfghj</h3>
-            <a href="/games/details/{{_id}}"><button>Details</button></a>
+            <img src={image} alt={name} />
+            <h1>{name}</h1>
+            <h3>Category: {category}</h3>
+            <a href={`/catalog/${id}`}><button>Details</button></a>
         </div>
     )
 }

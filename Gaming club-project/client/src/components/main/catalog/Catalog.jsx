@@ -1,16 +1,74 @@
 import styles from "./Catalog.module.css"
 import CatalogSearch from "./catalogSearch/CatalogSearch"
 import CatalogContent from "./catalogContent/CatalogContent"
+import { useEffect, useState } from "react";
+import { getImage } from "../../../utils/imageHandler";
 
 export default function Catalog() {
+    let host = "http://localhost:3000/games";
+    let [games, setGames] = useState([]);
+    let [isSearched, setIsSearched] = useState(false);
+    useEffect(() => {
+        (async function getAllGames() {
+            try {
+                let response = await fetch(`${host}/`);
+                if (!response.ok) {
+                    throw new Error("Server isn't responed please try again later");
+                }
+                let data = await response.json();
+                for (let el of data) {
+                    let imgName = await getImage(el.image);
+                    el.image = imgName;
+                }
+                setGames(data);
+            } catch (err) {
+                alert(err.message);
+                return;
+            }
+        })()
+    }, [])
+
+    async function onSearchHandler(event) {
+        event.preventDefault();
+        let formData = new FormData(event.target);
+        let value = formData.get("name");
+        try {
+            let response = await fetch(`${host}/search/${value}`)
+            if (!response.ok) {
+                throw new Error("Server isn't responed please try again later");
+            }
+            let data = await response.json();
+            for (let el of data) {
+                let imgName = await getImage(el.image);
+                el.image = imgName;
+            }
+            setGames(data);
+            event.target.reset();
+            setIsSearched(true);
+        } catch (err) {
+            alert(err.message);
+            return;
+        }
+    }
+
     return (
         <>
             <h1>Search for games here</h1>
-            <CatalogSearch />
-            <h1>No games yet</h1>
+            <CatalogSearch onSearch={onSearchHandler} />
             <h1>All available games</h1>
             <div className={styles.catalogWrapper}>
-                <CatalogContent />
+                {!isSearched && games.length == 0
+                    ? <h1>No games yet :(</h1>
+                    : games.map(el => <CatalogContent
+                        key={el._id}
+                        id={el._id}
+                        name={el.name}
+                        category={el.category}
+                        image={el.image}
+                    />
+                    )
+                }
+                {isSearched && games.length == 0 ? <h1>No results :(</h1> : ""}
             </div>
         </>
     )

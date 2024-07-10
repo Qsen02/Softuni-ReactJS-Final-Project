@@ -6,6 +6,6 @@ export default function ListItem({
     linkSetter
 }){
    return (
-       <li onClick={linkSetter} className={styles.listItem}><a href={link}>{name}</a></li>
+       <li className={styles.listItem}><a onClick={linkSetter}  href={link}>{name}</a></li>
    )
 }

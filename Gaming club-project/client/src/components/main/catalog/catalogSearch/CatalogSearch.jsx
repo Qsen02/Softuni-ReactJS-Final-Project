@@ -1,8 +1,10 @@
 import styles from "./CatalogSearch.module.css"
 
-export default function CatalogSearch() {
+export default function CatalogSearch({
+    onSearch
+}) {
     return (
-        <form method="GET" className={styles.search}>
+        <form onSubmit={onSearch} className={styles.search}>
             <input name="name" type="text" placeholder="Enter game name..." />
             <button type="submit">Search</button>
         </form>

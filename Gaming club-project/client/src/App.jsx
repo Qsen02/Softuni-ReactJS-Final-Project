@@ -4,11 +4,13 @@ import Main from "./components/main/Main"
 import { useState } from "react";
 
 function App() {
-    let link="/";
+    let [link,setLink]=useState("/catalog");
 
     function linkHandler(event){
-        link=event.target.href.reaplace("http://localhost:5173","");
+        link=event.target.href.replace("http://localhost:5173","");
+        setLink(link);
     }
+
     return (
         <>
             <Header onLinkHandler={linkHandler}/>
