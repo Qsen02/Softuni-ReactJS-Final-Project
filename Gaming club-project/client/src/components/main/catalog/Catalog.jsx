@@ -8,6 +8,10 @@ export default function Catalog() {
     let host = "http://localhost:3000/games";
     let [games, setGames] = useState([]);
     let [isSearched, setIsSearched] = useState(false);
+    let [formValues, setFormValues] = useState({
+        name: "",
+        criteria: "name"
+    })
     useEffect(() => {
         (async function getAllGames() {
             try {
@@ -28,12 +32,17 @@ export default function Catalog() {
         })()
     }, [])
 
+    function onChangeHandler(event) {
+        setFormValues(oldValues => ({ ...oldValues, [event.target.name]: event.target.value }));
+    }
+
     async function onSearchHandler(event) {
         event.preventDefault();
-        let formData = new FormData(event.target);
-        let value = formData.get("name");
         try {
-            let response = await fetch(`${host}/search/${value}`)
+            if(!formValues.name){
+                throw new Error("Please fill the search field");
+            }
+            let response = await fetch(`${host}/search/${formValues.name}/by/${formValues.criteria}`)
             if (!response.ok) {
                 throw new Error("Server isn't responed please try again later");
             }
@@ -54,7 +63,11 @@ export default function Catalog() {
     return (
         <>
             <h1>Search for games here</h1>
-            <CatalogSearch onSearch={onSearchHandler} />
+            <CatalogSearch
+                onSearch={onSearchHandler}
+                formValues={formValues}
+                onChangeHandler={onChangeHandler}
+            />
             <h1>All available games</h1>
             <div className={styles.catalogWrapper}>
                 {!isSearched && games.length == 0
@@ -65,6 +78,7 @@ export default function Catalog() {
                         name={el.name}
                         category={el.category}
                         image={el.image}
+                        year={el.year}
                     />
                     )
                 }
