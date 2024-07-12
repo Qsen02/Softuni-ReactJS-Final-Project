@@ -2,10 +2,10 @@ import styles from "./Catalog.module.css"
 import CatalogSearch from "./catalogSearch/CatalogSearch"
 import CatalogContent from "./catalogContent/CatalogContent"
 import { useEffect, useState } from "react";
-import { getImage } from "../../../utils/imageHandler";
+import { getImage } from "../../../api/imageService";
+import { getAllGames, searching } from "../../../api/gameService";
 
 export default function Catalog() {
-    let host = "http://localhost:3000/games";
     let [games, setGames] = useState([]);
     let [isSearched, setIsSearched] = useState(false);
     let [formValues, setFormValues] = useState({
@@ -13,22 +13,13 @@ export default function Catalog() {
         criteria: "name"
     })
     useEffect(() => {
-        (async function getAllGames() {
-            try {
-                let response = await fetch(`${host}/`);
-                if (!response.ok) {
-                    throw new Error("Server isn't responed please try again later");
-                }
-                let data = await response.json();
+        (async function getGames() {
+                let data = await getAllGames();
                 for (let el of data) {
                     let imgName = await getImage(el.image);
                     el.image = imgName;
                 }
                 setGames(data);
-            } catch (err) {
-                alert(err.message);
-                return;
-            }
         })()
     }, [])
 
@@ -42,11 +33,7 @@ export default function Catalog() {
             if(!formValues.name){
                 throw new Error("Please fill the search field");
             }
-            let response = await fetch(`${host}/search/${formValues.name}/by/${formValues.criteria}`)
-            if (!response.ok) {
-                throw new Error("Server isn't responed please try again later");
-            }
-            let data = await response.json();
+            let data = await searching(formValues.name,formValues.criteria);
             for (let el of data) {
                 let imgName = await getImage(el.image);
                 el.image = imgName;
