@@ -21,13 +21,13 @@ async function request(method, url, data) {
         if (!response.ok) {
             if (response.status == 403) {
                 removeUserData();
+                let err = await response.json();
+                throw new Error(err.message);
             }
-            let err = await response.json();
-            throw new Error(err.message);
+            throw new Error("Server isn't responding, please try again later.");
         }
         if (response.status == 204) {
-            removeUserData();
-            throw new Error;
+            return response;
         }
         let data = await response.json();
         return data;
