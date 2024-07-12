@@ -2,8 +2,8 @@ import styles from "./Catalog.module.css"
 import CatalogSearch from "./catalogSearch/CatalogSearch"
 import CatalogContent from "./catalogContent/CatalogContent"
 import { useEffect, useState } from "react";
-import { getImage } from "../../../api/imageService";
-import { getAllGames, searching } from "../../../api/gameService";
+import { getImage } from "../../api/imageService";
+import { getAllGames, searching } from "../../api/gameService";
 
 export default function Catalog() {
     let [games, setGames] = useState([]);

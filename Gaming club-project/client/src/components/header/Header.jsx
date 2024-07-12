@@ -1,9 +1,7 @@
 import ListItem from "./listItem/ListItem"
 import styles from "./Header.module.css"
 
-export default function Header({
-    onLinkHandler
-}) {
+export default function Header() {
     let listItems = [
         {
             link: "/",
@@ -26,7 +24,7 @@ export default function Header({
         <header>
             <nav className={styles.navigation}>
                 <ul>
-                    {listItems.map(el=><ListItem linkSetter={onLinkHandler} key={el.name} name={el.name} link={el.link}/>)}
+                    {listItems.map(el=><ListItem key={el.name} name={el.name} link={el.link}/>)}
                 </ul>
             </nav>
         </header>

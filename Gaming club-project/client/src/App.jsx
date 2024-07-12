@@ -1,20 +1,20 @@
 import Header from "./components/header/Header"
 import Footer from "./components/footer/Footer"
-import Main from "./components/main/Main"
-import { useState } from "react";
+import Home from "./components/home/Home";
+import Catalog from "./components/catalog/Catalog";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
-    let [link,setLink]=useState("/catalog");
-
-    function linkHandler(event){
-        link=event.target.href.replace("http://localhost:5173","");
-        setLink(link);
-    }
 
     return (
         <>
-            <Header onLinkHandler={linkHandler}/>
-            <Main link={link}/>
+            <Header/>
+            <main>
+                <Routes>
+                    <Route path="/" element={<Home />}/>
+                    <Route path="/catalog" element={<Catalog />}/>
+                </Routes>
+            </main>
             <Footer />
         </>
     )

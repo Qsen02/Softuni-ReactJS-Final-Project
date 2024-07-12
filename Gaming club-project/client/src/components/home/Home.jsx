@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styles from "./Home.module.css"
 import { useEffect } from "react";
-import { getImage } from "../../../api/imageService";
+import { getImage } from "../../api/imageService";
 
 export default function Home() {
     let imageName = "gaming-banner-for-games-with-glitch-effect-neon-light-on-text-illustration-design-free-vector.jpg";

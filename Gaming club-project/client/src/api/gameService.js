@@ -1,6 +1,6 @@
 import { del, get, post, put } from "./api";
 
-let endpoint = "/game";
+let endpoint = "/games";
 
 export async function getAllGames() {
     let data = await get(`${endpoint}/`);
