@@ -13,7 +13,7 @@ function routerConfig(app) {
     app.use("/users", userRouter);
 
     app.get("*", (req, res) => {
-        res.status(404).json({ message: "Page not found!" });
+        res.status(404).json({ message: "Resource not found!" });
     })
 }
 

@@ -7,7 +7,7 @@ const { errorParser } = require("../util");
 
 let commentRouter = Router();
 
-commentRouter.post("/",
+commentRouter.post("/games/:id",
     isUser(),
     body("content").isLength({ min: 3 }).withMessage("Comment must be at least 3 symbols long!"),
     async(req, res) => {
@@ -37,7 +37,7 @@ commentRouter.delete("/:id/games/:gameId", isUser(), async(req, res) => {
     let gameId = comment.gameId;
     let isValid = await checkCommentId(id);
     if (!isValid) {
-        res.status(404).json({ message: "Page not found!" });
+        res.status(404).json({ message: "Resource not found!" });
         return;
     }
     await deleteComment(id, gameId, comment);
@@ -50,7 +50,7 @@ commentRouter.put("/:id", isUser(),
         let id = req.params.id;
         let isValid = await checkCommentId(id);
         if (!isValid) {
-            res.status(404).json({ message: "Page not found!" });
+            res.status(404).json({ message: "Resource not found!" });
             return;
         }
         let content = req.body.content;

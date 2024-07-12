@@ -17,7 +17,7 @@ gameRouter.get("/:id", async(req, res) => {
     let id = req.params.id;
     let isValid = await checkGameId(id);
     if (!isValid) {
-        res.status(404).json({ message: "Page not found!" });
+        res.status("404").json({ message: "Resource not found!" });
         return;
     }
     let game = await getGameById(id).lean();
@@ -41,17 +41,18 @@ gameRouter.post("/",
         let description = fields.description;
         let category = fields.category;
         let creator = fields.creator;
-        let imgPath = "";
+        let imgName = "";
         if (req.file) {
             let imgFile = req.file;
-            imgPath = imgFile.path;
+            let imgPath = imgFile.path.split("\\");
+            imgName = imgPath[imgPath.length - 1];
         }
         try {
             let results = validationResult(req);
             if (results.errors.length) {
                 throw results.errors;
             }
-            await createGame({ name, year, description, category, creator, image: "http://localhost:3000/" + imgPath }, user);
+            await createGame({ name, year, description, category, creator, image: imgName }, user);
             res.status(200).json({ message: "Record created successfully!" })
         } catch (err) {
             res.status(400).json({ message: errorParser(err).errors });
@@ -59,9 +60,11 @@ gameRouter.post("/",
         }
     });
 
-gameRouter.get("/search", async(req, res) => {
-    let query = req.query;
-    let games = await searching(query).lean();
+gameRouter.get("/search/:value/by/:criteria", async(req, res) => {
+    let query = req.params.value;
+    let criteria = req.params.criteria;
+    console.log(query);
+    let games = await searching(query, criteria).lean();
     res.json(games);
 })
 
@@ -69,7 +72,7 @@ gameRouter.delete("/:id", isUser(), async(req, res) => {
     let id = req.params.id;
     let isValid = await checkGameId(id);
     if (!isValid) {
-        res.status("404").json("Page not found!");
+        res.status("404").json({ message: "Resource not found!" });
         return;
     }
     let game = await getGameById(id).lean();
@@ -94,7 +97,7 @@ gameRouter.put("/:id", isUser(),
         let id = req.params.id;
         let isValid = await checkGameId(id);
         if (!isValid) {
-            res.status("404").json("Page not found!");
+            res.status("404").json({ message: "Resource not found!" });
             return;
         }
         let game = await getGameById(id).lean();
@@ -104,7 +107,7 @@ gameRouter.put("/:id", isUser(),
         let description = fields.description;
         let category = fields.category;
         let creator = fields.creator;
-        let imgPath = "";
+        let newImgName = "";
         try {
             let results = validationResult(req);
             if (results.errors.length) {
@@ -112,11 +115,13 @@ gameRouter.put("/:id", isUser(),
             }
             if (req.file) {
                 let imgFile = req.file;
-                imgPath = imgFile.path;
+                let imgPath = imgFile.path.split("\\");
+                newImgName = imgPath[imgPath.length - 1];
+
                 let img = game.image;
                 let imgArr = img.split("\\");
                 let imgName = imgArr[imgArr.length - 1];
-                await editGame(id, { name, year, description, category, creator, image: "http://localhost:3000/" + imgPath });
+                await editGame(id, { name, year, description, category, creator, image: newImgName });
                 if (imgName && imgName != "gaming-banner-for-games-with-glitch-effect-neon-light-on-text-illustration-design-free-vector.jpg") {
                     await delImg(imgName);
                 }
@@ -147,7 +152,7 @@ gameRouter.post("/:id/save", isUser(), async(req, res) => {
     let userId = req.user._id;
     let isValid = await checkGameId(gameId);
     if (!isValid) {
-        res.status("404").json("Page not found!");
+        res.status("404").json({ message: "Resource not found!" });
         return;
     }
     await saving(gameId, userId);

@@ -8,7 +8,7 @@ function session() {
                 let payload = verifyToken(token);
                 req.user = payload;
             } catch (err) {
-                res.status(403).json({ message: "You dont't have authorization, please login or register!" });
+                res.status(403).json({ message: "You dont't have credentials, please login or register!" });
             }
         }
         next();

@@ -28,8 +28,16 @@ async function editGame(id, data) {
     await Games.findByIdAndUpdate(id, data);
 }
 
-function searching(query) {
-    let results = Games.find({ name: RegExp(query.name, "i") });
+function searching(query, criteria) {
+    let results = null;
+    if (criteria == "name") {
+        results = Games.find({ name: RegExp(query, "i") });
+    } else if (criteria == "year") {
+        results = Games.find({ year: Number(query) });
+    } else if (criteria == "category") {
+        results = Games.find({ category: RegExp(query, "i") });
+    }
+
     return results;
 }
 
