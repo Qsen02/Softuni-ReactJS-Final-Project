@@ -1,0 +1,22 @@
+.errorWrapper {
+    display: block;
+    margin: 0 auto;
+    background-color: rgb(89, 86, 86);
+    width: 400px;
+    height: 200px;
+    margin-top: 200px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: aliceblue;
+    padding: 10px;
+    text-align: center;
+}
+
+.errorWrapper p a {
+    font-size: 16pt;
+    text-decoration: none;
+    color: rgb(3, 194, 247);
+}
+
+.errorWrapper p a:hover {
+    color: rgb(0, 225, 255);
+}

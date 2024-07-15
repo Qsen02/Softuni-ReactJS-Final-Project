@@ -2,14 +2,18 @@ import Header from "./components/header/Header"
 import Footer from "./components/footer/Footer"
 import Home from "./components/home/Home";
 import Catalog from "./components/catalog/Catalog";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getUserData } from "./utils/userDataHelper";
+import { getUserData, removeUserData } from "./utils/userDataHelper";
 import Register from "./components/register/Register";
+import Status404 from "./components/status404/Status404";
+import Logout from "./components/logout/Lougout";
+import Login from "./components/login/Login";
 
 function App() {
     let [isUser, setIsUser] = useState(null);
     let user = getUserData();
+    let navigate = useNavigate();
 
     useEffect(() => {
         if (user) {
@@ -19,8 +23,14 @@ function App() {
         }
     }, [])
 
-    function setUserHandler(user){
+    function setUserHandler(user) {
         setIsUser(user);
+    }
+
+    function clearUserHandler() {
+        removeUserData();
+        setIsUser(null);
+        navigate("/login");
     }
 
     return (
@@ -30,7 +40,10 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/catalog" element={<Catalog />} />
-                    <Route path="/register" element={<Register setUser={setUserHandler}/>} />
+                    <Route path="/register" element={<Register setUser={setUserHandler} />} />
+                    <Route path="/logout" element={<Logout clearUser={clearUserHandler} />} />
+                    <Route path="/login" element={<Login setUser={setUserHandler} />} />
+                    <Route path="*" element={<Status404 />} />
                 </Routes>
             </main>
             <Footer />

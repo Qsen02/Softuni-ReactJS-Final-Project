@@ -25,6 +25,7 @@
     width: 400px;
     height: 50px;
     border: none;
+    outline: none;
     border-radius: 7px;
     background-color: grey;
     color: aliceblue;
@@ -66,10 +67,6 @@
 
 .errorLabel {
     color: red;
-}
-
-.errorField {
-    border-bottom: red solid 1px;
 }
 
 .error {

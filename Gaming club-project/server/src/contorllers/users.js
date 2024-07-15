@@ -50,9 +50,9 @@ userRouter.post("/login",
             let user = await login(username, password);
             let token = setToken(user);
             res.cookie("token", token, { httpOnly: true });
-            res.json({ _id: user._id, username: user.username, email: user.email, accesToken: token });
+            res.json({ _id: user._id, username: user.username, email: user.email, accessToken: token });
         } catch (err) {
-            res.status(400).json({ message: errorParser(err).errors });
+            res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });
             return;
         }
     });
