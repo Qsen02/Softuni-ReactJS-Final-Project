@@ -31,8 +31,7 @@ async function request(method, url, data) {
         let data = await response.json();
         return data;
     } catch (err) {
-        alert(err.message);
-        return;
+        throw new Error(err.message);
     }
 }
 

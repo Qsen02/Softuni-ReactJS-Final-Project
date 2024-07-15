@@ -5,12 +5,12 @@ function errorParser(err) {
             err.errors = [err.message];
         } else {
             let error = new Error("Input erorr");
-            error.errors = Object.values(err.errors).map(el => el.message).join("\n");
+            error.errors = Object.fromEntries(Object.values(err.errors).map(el => [el.path, el.message]));
             return error;
         }
     } else if (Array.isArray(err)) {
         let error = new Error("Input error");
-        error.errors = err.map(el => el.msg).join("\n");
+        error.errors = Object.fromEntries(err.map(el => [el.path, el.msg]));
         return error;
     }
     return err;
