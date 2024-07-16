@@ -23,7 +23,6 @@ userRouter.post("/register",
             }
             let user = await register(username, email, password);
             let token = setToken(user);
-            res.cookie("token", token, { httpOnly: true });
             res.json({ _id: user._id, username: user.username, email: user.email, accessToken: token });
         } catch (err) {
             res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });
@@ -31,7 +30,6 @@ userRouter.post("/register",
     });
 
 userRouter.get("/logout", (req, res) => {
-    res.clearCookie("token");
     res.status(200).json("User logged out successfully!");
 })
 
@@ -49,7 +47,6 @@ userRouter.post("/login",
             }
             let user = await login(username, password);
             let token = setToken(user);
-            res.cookie("token", token, { httpOnly: true });
             res.json({ _id: user._id, username: user.username, email: user.email, accessToken: token });
         } catch (err) {
             res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });

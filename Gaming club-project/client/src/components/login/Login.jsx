@@ -1,6 +1,6 @@
 import { login } from "../../api/userService";
 import { setUserData } from "../../utils/userDataHelper";
-import styles from "../register/Register.module.css"
+import styles from "../FormsAndErrors.module.css"
 import { useState,useEffect } from "react";
 import { Link,useNavigate } from "react-router-dom";
 
@@ -60,8 +60,8 @@ export default function Login({
                     </div >
                 : ""
             }
-            <form onSubmit={onLogin} className={styles.Register}>
-                <h3>Here you can make your registration</h3>
+            <form onSubmit={onLogin} className={styles.form}>
+                <h3>Here you can login in your account</h3>
                 <label className={errMessage.username ? styles.errorLabel : ""}>Username</label>
                 <input type="text" name="username" value={formValues.username} onChange={changeHandler} />
                 <label className={errMessage.password ? styles.errorLabel : ""}>Password</label >

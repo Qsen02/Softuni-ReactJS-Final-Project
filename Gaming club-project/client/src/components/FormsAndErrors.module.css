@@ -1,4 +1,4 @@
-.Register {
+.form {
     display: block;
     margin: 0 auto;
     margin-top: 30px;
@@ -14,14 +14,14 @@
     border-radius: 10px;
 }
 
-.Register label {
+.form label {
     display: block;
     text-align: center;
     margin: 10px;
 }
 
-.Register input,
-.Register textarea {
+.form input,
+.form textarea {
     width: 400px;
     height: 50px;
     border: none;
@@ -34,7 +34,7 @@
     padding-left: 5px;
 }
 
-.Register button {
+.form button {
     display: block;
     margin: 0 auto;
     margin-top: 20px;
@@ -49,19 +49,19 @@
     padding: 0 20px;
 }
 
-.Register button:hover {
+.form button:hover {
     background-color: rgb(0, 225, 255);
     color: white;
 }
 
-.Register p a {
+.form p a {
     text-decoration: none;
     color: rgb(3, 194, 247);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18pt;
 }
 
-.Register p a:hover {
+.form p a:hover {
     color: rgb(0, 225, 255);
 }
 
@@ -83,4 +83,30 @@
     cursor: pointer;
     border-radius: 20px;
     padding: 10px 20px;
+}
+
+.upload {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.uploadWrapper {
+    display: block;
+    width: 400px;
+    height: 50px;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+.uploadWrapper button {
+    display: inline-block;
+}
+
+.uploadWrapper span {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 12pt;
 }

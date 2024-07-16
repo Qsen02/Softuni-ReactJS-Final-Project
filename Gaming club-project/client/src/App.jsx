@@ -9,6 +9,7 @@ import Register from "./components/register/Register";
 import Status404 from "./components/status404/Status404";
 import Logout from "./components/logout/Lougout";
 import Login from "./components/login/Login";
+import Create from "./components/create/Create";
 
 function App() {
     let [isUser, setIsUser] = useState(null);
@@ -43,6 +44,7 @@ function App() {
                     <Route path="/register" element={<Register setUser={setUserHandler} />} />
                     <Route path="/logout" element={<Logout clearUser={clearUserHandler} />} />
                     <Route path="/login" element={<Login setUser={setUserHandler} />} />
+                    <Route path="/create" element={<Create />} />
                     <Route path="*" element={<Status404 />} />
                 </Routes>
             </main>

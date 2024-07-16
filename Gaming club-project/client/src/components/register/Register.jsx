@@ -1,5 +1,5 @@
 import { useState } from "react"
-import styles from "./Register.module.css"
+import styles from "../FormsAndErrors.module.css"
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../api/userService";
 import { setUserData } from "../../utils/userDataHelper";
@@ -66,7 +66,7 @@ export default function Register({
                     </div >
                 : ""
             }
-            <form onSubmit={onRegister} className={styles.Register}>
+            <form onSubmit={onRegister} className={styles.form}>
                 <h3>Here you can make your registration</h3>
                 <label className={errMessage.username ? styles.errorLabel : ""}>Username</label>
                 <input type="text" name="username" value={formValues.username} onChange={changeHandler} />
@@ -76,7 +76,7 @@ export default function Register({
                 <input type="password" name="password" value={formValues.password} onChange={changeHandler} />
                 <label className={errMessage.repass ? styles.errorLabel : ""}>Repeat password</label>
                 <input type="password" name="repass" value={formValues.repass} onChange={changeHandler} />
-                <p>You have already account? <Link to="/login">Login</Link> here.</p>
+                <p>You already have account? <Link to="/login">Login</Link> here.</p>
                 <button type="submit">Submit</button>
             </form>
         </>
