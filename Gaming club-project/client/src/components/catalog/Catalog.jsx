@@ -14,12 +14,17 @@ export default function Catalog() {
     })
     useEffect(() => {
         (async function getGames() {
-                let data = await getAllGames();
-                for (let el of data) {
+            let data = await getAllGames();
+            for (let el of data) {
+                if (el.image) {
                     let imgName = await getImage(el.image);
                     el.image = imgName;
+                } else {
+                    let imgName = await getImage("game-picture.jpg");
+                    el.image = imgName;
                 }
-                setGames(data);
+            }
+            setGames(data);
         })()
     }, [])
 
@@ -30,10 +35,10 @@ export default function Catalog() {
     async function onSearchHandler(event) {
         event.preventDefault();
         try {
-            if(!formValues.name){
+            if (!formValues.name) {
                 throw new Error("Please fill the search field");
             }
-            let data = await searching(formValues.name,formValues.criteria);
+            let data = await searching(formValues.name, formValues.criteria);
             for (let el of data) {
                 let imgName = await getImage(el.image);
                 el.image = imgName;

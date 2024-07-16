@@ -42,6 +42,7 @@ gameRouter.post("/",
         let category = fields.category;
         let creator = fields.creator;
         let imgName = "";
+        console.log(req);
         if (req.file) {
             let imgFile = req.file;
             let imgPath = imgFile.path.split("\\");
@@ -55,7 +56,7 @@ gameRouter.post("/",
             await createGame({ name, year, description, category, creator, image: imgName }, user);
             res.status(200).json({ message: "Record created successfully!" })
         } catch (err) {
-            res.status(400).json({ message: errorParser(err).errors });
+            res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });
             return;
         }
     });
@@ -83,7 +84,7 @@ gameRouter.delete("/:id", isUser(), async(req, res) => {
     if (imgName) {
         await delImg(imgName);
     }
-    res.status(200).json("Record deleted successfully!");
+    res.status(200).json({ message: "Record deleted successfully!" });
 });
 
 gameRouter.put("/:id", isUser(),
@@ -130,7 +131,7 @@ gameRouter.put("/:id", isUser(),
             }
             res.status(200).json("Record edited successfully");
         } catch (err) {
-            res.status(400).json({ message: errorParser(err).errors });
+            res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });
             return;
         }
     });
