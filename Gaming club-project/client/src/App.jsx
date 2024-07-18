@@ -13,9 +13,9 @@ import Create from "./components/games-create/GamesCreate";
 import GameDetails from "./components/games-details/GameDetails";
 
 function App() {
-    let [isUser, setIsUser] = useState(null);
-    let user = getUserData();
-    let navigate = useNavigate();
+    const [isUser, setIsUser] = useState(null);
+    const user = getUserData();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (user) {

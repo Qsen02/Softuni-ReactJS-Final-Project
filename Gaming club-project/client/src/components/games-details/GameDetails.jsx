@@ -16,8 +16,8 @@ export default function GameDetails() {
     const [isSaved, setIsSaved] = useState(false);
 
     const { gameId } = useParams();
-    let navigate = useNavigate();
-    let userData = getUserData();
+    const navigate = useNavigate();
+    const userData = getUserData();
 
     useEffect(() => {
         (async () => {
@@ -53,6 +53,7 @@ export default function GameDetails() {
                     ownerId={game.ownerId}
                     likes={game.likes}
                     saves={game.saves.length}
+                    gameId={game._id}
                     />
                 :""
            }
@@ -63,8 +64,8 @@ export default function GameDetails() {
                     <div className={styles.commentContent}>
                         {userData
                             ? <form>
-                                <textarea type="text" name="comment" placeholder="Enter comment..." />
-                                <button><a href="/details/{{game._id}}/comment">Comment</a></button>
+                                <input type="text" name="comment" placeholder="Enter comment..." />
+                                <button><a href={`/catalog/${game._id}/comment`}>Comment</a></button>
                             </form>
                             : ""}
                         {game.comments.length == 0
@@ -75,6 +76,8 @@ export default function GameDetails() {
                                     commentId={el._id}
                                     content={el.content}
                                     username={el.username}
+                                    userData={userData}
+                                    ownerId={game.ownerId}
                                 />
                             )
                         }
