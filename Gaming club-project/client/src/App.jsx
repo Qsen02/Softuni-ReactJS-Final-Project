@@ -9,7 +9,7 @@ import Register from "./components/register/Register";
 import Status404 from "./components/status404/Status404";
 import Logout from "./components/logout/Lougout";
 import Login from "./components/login/Login";
-import Create from "./components/create/Create";
+import Create from "./components/games-create/GamesCreate";
 
 function App() {
     let [isUser, setIsUser] = useState(null);
