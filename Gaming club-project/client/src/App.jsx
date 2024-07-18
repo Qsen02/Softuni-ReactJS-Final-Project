@@ -10,6 +10,7 @@ import Status404 from "./components/status404/Status404";
 import Logout from "./components/logout/Lougout";
 import Login from "./components/login/Login";
 import Create from "./components/games-create/GamesCreate";
+import GameDetails from "./components/games-details/GameDetails";
 
 function App() {
     let [isUser, setIsUser] = useState(null);
@@ -45,6 +46,7 @@ function App() {
                     <Route path="/logout" element={<Logout clearUser={clearUserHandler} />} />
                     <Route path="/login" element={<Login setUser={setUserHandler} />} />
                     <Route path="/create" element={<Create />} />
+                    <Route path="/catalog/:id" element={<GameDetails />} />
                     <Route path="*" element={<Status404 />} />
                 </Routes>
             </main>
