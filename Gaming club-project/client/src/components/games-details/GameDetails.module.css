@@ -147,26 +147,35 @@ button a {
     margin-left: 20px;
 }
 
-.comments form {
+.commentContent form {
     display: block;
     margin: 0 auto;
     height: auto;
     width: 750px;
     border-radius: 10px;
-}
-
-.comments form textarea {
-    display: inline-block;
-    margin-right: 30px;
     margin-top: 20px;
 }
 
-.comments form textarea::placeholder {
+.commentContent form textarea {
+    width: 400px;
+    height: 50px;
+    border: none;
+    outline: none;
+    border-radius: 7px;
+    background-color: grey;
+    color: aliceblue;
+    font-size: 14pt;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 5px;
+    margin-right: 30px;
+}
+
+.commentContent form textarea::placeholder {
     font-family: Arial, Helvetica, sans-serif;
     color: aliceblue;
 }
 
-.comments form button {
+.commentContent form button {
     display: inline-block;
     position: relative;
     bottom: 20px;
@@ -180,6 +189,7 @@ button a {
     border-radius: 10px;
     background-color: rgb(89, 86, 86);
     padding-bottom: 20px;
+    margin-top: 20px;
 }
 
 .commentContent div {
