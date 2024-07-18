@@ -46,7 +46,7 @@ function App() {
                     <Route path="/logout" element={<Logout clearUser={clearUserHandler} />} />
                     <Route path="/login" element={<Login setUser={setUserHandler} />} />
                     <Route path="/create" element={<Create />} />
-                    <Route path="/catalog/:id" element={<GameDetails />} />
+                    <Route path="/catalog/:gameId" element={<GameDetails />} />
                     <Route path="*" element={<Status404 />} />
                 </Routes>
             </main>
