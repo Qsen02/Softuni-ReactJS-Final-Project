@@ -1,4 +1,3 @@
-//Errors depends on the client
 function errorParser(err) {
     if (err instanceof Error) {
         if (!err.errors) {

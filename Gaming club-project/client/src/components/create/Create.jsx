@@ -29,9 +29,9 @@ export default function Create() {
         let name = formValues.name;
         let category = formValues.category;
         let year = formValues.year;
-        let image = formValues.image;
         let creator = formValues.creator;
         let description = formValues.description;
+        let image = formValues.image;
         try {
             await createGame({ name, category, year, image, creator, description });
             navigate("/catalog");
@@ -53,12 +53,13 @@ export default function Create() {
                         <p>{errMessage.name}</p>
                         <p>{errMessage.category}</p>
                         <p>{errMessage.year}</p>
+                        <p>{errMessage.image}</p>
                         <p>{errMessage.creator}</p>
                         <p>{errMessage.description}</p>
                     </div >
                 : ""
             }
-            <form method="post" onSubmit={onCreate} encType="multipart/form-data" className={styles.form}>
+            <form encType="multipart/form-data" onSubmit={onCreate} className={styles.form}>
                 <h3>Here you can add game</h3>
                 <label className={errMessage.name ? styles.errorLabel : ""}>Name</label>
                 <input type="text" name="name" value={formValues.name} onChange={changeHandler} />
@@ -66,12 +67,8 @@ export default function Create() {
                 <input type="text" name="category" value={formValues.category} onChange={changeHandler} />
                 <label className={errMessage.year ? styles.errorLabel : ""}>Year</label>
                 <input type="number" name="year" value={formValues.year} onChange={changeHandler} />
-                <label>Image</label>
-                <div className={styles.uploadWrapper}>
-                    <button type="button" id="file-upload-button">Upload</button>
-                    <input type="file" name="image" className={styles.upload} id="file-upload" value={formValues.image} onChange={changeHandler} />
-                    <span id="file-upload-text">Choose image</span>
-                </div>
+                <label className={errMessage.image ? styles.errorLabel : ""}>Image</label>
+                <input type="text" name="image" value={formValues.image} onChange={changeHandler} />
                 <label className={errMessage.creator ? styles.errorLabel : ""}>Creator</label>
                 <input type="text" name="creator" value={formValues.creator} onChange={changeHandler} />
                 <label className={errMessage.description ? styles.errorLabel : ""}>Description</label>

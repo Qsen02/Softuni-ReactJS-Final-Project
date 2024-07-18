@@ -1,8 +1,6 @@
 const { Router } = require("express");
 const { checkGameId, deleteGame, getGameById, createGame, editGame, liking, saving, getAllGames, searching } = require("../services/games");
-const { delImg } = require("../services/image");
 const { isUser } = require("../middlewears/guards");
-const { upload } = require("../config/multer");
 const { errorParser } = require("../util");
 const { body, validationResult } = require("express-validator");
 
@@ -30,8 +28,8 @@ gameRouter.post("/",
     body("year").isInt({ min: 1960, max: 2030 }).withMessage("Year must be between 1960 and 2030!"),
     body("category").isLength({ min: 3 }).withMessage("Category must be at least 3 characters long!"),
     body("creator").isLength({ min: 3 }).withMessage("Creator must be at least 3 characters long!"),
-    body("description").isLength({ min: 20, max: 1000 }).withMessage("Desciption must be between 20 and 1000 characters long!"),
-    upload.single("image"),
+    body("description").isLength({ min: 20, max: 1000 }).withMessage("Description must be between 20 and 1000 characters long!"),
+    body("image").matches(/^https?:\/\//).withMessage("Image must be valid URL!"),
     async(req, res) => {
         let fields = req.body;
         let user = req.user;
@@ -41,21 +39,16 @@ gameRouter.post("/",
         let description = fields.description;
         let category = fields.category;
         let creator = fields.creator;
-        let imgName = "";
-        console.log(req);
-        if (req.file) {
-            let imgFile = req.file;
-            let imgPath = imgFile.path.split("\\");
-            imgName = imgPath[imgPath.length - 1];
-        }
+        let image = fields.image;
         try {
             let results = validationResult(req);
             if (results.errors.length) {
                 throw results.errors;
             }
-            await createGame({ name, year, description, category, creator, image: imgName }, user);
+            await createGame({ name, year, description, category, creator, image }, user);
             res.status(200).json({ message: "Record created successfully!" })
         } catch (err) {
+            console.log(err);
             res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });
             return;
         }
@@ -64,7 +57,6 @@ gameRouter.post("/",
 gameRouter.get("/search/:value/by/:criteria", async(req, res) => {
     let query = req.params.value;
     let criteria = req.params.criteria;
-    console.log(query);
     let games = await searching(query, criteria).lean();
     res.json(games);
 })
@@ -76,14 +68,8 @@ gameRouter.delete("/:id", isUser(), async(req, res) => {
         res.status("404").json({ message: "Resource not found!" });
         return;
     }
-    let game = await getGameById(id).lean();
-    let img = game.image;
-    let imgArr = img.split("\\");
-    let imgName = imgArr[imgArr.length - 1];
+    await getGameById(id).lean();
     await deleteGame(id);
-    if (imgName) {
-        await delImg(imgName);
-    }
     res.status(200).json({ message: "Record deleted successfully!" });
 });
 
@@ -93,7 +79,6 @@ gameRouter.put("/:id", isUser(),
     body("category").isLength({ min: 3 }).withMessage("Category must be at least 3 characters long!"),
     body("creator").isLength({ min: 3 }).withMessage("Creator must be at least 3 characters long!"),
     body("description").isLength({ min: 20, max: 1000 }).withMessage("Desciption must be between 20 and 1000 characters long!"),
-    upload.single("image"),
     async(req, res) => {
         let id = req.params.id;
         let isValid = await checkGameId(id);
@@ -101,34 +86,19 @@ gameRouter.put("/:id", isUser(),
             res.status("404").json({ message: "Resource not found!" });
             return;
         }
-        let game = await getGameById(id).lean();
         let fields = req.body;
         let name = fields.name;
         let year = fields.year;
         let description = fields.description;
         let category = fields.category;
         let creator = fields.creator;
-        let newImgName = "";
+        let image = fields.image;
         try {
             let results = validationResult(req);
             if (results.errors.length) {
                 throw results.errors;
             }
-            if (req.file) {
-                let imgFile = req.file;
-                let imgPath = imgFile.path.split("\\");
-                newImgName = imgPath[imgPath.length - 1];
-
-                let img = game.image;
-                let imgArr = img.split("\\");
-                let imgName = imgArr[imgArr.length - 1];
-                await editGame(id, { name, year, description, category, creator, image: newImgName });
-                if (imgName && imgName != "gaming-banner-for-games-with-glitch-effect-neon-light-on-text-illustration-design-free-vector.jpg") {
-                    await delImg(imgName);
-                }
-            } else {
-                await editGame(id, { name, year, description, category, creator });
-            }
+            await editGame(id, { name, year, description, category, creator, image });
             res.status(200).json("Record edited successfully");
         } catch (err) {
             res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });

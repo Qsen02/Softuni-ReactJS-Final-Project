@@ -2,7 +2,6 @@ import styles from "./Catalog.module.css"
 import CatalogSearch from "./catalogSearch/CatalogSearch"
 import CatalogContent from "./catalogContent/CatalogContent"
 import { useEffect, useState } from "react";
-import { getImage } from "../../api/imageService";
 import { getAllGames, searching } from "../../api/gameService";
 
 export default function Catalog() {
@@ -15,15 +14,6 @@ export default function Catalog() {
     useEffect(() => {
         (async function getGames() {
             let data = await getAllGames();
-            for (let el of data) {
-                if (el.image) {
-                    let imgName = await getImage(el.image);
-                    el.image = imgName;
-                } else {
-                    let imgName = await getImage("game-picture.jpg");
-                    el.image = imgName;
-                }
-            }
             setGames(data);
         })()
     }, [])
