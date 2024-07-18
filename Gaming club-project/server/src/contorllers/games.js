@@ -3,6 +3,7 @@ const { checkGameId, deleteGame, getGameById, createGame, editGame, liking, savi
 const { isUser } = require("../middlewears/guards");
 const { errorParser } = require("../util");
 const { body, validationResult } = require("express-validator");
+const { getUserById } = require("../services/users");
 
 let gameRouter = Router();
 
@@ -19,6 +20,8 @@ gameRouter.get("/:id", async(req, res) => {
         return;
     }
     let game = await getGameById(id).lean();
+    let creator = await getUserById(game.ownerId).lean();
+    game.owner = creator.username;
     res.json(game);
 })
 
@@ -65,7 +68,7 @@ gameRouter.delete("/:id", isUser(), async(req, res) => {
     let id = req.params.id;
     let isValid = await checkGameId(id);
     if (!isValid) {
-        res.status("404").json({ message: "Resource not found!" });
+        res.status(404).json({ message: "Resource not found!" });
         return;
     }
     await getGameById(id).lean();
@@ -83,7 +86,7 @@ gameRouter.put("/:id", isUser(),
         let id = req.params.id;
         let isValid = await checkGameId(id);
         if (!isValid) {
-            res.status("404").json({ message: "Resource not found!" });
+            res.status(404).json({ message: "Resource not found!" });
             return;
         }
         let fields = req.body;
@@ -111,7 +114,7 @@ gameRouter.post("/:id/like", isUser(), async(req, res) => {
     let userId = req.user._id;
     let isValid = await checkGameId(gameId);
     if (!isValid) {
-        res.status("404").json("Page not found!");
+        res.status(404).json("Page not found!");
         return;
     }
     await liking(gameId, userId);
@@ -123,7 +126,7 @@ gameRouter.post("/:id/save", isUser(), async(req, res) => {
     let userId = req.user._id;
     let isValid = await checkGameId(gameId);
     if (!isValid) {
-        res.status("404").json({ message: "Resource not found!" });
+        res.status(404).json({ message: "Resource not found!" });
         return;
     }
     await saving(gameId, userId);
