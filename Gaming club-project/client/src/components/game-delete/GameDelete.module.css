@@ -1,0 +1,46 @@
+.deleteWrapper {
+    display: block;
+    margin: 0 auto;
+    background-color: rgb(89, 86, 86);
+    width: 400px;
+    height: 200px;
+    /* margin-top: 400px; */
+    font-family: Arial, Helvetica, sans-serif;
+    color: aliceblue;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.deleteWrapperbutton {
+    display: inline-block;
+    margin-top: 20px;
+    margin-right: 50px;
+    margin-left: 45px;
+    width: auto;
+    height: 50px;
+    border-radius: 20px;
+    background-color: rgb(3, 194, 247);
+    color: aliceblue;
+    border: none;
+    font-size: 18pt;
+    cursor: pointer;
+    padding: 0 20px;
+}
+
+.deleteWrapper button:hover {
+    background-color: aqua;
+    color: white;
+}
+
+.modal {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1000px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}

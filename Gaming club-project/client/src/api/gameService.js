@@ -21,7 +21,7 @@ export async function deleteGame(id) {
 }
 
 export async function editGame(id, data) {
-    await put(`${endpoint}/${id}`, data);
+    return await put(`${endpoint}/${id}`, data);
 }
 
 export async function likeGame(id) {

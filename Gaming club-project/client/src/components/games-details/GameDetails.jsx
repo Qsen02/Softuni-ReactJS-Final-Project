@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./GameDetails.module.css"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams,Outlet } from "react-router-dom"
 import { getGameById } from "../../api/gameService";
 import { getUserData } from "../../utils/userDataHelper";
 import GameDetailsComments from "./games-details-comments/GameDetailsComments";
@@ -35,9 +35,10 @@ export default function GameDetails() {
 
     return (
         <>
+        <Outlet/>
             <div className={styles.details}>
                 <h1>{game.name}</h1>
-                <p>Published by: {game.creator}</p>
+                <p>Published by: {game.owner}</p>
                 <img src={game.image} alt={game.name} />
                 <div className={styles.category}>
                     <p>Category: {game.category}</p>

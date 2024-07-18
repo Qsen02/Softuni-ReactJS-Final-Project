@@ -11,6 +11,8 @@ import Logout from "./components/logout/Lougout";
 import Login from "./components/login/Login";
 import Create from "./components/games-create/GamesCreate";
 import GameDetails from "./components/games-details/GameDetails";
+import GameDelete from "./components/game-delete/GameDelete";
+import GameEdit from "./components/game-edit/GameEdit";
 
 function App() {
     const [isUser, setIsUser] = useState(null);
@@ -46,7 +48,10 @@ function App() {
                     <Route path="/logout" element={<Logout clearUser={clearUserHandler} />} />
                     <Route path="/login" element={<Login setUser={setUserHandler} />} />
                     <Route path="/create" element={<Create />} />
-                    <Route path="/catalog/:gameId" element={<GameDetails />} />
+                    <Route path="/catalog/:gameId" element={<GameDetails />} >
+                        <Route path="/catalog/:gameId/delete" element={<GameDelete />} />
+                    </Route>
+                    <Route path="/catalog/:gameId/edit" element={<GameEdit/>} />
                     <Route path="*" element={<Status404 />} />
                 </Routes>
             </main>

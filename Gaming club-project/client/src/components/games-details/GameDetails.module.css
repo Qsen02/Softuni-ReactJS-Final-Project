@@ -46,7 +46,8 @@
 button {
     display: inline-block;
     margin-top: 20px;
-    margin-right: 30px;
+    margin-right: 20px;
+    margin-left: 40px;
     width: auto;
     height: 50px;
     border-radius: 20px;
@@ -241,7 +242,7 @@ button:hover {
 .saves {
     display: inline-block;
     margin-right: 125px;
-    margin-left: 30px;
+    margin-left: -10px;
 }
 
 .saves i {
