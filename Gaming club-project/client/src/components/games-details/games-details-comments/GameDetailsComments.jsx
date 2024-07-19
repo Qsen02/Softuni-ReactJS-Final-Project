@@ -8,15 +8,13 @@ export default function GameDetailsComments({
     userData,
     ownerId
 }) {
-    console.log(username);
-    console.log(userData.username);
     return (
-        <div className={username == userData.username ? styles.yourComment : ""}>
-            <h3>{userData._id.toString() == ownerId ? <span>@publisher</span> : ""} {username}</h3>
-            {username == userData.username
+        <div className={username == userData?.username ? styles.yourComment : ""}>
+            <h3>{userData?._id.toString() == ownerId ? <span>@publisher</span> : ""} {username}</h3>
+            {username == userData?.username
                 ? <>
-                    <Link to={`/comment/${commentId}/edit`}><i className="fa-solid fa-square-pen"></i></Link>
-                    <Link to={`/comment/${commentId}/delete`}><i className="fa-solid fa-trash"></i></Link>
+                    <Link to={`comment/${commentId}/edit`}><i className="fa-solid fa-square-pen"></i></Link>
+                    <Link to={`comment/${commentId}/delete`}><i className="fa-solid fa-trash"></i></Link>
                 </>
                 : ""
             }

@@ -40,7 +40,7 @@ export default function GamesDetailsButtons({
                         <p>{likes}</p>
                     </div>
                     : <div className={styles.likes}>
-                        <Link to={`/catalog/${gameId}/like`}><i className="fa-regular fa-heart"></i></Link>
+                        <Link to="like"><i className="fa-regular fa-heart"></i></Link>
                         <p>{likes}</p>
                     </div>
                 : ""
@@ -51,7 +51,7 @@ export default function GamesDetailsButtons({
                     <p>{saves}</p>
                 </div>
                     : <div className={styles.saves}>
-                        <Link to={`/catalog/${gameId}/save`}><i className="fa-regular fa-bookmark"></i></Link>
+                        <Link to="save"><i className="fa-regular fa-bookmark"></i></Link>
                         <p>{saves}</p>
                     </div>
                 : ""

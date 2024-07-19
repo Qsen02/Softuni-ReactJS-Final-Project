@@ -29,10 +29,6 @@ export default function Catalog() {
                 throw new Error("Please fill the search field");
             }
             let data = await searching(formValues.name, formValues.criteria);
-            for (let el of data) {
-                let imgName = await getImage(el.image);
-                el.image = imgName;
-            }
             setGames(data);
             event.target.reset();
             setIsSearched(true);
