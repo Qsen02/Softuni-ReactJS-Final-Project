@@ -51,7 +51,6 @@ gameRouter.post("/",
             await createGame({ name, year, description, category, creator, image }, user);
             res.status(200).json({ message: "Record created successfully!" })
         } catch (err) {
-            console.log(err);
             res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });
             return;
         }
@@ -82,6 +81,7 @@ gameRouter.put("/:id", isUser(),
     body("category").isLength({ min: 3 }).withMessage("Category must be at least 3 characters long!"),
     body("creator").isLength({ min: 3 }).withMessage("Creator must be at least 3 characters long!"),
     body("description").isLength({ min: 20, max: 1000 }).withMessage("Desciption must be between 20 and 1000 characters long!"),
+    body("image").matches(/^https?:\/\//).withMessage("Image must be valid URL!"),
     async(req, res) => {
         let id = req.params.id;
         let isValid = await checkGameId(id);
@@ -102,7 +102,8 @@ gameRouter.put("/:id", isUser(),
                 throw results.errors;
             }
             await editGame(id, { name, year, description, category, creator, image });
-            res.status(200).json("Record edited successfully");
+            let game = await getGameById(id);
+            res.json(game)
         } catch (err) {
             res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });
             return;
