@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { setToken } = require("../services/token");
-const { register, login } = require("../services/users");
+const { register, login, getUserById, checkUserId } = require("../services/users");
 const { body, validationResult } = require("express-validator");
 const { errorParser } = require("../util");
 
@@ -53,6 +53,16 @@ userRouter.post("/login",
             return;
         }
     });
+
+userRouter.get("/:id", async(req, res) => {
+    const id = req.params.id;
+    const isValid = await checkUserId(id);
+    if (!isValid) {
+        res.status(404).json({ message: "User id isn't exist!" });
+    }
+    const user = await getUserById(id);
+    res.json(user);
+})
 
 module.exports = {
     userRouter

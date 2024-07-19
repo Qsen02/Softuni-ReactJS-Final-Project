@@ -36,8 +36,18 @@ function getUserById(id) {
     return user;
 }
 
+async function checkUserId(id) {
+    let users = await Users.find().lean();
+    let isValid = users.find(el => el._id.toString() == id);
+    if (!isValid) {
+        return false;
+    }
+    return true;
+}
+
 module.exports = {
     register,
     login,
-    getUserById
+    getUserById,
+    checkUserId
 }

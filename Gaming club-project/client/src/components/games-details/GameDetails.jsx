@@ -10,6 +10,7 @@ import GameDetailsComments from "./games-details-comments/GameDetailsComments";
 import GamesDetailsButtons from "./games-details-buttons/GamesDetailsButtons";
 import GameEdit from "../game-edit/GameEdit";
 import GameDelete from "../game-delete/GameDelete";
+import { getUserById } from "../../api/userService";
 
 export default function GameDetails() {
     const [game, setGame] = useState({
@@ -17,6 +18,7 @@ export default function GameDetails() {
         userLikes: [],
         saves: []
     })
+    const [userOwner,setUserOwner]=useState({});
     const [isLiked, setIsLiked] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
 
@@ -29,6 +31,8 @@ export default function GameDetails() {
             try {
                 const game = await getGameById(gameId);
                 setGame(game);
+                const user=await getUserById(game.ownerId)
+                setUserOwner(user);
             } catch (err) {
                 if (err.message == "Resource not found!") {
                     navigate("404");
@@ -91,7 +95,7 @@ export default function GameDetails() {
                                     content={el.content}
                                     username={el.username}
                                     userData={userData}
-                                    ownerId={game.ownerId}
+                                    ownerName={userOwner.username}
                                 />
                             )
                         }
