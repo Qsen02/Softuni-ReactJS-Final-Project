@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
+import { useNavigate, useParams, Route, Routes } from "react-router-dom"
+
 import styles from "./GameDetails.module.css"
-import { useNavigate, useParams,Outlet } from "react-router-dom"
+
 import { getGameById } from "../../api/gameService";
 import { getUserData } from "../../utils/userDataHelper";
+
 import GameDetailsComments from "./games-details-comments/GameDetailsComments";
 import GamesDetailsButtons from "./games-details-buttons/GamesDetailsButtons";
+import GameEdit from "../game-edit/GameEdit";
+import GameDelete from "../game-delete/GameDelete";
 
 export default function GameDetails() {
     const [game, setGame] = useState({
@@ -22,7 +27,7 @@ export default function GameDetails() {
     useEffect(() => {
         (async () => {
             try {
-                let game = await getGameById(gameId);
+                const game = await getGameById(gameId);
                 setGame(game);
             } catch (err) {
                 if (err.message == "Resource not found!") {
@@ -33,9 +38,17 @@ export default function GameDetails() {
         })()
     }, [])
 
+    function setGameHandler(game) {
+        setGame(game);
+    }
+
     return (
         <>
-        <Outlet/>
+            <Routes>
+                <Route path="/delete" element={<GameDelete />} />
+                <Route path="/edit" element={<GameEdit setCurGame={setGameHandler}/>} />
+            </Routes>
+
             <div className={styles.details}>
                 <h1>{game.name}</h1>
                 <p>Published by: {game.owner}</p>
@@ -47,17 +60,17 @@ export default function GameDetails() {
                 </div>
                 <p>{game.description}</p>
                 {userData
-                    ?<GamesDetailsButtons
-                    isLiked={isLiked}
-                    isSaved={isSaved}
-                    userData={userData}
-                    ownerId={game.ownerId}
-                    likes={game.likes}
-                    saves={game.saves.length}
-                    gameId={game._id}
+                    ? <GamesDetailsButtons
+                        isLiked={isLiked}
+                        isSaved={isSaved}
+                        userData={userData}
+                        ownerId={game.ownerId}
+                        likes={game.likes}
+                        saves={game.saves.length}
+                        gameId={game._id}
                     />
-                :""
-           }
+                    : ""
+                }
             </div>
             <section className={styles.comments}>
                 <details>

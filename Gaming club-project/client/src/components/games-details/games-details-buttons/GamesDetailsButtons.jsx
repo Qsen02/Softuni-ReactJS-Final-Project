@@ -21,8 +21,8 @@ export default function GamesDetailsButtons({
             }
             {userData._id.toString() == ownerId
                 ? <div className={styles.buttons}>
-                    <button><Link to={`/catalog/${gameId}/edit`}>Edit</Link></button>
-                    <button className={styles.delete}><Link to={`/catalog/${gameId}/delete`}>Delete</Link></button>
+                    <button><Link to="edit">Edit</Link></button>
+                    <button className={styles.delete}><Link to="delete">Delete</Link></button>
                 </div>
                 : ""
             }
