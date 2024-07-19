@@ -20,10 +20,6 @@ export default function Create() {
         setFormValues(oldValues => ({ ...oldValues, [event.target.name]: event.target.value }))
     }
 
-    function onClose() {
-        setIsError(false);
-    }
-
     async function onCreate(event) {
         event.preventDefault();
         let name = formValues.name;
@@ -43,38 +39,51 @@ export default function Create() {
     }
 
     return (
-        <>
-            {isError
-                ? errMessage instanceof Array
-                    ? <div onClick={onClose} className={styles.error}>
-                        <p>{errMessage[0]}</p>
-                    </div >
-                    : <div onClick={onClose} className={styles.error}>
-                        <p>{errMessage.name}</p>
-                        <p>{errMessage.category}</p>
-                        <p>{errMessage.year}</p>
-                        <p>{errMessage.image}</p>
-                        <p>{errMessage.creator}</p>
-                        <p>{errMessage.description}</p>
-                    </div >
-                : ""
-            }
             <form encType="multipart/form-data" onSubmit={onCreate} className={styles.form}>
                 <h3>Here you can add game</h3>
-                <label className={errMessage.name ? styles.errorLabel : ""}>Name</label>
-                <input type="text" name="name" value={formValues.name} onChange={changeHandler} placeholder="Enter game name..."/>
-                <label className={errMessage.category ? styles.errorLabel : ""}>Category</label>
-                <input type="text" name="category" value={formValues.category} onChange={changeHandler} placeholder="Enter game category..."/>
-                <label className={errMessage.year ? styles.errorLabel : ""}>Year</label>
-                <input type="number" name="year" value={formValues.year} onChange={changeHandler} placeholder="Enter game year..."/>
-                <label className={errMessage.image ? styles.errorLabel : ""}>Image</label>
-                <input type="text" name="image" value={formValues.image} onChange={changeHandler} placeholder="Enter valid URL of the image..."/>
-                <label className={errMessage.creator ? styles.errorLabel : ""}>Creator</label>
-                <input type="text" name="creator" value={formValues.creator} onChange={changeHandler} placeholder="Enter creator of the game..."/>
-                <label className={errMessage.description ? styles.errorLabel : ""}>Description</label>
-                <textarea name="description" value={formValues.description} onChange={changeHandler} placeholder="Enter good description..."/>
+                {errMessage instanceof Array
+                    ? <label className={styles.errorMessage}>{errMessage[0]}</label>
+                    : errMessage.name
+                        ? <label className={styles.errorMessage}>{errMessage.name}</label>
+                        : <label>Name</label>
+                }
+                <input type="text" name="name" value={formValues.name} onChange={changeHandler} placeholder="Enter game name..." />
+                {errMessage instanceof Array
+                    ? <label className={styles.errorMessage}>{errMessage[0]}</label>
+                    : errMessage.category
+                        ? <label className={styles.errorMessage}>{errMessage.category}</label>
+                        : <label>Category</label>
+                }
+                <input type="text" name="category" value={formValues.category} onChange={changeHandler} placeholder="Enter game category..." />
+                {errMessage instanceof Array
+                    ? <label className={styles.errorMessage}>{errMessage[0]}</label>
+                    : errMessage.year
+                        ? <label className={styles.errorMessage}>{errMessage.year}</label>
+                        : <label>Year</label>
+                }
+                <input type="number" name="year" value={formValues.year} onChange={changeHandler} placeholder="Enter game year..." />
+                {errMessage instanceof Array
+                    ? <label className={styles.errorMessage}>{errMessage[0]}</label>
+                    : errMessage.image
+                        ? <label className={styles.errorMessage}>{errMessage.image}</label>
+                        : <label>Image</label>
+                }
+                <input type="text" name="image" value={formValues.image} onChange={changeHandler} placeholder="Enter valid URL of the image..." />
+                {errMessage instanceof Array
+                    ? <label className={styles.errorMessage}>{errMessage[0]}</label>
+                    : errMessage.creator
+                        ? <label className={styles.errorMessage}>{errMessage.creator}</label>
+                        : <label>Creator</label>
+                }
+                <input type="text" name="creator" value={formValues.creator} onChange={changeHandler} placeholder="Enter creator of the game..." />
+                {errMessage instanceof Array
+                    ? <label className={styles.errorMessage}>{errMessage[0]}</label>
+                    : errMessage.description
+                        ? <label className={styles.errorMessage}>{errMessage.description}</label>
+                        : <label>Description</label>
+                }
+                <textarea name="description" value={formValues.description} onChange={changeHandler} placeholder="Enter good description..." />
                 <button type="submit">Create</button>
             </form>
-        </>
     )
 }
