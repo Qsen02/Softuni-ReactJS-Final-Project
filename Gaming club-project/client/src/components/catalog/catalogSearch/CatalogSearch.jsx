@@ -5,6 +5,7 @@ export default function CatalogSearch({
     onChangeHandler,
     formValues
 }) {
+
     return (
         <form onSubmit={onSearch} className={styles.search}>
             <input name="name" type="text" placeholder="Enter search value..." value={formValues.name} onChange={onChangeHandler}/>

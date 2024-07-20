@@ -1,33 +1,31 @@
 import styles from "./Catalog.module.css"
+
 import CatalogSearch from "./catalogSearch/CatalogSearch"
 import CatalogContent from "./catalogContent/CatalogContent"
+
 import { useState } from "react";
-import {  searching } from "../../api/gameService";
 
-import {useGames} from "../../hooks/useFetch";
+import { searching } from "../../api/gameService";
 
+import { useGames } from "../../hooks/useFetch";
+import { useForm } from "../../hooks/useForm";
 
 export default function Catalog() {
-    let {games}=useGames([]);
-    let [isSearched, setIsSearched] = useState(false);
-    let [formValues, setFormValues] = useState({
+    const [isSearched, setIsSearched] = useState(false);
+    const { games,setGames } = useGames([]);
+    const initalvalues = {
         name: "",
         criteria: "name"
-    })
+    };
+    const { formValues, changeHandler, onSubmitHandler } = useForm(initalvalues, onSearchHandler);
 
-    function onChangeHandler(event) {
-        setFormValues(oldValues => ({ ...oldValues, [event.target.name]: event.target.value }));
-    }
-
-    async function onSearchHandler(event) {
-        event.preventDefault();
+    async function onSearchHandler() {
         try {
             if (!formValues.name) {
                 throw new Error("Please fill the search field");
             }
             let data = await searching(formValues.name, formValues.criteria);
             setGames(data);
-            event.target.reset();
             setIsSearched(true);
         } catch (err) {
             alert(err.message);
@@ -39,9 +37,9 @@ export default function Catalog() {
         <>
             <h1>Search for games here</h1>
             <CatalogSearch
-                onSearch={onSearchHandler}
+                onSearch={onSubmitHandler}
                 formValues={formValues}
-                onChangeHandler={onChangeHandler}
+                onChangeHandler={changeHandler}
             />
             <h1>All available games</h1>
             <div className={styles.catalogWrapper}>

@@ -12,7 +12,8 @@ export function useGames(initalvalues) {
     }, [])
 
     return {
-        games
+        games,
+        setGames
     }
 }
 
