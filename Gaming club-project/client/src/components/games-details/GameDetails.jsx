@@ -12,19 +12,19 @@ import GameDelete from "../game-delete/GameDelete";
 import { useDetails } from "../../hooks/useFetch";
 
 export default function GameDetails() {
-    const initalGameValues={
+    const initalGameValues = {
         comments: [],
         userLikes: [],
         saves: []
-    }
-    const initalOwnerValues={};
+    };
+    const initalOwnerValues = {};
     const [isLiked, setIsLiked] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
 
     const { gameId } = useParams();
     const userData = getUserData();
 
-    const {game,userOwner,setGame}=useDetails(initalGameValues,initalOwnerValues,gameId);
+    const { game, userOwner, setGame } = useDetails(initalGameValues, initalOwnerValues, gameId);
 
     function setGameHandler(game) {
         setGame(game);
@@ -34,7 +34,7 @@ export default function GameDetails() {
         <>
             <Routes>
                 <Route path="/delete" element={<GameDelete />} />
-                <Route path="/edit" element={<GameEdit setCurGame={setGameHandler}/>} />
+                <Route path="/edit" element={<GameEdit setCurGame={setGameHandler} />} />
             </Routes>
 
             <div className={styles.details}>

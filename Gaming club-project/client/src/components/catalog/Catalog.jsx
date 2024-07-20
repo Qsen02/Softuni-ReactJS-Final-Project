@@ -17,7 +17,7 @@ export default function Catalog() {
         name: "",
         criteria: "name"
     };
-    const { formValues, changeHandler, onSubmitHandler } = useForm(initalvalues, onSearchHandler);
+    const { formValues, changeHandler, submitHandler } = useForm(initalvalues, onSearchHandler);
 
     async function onSearchHandler() {
         try {
@@ -37,7 +37,7 @@ export default function Catalog() {
         <>
             <h1>Search for games here</h1>
             <CatalogSearch
-                onSearch={onSubmitHandler}
+                onSearch={submitHandler}
                 formValues={formValues}
                 onChangeHandler={changeHandler}
             />

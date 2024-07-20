@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getAllGames, getGameById } from "../api/gameService";
+import { useNavigate } from "react-router-dom";
 
 export function useGames(initalvalues) {
     const [games, setGames] = useState(initalvalues);
@@ -20,6 +21,7 @@ export function useGames(initalvalues) {
 export function useDetails(initailGameValues, initialOwnerValues, gameId) {
     const [game, setGame] = useState(initailGameValues)
     const [userOwner, setUserOwner] = useState(initialOwnerValues);
+    const navigate = useNavigate();
 
     useEffect(() => {
         (async() => {

@@ -7,7 +7,7 @@ export function useForm(initalvalues, callback) {
         setFormValues(oldValues => ({...oldValues, [event.target.name]: event.target.value }));
     }
 
-    async function onSubmitHandler(event) {
+    async function submitHandler(event) {
         event.preventDefault();
         callback();
         event.target.reset();
@@ -16,6 +16,6 @@ export function useForm(initalvalues, callback) {
     return {
         formValues,
         changeHandler,
-        onSubmitHandler
+        submitHandler
     }
 }
