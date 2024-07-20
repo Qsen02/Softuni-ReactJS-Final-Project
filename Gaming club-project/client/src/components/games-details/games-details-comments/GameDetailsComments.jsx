@@ -6,7 +6,7 @@ export default function GameDetailsComments({
     commentId,
     content,
     userData,
-userOwner
+    userOwner
 }) {
     return (
         <div className={username == userData?.username ? styles.yourComment : ""}>

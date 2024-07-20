@@ -17,17 +17,29 @@ export function useGames(initalvalues) {
     }
 }
 
-export function useDetails(initailvalues, gameId) {
-    let [game, setGame] = useState(initailvalues);
+export function useDetails(initailGameValues, initialOwnerValues, gameId) {
+    const [game, setGame] = useState(initailGameValues)
+    const [userOwner, setUserOwner] = useState(initialOwnerValues);
 
     useEffect(() => {
         (async() => {
-            const data = await getGameById(gameId);
-            setGame(data);
+            try {
+                const game = await getGameById(gameId);
+                setGame(game);
+                const user = await getUserById(game.ownerId)
+                setUserOwner(user);
+            } catch (err) {
+                if (err.message == "Resource not found!") {
+                    navigate("404");
+                }
+                return;
+            }
         })()
-    })
+    }, [])
 
     return {
-        game
+        game,
+        userOwner,
+        setGame
     }
 }
