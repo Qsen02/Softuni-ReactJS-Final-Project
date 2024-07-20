@@ -1,22 +1,19 @@
 import styles from "./Catalog.module.css"
 import CatalogSearch from "./catalogSearch/CatalogSearch"
 import CatalogContent from "./catalogContent/CatalogContent"
-import { useEffect, useState } from "react";
-import { getAllGames, searching } from "../../api/gameService";
+import { useState } from "react";
+import {  searching } from "../../api/gameService";
+
+import {useGames} from "../../hooks/useFetch";
+
 
 export default function Catalog() {
-    let [games, setGames] = useState([]);
+    let {games}=useGames([]);
     let [isSearched, setIsSearched] = useState(false);
     let [formValues, setFormValues] = useState({
         name: "",
         criteria: "name"
     })
-    useEffect(() => {
-        (async function getGames() {
-            let data = await getAllGames();
-            setGames(data);
-        })()
-    }, [])
 
     function onChangeHandler(event) {
         setFormValues(oldValues => ({ ...oldValues, [event.target.name]: event.target.value }));
