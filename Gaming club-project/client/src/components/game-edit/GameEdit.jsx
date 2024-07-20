@@ -1,45 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
 import styles from "../FormsAndErrors.module.css"
-import { editGame, getGameById } from "../../api/gameService";
+
+import { editGame } from "../../api/gameService";
+
+import { useEditForm } from "../../hooks/useForm";
 
 export default function GameEdit({
     setCurGame
 }) {
     const [errMessage, setErrMessage] = useState({});
     const [isError, setIsError] = useState(false);
-    const [formValues, setFormValues] = useState({
+    const navigate = useNavigate();
+    const { gameId } = useParams();
+    let initalValues = {
         name: "",
         category: "",
         year: "",
         image: "",
         creator: "",
         description: ""
-    })
-    const navigate = useNavigate();
-    const { gameId } = useParams();
-
-    function changeHandler(event) {
-        setFormValues(oldValues => ({ ...oldValues, [event.target.name]: event.target.value }))
     }
+    const { formValues, changeHandler, submitHandler } = useEditForm(initalValues, onEdit,gameId);
 
-    useEffect(() => {
-        (async () => {
-            let game = await getGameById(gameId);
-            setFormValues(oldValues => ({
-                ...oldValues,
-                name: game.name,
-                category: game.category,
-                year: game.year,
-                image: game.image,
-                creator: game.creator,
-                description: game.description
-            }))
-        })()
-    }, [])
-
-    async function onEdit(event) {
-        event.preventDefault();
+    async function onEdit() {
         const name = formValues.name;
         const category = formValues.category;
         const year = formValues.year;
@@ -59,7 +44,7 @@ export default function GameEdit({
 
     return (
         <div className={styles.modal}>
-            <form encType="multipart/form-data" onSubmit={onEdit} className={styles.form}>
+            <form encType="multipart/form-data" onSubmit={submitHandler} className={styles.form}>
                 <h3>Here you can add game</h3>
                 {errMessage instanceof Array
                     ? <label className={styles.errorMessage}>{errMessage[0]}</label>
