@@ -6,11 +6,11 @@ export default function GameDetailsComments({
     commentId,
     content,
     userData,
-    userOwner
+    ownerName,
 }) {
     return (
         <div className={username == userData?.username ? styles.yourComment : ""}>
-            <h3>{userOwner == username ? <span>@publisher</span> : ""} {username}</h3>
+            <h3>{ownerName == username? <span>@publisher</span> : ""} {username}</h3>
             {username == userData?.username
                 ? <>
                     <Link to={`comment/${commentId}/edit`}><i className="fa-solid fa-square-pen"></i></Link>

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { getAllGames, getGameById } from "../api/gameService";
 import { useNavigate } from "react-router-dom";
+
+import { getAllGames, getGameById } from "../api/gameService";
+import { getUserById } from "../api/userService";
 
 export function useGames(initalvalues) {
     const [games, setGames] = useState(initalvalues);
@@ -36,7 +38,7 @@ export function useDetails(initailGameValues, initialOwnerValues, gameId) {
             try {
                 const game = await getGameById(gameId);
                 setGame(game);
-                const user = await getUserById(game.ownerId)
+                const user = await getUserById(game.ownerId);
                 setUserOwner(user);
             } catch (err) {
                 if (err.message == "Resource not found!") {

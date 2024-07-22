@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { checkCommentId, deleteComment, getCommentById, addComment, editComment } = require("../services/comments");
 const { isUser } = require("../middlewears/guards");
-const { checkGameId } = require("../services/games");
+const { checkGameId, getGameById } = require("../services/games");
 const { body, validationResult } = require("express-validator");
 const { errorParser } = require("../util");
 
@@ -9,7 +9,7 @@ let commentRouter = Router();
 
 commentRouter.post("/games/:id",
     isUser(),
-    body("content").isLength({ min: 3 }).withMessage("Comment must be at least 3 symbols long!"),
+    body("content").isLength({ min: 1 }).withMessage("Please fill the field!!"),
     async(req, res) => {
         let user = req.user;
         let id = req.params.id;
@@ -25,7 +25,8 @@ commentRouter.post("/games/:id",
                 throw results.errors;
             }
             await addComment(user.username, content, id);
-            res.status(200).json("Record created succesfully!");
+            const game = await getGameById(id).lean();
+            res.json(game);
         } catch (err) {
             res.status(400).json({ message: errorParser(err).errors });
             return;

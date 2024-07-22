@@ -3,7 +3,7 @@ import { del, post, put } from "./api";
 let endpoint = "/comments";
 
 export async function createComment(gameId, data) {
-    await post(`${endpoint}/games/${gameId}`, data);
+    return await post(`${endpoint}/games/${gameId}`, data);
 }
 
 export async function deleteComment(commentId, gameId) {

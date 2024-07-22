@@ -12,6 +12,8 @@ import { useDetails } from "../../hooks/useFetch";
 import { UserContext } from "../../context/userContext";
 
 import { LikesAndSavesContext } from "../../context/LikesAndSaveContext";
+import { useForm } from "../../hooks/useForm";
+import { createComment } from "../../api/commentService";
 
 export default function GameDetails() {
     const initalGameValues = {
@@ -22,12 +24,26 @@ export default function GameDetails() {
     const initalOwnerValues = {};
     const { gameId } = useParams();
     const { user } = useContext(UserContext);
-
-    const { game, userOwner, setGameHandler} = useDetails(initalGameValues, initalOwnerValues, gameId);
+    const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onComment);
+    const { game, userOwner, setGameHandler } = useDetails(initalGameValues, initalOwnerValues, gameId);
 
 
     function onSetGameHandler(game) {
         setGameHandler(game);
+    }
+
+    async function onComment() {
+        let content = formValues.content;
+        try {
+            if (!content) {
+                throw new Error("Please fill the field!");
+            }
+            let data = await createComment(gameId, { content });
+            setGameHandler(data);
+        } catch (err) {
+            alert(err.message);
+            return;
+        }
     }
 
     return (
@@ -49,7 +65,7 @@ export default function GameDetails() {
                 <p>{game.description}</p>
                 {user
                     ?
-                    <LikesAndSavesContext.Provider value={{ saves: game.saves, likesArray: game.userLikes ,setGameHandler}}>
+                    <LikesAndSavesContext.Provider value={{ saves: game.saves, likesArray: game.userLikes, setGameHandler }}>
                         <GamesDetailsButtons
                             userData={user}
                             ownerId={game.ownerId}
@@ -67,9 +83,9 @@ export default function GameDetails() {
                     <summary>Comments:<span>{game.comments.length}</span></summary>
                     <div className={styles.commentContent}>
                         {user
-                            ? <form>
-                                <input type="text" name="comment" placeholder="Enter comment..." />
-                                <button><a href={`/catalog/${game._id}/comment`}>Comment</a></button>
+                            ? <form onSubmit={submitHandler}>
+                                <input type="text" name="content" placeholder="Enter comment..." value={formValues.comment} onChange={changeHandler} />
+                                <button type="submit">Comment</button>
                             </form>
                             : ""}
                         {game.comments.length == 0
