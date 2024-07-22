@@ -63,6 +63,10 @@ async function saving(gameId, userId) {
     await Games.findByIdAndUpdate(gameId, { $push: { saves: userId } });
 }
 
+async function unSave(gameId, userId) {
+    await Games.findByIdAndUpdate(gameId, { $pull: { saves: userId } });
+}
+
 function getAuthorGames(user) {
     let data = Games.find({ ownerId: user._id });
     return data;
@@ -80,5 +84,6 @@ module.exports = {
     comment,
     saving,
     getAuthorGames,
-    unLike
+    unLike,
+    unSave
 }

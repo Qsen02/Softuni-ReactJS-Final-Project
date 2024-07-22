@@ -94,13 +94,23 @@ button:hover {
     text-decoration: none;
 }
 
+.ownerLike {
+    display: inline-block;
+    margin-left: 100px;
+}
 
-/* .likes .fa-solid-fa-heart {
+.ownerLike i {
     position: relative;
     top: 35px;
     color: red;
     font-size: 24pt;
-} */
+}
+
+.ownerLike p {
+    position: relative;
+    font-size: 14pt;
+    top: 20px;
+}
 
 .likes i {
     position: relative;
@@ -119,6 +129,25 @@ button:hover {
 .likes {
     display: inline-block;
     margin-left: 100px;
+}
+
+.liked {
+    display: inline-block;
+    margin-left: 100px;
+}
+
+.liked i {
+    position: relative;
+    top: 35px;
+    color: red;
+    font-size: 24pt;
+    cursor: pointer;
+}
+
+.liked p {
+    position: relative;
+    font-size: 14pt;
+    top: 20px;
 }
 
 .comments {
@@ -265,8 +294,21 @@ button:hover {
     top: 20px;
 }
 
-.saves #owner-save {
+.ownerSave {
+    display: inline-block;
+    margin-right: 125px;
+    margin-left: -10px;
+}
+
+.ownerSave i {
     display: block;
-    font-size: 24pt;
+    margin-left: 80px;
     margin-bottom: -40px;
+    font-size: 24pt;
+}
+
+.ownerSave p {
+    position: relative;
+    left: 40px;
+    top: 20px;
 }

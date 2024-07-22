@@ -1,10 +1,11 @@
 import { useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
+
 import styles from ".././GameDetails.module.css"
 
 import { LikesAndSavesContext } from "../../../context/LikesAndSaveContext"
 
-import { likeGame, saveGame, unLikeGame } from "../../../api/gameService";
+import { likeGame, saveGame, unLikeGame, unsaveGame } from "../../../api/gameService";
 
 export default function GamesDetailsButtons({
     ownerId,
@@ -19,7 +20,6 @@ export default function GamesDetailsButtons({
         try {
             const data = await likeGame(gameId);
             setGameHandler(data);
-            navigate(`/catalog/${gameId}`);
         } catch (err) {
             if (err.message == "Resource not found!") {
                 navigate("/404");
@@ -33,7 +33,6 @@ export default function GamesDetailsButtons({
         try {
             const data = await unLikeGame(gameId);
             setGameHandler(data);
-            navigate(`/catalog/${gameId}`);
         } catch (err) {
             if (err.message == "Resource not found!") {
                 navigate("/404");
@@ -45,7 +44,20 @@ export default function GamesDetailsButtons({
 
     async function onSave() {
         try {
-            let data = await saveGame(gameId);
+            const data = await saveGame(gameId);
+            setGameHandler(data);
+        } catch (err) {
+            if (err.message == "Resource not found!") {
+                navigate("/404");
+                return;
+            }
+            return;
+        }
+    }
+
+    async function onUnsave() {
+        try {
+            const data = await unsaveGame(gameId);
             setGameHandler(data);
         } catch (err) {
             if (err.message == "Resource not found!") {
@@ -59,7 +71,7 @@ export default function GamesDetailsButtons({
     return (
         <>
             {userData._id.toString() == ownerId
-                ? <div className={styles.likes}>
+                ? <div className={styles.ownerLike}>
                     <i className="fa-solid fa-heart"></i>
                     <p>{likes}</p>
                 </div>
@@ -73,7 +85,7 @@ export default function GamesDetailsButtons({
                 : ""
             }
             {userData._id.toString() == ownerId
-                ? <div className={styles.saves}>
+                ? <div className={styles.ownerSave}>
                     <i className="fa-solid fa-bookmark" id="owner-save"></i>
                     <p>{savesCount}</p>
                 </div>
@@ -81,7 +93,7 @@ export default function GamesDetailsButtons({
             }
             {userData._id.toString() != ownerId
                 ? likesArray.includes(userData._id.toString())
-                    ? <div className={styles.likes}>
+                    ? <div className={styles.liked}>
                         <i className="fa-solid fa-heart" onClick={onUnlike}></i>
                         <p>{likes}</p>
                     </div>
@@ -93,7 +105,7 @@ export default function GamesDetailsButtons({
             }
             {userData._id.toString() != ownerId
                 ? saves.includes(userData._id.toString()) ? <div className={styles.saves}>
-                    <i className="fa-solid fa-bookmark"></i>
+                    <i className="fa-solid fa-bookmark" onClick={onUnsave}></i>
                     <p>{savesCount}</p>
                 </div>
                     : <div className={styles.saves}>

@@ -36,6 +36,10 @@ export async function saveGame(id) {
     return await post(`${endpoint}/${id}/save`, {});
 }
 
+export async function unsaveGame(id) {
+    return await post(`${endpoint}/${id}/unsave`, {});
+}
+
 export async function searching(value, criteria) {
     let data = await get(`${endpoint}/search/${value}/by/${criteria}`);
     return data;

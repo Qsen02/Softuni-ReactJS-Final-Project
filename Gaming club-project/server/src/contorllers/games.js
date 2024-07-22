@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { checkGameId, deleteGame, getGameById, createGame, editGame, liking, saving, getAllGames, searching, unLike } = require("../services/games");
+const { checkGameId, deleteGame, getGameById, createGame, editGame, liking, saving, getAllGames, searching, unLike, unSave } = require("../services/games");
 const { isUser } = require("../middlewears/guards");
 const { errorParser } = require("../util");
 const { body, validationResult } = require("express-validator");
@@ -149,6 +149,21 @@ gameRouter.post("/:id/save", isUser(), async(req, res) => {
     const game = await getGameById(gameId).lean();
     res.json(game);
 })
+
+
+gameRouter.post("/:id/unsave", isUser(), async(req, res) => {
+    let gameId = req.params.id;
+    let userId = req.user._id;
+    let isValid = await checkGameId(gameId);
+    if (!isValid) {
+        res.status(404).json({ message: "Resource not found!" });
+        return;
+    }
+    await unSave(gameId, userId);
+    const game = await getGameById(gameId).lean();
+    res.json(game);
+})
+
 
 module.exports = {
     gameRouter
