@@ -44,7 +44,7 @@ export default function GameEdit({
 
     return (
         <div className={styles.modal}>
-            <form encType="multipart/form-data" onSubmit={submitHandler} className={styles.form}>
+            <form onSubmit={submitHandler} className={styles.form}>
                 <h3>Here you can add game</h3>
                 {errMessage instanceof Array
                     ? <label className={styles.errorMessage}>{errMessage[0]}</label>

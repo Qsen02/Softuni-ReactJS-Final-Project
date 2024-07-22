@@ -1,15 +1,16 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+
 import styles from "../FormsAndErrors.module.css"
 
 import { register } from "../../api/userService";
 import { setUserData } from "../../utils/userDataHelper";
 
 import { useForm } from "../../hooks/useForm";
+import { UserContext } from "../../context/userContext";
 
-export default function Register({
-    setUser
-}) {
+export default function Register() {
     const [errMessage, setErrMessage] = useState({});
     const [isError, setIsError] = useState(false);
     const initalValues = {
@@ -19,6 +20,7 @@ export default function Register({
         repass: ""
     }
     const navigate = useNavigate();
+    const {setUserHanlder}=useContext(UserContext);
 
     const { formValues, changeHandler, submitHandler } = useForm(initalValues, onRegister);
 
@@ -31,7 +33,7 @@ export default function Register({
         try {
             const user = await register({ username, email, password, repass });
             setUserData(user);
-            setUser(user);
+            setUserHanlder(user);
             navigate("/");
         } catch (err) {
             console.log(err.message);

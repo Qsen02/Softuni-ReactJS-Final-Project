@@ -11,6 +11,7 @@ import Logout from "./components/logout/Lougout";
 import Login from "./components/login/Login";
 import Create from "./components/games-create/GamesCreate";
 import GameDetails from "./components/games-details/GameDetails";
+import { UserContext } from "./context/userContext";
 
 function App() {
     const [isUser, setIsUser] = useState(null);
@@ -37,20 +38,22 @@ function App() {
 
     return (
         <>
-            <Header isUser={isUser} />
-            <main>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/catalog" element={<Catalog />} />
-                    <Route path="/register" element={<Register setUser={setUserHandler} />} />
-                    <Route path="/logout" element={<Logout clearUser={clearUserHandler} />} />
-                    <Route path="/login" element={<Login setUser={setUserHandler} />} />
-                    <Route path="/create" element={<Create />} />
-                    <Route path="/catalog/:gameId/*" element={<GameDetails />} />
-                    <Route path="*" element={<Status404 />} />
-                </Routes>
-            </main>
-            <Footer />
+            <UserContext.Provider value={{user:isUser,setUserHandler,clearUserHandler }}>
+                <Header/>
+                <main>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/catalog" element={<Catalog />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/logout" element={<Logout/>} />
+                        <Route path="/login" element={<Login/>} />
+                        <Route path="/create" element={<Create />} />
+                        <Route path="/catalog/:gameId/*" element={<GameDetails />} />
+                        <Route path="*" element={<Status404 />} />
+                    </Routes>
+                </main>
+                <Footer />
+            </UserContext.Provider>
         </>
     )
 }

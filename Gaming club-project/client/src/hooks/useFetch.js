@@ -32,7 +32,8 @@ export function useDetails(initailGameValues, initialOwnerValues, gameId) {
                 setUserOwner(user);
             } catch (err) {
                 if (err.message == "Resource not found!") {
-                    navigate("404");
+                    navigate("/404");
+                    return;
                 }
                 return;
             }

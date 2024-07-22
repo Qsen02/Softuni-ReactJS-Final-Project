@@ -58,7 +58,7 @@ userRouter.get("/:id", async(req, res) => {
     const id = req.params.id;
     const isValid = await checkUserId(id);
     if (!isValid) {
-        res.status(404).json({ message: "User id isn't exist!" });
+        res.status(404).json({ message: "Resource not found!" });
         return;
     }
     const user = await getUserById(id);

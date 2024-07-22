@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useParams, Route, Routes } from "react-router-dom"
 
 import styles from "./GameDetails.module.css"
-
-import { getUserData } from "../../utils/userDataHelper";
 
 import GameDetailsComments from "./games-details-comments/GameDetailsComments";
 import GamesDetailsButtons from "./games-details-buttons/GamesDetailsButtons";
 import GameEdit from "../game-edit/GameEdit";
 import GameDelete from "../game-delete/GameDelete";
+
 import { useDetails } from "../../hooks/useFetch";
+import { UserContext } from "../../context/userContext";
 
 export default function GameDetails() {
     const initalGameValues = {
@@ -22,7 +22,7 @@ export default function GameDetails() {
     const [isSaved, setIsSaved] = useState(false);
 
     const { gameId } = useParams();
-    const userData = getUserData();
+    const { user } = useContext(UserContext);
 
     const { game, userOwner, setGame } = useDetails(initalGameValues, initalOwnerValues, gameId);
 
@@ -47,11 +47,11 @@ export default function GameDetails() {
                     <p>Creator: {game.creator}</p>
                 </div>
                 <p>{game.description}</p>
-                {userData
+                {user
                     ? <GamesDetailsButtons
                         isLiked={isLiked}
                         isSaved={isSaved}
-                        userData={userData}
+                        userData={user}
                         ownerId={game.ownerId}
                         likes={game.likes}
                         saves={game.saves.length}
@@ -64,7 +64,7 @@ export default function GameDetails() {
                 <details>
                     <summary>Comments:<span>{game.comments.length}</span></summary>
                     <div className={styles.commentContent}>
-                        {userData
+                        {user
                             ? <form>
                                 <input type="text" name="comment" placeholder="Enter comment..." />
                                 <button><a href={`/catalog/${game._id}/comment`}>Comment</a></button>
@@ -78,7 +78,7 @@ export default function GameDetails() {
                                     commentId={el._id}
                                     content={el.content}
                                     username={el.username}
-                                    userData={userData}
+                                    userData={user}
                                     ownerName={userOwner.username}
                                 />
                             )

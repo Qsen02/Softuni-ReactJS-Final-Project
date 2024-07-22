@@ -1,19 +1,22 @@
 import { login } from "../../api/userService";
-import { useForm } from "../../hooks/useForm";
 import { setUserData } from "../../utils/userDataHelper";
-import styles from "../FormsAndErrors.module.css"
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
-export default function Login({
-    setUser
-}) {
+import { useForm } from "../../hooks/useForm";
+
+import styles from "../FormsAndErrors.module.css"
+
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/userContext";
+
+export default function Login() {
     const [errMessage, setErrMessage] = useState({});
     const [isError, setIsError] = useState(false);
     const initalValues = {
         username: "",
         password: "",
     }
+    const { setUserHandler } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -26,7 +29,7 @@ export default function Login({
         try {
             const user = await login({ username, password });
             setUserData(user);
-            setUser(user);
+            setUserHandler(user);
             navigate("/");
         } catch (err) {
             console.log(err.message)
@@ -34,10 +37,6 @@ export default function Login({
             setIsError(true);
             return;
         }
-    }
-
-    function onClose() {
-        setIsError(false);
     }
 
     return (
