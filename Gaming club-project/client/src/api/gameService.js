@@ -33,7 +33,7 @@ export async function unLikeGame(id) {
 }
 
 export async function saveGame(id) {
-    await post(`${endpoint}/${id}/save`, {});
+    return await post(`${endpoint}/${id}/save`, {});
 }
 
 export async function searching(value, criteria) {

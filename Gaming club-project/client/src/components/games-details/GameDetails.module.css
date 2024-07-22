@@ -256,6 +256,7 @@ button:hover {
     margin-left: 80px;
     margin-bottom: -40px;
     font-size: 24pt;
+    cursor: pointer;
 }
 
 .saves p {

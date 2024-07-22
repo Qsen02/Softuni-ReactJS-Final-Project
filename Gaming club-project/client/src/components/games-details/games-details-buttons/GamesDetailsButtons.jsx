@@ -4,7 +4,7 @@ import styles from ".././GameDetails.module.css"
 
 import { LikesAndSavesContext } from "../../../context/LikesAndSaveContext"
 
-import { likeGame, unLikeGame } from "../../../api/gameService";
+import { likeGame, saveGame, unLikeGame } from "../../../api/gameService";
 
 export default function GamesDetailsButtons({
     ownerId,
@@ -34,6 +34,19 @@ export default function GamesDetailsButtons({
             const data = await unLikeGame(gameId);
             setGameHandler(data);
             navigate(`/catalog/${gameId}`);
+        } catch (err) {
+            if (err.message == "Resource not found!") {
+                navigate("/404");
+                return;
+            }
+            return;
+        }
+    }
+
+    async function onSave() {
+        try {
+            let data = await saveGame(gameId);
+            setGameHandler(data);
         } catch (err) {
             if (err.message == "Resource not found!") {
                 navigate("/404");
@@ -80,11 +93,11 @@ export default function GamesDetailsButtons({
             }
             {userData._id.toString() != ownerId
                 ? saves.includes(userData._id.toString()) ? <div className={styles.saves}>
-                    <i className="fa-solid fa-bookmark" id="owner-save"></i>
+                    <i className="fa-solid fa-bookmark"></i>
                     <p>{savesCount}</p>
                 </div>
                     : <div className={styles.saves}>
-                        <Link to="save"><i className="fa-regular fa-bookmark"></i></Link>
+                        <i className="fa-regular fa-bookmark" onClick={onSave}></i>
                         <p>{savesCount}</p>
                     </div>
                 : ""

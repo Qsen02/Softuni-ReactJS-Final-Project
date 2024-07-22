@@ -146,7 +146,8 @@ gameRouter.post("/:id/save", isUser(), async(req, res) => {
         return;
     }
     await saving(gameId, userId);
-    res.status(200).json({ message: "Game was saved successfully!" });
+    const game = await getGameById(gameId).lean();
+    res.json(game);
 })
 
 module.exports = {
