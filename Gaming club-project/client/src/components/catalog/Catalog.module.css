@@ -6,8 +6,8 @@ h1 {
 
 .catalogWrapper {
     display: grid;
-    grid-template-columns: auto auto auto;
     justify-content: center;
+    grid-template-columns: auto auto auto;
     width: 1300px;
     height: auto;
     background-color: rgb(89, 86, 86);

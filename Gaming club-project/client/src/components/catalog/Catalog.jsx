@@ -20,11 +20,13 @@ export default function Catalog() {
     const { formValues, changeHandler, submitHandler } = useForm(initalvalues, onSearchHandler);
 
     async function onSearchHandler() {
+        let name=formValues.name;
+        let criteria=formValues.criteria;
         try {
-            if (!formValues.name) {
-                throw new Error("Please fill the search field");
-            }
-            let data = await searching(formValues.name, formValues.criteria);
+            if (name=="") {
+               name=" ";
+             }
+            let data = await searching(name, criteria);
             setGamesHanlder(data);
             setIsSearched(true);
         } catch (err) {

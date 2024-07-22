@@ -59,6 +59,9 @@ gameRouter.post("/",
 gameRouter.get("/search/:value/by/:criteria", async(req, res) => {
     let query = req.params.value;
     let criteria = req.params.criteria;
+    if (query == " ") {
+        query = "";
+    }
     let games = await searching(query, criteria).lean();
     res.json(games);
 })
