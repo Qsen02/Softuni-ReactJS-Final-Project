@@ -1,4 +1,4 @@
-import { del, post, put } from "./api";
+import { del, get, post, put } from "./api";
 
 let endpoint = "/comments";
 
@@ -10,6 +10,10 @@ export async function deleteComment(commentId) {
     return await del(`${endpoint}/${commentId}`);
 }
 
-export async function editComment(commentId, data) {
-    await put(`${endpoint}/${commentId}`, data);
+export async function editComment(commentId, gameId, data) {
+    return await put(`${endpoint}/${commentId}/games/${gameId}`, data);
+}
+
+export async function getCommentById(commentId, ) {
+    return await get(`${endpoint}/${commentId}`);
 }

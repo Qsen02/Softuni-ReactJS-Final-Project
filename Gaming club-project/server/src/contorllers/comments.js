@@ -7,6 +7,16 @@ const { errorParser } = require("../util");
 
 let commentRouter = Router();
 
+commentRouter.get("/:id", async(req, res) => {
+    let id = req.params.id;
+    let isValid = await checkCommentId(id);
+    if (!isValid) {
+        res.status(404).json({ message: "Resource not found!" })
+    }
+    let comment = await getCommentById(id);
+    res.json(comment);
+})
+
 commentRouter.post("/games/:id",
     isUser(),
     body("content").isLength({ min: 1 }).withMessage("Please fill the field!!"),
@@ -15,7 +25,7 @@ commentRouter.post("/games/:id",
         let id = req.params.id;
         let isValid = await checkGameId(id);
         if (!isValid) {
-            res.status(404).json({ message: "Page not found!" });
+            res.status(404).json({ message: "Resource not found!" });
             return;
         }
         let content = req.body.content;
@@ -46,11 +56,12 @@ commentRouter.delete("/:id", isUser(), async(req, res) => {
     res.json(game);
 });
 
-commentRouter.put("/:id", isUser(),
-    body("content").isLength({ min: 3 }).withMessage("Comment must be at least 3 symbols long!"),
+commentRouter.put("/:id/games/:gameId", isUser(),
+    body("content").isLength({ min: 1 }).withMessage("Please fill the field!"),
     async(req, res) => {
         let id = req.params.id;
         let isValid = await checkCommentId(id);
+        let gameId = req.params.gameId;
         if (!isValid) {
             res.status(404).json({ message: "Resource not found!" });
             return;
@@ -62,9 +73,10 @@ commentRouter.put("/:id", isUser(),
                 throw results.errors;
             }
             await editComment(id, content);
-            res.status(200).json("Record edited succesfully!");
+            const game = await getGameById(gameId);
+            res.json(game);
         } catch (err) {
-            res.statusCode(200).json({ message: errorParser(err).errors });
+            res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });
             return;
         }
     });

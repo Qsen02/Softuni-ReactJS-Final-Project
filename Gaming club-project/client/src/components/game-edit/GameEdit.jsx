@@ -22,7 +22,7 @@ export default function GameEdit({
         creator: "",
         description: ""
     }
-    const { formValues, changeHandler, submitHandler } = useEditForm(initalValues, onEdit,gameId);
+    const { formValues, changeHandler, submitHandler } = useEditForm(initalValues, onEdit,null,gameId);
 
     async function onEdit() {
         const name = formValues.name;

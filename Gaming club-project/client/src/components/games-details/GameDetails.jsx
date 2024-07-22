@@ -8,6 +8,7 @@ import GamesDetailsButtons from "./games-details-buttons/GamesDetailsButtons";
 import GameEdit from "../game-edit/GameEdit";
 import GameDelete from "../game-delete/GameDelete";
 import CommentDelete from "./comments-delete/CommentDelete";
+import CommentEdit from "./comments-edit/CommentEdit";
 
 import { useDetails } from "../../hooks/useFetch";
 import { UserContext } from "../../context/userContext";
@@ -53,6 +54,7 @@ export default function GameDetails() {
                 <Route path="/delete" element={<GameDelete />} />
                 <Route path="/edit" element={<GameEdit setCurGame={onSetGameHandler} />} />
                 <Route path="comment/:commentId/delete" element={<CommentDelete setCurGame={onSetGameHandler}/>} />
+                <Route path="comment/:commentId/edit" element={<CommentEdit setCurGame={onSetGameHandler}/>} />
             </Routes>
 
             <div className={styles.details}>
