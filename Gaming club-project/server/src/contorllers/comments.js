@@ -32,7 +32,7 @@ commentRouter.post("/games/:id",
             return;
         }
     });
-commentRouter.delete("/:id/games/:gameId", isUser(), async(req, res) => {
+commentRouter.delete("/:id", isUser(), async(req, res) => {
     let id = req.params.id;
     let comment = await getCommentById(id).lean();
     let gameId = comment.gameId;
@@ -42,7 +42,8 @@ commentRouter.delete("/:id/games/:gameId", isUser(), async(req, res) => {
         return;
     }
     await deleteComment(id, gameId, comment);
-    res.status(200).json("Record deleted succesfully!");
+    const game = await getGameById(gameId).lean();
+    res.json(game);
 });
 
 commentRouter.put("/:id", isUser(),

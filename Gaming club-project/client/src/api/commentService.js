@@ -6,8 +6,8 @@ export async function createComment(gameId, data) {
     return await post(`${endpoint}/games/${gameId}`, data);
 }
 
-export async function deleteComment(commentId, gameId) {
-    await del(`${endpoint}/${commentId}/games/${gameId}`);
+export async function deleteComment(commentId) {
+    return await del(`${endpoint}/${commentId}`);
 }
 
 export async function editComment(commentId, data) {
