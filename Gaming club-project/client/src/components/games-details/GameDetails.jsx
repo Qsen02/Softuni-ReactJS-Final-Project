@@ -24,17 +24,17 @@ export default function GameDetails() {
     const { gameId } = useParams();
     const { user } = useContext(UserContext);
 
-    const { game, userOwner, setGame } = useDetails(initalGameValues, initalOwnerValues, gameId);
+    const { game, userOwner, setGameHandler } = useDetails(initalGameValues, initalOwnerValues, gameId);
 
-    function setGameHandler(game) {
-        setGame(game);
+    function onSetGameHandler(game) {
+        setGameHandler(game);
     }
 
     return (
         <>
             <Routes>
                 <Route path="/delete" element={<GameDelete />} />
-                <Route path="/edit" element={<GameEdit setCurGame={setGameHandler} />} />
+                <Route path="/edit" element={<GameEdit setCurGame={onSetGameHandler} />} />
             </Routes>
 
             <div className={styles.details}>

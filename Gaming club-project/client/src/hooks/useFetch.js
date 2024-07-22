@@ -5,6 +5,10 @@ import { useNavigate } from "react-router-dom";
 export function useGames(initalvalues) {
     const [games, setGames] = useState(initalvalues);
 
+    function setGamesHanlder(games) {
+        setGames(games);
+    }
+
     useEffect(() => {
         (async function getGames() {
             let data = await getAllGames();
@@ -14,7 +18,7 @@ export function useGames(initalvalues) {
 
     return {
         games,
-        setGames
+        setGamesHanlder
     }
 }
 
@@ -22,6 +26,10 @@ export function useDetails(initailGameValues, initialOwnerValues, gameId) {
     const [game, setGame] = useState(initailGameValues)
     const [userOwner, setUserOwner] = useState(initialOwnerValues);
     const navigate = useNavigate();
+
+    function setGameHandler(game) {
+        setGame(game);
+    }
 
     useEffect(() => {
         (async() => {
@@ -43,6 +51,6 @@ export function useDetails(initailGameValues, initialOwnerValues, gameId) {
     return {
         game,
         userOwner,
-        setGame
+        setGameHandler
     }
 }

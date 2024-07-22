@@ -12,7 +12,7 @@ import { useForm } from "../../hooks/useForm";
 
 export default function Catalog() {
     const [isSearched, setIsSearched] = useState(false);
-    const { games,setGames } = useGames([]);
+    const { games,setGamesHanlder } = useGames([]);
     const initalvalues = {
         name: "",
         criteria: "name"
@@ -25,7 +25,7 @@ export default function Catalog() {
                 throw new Error("Please fill the search field");
             }
             let data = await searching(formValues.name, formValues.criteria);
-            setGames(data);
+            setGamesHanlder(data);
             setIsSearched(true);
         } catch (err) {
             alert(err.message);
