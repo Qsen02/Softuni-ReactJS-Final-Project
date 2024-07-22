@@ -94,18 +94,20 @@ button:hover {
     text-decoration: none;
 }
 
-.likes i {
+
+/* .likes .fa-solid-fa-heart {
     position: relative;
     top: 35px;
     color: red;
     font-size: 24pt;
-}
+} */
 
-.likes a i {
+.likes i {
     position: relative;
     top: 35px;
     font-size: 24pt;
     color: aliceblue;
+    cursor: pointer;
 }
 
 .likes p {

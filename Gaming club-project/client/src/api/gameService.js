@@ -25,7 +25,11 @@ export async function editGame(id, data) {
 }
 
 export async function likeGame(id) {
-    await post(`${endpoint}/${id}/like`, {});
+    return await post(`${endpoint}/${id}/like`, {});
+}
+
+export async function unLikeGame(id) {
+    return await post(`${endpoint}/${id}/unlike`, {});
 }
 
 export async function saveGame(id) {

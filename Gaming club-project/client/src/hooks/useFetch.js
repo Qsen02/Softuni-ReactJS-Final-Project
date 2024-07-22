@@ -51,6 +51,6 @@ export function useDetails(initailGameValues, initialOwnerValues, gameId) {
     return {
         game,
         userOwner,
-        setGameHandler
+        setGameHandler,
     }
 }

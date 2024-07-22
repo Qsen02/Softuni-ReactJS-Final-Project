@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { checkGameId, deleteGame, getGameById, createGame, editGame, liking, saving, getAllGames, searching } = require("../services/games");
+const { checkGameId, deleteGame, getGameById, createGame, editGame, liking, saving, getAllGames, searching, unLike } = require("../services/games");
 const { isUser } = require("../middlewears/guards");
 const { errorParser } = require("../util");
 const { body, validationResult } = require("express-validator");
@@ -115,12 +115,27 @@ gameRouter.post("/:id/like", isUser(), async(req, res) => {
     let userId = req.user._id;
     let isValid = await checkGameId(gameId);
     if (!isValid) {
-        res.status(404).json("Page not found!");
+        res.status(404).json("Resource not found!");
         return;
     }
     await liking(gameId, userId);
-    res.status(200).json({ message: "Game was liked successfully!" });
+    const game = await getGameById(gameId).lean();
+    res.json(game);
 })
+
+gameRouter.post("/:id/unlike", isUser(), async(req, res) => {
+    let gameId = req.params.id;
+    let userId = req.user._id;
+    let isValid = await checkGameId(gameId);
+    if (!isValid) {
+        res.status(404).json("Resource not found!");
+        return;
+    }
+    await unLike(gameId, userId);
+    const game = await getGameById(gameId).lean();
+    res.json(game);
+})
+
 
 gameRouter.post("/:id/save", isUser(), async(req, res) => {
     let gameId = req.params.id;

@@ -11,6 +11,8 @@ import GameDelete from "../game-delete/GameDelete";
 import { useDetails } from "../../hooks/useFetch";
 import { UserContext } from "../../context/userContext";
 
+import { LikesAndSavesContext } from "../../context/LikesAndSaveContext";
+
 export default function GameDetails() {
     const initalGameValues = {
         comments: [],
@@ -18,13 +20,11 @@ export default function GameDetails() {
         saves: []
     };
     const initalOwnerValues = {};
-    const [isLiked, setIsLiked] = useState(false);
-    const [isSaved, setIsSaved] = useState(false);
-
     const { gameId } = useParams();
     const { user } = useContext(UserContext);
 
-    const { game, userOwner, setGameHandler } = useDetails(initalGameValues, initalOwnerValues, gameId);
+    const { game, userOwner, setGameHandler} = useDetails(initalGameValues, initalOwnerValues, gameId);
+
 
     function onSetGameHandler(game) {
         setGameHandler(game);
@@ -48,15 +48,17 @@ export default function GameDetails() {
                 </div>
                 <p>{game.description}</p>
                 {user
-                    ? <GamesDetailsButtons
-                        isLiked={isLiked}
-                        isSaved={isSaved}
-                        userData={user}
-                        ownerId={game.ownerId}
-                        likes={game.likes}
-                        saves={game.saves.length}
-                        gameId={game._id}
-                    />
+                    ?
+                    <LikesAndSavesContext.Provider value={{ saves: game.saves, likesArray: game.userLikes ,setGameHandler}}>
+                        <GamesDetailsButtons
+                            userData={user}
+                            ownerId={game.ownerId}
+                            likes={game.likes}
+                            savesCount={game.saves.length}
+                            gameId={game._id}
+                        />
+                    </LikesAndSavesContext.Provider>
+
                     : ""
                 }
             </div>
