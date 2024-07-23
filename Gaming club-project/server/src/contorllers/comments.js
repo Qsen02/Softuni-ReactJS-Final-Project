@@ -56,12 +56,11 @@ commentRouter.delete("/:id", isUser(), async(req, res) => {
     res.json(game);
 });
 
-commentRouter.put("/:id/games/:gameId", isUser(),
+commentRouter.put("/:id", isUser(),
     body("content").isLength({ min: 1 }).withMessage("Please fill the field!"),
     async(req, res) => {
         let id = req.params.id;
         let isValid = await checkCommentId(id);
-        let gameId = req.params.gameId;
         if (!isValid) {
             res.status(404).json({ message: "Resource not found!" });
             return;
@@ -73,7 +72,8 @@ commentRouter.put("/:id/games/:gameId", isUser(),
                 throw results.errors;
             }
             await editComment(id, content);
-            const game = await getGameById(gameId);
+            let comment = await getCommentById(id);
+            const game = await getGameById(comment.gameId);
             res.json(game);
         } catch (err) {
             res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });

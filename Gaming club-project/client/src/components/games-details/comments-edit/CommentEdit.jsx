@@ -17,11 +17,10 @@ export default function CommentEdit({
     async function onEdit() {
         const content = formValues.content;
         try {
-            const data = await editComment(commentId, gameId, { content });
+            const data = await editComment(commentId, { content });
             setCurGame(data);
             navigate(`/catalog/${gameId}`);
         } catch (err) {
-            console.log(err.message)
             setErrMessage(JSON.parse(err.message));
             setIsError(true);
         }
