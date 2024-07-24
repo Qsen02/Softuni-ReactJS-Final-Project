@@ -12,7 +12,7 @@ import { useForm } from "../../hooks/useForm";
 
 export default function Catalog() {
     const [isSearched, setIsSearched] = useState(false);
-    const { games,setGamesHanlder } = useGames([]);
+    const { games, setGamesHanlder,isLoading,loadingHandler } = useGames([]);
     const initalvalues = {
         name: "",
         criteria: "name"
@@ -20,15 +20,17 @@ export default function Catalog() {
     const { formValues, changeHandler, submitHandler } = useForm(initalvalues, onSearchHandler);
 
     async function onSearchHandler() {
-        let name=formValues.name;
-        let criteria=formValues.criteria;
+        let name = formValues.name;
+        let criteria = formValues.criteria;
         try {
-            if (name=="") {
-               name=" ";
-             }
+            if (name == "") {
+                name = " ";
+            }
+            loadingHandler(true);
             let data = await searching(name, criteria);
             setGamesHanlder(data);
             setIsSearched(true);
+            loadingHandler(false);
         } catch (err) {
             alert(err.message);
             return;
@@ -37,6 +39,10 @@ export default function Catalog() {
 
     return (
         <>
+            {isLoading ?
+                <div className={styles.loading}></div>
+                : ""
+            }
             <h1>Search for games here</h1>
             <CatalogSearch
                 onSearch={submitHandler}

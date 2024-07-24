@@ -1,3 +1,12 @@
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .details {
     display: block;
     margin: 0 auto;
@@ -311,4 +320,16 @@ button:hover {
     position: relative;
     left: 40px;
     top: 20px;
+}
+
+.loading {
+    display: block;
+    position: absolute;
+    top: 65%;
+    left: 47%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: inset 10px rgb(0, 205, 255);
+    animation: rotate 1s linear infinite;
 }

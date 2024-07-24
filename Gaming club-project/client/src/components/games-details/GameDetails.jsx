@@ -27,7 +27,7 @@ export default function GameDetails() {
     const { gameId } = useParams();
     const { user } = useContext(UserContext);
     const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onComment);
-    const { game, userOwner, setGameHandler } = useDetails(initalGameValues, initalOwnerValues, gameId);
+    const { game, userOwner, setGameHandler,isLoading } = useDetails(initalGameValues, initalOwnerValues, gameId);
 
 
     function onSetGameHandler(game) {
@@ -53,10 +53,14 @@ export default function GameDetails() {
             <Routes>
                 <Route path="/delete" element={<GameDelete />} />
                 <Route path="/edit" element={<GameEdit setCurGame={onSetGameHandler} />} />
-                <Route path="comment/:commentId/delete" element={<CommentDelete setCurGame={onSetGameHandler}/>} />
-                <Route path="comment/:commentId/edit" element={<CommentEdit setCurGame={onSetGameHandler}/>} />
+                <Route path="comment/:commentId/delete" element={<CommentDelete setCurGame={onSetGameHandler} />} />
+                <Route path="comment/:commentId/edit" element={<CommentEdit setCurGame={onSetGameHandler} />} />
             </Routes>
+            {isLoading ?
+                <div className={styles.loading}></div>
+                : ""
 
+            }
             <div className={styles.details}>
                 <h1>{game.name}</h1>
                 <p>Published by: {game.owner}</p>
