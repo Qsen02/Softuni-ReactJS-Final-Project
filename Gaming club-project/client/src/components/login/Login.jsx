@@ -45,14 +45,15 @@ export default function Login() {
                 <h3>Here you can login in your account</h3>
                 {errMessage instanceof Array
                     ? <label className={styles.errorMessage}>{errMessage[0]}</label>
-                    : errMessage.username
+                    : ""
+                }
+                {
+                    errMessage.username
                         ? <label className={styles.errorMessage}>{errMessage.username}</label>
                         : <label>Username</label>
                 }
                 <input type="text" name="username" value={formValues.username} onChange={changeHandler} />
-                {errMessage instanceof Array
-                    ? <label className={styles.errorMessage}>{errMessage[0]}</label>
-                    : errMessage.password
+                { errMessage.password
                         ? <label className={styles.errorMessage}>{errMessage.password}</label>
                         : <label>Password</label>
                 }

@@ -20,7 +20,7 @@ export default function Register() {
         repass: ""
     }
     const navigate = useNavigate();
-    const {setUserHanlder}=useContext(UserContext);
+    const { setUserHanlder } = useContext(UserContext);
 
     const { formValues, changeHandler, submitHandler } = useForm(initalValues, onRegister);
 
@@ -49,30 +49,28 @@ export default function Register() {
                 <h3>Here you can make your registration</h3>
                 {errMessage instanceof Array
                     ? <label className={styles.errorMessage}>{errMessage[0]}</label>
-                    : errMessage.username
+                    : ""
+                }
+                {
+                    errMessage.username
                         ? <label className={styles.errorMessage}>{errMessage.username}</label>
                         : <label>Username</label>
                 }
                 <input type="text" name="username" value={formValues.username} onChange={changeHandler} />
-                {errMessage instanceof Array
-                    ? <label className={styles.errorMessage}>{errMessage[0]}</label>
-                    : errMessage.email
+                {
+                    errMessage.email
                         ? <label className={styles.errorMessage}>{errMessage.email}</label>
                         : <label>Email</label>
                 }
                 <input type="text" name="email" value={formValues.email} onChange={changeHandler} />
-                {errMessage instanceof Array
-                    ? <label className={styles.errorMessage}>{errMessage[0]}</label>
-                    : errMessage.password
-                        ? <label className={styles.errorMessage}>{errMessage.password}</label>
-                        : <label>Password</label>
+                {errMessage.password
+                    ? <label className={styles.errorMessage}>{errMessage.password}</label>
+                    : <label>Password</label>
                 }
                 <input type="password" name="password" value={formValues.password} onChange={changeHandler} />
-                {errMessage instanceof Array
-                    ? <label className={styles.errorMessage}>{errMessage[0]}</label>
-                    : errMessage.repass
-                        ? <label className={styles.errorMessage}>{errMessage.repass}</label>
-                        : <label>Repeat password</label>
+                {errMessage.repass
+                    ? <label className={styles.errorMessage}>{errMessage.repass}</label>
+                    : <label>Repeat password</label>
                 }
                 <input type="password" name="repass" value={formValues.repass} onChange={changeHandler} />
                 <p>You already have account? <Link to="/login">Login</Link> here.</p>

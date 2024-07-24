@@ -40,42 +40,34 @@ export default function Create() {
             <h3>Here you can add game</h3>
             {errMessage instanceof Array
                 ? <label className={styles.errorMessage}>{errMessage[0]}</label>
-                : errMessage.name
+                :""
+            }
+            {errMessage.name
                     ? <label className={styles.errorMessage}>{errMessage.name}</label>
                     : <label>Name</label>
             }
             <input type="text" name="name" value={formValues.name} onChange={changeHandler} placeholder="Enter game name..." />
-            {errMessage instanceof Array
-                ? <label className={styles.errorMessage}>{errMessage[0]}</label>
-                : errMessage.category
+            { errMessage.category
                     ? <label className={styles.errorMessage}>{errMessage.category}</label>
                     : <label>Category</label>
             }
             <input type="text" name="category" value={formValues.category} onChange={changeHandler} placeholder="Enter game category..." />
-            {errMessage instanceof Array
-                ? <label className={styles.errorMessage}>{errMessage[0]}</label>
-                : errMessage.year
+            { errMessage.year
                     ? <label className={styles.errorMessage}>{errMessage.year}</label>
                     : <label>Year</label>
             }
             <input type="number" name="year" value={formValues.year} onChange={changeHandler} placeholder="Enter game year..." />
-            {errMessage instanceof Array
-                ? <label className={styles.errorMessage}>{errMessage[0]}</label>
-                : errMessage.image
+            { errMessage.image
                     ? <label className={styles.errorMessage}>{errMessage.image}</label>
                     : <label>Image</label>
             }
             <input type="text" name="image" value={formValues.image} onChange={changeHandler} placeholder="Enter valid URL of the image..." />
-            {errMessage instanceof Array
-                ? <label className={styles.errorMessage}>{errMessage[0]}</label>
-                : errMessage.creator
+            {errMessage.creator
                     ? <label className={styles.errorMessage}>{errMessage.creator}</label>
                     : <label>Creator</label>
             }
             <input type="text" name="creator" value={formValues.creator} onChange={changeHandler} placeholder="Enter creator of the game..." />
-            {errMessage instanceof Array
-                ? <label className={styles.errorMessage}>{errMessage[0]}</label>
-                : errMessage.description
+            { errMessage.description
                     ? <label className={styles.errorMessage}>{errMessage.description}</label>
                     : <label>Description</label>
             }
