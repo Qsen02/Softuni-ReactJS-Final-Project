@@ -2,9 +2,6 @@ import Header from "./components/header/Header"
 import Footer from "./components/footer/Footer"
 import Home from "./components/home/Home";
 import Catalog from "./components/catalog/Catalog";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { getUserData, removeUserData } from "./utils/userDataHelper";
 import Register from "./components/register/Register";
 import Status404 from "./components/status404/Status404";
 import Logout from "./components/logout/Lougout";
@@ -12,6 +9,12 @@ import Login from "./components/login/Login";
 import Create from "./components/games-create/GamesCreate";
 import GameDetails from "./components/games-details/GameDetails";
 import { UserContext } from "./context/userContext";
+import Profile from "./components/profile/Profile";
+
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import { getUserData, removeUserData } from "./utils/userDataHelper";
 
 function App() {
     const [isUser, setIsUser] = useState(null);
@@ -49,6 +52,7 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/create" element={<Create />} />
                         <Route path="/catalog/:gameId/*" element={<GameDetails />} />
+                        <Route path="/profile" element={<Profile />} />
                         <Route path="*" element={<Status404 />} />
                     </Routes>
                 </main>
