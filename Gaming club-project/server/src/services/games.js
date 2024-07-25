@@ -72,6 +72,12 @@ function getAuthorGames(user) {
     return data;
 }
 
+async function getSavedGames(userId) {
+    let data = await Games.find().lean();
+    let games = data.filter(el => el.saves.includes(userId));
+    return games;
+}
+
 module.exports = {
     getAllGames,
     getGameById,
@@ -85,5 +91,6 @@ module.exports = {
     saving,
     getAuthorGames,
     unLike,
-    unSave
+    unSave,
+    getSavedGames
 }

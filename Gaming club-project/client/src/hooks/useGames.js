@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { createGame, deleteGame, editGame, getAllGames, getGameById, likeGame, saveGame, unLikeGame, unsaveGame } from "../api/gameService";
-import { getUserById } from "../api/userService";
+import { getAuthorGames, getSavedGames, getUserById } from "../api/userService";
+import { getUserData } from "../utils/userDataHelper";
 
 export function useGetAllGames(initalvalues) {
     const [games, setGames] = useState(initalvalues);
@@ -139,4 +140,27 @@ export function useUnsaveGame() {
     }
 
     return unsavingGame;
+}
+
+export function useProfile(initalUser, initalCreatedGames, initalSavedGames) {
+    const [userData, setUserData] = useState(initalUser);
+    const [createdGames, setCreatedGames] = useState(initalCreatedGames);
+    const [savedGames, setSavedGames] = useState(initalSavedGames);
+
+    useEffect(() => {
+        (async() => {
+            const user = getUserData();
+            setUserData(user);
+            const createGames = await getAuthorGames(user._id);
+            setCreatedGames(createGames);
+            const saveGames = await getSavedGames(user._id);
+            setSavedGames(saveGames);
+        })()
+    }, [])
+
+    return {
+        userData,
+        createdGames,
+        savedGames
+    };
 }

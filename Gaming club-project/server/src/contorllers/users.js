@@ -3,6 +3,7 @@ const { setToken } = require("../services/token");
 const { register, login, getUserById, checkUserId } = require("../services/users");
 const { body, validationResult } = require("express-validator");
 const { errorParser } = require("../util");
+const { getAuthorGames, getSavedGames } = require("../services/games");
 
 let userRouter = Router();
 
@@ -64,6 +65,33 @@ userRouter.get("/:id", async(req, res) => {
     const user = await getUserById(id).lean();
     res.json({ _id: user._id, username: user.username, email: user.email, accessToken: user.accessToken });
 })
+
+userRouter.get("/:userId/authorGames", async(req, res) => {
+    const userId = req.params.userId;
+    const isValid = await checkUserId(userId);
+    if (!isValid) {
+        res.status(404).json({ message: "Resource not found!" });
+        return;
+    }
+    const user = await getUserById(userId);
+    const games = await getAuthorGames(user).lean();
+    console.log(games)
+    res.json(games);
+})
+
+userRouter.get("/:userId/savedGames", async(req, res) => {
+    const userId = req.params.userId;
+    const isValid = await checkUserId(userId);
+    if (!isValid) {
+        res.status(404).json({ message: "Resource not found!" });
+        return;
+    }
+    const games = await getSavedGames(userId);
+    console.log(games)
+    res.json(games);
+})
+
+
 
 module.exports = {
     userRouter

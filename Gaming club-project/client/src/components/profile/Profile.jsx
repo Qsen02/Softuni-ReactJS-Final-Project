@@ -1,25 +1,55 @@
+import { useProfile } from "../../hooks/useGames";
+
 import styles from "./Profile.module.css"
 
+import ProfileGames from "./profile-games/ProfileGames";
+
 export default function Profile() {
+    const initialUser = {};
+    const initialCreatedGames = [];
+    const initialSavedGames = [];
+    const { userData, createdGames, savedGames } = useProfile(initialUser, initialCreatedGames, initialSavedGames)
     return (
         <>
             <div className={styles.profile}>
                 <i className="fa-solid fa-circle-user"></i>
-                <h2>Username: </h2>
-                <p>Created posts: </p>
-                <p>Saved posts:</p>
+                <h2>Username: {userData.username}</h2>
+                <p>Created posts: {createdGames.length}</p>
+                <p>Saved posts: {savedGames.length}</p>
             </div>
             <div className={styles.profilePosts}>
                 <div className={styles.profileSection}>
-                        <h1>Created games</h1>
-                        <div className={styles.profileContent}>
-                            <p>No created games yet</p>
-                        </div>
+                    <h1>Created games</h1>
+                    <div className={styles.profileContent}>
+                        {createdGames.length == 0
+                            ? <p>No created games yet</p>
+                            : createdGames.map(el =>
+                                <ProfileGames
+                                    key={el._id}
+                                    id={el._id}
+                                    name={el.name}
+                                    category={el.category}
+                                    image={el.image}
+                                />
+                            )
+                        }
+                    </div>
                 </div>
                 <div className={styles.profileSection}>
                     <h1>Saved games</h1>
                     <div className={styles.profileContent}>
-                        <p>No saved games yet</p>
+                        {savedGames.length == 0
+                            ? <p>No saved games yet</p>
+                            : savedGames.map(el =>
+                                <ProfileGames
+                                    key={el._id}
+                                    id={el._id}
+                                    name={el.name}
+                                    category={el.category}
+                                    image={el.image}
+                                />
+                            )
+                        }
                     </div>
                 </div>
             </div>
