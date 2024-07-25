@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import styles from "../FormsAndErrors.module.css"
-import { createGame } from "../../api/gameService";
+
 import { useForm } from "../../hooks/useForm";
+import { useCreateGame } from "../../hooks/useFetch";
 
 export default function Create() {
     const [errMessage, setErrMessage] = useState({});
@@ -16,6 +18,7 @@ export default function Create() {
         description: ""
     }
     const navigate = useNavigate();
+    const createGame=useCreateGame();
     const { formValues, changeHandler, submitHandler } = useForm(initalValues, onCreate);
 
     async function onCreate() {

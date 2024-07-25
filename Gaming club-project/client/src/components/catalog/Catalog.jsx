@@ -7,12 +7,12 @@ import { useState } from "react";
 
 import { searching } from "../../api/gameService";
 
-import { useGames } from "../../hooks/useFetch";
+import { useGetAllGames } from "../../hooks/useFetch";
 import { useForm } from "../../hooks/useForm";
 
 export default function Catalog() {
     const [isSearched, setIsSearched] = useState(false);
-    const { games, setGamesHanlder,isLoading,loadingHandler } = useGames([]);
+    const { games, setGamesHanlder,isLoading,loadingHandler } = useGetAllGames([]);
     const initalvalues = {
         name: "",
         criteria: "name"

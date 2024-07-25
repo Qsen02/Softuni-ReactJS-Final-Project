@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { getAllGames, getGameById } from "../api/gameService";
+import { createGame, getAllGames, getGameById } from "../api/gameService";
 import { getUserById } from "../api/userService";
 
-export function useGames(initalvalues) {
+export function useGetAllGames(initalvalues) {
     const [games, setGames] = useState(initalvalues);
     const [isLoading, setIsloading] = useState(false);
 
@@ -36,7 +36,7 @@ export function useGames(initalvalues) {
     }
 }
 
-export function useDetails(initailGameValues, initialOwnerValues, gameId) {
+export function useGetOneGame(initailGameValues, initialOwnerValues, gameId) {
     const [game, setGame] = useState(initailGameValues)
     const [userOwner, setUserOwner] = useState(initialOwnerValues);
     const [isLoading, setIsloading] = useState(false);
@@ -79,4 +79,11 @@ export function useDetails(initailGameValues, initialOwnerValues, gameId) {
         isLoading,
         loading
     }
+}
+
+export function useCreateGame() {
+    async function creatingGame(gameData) {
+        await createGame(gameData);
+    }
+    return creatingGame;
 }

@@ -10,7 +10,7 @@ import GameDelete from "../game-delete/GameDelete";
 import CommentDelete from "./comments-delete/CommentDelete";
 import CommentEdit from "./comments-edit/CommentEdit";
 
-import { useDetails } from "../../hooks/useFetch";
+import { useGetOneGame } from "../../hooks/useFetch";
 import { UserContext } from "../../context/userContext";
 
 import { LikesAndSavesContext } from "../../context/LikesAndSaveContext";
@@ -27,7 +27,7 @@ export default function GameDetails() {
     const { gameId } = useParams();
     const { user } = useContext(UserContext);
     const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onComment);
-    const { game, userOwner, setGameHandler,isLoading } = useDetails(initalGameValues, initalOwnerValues, gameId);
+    const { game, userOwner, setGameHandler,isLoading } = useGetOneGame(initalGameValues, initalOwnerValues, gameId);
 
 
     function onSetGameHandler(game) {
