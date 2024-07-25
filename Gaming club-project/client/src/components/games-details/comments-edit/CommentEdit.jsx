@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useEditForm } from "../../../hooks/useForm"
 
 import styles from "../../FormsAndErrors.module.css"
-import { editComment } from "../../../api/commentService";
+import { useEditComment } from "../../../hooks/useComments";
 
 export default function CommentEdit({
     setCurGame
@@ -13,7 +13,9 @@ export default function CommentEdit({
     const [errMessage, setErrMessage] = useState({});
     const [isError, setIsError] = useState(false);
     const { gameId, commentId } = useParams();
+    const editComment=useEditComment();
     const { formValues, changeHandler, submitHandler } = useEditForm({ content: "" }, onEdit, commentId, null);
+
     async function onEdit() {
         const content = formValues.content;
         try {
@@ -25,6 +27,7 @@ export default function CommentEdit({
             setIsError(true);
         }
     }
+
     return (
         <div className={styles.modal}>
             <form onSubmit={submitHandler} className={styles.form}>

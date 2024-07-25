@@ -1,4 +1,4 @@
-import { createComment } from "../api/commentService";
+import { createComment, editComment } from "../api/commentService";
 
 export function useCreateComment() {
     async function creatingComment(gameId, commentData) {
@@ -7,4 +7,13 @@ export function useCreateComment() {
     }
 
     return creatingComment
+}
+
+export function useEditComment() {
+    async function editingComment(commentId, commentData) {
+        const game = await editComment(commentId, commentData);
+        return game;
+    }
+
+    return editingComment
 }
