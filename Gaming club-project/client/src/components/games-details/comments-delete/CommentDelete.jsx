@@ -1,12 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom"
 import styles from "../../game-delete/GameDelete.module.css"
-import { deleteComment } from "../../../api/commentService";
+
+import { useDeleteComment } from "../../../hooks/useComments";
 
 export default function CommentDelete({
     setCurGame
 }) {
     const { gameId, commentId } = useParams();
     const navigate = useNavigate();
+    const deleteComment=useDeleteComment();
 
     function onCancel() {
         navigate(`/catalog/${gameId}`);
