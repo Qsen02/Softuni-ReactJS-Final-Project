@@ -10,12 +10,12 @@ import GameDelete from "../game-delete/GameDelete";
 import CommentDelete from "./comments-delete/CommentDelete";
 import CommentEdit from "./comments-edit/CommentEdit";
 
-import { useGetOneGame } from "../../hooks/useGamesjs";
+import { useGetOneGame } from "../../hooks/useGames.js";
 import { UserContext } from "../../context/userContext";
 
 import { LikesAndSavesContext } from "../../context/LikesAndSaveContext";
 import { useForm } from "../../hooks/useForm";
-import { createComment } from "../../api/commentService";
+import { useCreateComment } from "../../hooks/useComments.js";
 
 export default function GameDetails() {
     const initalGameValues = {
@@ -26,6 +26,7 @@ export default function GameDetails() {
     const initalOwnerValues = {};
     const { gameId } = useParams();
     const { user } = useContext(UserContext);
+    const createComment=useCreateComment();
     const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onComment);
     const { game, userOwner, setGameHandler,isLoading } = useGetOneGame(initalGameValues, initalOwnerValues, gameId);
 

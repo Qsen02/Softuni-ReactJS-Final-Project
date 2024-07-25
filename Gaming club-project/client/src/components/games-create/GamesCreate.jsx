@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "../FormsAndErrors.module.css"
 
 import { useForm } from "../../hooks/useForm";
-import { useCreateGame } from "../../hooks/useGamesjs";
+import { useCreateGame } from "../../hooks/useGames.js";
 
 export default function Create() {
     const [errMessage, setErrMessage] = useState({});

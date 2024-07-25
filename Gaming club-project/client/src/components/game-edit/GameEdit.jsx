@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "../FormsAndErrors.module.css"
 
 import { useEditForm } from "../../hooks/useForm";
-import { useEditGame } from "../../hooks/useGamesjs";
+import { useEditGame } from "../../hooks/useGames.js";
 
 export default function GameEdit({
     setCurGame

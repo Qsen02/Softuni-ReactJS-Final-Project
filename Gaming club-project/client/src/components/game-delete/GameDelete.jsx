@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom"
 
 import styles from "./GameDelete.module.css"
-import { useDeleteGame } from "../../hooks/useGamesjs";
+import { useDeleteGame } from "../../hooks/useGames.js";
 
 export default function GameDelete() {
     const { gameId } = useParams();
