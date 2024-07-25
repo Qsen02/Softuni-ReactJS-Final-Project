@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createGame, deleteGame, editGame, getAllGames, getGameById } from "../api/gameService";
+import { createGame, deleteGame, editGame, getAllGames, getGameById, likeGame } from "../api/gameService";
 import { getUserById } from "../api/userService";
 
 export function useGetAllGames(initalvalues) {
@@ -103,4 +103,13 @@ export function useEditGame() {
     }
 
     return editingGame;
+}
+
+export function useLikeGame() {
+    async function likingGame(gameId) {
+        const game = await likeGame(gameId);
+        return game;
+    }
+
+    return likingGame;
 }
