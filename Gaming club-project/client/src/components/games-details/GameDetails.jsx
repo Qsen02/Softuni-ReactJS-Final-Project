@@ -10,7 +10,7 @@ import GameDelete from "../game-delete/GameDelete";
 import CommentDelete from "./comments-delete/CommentDelete";
 import CommentEdit from "./comments-edit/CommentEdit";
 
-import { useGetOneGame } from "../../hooks/useFetch";
+import { useGetOneGame } from "../../hooks/useGamesjs";
 import { UserContext } from "../../context/userContext";
 
 import { LikesAndSavesContext } from "../../context/LikesAndSaveContext";

@@ -3,9 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import styles from "../FormsAndErrors.module.css"
 
-import { editGame } from "../../api/gameService";
-
 import { useEditForm } from "../../hooks/useForm";
+import { useEditGame } from "../../hooks/useGamesjs";
 
 export default function GameEdit({
     setCurGame
@@ -22,6 +21,7 @@ export default function GameEdit({
         creator: "",
         description: ""
     }
+    const editGame=useEditGame();
     const { formValues, changeHandler, submitHandler } = useEditForm(initalValues, onEdit, null, gameId);
 
     async function onEdit() {

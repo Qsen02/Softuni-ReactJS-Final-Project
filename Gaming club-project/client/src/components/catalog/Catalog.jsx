@@ -7,7 +7,7 @@ import { useState } from "react";
 
 import { searching } from "../../api/gameService";
 
-import { useGetAllGames } from "../../hooks/useFetch";
+import { useGetAllGames } from "../../hooks/useGamesjs";
 import { useForm } from "../../hooks/useForm";
 
 export default function Catalog() {
