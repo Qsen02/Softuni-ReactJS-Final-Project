@@ -1,10 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom"
+
 import styles from "./GameDelete.module.css"
-import { deleteGame } from "../../api/gameService";
+import { useDeleteGame } from "../../hooks/useFetch";
 
 export default function GameDelete() {
     const { gameId } = useParams();
     const navigate = useNavigate();
+    const deleteGame=useDeleteGame();
 
     async function onDelete() {
         await deleteGame(gameId);

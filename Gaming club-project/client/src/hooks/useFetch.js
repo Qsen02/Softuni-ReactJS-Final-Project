@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createGame, getAllGames, getGameById } from "../api/gameService";
+import { createGame, deleteGame, getAllGames, getGameById } from "../api/gameService";
 import { getUserById } from "../api/userService";
 
 export function useGetAllGames(initalvalues) {
@@ -86,4 +86,12 @@ export function useCreateGame() {
         await createGame(gameData);
     }
     return creatingGame;
+}
+
+export function useDeleteGame() {
+    async function deletingGame(gameId) {
+        await deleteGame(gameId);
+    }
+
+    return deletingGame;
 }
