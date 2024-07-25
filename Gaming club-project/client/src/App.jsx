@@ -38,15 +38,15 @@ function App() {
 
     return (
         <>
-            <UserContext.Provider value={{user:isUser,setUserHandler,clearUserHandler }}>
-                <Header/>
+            <UserContext.Provider value={{ user: isUser, setUserHandler, clearUserHandler }}>
+                <Header />
                 <main>
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/catalog" element={<Catalog />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/logout" element={<Logout/>} />
-                        <Route path="/login" element={<Login/>} />
+                        <Route path="/logout" element={<Logout />} />
+                        <Route path="/login" element={<Login />} />
                         <Route path="/create" element={<Create />} />
                         <Route path="/catalog/:gameId/*" element={<GameDetails />} />
                         <Route path="*" element={<Status404 />} />

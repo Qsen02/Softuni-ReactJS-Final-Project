@@ -1,4 +1,3 @@
-import { login } from "../../api/userService";
 import { setUserData } from "../../utils/userDataHelper";
 
 import { useForm } from "../../hooks/useForm";
@@ -7,7 +6,9 @@ import styles from "../FormsAndErrors.module.css"
 
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import { UserContext } from "../../context/userContext";
+import { useLogin } from "../../hooks/useAuth";
 
 export default function Login() {
     const [errMessage, setErrMessage] = useState({});
@@ -16,10 +17,10 @@ export default function Login() {
         username: "",
         password: "",
     }
-    const { setUserHandler } = useContext(UserContext);
 
     const navigate = useNavigate();
-
+    const { setUserHandler } = useContext(UserContext);
+    const login = useLogin();
     const { formValues, changeHandler, submitHandler } = useForm(initalValues, onLogin);
 
     async function onLogin() {
@@ -32,12 +33,13 @@ export default function Login() {
             setUserHandler(user);
             navigate("/");
         } catch (err) {
-            console.log(err.message)
             setErrMessage(JSON.parse(err.message));
             setIsError(true);
             return;
         }
     }
+
+
 
     return (
         <>
@@ -53,9 +55,9 @@ export default function Login() {
                         : <label>Username</label>
                 }
                 <input type="text" name="username" value={formValues.username} onChange={changeHandler} />
-                { errMessage.password
-                        ? <label className={styles.errorMessage}>{errMessage.password}</label>
-                        : <label>Password</label>
+                {errMessage.password
+                    ? <label className={styles.errorMessage}>{errMessage.password}</label>
+                    : <label>Password</label>
                 }
                 <input type="password" name="password" value={formValues.password} onChange={changeHandler} />
                 <p>You don't have account? <Link to="/register">Register</Link> here.</p>

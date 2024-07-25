@@ -62,7 +62,7 @@ userRouter.get("/:id", async(req, res) => {
         return;
     }
     const user = await getUserById(id).lean();
-    res.json(user);
+    res.json({ _id: user._id, username: user.username, email: user.email, accessToken: user.accessToken });
 })
 
 module.exports = {

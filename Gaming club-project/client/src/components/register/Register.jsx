@@ -4,11 +4,11 @@ import { useContext } from "react";
 
 import styles from "../FormsAndErrors.module.css"
 
-import { register } from "../../api/userService";
 import { setUserData } from "../../utils/userDataHelper";
 
 import { useForm } from "../../hooks/useForm";
 import { UserContext } from "../../context/userContext";
+import { useRegister } from "../../hooks/useAuth";
 
 export default function Register() {
     const [errMessage, setErrMessage] = useState({});
@@ -20,7 +20,8 @@ export default function Register() {
         repass: ""
     }
     const navigate = useNavigate();
-    const { setUserHanlder } = useContext(UserContext);
+    const register=useRegister();
+    const { setUserHandler } = useContext(UserContext);
 
     const { formValues, changeHandler, submitHandler } = useForm(initalValues, onRegister);
 
@@ -33,10 +34,9 @@ export default function Register() {
         try {
             const user = await register({ username, email, password, repass });
             setUserData(user);
-            setUserHanlder(user);
+            setUserHandler(user);
             navigate("/");
         } catch (err) {
-            console.log(err.message);
             setErrMessage(JSON.parse(err.message));
             setIsError(true);
             return;
