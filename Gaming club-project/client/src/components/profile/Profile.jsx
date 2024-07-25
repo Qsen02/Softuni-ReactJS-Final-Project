@@ -8,9 +8,13 @@ export default function Profile() {
     const initialUser = {};
     const initialCreatedGames = [];
     const initialSavedGames = [];
-    const { userData, createdGames, savedGames } = useProfile(initialUser, initialCreatedGames, initialSavedGames)
+    const { userData, createdGames, savedGames, isLoading } = useProfile(initialUser, initialCreatedGames, initialSavedGames)
     return (
         <>
+            {isLoading
+                ? <div className={styles.loading}></div>
+                : ""
+            }
             <div className={styles.profile}>
                 <i className="fa-solid fa-circle-user"></i>
                 <h2>Username: {userData.username}</h2>

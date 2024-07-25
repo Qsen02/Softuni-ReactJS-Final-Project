@@ -146,21 +146,25 @@ export function useProfile(initalUser, initalCreatedGames, initalSavedGames) {
     const [userData, setUserData] = useState(initalUser);
     const [createdGames, setCreatedGames] = useState(initalCreatedGames);
     const [savedGames, setSavedGames] = useState(initalSavedGames);
+    const [isLoading, setIsloading] = useState(false);
 
     useEffect(() => {
         (async() => {
+            setIsloading(true);
             const user = getUserData();
             setUserData(user);
             const createGames = await getAuthorGames(user._id);
             setCreatedGames(createGames);
             const saveGames = await getSavedGames(user._id);
             setSavedGames(saveGames);
+            setIsloading(false);
         })()
     }, [])
 
     return {
         userData,
         createdGames,
-        savedGames
+        savedGames,
+        isLoading
     };
 }
