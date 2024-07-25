@@ -5,8 +5,7 @@ import styles from ".././GameDetails.module.css"
 
 import { LikesAndSavesContext } from "../../../context/LikesAndSaveContext"
 
-import { saveGame, unLikeGame, unsaveGame } from "../../../api/gameService";
-import { useLikeGame } from "../../../hooks/useGames";
+import { useLikeGame, useSaveGame, useUnlikeGame, useUnsaveGame } from "../../../hooks/useGames";
 
 export default function GamesDetailsButtons({
     ownerId,
@@ -18,6 +17,9 @@ export default function GamesDetailsButtons({
     const navigate = useNavigate();
     const { saves, likesArray, setGameHandler } = useContext(LikesAndSavesContext);
     const likeGame=useLikeGame();
+    const unLikeGame=useUnlikeGame();
+    const saveGame=useSaveGame();
+    const unsaveGame=useUnsaveGame();
     async function onLike() {
         try {
             const data = await likeGame(gameId);

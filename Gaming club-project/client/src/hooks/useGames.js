@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createGame, deleteGame, editGame, getAllGames, getGameById, likeGame } from "../api/gameService";
+import { createGame, deleteGame, editGame, getAllGames, getGameById, likeGame, saveGame, unLikeGame, unsaveGame } from "../api/gameService";
 import { getUserById } from "../api/userService";
 
 export function useGetAllGames(initalvalues) {
@@ -112,4 +112,31 @@ export function useLikeGame() {
     }
 
     return likingGame;
+}
+
+export function useUnlikeGame() {
+    async function unlikingGame(gameId) {
+        const game = await unLikeGame(gameId);
+        return game;
+    }
+
+    return unlikingGame;
+}
+
+export function useSaveGame() {
+    async function savingGame(gameId) {
+        const game = await saveGame(gameId);
+        return game;
+    }
+
+    return savingGame;
+}
+
+export function useUnsaveGame() {
+    async function unsavingGame(gameId) {
+        const game = await unsaveGame(gameId);
+        return game;
+    }
+
+    return unsavingGame;
 }
