@@ -18,6 +18,7 @@ export default function Profile() {
             <div className={styles.profile}>
                 <i className="fa-solid fa-circle-user"></i>
                 <h2>Username: {userData.username}</h2>
+                <h2>Email: {userData.email}</h2>
                 <p>Created posts: {createdGames.length}</p>
                 <p>Saved posts: {savedGames.length}</p>
             </div>

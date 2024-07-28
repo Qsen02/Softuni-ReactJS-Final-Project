@@ -1,7 +1,8 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
 
-import { getUserData, removeUserData } from "../utils/userDataHelper";
+import { removeUserData } from "../utils/userDataHelper";
 import { logout } from "../api/userService";
+import { usePresistedContext } from "../hooks/usePresistedContext";
 
 const UserContext = createContext();
 
@@ -10,25 +11,16 @@ export {
 }
 
 export default function UserContextProvider(props) {
-    const [isUser, setIsUser] = useState(null);
-    const user = getUserData();
-
-    useEffect(() => {
-        if (user) {
-            setIsUser(user);
-        } else {
-            setIsUser(null);
-        }
-    }, [])
+    const {isUser, setUser} = usePresistedContext(null);
 
     function setUserHandler(user) {
-        setIsUser(user);
+        setUser(user);
     }
 
     async function clearUserHandler() {
         removeUserData();
         await logout();
-        setIsUser(null);
+        setUser(null);
     }
 
     return (
