@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 import { createGame, deleteGame, editGame, getAllGames, getGameById, likeGame, saveGame, unLikeGame, unsaveGame } from "../api/gameService";
 import { getAuthorGames, getSavedGames, getUserById } from "../api/userService";
+
 import { getUserData } from "../utils/userDataHelper";
+
 import { gamesReducer } from "../reducers/gamesReducer";
 
 export function useGetAllGames(initalvalues) {
@@ -11,7 +13,9 @@ export function useGetAllGames(initalvalues) {
     const [isLoading, setIsloading] = useState(false);
 
     function setGameHandler(data) {
-        dispatch(data);
+        if (typeof(data) === "object" && data != null && data.type && typeof(data.type) === "string") {
+            dispatch(data);
+        }
     }
 
     function loadingHandler(bool) {
