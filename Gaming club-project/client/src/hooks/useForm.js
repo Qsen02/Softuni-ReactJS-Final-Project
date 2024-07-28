@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { getGameById } from "../api/gameService";
 import { getCommentById } from "../api/commentService";
+import { useNavigate } from "react-router-dom";
 
-export function useForm(initalvalues, callback, commentId, gameId) {
+export function useForm(initalvalues, callback, path, commentId, gameId) {
     const [formValues, setFormValues] = useState(initalvalues);
+    const navigate = useNavigate();
 
     function changeHandler(event) {
         setFormValues(oldValues => ({...oldValues, [event.target.name]: event.target.value }));
@@ -38,6 +40,9 @@ export function useForm(initalvalues, callback, commentId, gameId) {
         event.preventDefault();
         callback();
         event.target.reset();
+        if (path && typeof(path) === "string") {
+            navigate(path);
+        }
     }
 
     return {

@@ -6,7 +6,7 @@ import styles from "../FormsAndErrors.module.css"
 import { setUserData } from "../../utils/userDataHelper";
 
 import { useForm } from "../../hooks/useForm";
-import { UserContext, useUserContext } from "../../context/userContext";
+import {  useUserContext } from "../../context/userContext";
 import { useRegister } from "../../hooks/useAuth";
 
 export default function Register() {
@@ -18,11 +18,10 @@ export default function Register() {
         password: "",
         repass: ""
     }
-    const navigate = useNavigate();
     const register=useRegister();
     const { setUserHandler } = useUserContext();
 
-    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onRegister);
+    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onRegister,"/");
 
     async function onRegister() {
         const username = formValues.username;
@@ -34,7 +33,6 @@ export default function Register() {
             const user = await register({ username, email, password, repass });
             setUserData(user);
             setUserHandler(user);
-            navigate("/");
         } catch (err) {
             setErrMessage(JSON.parse(err.message));
             setIsError(true);

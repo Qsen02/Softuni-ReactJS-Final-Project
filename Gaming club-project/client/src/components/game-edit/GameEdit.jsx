@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 
 import styles from "../FormsAndErrors.module.css"
 
@@ -11,7 +11,6 @@ export default function GameEdit({
 }) {
     const [errMessage, setErrMessage] = useState({});
     const [isError, setIsError] = useState(false);
-    const navigate = useNavigate();
     const { gameId } = useParams();
     console.log(gameId);
     let initalValues = {
@@ -23,7 +22,7 @@ export default function GameEdit({
         description: ""
     }
     const editGame=useEditGame();
-    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onEdit, null, gameId);
+    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onEdit, `/catalog/${gameId}`,null, gameId);
 
     async function onEdit() {
         const name = formValues.name;
@@ -34,7 +33,6 @@ export default function GameEdit({
         const image = formValues.image;
         try {
             const game = await editGame(gameId, { name, category, year, image, creator, description, _id: gameId });
-            navigate(`/catalog/${gameId}`);
             setCurGame(game);
         } catch (err) {
             setIsError(true);

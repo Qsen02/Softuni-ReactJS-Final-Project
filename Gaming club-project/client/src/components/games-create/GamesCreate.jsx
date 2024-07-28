@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import styles from "../FormsAndErrors.module.css"
 
@@ -17,9 +16,8 @@ export default function Create() {
         creator: "",
         description: ""
     }
-    const navigate = useNavigate();
     const createGame=useCreateGame();
-    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onCreate);
+    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onCreate,"/catalog");
 
     async function onCreate() {
         let name = formValues.name;
@@ -30,7 +28,6 @@ export default function Create() {
         let image = formValues.image;
         try {
             await createGame({ name, category, year, image, creator, description });
-            navigate("/catalog");
         } catch (err) {
             setIsError(true);
             setErrMessage(JSON.parse(err.message));

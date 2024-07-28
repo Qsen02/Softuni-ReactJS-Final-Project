@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom"
+import {useParams } from "react-router-dom"
 import { useState } from "react";
 
 import styles from "../../FormsAndErrors.module.css"
@@ -8,19 +8,17 @@ import { useForm } from "../../../hooks/useForm";
 export default function CommentEdit({
     setCurGame
 }) {
-    const navigate = useNavigate();
     const [errMessage, setErrMessage] = useState({});
     const [isError, setIsError] = useState(false);
     const { gameId, commentId } = useParams();
     const editComment=useEditComment();
-    const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onEdit, commentId, null);
+    const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onEdit,`/catalog/${gameId}`, commentId, null);
 
     async function onEdit() {
         const content = formValues.content;
         try {
             const data = await editComment(commentId, { content });
             setCurGame(data);
-            navigate(`/catalog/${gameId}`);
         } catch (err) {
             setErrMessage(JSON.parse(err.message));
             setIsError(true);

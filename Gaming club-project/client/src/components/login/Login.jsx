@@ -5,7 +5,7 @@ import { useForm } from "../../hooks/useForm";
 import styles from "../FormsAndErrors.module.css"
 
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import {  useUserContext } from "../../context/userContext";
 import { useLogin } from "../../hooks/useAuth";
@@ -17,11 +17,9 @@ export default function Login() {
         username: "",
         password: "",
     }
-
-    const navigate = useNavigate();
     const { setUserHandler } = useUserContext();
     const login = useLogin();
-    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onLogin);
+    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onLogin,"/");
 
     async function onLogin() {
         let username = formValues.username;
@@ -31,7 +29,6 @@ export default function Login() {
             const user = await login({ username, password });
             setUserData(user);
             setUserHandler(user);
-            navigate("/");
         } catch (err) {
             setErrMessage(JSON.parse(err.message));
             setIsError(true);
