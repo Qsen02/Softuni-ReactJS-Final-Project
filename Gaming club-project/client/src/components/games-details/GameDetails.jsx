@@ -11,7 +11,7 @@ import CommentDelete from "./comments-delete/CommentDelete";
 import CommentEdit from "./comments-edit/CommentEdit";
 
 import { useGetOneGame } from "../../hooks/useGames.js";
-import { UserContext } from "../../context/userContext";
+import {  useUserContext } from "../../context/userContext";
 
 import { LikesAndSavesContext } from "../../context/LikesAndSaveContext";
 import { useForm } from "../../hooks/useForm";
@@ -25,7 +25,7 @@ export default function GameDetails() {
     };
     const initalOwnerValues = {};
     const { gameId } = useParams();
-    const { user } = useContext(UserContext);
+    const { user } = useUserContext();
     const createComment=useCreateComment();
     const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onComment);
     const { game, userOwner, setGameHandler,isLoading } = useGetOneGame(initalGameValues, initalOwnerValues, gameId);

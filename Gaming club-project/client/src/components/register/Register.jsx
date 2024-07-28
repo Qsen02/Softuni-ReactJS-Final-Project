@@ -1,13 +1,12 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
 
 import styles from "../FormsAndErrors.module.css"
 
 import { setUserData } from "../../utils/userDataHelper";
 
 import { useForm } from "../../hooks/useForm";
-import { UserContext } from "../../context/userContext";
+import { UserContext, useUserContext } from "../../context/userContext";
 import { useRegister } from "../../hooks/useAuth";
 
 export default function Register() {
@@ -21,7 +20,7 @@ export default function Register() {
     }
     const navigate = useNavigate();
     const register=useRegister();
-    const { setUserHandler } = useContext(UserContext);
+    const { setUserHandler } = useUserContext();
 
     const { formValues, changeHandler, submitHandler } = useForm(initalValues, onRegister);
 

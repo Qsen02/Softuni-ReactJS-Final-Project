@@ -1,10 +1,9 @@
 import ListItem from "./listItem/ListItem"
 import styles from "./Header.module.css"
-import { useContext } from "react"
-import { UserContext } from "../../context/userContext"
+import {useUserContext } from "../../context/userContext"
 
 export default function Heade() {
-    const { user } = useContext(UserContext);
+    const { user } =useUserContext();
     let isGuest = [
         { link: "/", name: "HOME" },
         { link: "/catalog", name: "CATALOG" },

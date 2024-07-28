@@ -4,10 +4,10 @@ import { useForm } from "../../hooks/useForm";
 
 import styles from "../FormsAndErrors.module.css"
 
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { UserContext } from "../../context/userContext";
+import {  useUserContext } from "../../context/userContext";
 import { useLogin } from "../../hooks/useAuth";
 
 export default function Login() {
@@ -19,7 +19,7 @@ export default function Login() {
     }
 
     const navigate = useNavigate();
-    const { setUserHandler } = useContext(UserContext);
+    const { setUserHandler } = useUserContext();
     const login = useLogin();
     const { formValues, changeHandler, submitHandler } = useForm(initalValues, onLogin);
 
@@ -38,8 +38,6 @@ export default function Login() {
             return;
         }
     }
-
-
 
     return (
         <>

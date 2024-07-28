@@ -9,8 +9,6 @@ export function useForm(initalvalues, callback, commentId, gameId) {
         setFormValues(oldValues => ({...oldValues, [event.target.name]: event.target.value }));
     }
 
-    console.log(gameId);
-
     if (commentId || gameId) {
         useEffect(() => {
             (async() => {

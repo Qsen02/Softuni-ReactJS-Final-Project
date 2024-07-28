@@ -4,44 +4,20 @@ import Home from "./components/home/Home";
 import Catalog from "./components/catalog/Catalog";
 import Register from "./components/register/Register";
 import Status404 from "./components/status404/Status404";
-import Logout from "./components/logout/Lougout";
+import Logout from "./components/logout/Logout";
 import Login from "./components/login/Login";
 import Create from "./components/games-create/GamesCreate";
 import GameDetails from "./components/games-details/GameDetails";
-import { UserContext } from "./context/userContext";
+import UserContextProvider from "./context/userContext";
 import Profile from "./components/profile/Profile";
 
-import { Routes, Route, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-
-import { getUserData, removeUserData } from "./utils/userDataHelper";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
-    const [isUser, setIsUser] = useState(null);
-    const user = getUserData();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (user) {
-            setIsUser(user);
-        } else {
-            setIsUser(null);
-        }
-    }, [])
-
-    function setUserHandler(user) {
-        setIsUser(user);
-    }
-
-    function clearUserHandler() {
-        removeUserData();
-        setIsUser(null);
-        navigate("/login");
-    }
 
     return (
         <>
-            <UserContext.Provider value={{ user: isUser, setUserHandler, clearUserHandler }}>
+            <UserContextProvider>
                 <Header />
                 <main>
                     <Routes>
@@ -57,7 +33,7 @@ function App() {
                     </Routes>
                 </main>
                 <Footer />
-            </UserContext.Provider>
+            </UserContextProvider>
         </>
     )
 }
