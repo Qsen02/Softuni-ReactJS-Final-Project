@@ -36,7 +36,7 @@ export function useForm(initalvalues, callback, path, commentId, gameId) {
         }, [])
     }
 
-    async function submitHandler(event) {
+    function submitHandler(event) {
         event.preventDefault();
         callback();
         event.target.reset();

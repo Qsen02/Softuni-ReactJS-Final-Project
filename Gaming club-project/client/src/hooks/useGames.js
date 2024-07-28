@@ -1,16 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { createGame, deleteGame, editGame, getAllGames, getGameById, likeGame, saveGame, unLikeGame, unsaveGame } from "../api/gameService";
 import { getAuthorGames, getSavedGames, getUserById } from "../api/userService";
 import { getUserData } from "../utils/userDataHelper";
+import { gamesReducer } from "../reducers/gamesReducer";
 
 export function useGetAllGames(initalvalues) {
-    const [games, setGames] = useState(initalvalues);
+    const [games, dispatch] = useReducer(gamesReducer, initalvalues);
     const [isLoading, setIsloading] = useState(false);
 
-    function setGamesHanlder(games) {
-        setGames(games);
+    function setGameHandler(data) {
+        dispatch(data);
     }
 
     function loadingHandler(bool) {
@@ -21,17 +22,17 @@ export function useGetAllGames(initalvalues) {
     }
 
     useEffect(() => {
-        (async function getGames() {
+        (async() => {
             setIsloading(true);
-            let data = await getAllGames();
-            setGames(data);
+            const data = await getAllGames();
+            dispatch({ type: "getAll", payload: data })
             setIsloading(false);
         })()
     }, [])
 
     return {
         games,
-        setGamesHanlder,
+        setGameHandler,
         isLoading,
         loadingHandler
     }

@@ -36,7 +36,7 @@ export default function GameDetails() {
     }
 
     async function onComment() {
-        let content = formValues.content;
+        const content=formValues.content;
         try {
             if (!content) {
                 throw new Error("Please fill the field!");
