@@ -87,7 +87,6 @@ userRouter.get("/:userId/savedGames", async(req, res) => {
         return;
     }
     const games = await getSavedGames(userId);
-    console.log(games)
     res.json(games);
 })
 

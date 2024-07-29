@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { checkGameId, deleteGame, getGameById, createGame, editGame, liking, saving, getAllGames, searching, unLike, unSave } = require("../services/games");
+const { checkGameId, deleteGame, getGameById, createGame, editGame, liking, saving, getAllGames, searching, unLike, unSave, getNextGames } = require("../services/games");
 const { isUser } = require("../middlewears/guards");
 const { errorParser } = require("../util");
 const { body, validationResult } = require("express-validator");
@@ -9,6 +9,12 @@ let gameRouter = Router();
 
 gameRouter.get("/", async(req, res) => {
     let games = await getAllGames().lean();
+    res.json(games);
+})
+
+gameRouter.get("/:page", async(req, res) => {
+    const page = Number(req.params.page);
+    const games = await getNextGames(page).lean();
     res.json(games);
 })
 

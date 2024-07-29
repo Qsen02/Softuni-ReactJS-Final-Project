@@ -2,7 +2,13 @@ const { Comments } = require("../models/comments");
 const { Games } = require("../models/games");
 
 function getAllGames() {
-    return Games.find();
+    return Games.find().limit(3);
+}
+
+function getNextGames(page) {
+    const skipCount = 3 * page;
+    return Games.find().skip(skipCount).limit(3);
+
 }
 
 function getGameById(id) {
@@ -92,5 +98,6 @@ module.exports = {
     getAuthorGames,
     unLike,
     unSave,
-    getSavedGames
+    getSavedGames,
+    getNextGames
 }
