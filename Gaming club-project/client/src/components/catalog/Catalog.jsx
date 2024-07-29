@@ -12,6 +12,7 @@ import { useForm } from "../../hooks/useForm";
 
 export default function Catalog() {
     const [isSearched, setIsSearched] = useState(false);
+    const [page,setPage]=useState(1);
     const { games, setGameHandler, isLoading, loadingHandler } = useGetAllGames([]);
     const initalvalues = {
         name: "",
@@ -64,6 +65,13 @@ export default function Catalog() {
                     )
                 }
                 {isSearched && games.length == 0 ? <h1>No results :(</h1> : ""}
+            </div>
+            <div className={styles.paginationButtons}>
+                <button>&lt;&lt;</button>
+                <button>&lt;</button>
+                <p>{page} of 1</p>
+                <button>&gt;</button>
+                <button>&gt;&gt;</button>
             </div>
         </>
     )
