@@ -71,7 +71,8 @@ gameRouter.get("/search/:value/by/:criteria", async(req, res) => {
         query = "";
     }
     let games = await searching(query, criteria).lean();
-    res.json(games);
+    const maxPage = Math.ceil(games.length / 3);
+    res.json({ games, maxPage });
 })
 
 gameRouter.delete("/:id", isUser(), async(req, res) => {
