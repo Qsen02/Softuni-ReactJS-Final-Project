@@ -1,4 +1,3 @@
-import { useContext, useState } from "react";
 import { useParams, Route, Routes } from "react-router-dom"
 
 import styles from "./GameDetails.module.css"

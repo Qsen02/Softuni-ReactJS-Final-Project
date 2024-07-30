@@ -3,7 +3,14 @@ export function gamesReducer(state, action) {
         case "getAll":
             return action.payload.slice();
         case "search":
-            return action.payload.slice();
+            const games = [];
+            for (let i = 0; i < 3; i++) {
+                if (action.payload[i] == undefined) {
+                    break;
+                }
+                games.push(action.payload[i]);
+            }
+            return games;
         case "getNext":
             return action.payload.slice();
         default:

@@ -9,11 +9,13 @@ import { getNextGames, searching } from "../../api/gameService";
 
 import { useGetAllGames } from "../../hooks/useGames.js";
 import { useForm } from "../../hooks/useForm";
+import { set } from "react-hook-form";
 
 export default function Catalog() {
+    const [searchedResults, setSearchedResults] = useState([]);
     const [isSearched, setIsSearched] = useState(false);
     const [page, setPage] = useState(0);
-    const { games, setGameHandler, isLoading, loadingHandler, maxPage } = useGetAllGames([]);
+    const { games, setGameHandler, isLoading, loadingHandler, maxPage, setMaxPageHanlder } = useGetAllGames([]);
     const initalvalues = {
         name: "",
         criteria: "name"
@@ -29,8 +31,11 @@ export default function Catalog() {
             }
             loadingHandler(true);
             const data = await searching(name, criteria);
-            setGameHandler({ type: "search", payload: data });
+            setGameHandler({ type: "search", payload: data.games });
+            setSearchedResults(data.games);
             setIsSearched(true);
+            setMaxPageHanlder(data.maxPage);
+            setPage(0);
             loadingHandler(false);
         } catch (err) {
             alert(err.message);
@@ -39,34 +44,111 @@ export default function Catalog() {
     }
 
     async function nextPage() {
-        loadingHandler(true);
-        const data = await getNextGames(page+1);
-        setGameHandler({ type: "getNext", payload: data.games });
         setPage(oldvalue => oldvalue + 1);
+        loadingHandler(true);
+        if (!isSearched) {
+            const data = await getNextGames(page + 1);
+            setGameHandler({ type: "getNext", payload: data.games });
+        } else {
+            const curResults = [...searchedResults];
+            setSearchedResults(curResults);
+            const games = [];
+            for (let i = 0; i < maxPage; i++) {
+                const curGames = [];
+                for (let j = 0; j < 3; j++) {
+                    const game = curResults.shift();
+                    if(game==undefined){
+                        break;
+                    }
+                    curGames.push(game);
+                }
+                games.push(curGames);
+            }
+            setGameHandler({ type: "getNext", payload: games[page + 1] });
+            setSearchedResults(oldvalue => [...searchedResults]);
+            console.log(searchedResults)
+            console.log(games);
+        }
         loadingHandler(false);
     }
 
-    async function previousPage(){
-        loadingHandler(true);
-        const data = await getNextGames(page-1);
-        setGameHandler({ type: "getNext", payload: data.games });
+    async function previousPage() {
         setPage(oldvalue => oldvalue - 1);
+        loadingHandler(true);
+        if (!isSearched) {
+            const data = await getNextGames(page - 1);
+            setGameHandler({ type: "getNext", payload: data.games });
+        } else {
+            const curResults = [...searchedResults];
+            const games = [];
+            for (let i = 0; i < maxPage; i++) {
+                const curGames = [];
+                for (let j = 0; j < 3; j++) {
+                    const game = curResults.shift();
+                    if(game==undefined){
+                        break;
+                    }
+                    curGames.push(game);
+                }
+                games.push(curGames);
+            }
+            setGameHandler({ type: "getNext", payload: games[page - 1] });
+            setSearchedResults(oldvalue => [...searchedResults]);
+        }
         loadingHandler(false);
     }
 
-    async function finalPage(){
-        loadingHandler(true);
-        const data = await getNextGames(maxPage-1);
-        setGameHandler({ type: "getNext", payload: data.games });
+    async function finalPage() {
         setPage(maxPage-1);
+        loadingHandler(true);
+        if (!isSearched) {
+            const data = await getNextGames(maxPage-1);
+            setGameHandler({ type: "getNext", payload: data.games });
+        } else {
+            const curResults = [...searchedResults];
+            setSearchedResults(curResults);
+            const games = [];
+            for (let i = 0; i < maxPage; i++) {
+                const curGames = [];
+                for (let j = 0; j < 3; j++) {
+                    const game = curResults.shift();
+                    if(game==undefined){
+                        break;
+                    }
+                    curGames.push(game);
+                }
+                games.push(curGames);
+            }
+            setGameHandler({ type: "getNext", payload: games[maxPage - 1] });
+            setSearchedResults(oldvalue => [...searchedResults]);
+        }
         loadingHandler(false);
     }
 
-    async function firstPage(){
-        loadingHandler(true);
-        const data = await getNextGames(0);
-        setGameHandler({ type: "getNext", payload: data.games });
+    async function firstPage() {
         setPage(0);
+        loadingHandler(true);
+        if (!isSearched) {
+            const data = await getNextGames(0);
+            setGameHandler({ type: "getNext", payload: data.games });
+        } else {
+            const curResults = [...searchedResults];
+            setSearchedResults(curResults);
+            const games = [];
+            for (let i = 0; i < maxPage; i++) {
+                const curGames = [];
+                for (let j = 0; j < 3; j++) {
+                    const game = curResults.shift();
+                    if(game==undefined){
+                        break;
+                    }
+                    curGames.push(game);
+                }
+                games.push(curGames);
+            }
+            setGameHandler({ type: "getNext", payload: games[0] });
+            setSearchedResults(oldvalue => [...searchedResults]);
+        }
         loadingHandler(false);
     }
 
@@ -100,9 +182,9 @@ export default function Catalog() {
             </div>
             <div className={styles.paginationButtons}>
                 <button onClick={firstPage}>&lt;&lt;</button>
-                <button onClick={previousPage} style={page+1 == 1 ? { visibility: "hidden" } : { visibility: "visible" }}>&lt;</button>
-                <p>{page+1} of {maxPage}</p>
-                <button onClick={nextPage} style={page+1 == maxPage ? { visibility: "hidden" } : { visibility: "visible" }}>&gt;</button>
+                <button onClick={previousPage} style={page + 1 == 1 ? { visibility: "hidden" } : { visibility: "visible" }}>&lt;</button>
+                <p>{page + 1} of {maxPage}</p>
+                <button onClick={nextPage} style={page + 1 == maxPage ? { visibility: "hidden" } : { visibility: "visible" }}>&gt;</button>
                 <button onClick={finalPage}>&gt;&gt;</button>
             </div>
         </>

@@ -26,6 +26,20 @@ export function useGetAllGames(initalvalues) {
         setIsloading(bool);
     }
 
+    function setMaxPageHanlder(value) {
+        if (typeof(value) != "number") {
+            return;
+        }
+        setMaxPage(value);
+    }
+
+    function setResultsHandler(value) {
+        if (!(value instanceof Array)) {
+            return;
+        }
+        setSearchedResults(value);
+    }
+
     useEffect(() => {
         (async() => {
             setIsloading(true);
@@ -41,7 +55,8 @@ export function useGetAllGames(initalvalues) {
         setGameHandler,
         isLoading,
         loadingHandler,
-        maxPage
+        maxPage,
+        setMaxPageHanlder,
     }
 }
 
