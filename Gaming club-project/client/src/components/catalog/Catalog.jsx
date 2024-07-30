@@ -12,8 +12,8 @@ import { useForm } from "../../hooks/useForm";
 
 export default function Catalog() {
     const [isSearched, setIsSearched] = useState(false);
-    const [page,setPage]=useState(1);
-    const { games, setGameHandler, isLoading, loadingHandler } = useGetAllGames([]);
+    const [page, setPage] = useState(1);
+    const { games, setGameHandler, isLoading, loadingHandler, maxPage } = useGetAllGames([]);
     const initalvalues = {
         name: "",
         criteria: "name"
@@ -22,13 +22,13 @@ export default function Catalog() {
 
     async function onSearchHandler() {
         let name = formValues.name;
-        let criteria = formValues.criteria;
+        const criteria = formValues.criteria;
         try {
             if (name == "") {
                 name = " ";
             }
             loadingHandler(true);
-            let data = await searching(name, criteria);
+            const data = await searching(name, criteria);
             setGameHandler({ type: "search", payload: data });
             setIsSearched(true);
             loadingHandler(false);
@@ -68,9 +68,9 @@ export default function Catalog() {
             </div>
             <div className={styles.paginationButtons}>
                 <button>&lt;&lt;</button>
-                <button>&lt;</button>
-                <p>{page} of 1</p>
-                <button>&gt;</button>
+                <button style={page == 1 ? {visibility:"hidden" } : {visibility:"visible" }}>&lt;</button>
+                <p>{page} of {maxPage}</p>
+                <button  style={page == maxPage ?{visibility:"hidden" } : {visibility:"visible" }}>&gt;</button>
                 <button>&gt;&gt;</button>
             </div>
         </>

@@ -14,8 +14,10 @@ gameRouter.get("/", async(req, res) => {
 
 gameRouter.get("/:page", async(req, res) => {
     const page = Number(req.params.page);
+    const allGames = await getAllGames().lean();
+    const maxPage = Math.ceil(allGames.length / 3);
     const games = await getNextGames(page).lean();
-    res.json(games);
+    res.json({ games, maxPage });
 })
 
 gameRouter.get("/:id", async(req, res) => {

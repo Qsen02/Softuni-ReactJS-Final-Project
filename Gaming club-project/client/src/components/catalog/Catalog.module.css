@@ -60,7 +60,8 @@ h1 {
     display: block;
     margin: 0 auto;
     margin-bottom: 120px;
-    width: 280px;
+    width: 300px;
+    height: 50px;
     background-color: rgb(89, 86, 86);
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 15px;
@@ -68,8 +69,8 @@ h1 {
 
 .paginationButtons button {
     display: inline-block;
+    position: relative;
     margin: 0 auto;
-    margin-right: -10px;
     background-color: rgb(89, 86, 86);
     color: aliceblue;
     font-size: 18pt;
@@ -83,6 +84,7 @@ h1 {
 
 .paginationButtons p {
     display: inline-block;
+    position: relative;
     margin: -10px auto;
     color: aliceblue;
     text-align: center;

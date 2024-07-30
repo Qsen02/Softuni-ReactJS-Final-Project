@@ -1,7 +1,7 @@
 import { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createGame, deleteGame, editGame, getAllGames, getGameById, likeGame, saveGame, unLikeGame, unsaveGame } from "../api/gameService";
+import { createGame, deleteGame, editGame, getFirstGames, getGameById, likeGame, saveGame, unLikeGame, unsaveGame } from "../api/gameService";
 import { getAuthorGames, getSavedGames, getUserById } from "../api/userService";
 
 import { getUserData } from "../utils/userDataHelper";
@@ -10,6 +10,7 @@ import { gamesReducer } from "../reducers/gamesReducer";
 
 export function useGetAllGames(initalvalues) {
     const [games, dispatch] = useReducer(gamesReducer, initalvalues);
+    const [maxPage, setMaxPage] = useState(1);
     const [isLoading, setIsloading] = useState(false);
 
     function setGameHandler(data) {
@@ -28,8 +29,9 @@ export function useGetAllGames(initalvalues) {
     useEffect(() => {
         (async() => {
             setIsloading(true);
-            const data = await getAllGames();
-            dispatch({ type: "getAll", payload: data })
+            const data = await getFirstGames();
+            setMaxPage(data.maxPage);
+            dispatch({ type: "getAll", payload: data.games })
             setIsloading(false);
         })()
     }, [])
@@ -38,7 +40,8 @@ export function useGetAllGames(initalvalues) {
         games,
         setGameHandler,
         isLoading,
-        loadingHandler
+        loadingHandler,
+        maxPage
     }
 }
 

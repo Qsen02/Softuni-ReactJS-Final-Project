@@ -2,7 +2,7 @@ const { Comments } = require("../models/comments");
 const { Games } = require("../models/games");
 
 function getAllGames() {
-    return Games.find().limit(3);
+    return Games.find();
 }
 
 function getNextGames(page) {
