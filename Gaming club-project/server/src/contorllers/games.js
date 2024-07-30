@@ -12,7 +12,7 @@ gameRouter.get("/", async(req, res) => {
     res.json(games);
 })
 
-gameRouter.get("/:page", async(req, res) => {
+gameRouter.get("/page/:page", async(req, res) => {
     const page = Number(req.params.page);
     const allGames = await getAllGames().lean();
     const maxPage = Math.ceil(allGames.length / 3);

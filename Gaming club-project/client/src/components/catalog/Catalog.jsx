@@ -12,7 +12,7 @@ import { useForm } from "../../hooks/useForm";
 
 export default function Catalog() {
     const [isSearched, setIsSearched] = useState(false);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const { games, setGameHandler, isLoading, loadingHandler, maxPage } = useGetAllGames([]);
     const initalvalues = {
         name: "",
@@ -29,7 +29,7 @@ export default function Catalog() {
             }
             loadingHandler(true);
             const data = await searching(name, criteria);
-            setGameHandler({ type: "search", payload: data.games });
+            setGameHandler({ type: "search", payload: data });
             setIsSearched(true);
             loadingHandler(false);
         } catch (err) {
@@ -40,9 +40,17 @@ export default function Catalog() {
 
     async function nextPage() {
         loadingHandler(true);
-        const data = await getNextGames(page);
+        const data = await getNextGames(page+1);
         setGameHandler({ type: "getNext", payload: data.games });
         setPage(oldvalue => oldvalue + 1);
+        loadingHandler(false);
+    }
+
+    async function previousPage(){
+        loadingHandler(true);
+        const data = await getNextGames(page-1);
+        setGameHandler({ type: "getNext", payload: data.games });
+        setPage(oldvalue => oldvalue - 1);
         loadingHandler(false);
     }
 
@@ -76,9 +84,9 @@ export default function Catalog() {
             </div>
             <div className={styles.paginationButtons}>
                 <button>&lt;&lt;</button>
-                <button style={page == 1 ? { visibility: "hidden" } : { visibility: "visible" }}>&lt;</button>
-                <p>{page} of {maxPage}</p>
-                <button onClick={nextPage} style={page == maxPage ? { visibility: "hidden" } : { visibility: "visible" }}>&gt;</button>
+                <button onClick={previousPage} style={page+1 == 1 ? { visibility: "hidden" } : { visibility: "visible" }}>&lt;</button>
+                <p>{page+1} of {maxPage}</p>
+                <button onClick={nextPage} style={page+1 == maxPage ? { visibility: "hidden" } : { visibility: "visible" }}>&gt;</button>
                 <button>&gt;&gt;</button>
             </div>
         </>

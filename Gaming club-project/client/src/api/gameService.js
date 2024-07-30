@@ -3,7 +3,7 @@ import { del, get, post, put } from "./api";
 const endpoint = "/games";
 
 export async function getFirstGames() {
-    const data = await get(`${endpoint}/0`);
+    const data = await get(`${endpoint}/page/0`);
     return data;
 }
 
@@ -13,7 +13,7 @@ export async function getGameById(id) {
 }
 
 export async function getNextGames(page) {
-    const data = await get(`${endpoint}/${page}`);
+    const data = await get(`${endpoint}/page/${page}`);
     return data;
 }
 
