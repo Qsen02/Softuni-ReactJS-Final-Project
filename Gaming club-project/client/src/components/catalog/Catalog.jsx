@@ -54,6 +54,22 @@ export default function Catalog() {
         loadingHandler(false);
     }
 
+    async function finalPage(){
+        loadingHandler(true);
+        const data = await getNextGames(maxPage-1);
+        setGameHandler({ type: "getNext", payload: data.games });
+        setPage(maxPage-1);
+        loadingHandler(false);
+    }
+
+    async function firstPage(){
+        loadingHandler(true);
+        const data = await getNextGames(0);
+        setGameHandler({ type: "getNext", payload: data.games });
+        setPage(0);
+        loadingHandler(false);
+    }
+
     return (
         <>
             {isLoading ?
@@ -83,11 +99,11 @@ export default function Catalog() {
                 {isSearched && games.length == 0 ? <h1>No results :(</h1> : ""}
             </div>
             <div className={styles.paginationButtons}>
-                <button>&lt;&lt;</button>
+                <button onClick={firstPage}>&lt;&lt;</button>
                 <button onClick={previousPage} style={page+1 == 1 ? { visibility: "hidden" } : { visibility: "visible" }}>&lt;</button>
                 <p>{page+1} of {maxPage}</p>
                 <button onClick={nextPage} style={page+1 == maxPage ? { visibility: "hidden" } : { visibility: "visible" }}>&gt;</button>
-                <button>&gt;&gt;</button>
+                <button onClick={finalPage}>&gt;&gt;</button>
             </div>
         </>
     )
