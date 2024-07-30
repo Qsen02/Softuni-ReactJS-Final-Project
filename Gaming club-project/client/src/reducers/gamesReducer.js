@@ -4,6 +4,8 @@ export function gamesReducer(state, action) {
             return action.payload.slice();
         case "search":
             return action.payload.slice();
+        case "getNext":
+            return action.payload.slice();
         default:
             return state;
     }

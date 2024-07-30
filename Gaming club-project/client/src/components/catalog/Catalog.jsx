@@ -5,7 +5,7 @@ import CatalogContent from "./catalogContent/CatalogContent"
 
 import { useState } from "react";
 
-import { searching } from "../../api/gameService";
+import { getNextGames, searching } from "../../api/gameService";
 
 import { useGetAllGames } from "../../hooks/useGames.js";
 import { useForm } from "../../hooks/useForm";
@@ -29,13 +29,21 @@ export default function Catalog() {
             }
             loadingHandler(true);
             const data = await searching(name, criteria);
-            setGameHandler({ type: "search", payload: data });
+            setGameHandler({ type: "search", payload: data.games });
             setIsSearched(true);
             loadingHandler(false);
         } catch (err) {
             alert(err.message);
             return;
         }
+    }
+
+    async function nextPage() {
+        loadingHandler(true);
+        const data = await getNextGames(page);
+        setGameHandler({ type: "getNext", payload: data.games });
+        setPage(oldvalue => oldvalue + 1);
+        loadingHandler(false);
     }
 
     return (
@@ -68,9 +76,9 @@ export default function Catalog() {
             </div>
             <div className={styles.paginationButtons}>
                 <button>&lt;&lt;</button>
-                <button style={page == 1 ? {visibility:"hidden" } : {visibility:"visible" }}>&lt;</button>
+                <button style={page == 1 ? { visibility: "hidden" } : { visibility: "visible" }}>&lt;</button>
                 <p>{page} of {maxPage}</p>
-                <button  style={page == maxPage ?{visibility:"hidden" } : {visibility:"visible" }}>&gt;</button>
+                <button onClick={nextPage} style={page == maxPage ? { visibility: "hidden" } : { visibility: "visible" }}>&gt;</button>
                 <button>&gt;&gt;</button>
             </div>
         </>

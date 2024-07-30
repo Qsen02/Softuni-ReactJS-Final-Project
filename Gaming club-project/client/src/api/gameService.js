@@ -1,14 +1,19 @@
 import { del, get, post, put } from "./api";
 
-let endpoint = "/games";
+const endpoint = "/games";
 
 export async function getFirstGames() {
-    let data = await get(`${endpoint}/0`);
+    const data = await get(`${endpoint}/0`);
     return data;
 }
 
 export async function getGameById(id) {
-    let data = await get(`${endpoint}/${id}`);
+    const data = await get(`${endpoint}/${id}`);
+    return data;
+}
+
+export async function getNextGames(page) {
+    const data = await get(`${endpoint}/${page}`);
     return data;
 }
 
