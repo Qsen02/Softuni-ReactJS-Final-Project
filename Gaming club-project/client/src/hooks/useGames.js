@@ -10,8 +10,8 @@ import { gamesReducer } from "../reducers/gamesReducer";
 
 export function useGetAllGames(initalvalues) {
     const [games, dispatch] = useReducer(gamesReducer, initalvalues);
-    const [maxPage, setMaxPage] = useState(1);
     const [isLoading, setIsloading] = useState(false);
+    const [maxPage, setMaxPage] = useState(1);
 
     function setGameHandler(data) {
         if (typeof(data) === "object" && data != null && data.type && typeof(data.type) === "string") {
@@ -31,13 +31,6 @@ export function useGetAllGames(initalvalues) {
             return;
         }
         setMaxPage(value);
-    }
-
-    function setResultsHandler(value) {
-        if (!(value instanceof Array)) {
-            return;
-        }
-        setSearchedResults(value);
     }
 
     useEffect(() => {
