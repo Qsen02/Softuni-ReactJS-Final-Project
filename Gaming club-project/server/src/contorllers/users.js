@@ -75,7 +75,6 @@ userRouter.get("/:userId/authorGames", async(req, res) => {
     }
     const user = await getUserById(userId);
     const games = await getAuthorGames(user).lean();
-    console.log(games)
     res.json(games);
 })
 

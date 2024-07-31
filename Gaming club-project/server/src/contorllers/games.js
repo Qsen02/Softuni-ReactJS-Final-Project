@@ -24,7 +24,7 @@ gameRouter.get("/:id", async(req, res) => {
     let id = req.params.id;
     let isValid = await checkGameId(id);
     if (!isValid) {
-        res.status("404").json({ message: "Resource not found!" });
+        res.status(404).json({ message: "Resource not found!" });
         return;
     }
     let game = await getGameById(id).lean();
