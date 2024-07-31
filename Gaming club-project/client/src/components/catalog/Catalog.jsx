@@ -5,11 +5,10 @@ import CatalogContent from "./catalogContent/CatalogContent"
 
 import { useState } from "react";
 
-import { getNextGames, searching } from "../../api/gameService";
+import {  searching } from "../../api/gameService";
 
 import { useGetAllGames } from "../../hooks/useGames.js";
 import { useForm } from "../../hooks/useForm";
-import { set } from "react-hook-form";
 import { usePagination } from "../../hooks/usePagination.js";
 
 export default function Catalog() {
@@ -59,115 +58,6 @@ export default function Catalog() {
     function firstPage(){
         paginationHandler(0);
     }
-
-    // async function nextPage() {
-    //     setPage(oldvalue => oldvalue + 1);
-    //     loadingHandler(true);
-    //     if (!isSearched) {
-    //         const data = await getNextGames(page + 1);
-    //         setGameHandler({ type: "getNext", payload: data.games });
-    //     } else {
-    //         const curResults = [...searchedResults];
-    //         setSearchedResults(curResults);
-    //         const games = [];
-    //         for (let i = 0; i < maxPage; i++) {
-    //             const curGames = [];
-    //             for (let j = 0; j < 3; j++) {
-    //                 const game = curResults.shift();
-    //                 if(game==undefined){
-    //                     break;
-    //                 }
-    //                 curGames.push(game);
-    //             }
-    //             games.push(curGames);
-    //         }
-    //         setGameHandler({ type: "getNext", payload: games[page + 1] });
-    //         setSearchedResults(oldvalue => [...searchedResults]);
-    //         console.log(searchedResults)
-    //         console.log(games);
-    //     }
-    //     loadingHandler(false);
-    // }
-
-    // async function previousPage() {
-    //     setPage(oldvalue => oldvalue - 1);
-    //     loadingHandler(true);
-    //     if (!isSearched) {
-    //         const data = await getNextGames(page - 1);
-    //         setGameHandler({ type: "getNext", payload: data.games });
-    //     } else {
-    //         const curResults = [...searchedResults];
-    //         const games = [];
-    //         for (let i = 0; i < maxPage; i++) {
-    //             const curGames = [];
-    //             for (let j = 0; j < 3; j++) {
-    //                 const game = curResults.shift();
-    //                 if(game==undefined){
-    //                     break;
-    //                 }
-    //                 curGames.push(game);
-    //             }
-    //             games.push(curGames);
-    //         }
-    //         setGameHandler({ type: "getNext", payload: games[page - 1] });
-    //         setSearchedResults(oldvalue => [...searchedResults]);
-    //     }
-    //     loadingHandler(false);
-    // }
-
-    // async function finalPage() {
-    //     setPage(maxPage-1);
-    //     loadingHandler(true);
-    //     if (!isSearched) {
-    //         const data = await getNextGames(maxPage-1);
-    //         setGameHandler({ type: "getNext", payload: data.games });
-    //     } else {
-    //         const curResults = [...searchedResults];
-    //         setSearchedResults(curResults);
-    //         const games = [];
-    //         for (let i = 0; i < maxPage; i++) {
-    //             const curGames = [];
-    //             for (let j = 0; j < 3; j++) {
-    //                 const game = curResults.shift();
-    //                 if(game==undefined){
-    //                     break;
-    //                 }
-    //                 curGames.push(game);
-    //             }
-    //             games.push(curGames);
-    //         }
-    //         setGameHandler({ type: "getNext", payload: games[maxPage - 1] });
-    //         setSearchedResults(oldvalue => [...searchedResults]);
-    //     }
-    //     loadingHandler(false);
-    // }
-
-    // async function firstPage() {
-    //     setPage(0);
-    //     loadingHandler(true);
-    //     if (!isSearched) {
-    //         const data = await getNextGames(0);
-    //         setGameHandler({ type: "getNext", payload: data.games });
-    //     } else {
-    //         const curResults = [...searchedResults];
-    //         setSearchedResults(curResults);
-    //         const games = [];
-    //         for (let i = 0; i < maxPage; i++) {
-    //             const curGames = [];
-    //             for (let j = 0; j < 3; j++) {
-    //                 const game = curResults.shift();
-    //                 if(game==undefined){
-    //                     break;
-    //                 }
-    //                 curGames.push(game);
-    //             }
-    //             games.push(curGames);
-    //         }
-    //         setGameHandler({ type: "getNext", payload: games[0] });
-    //         setSearchedResults(oldvalue => [...searchedResults]);
-    //     }
-    //     loadingHandler(false);
-    // }
 
     return (
         <>

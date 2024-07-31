@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { getNextGames } from "../api/gameService";
+import { useGetNextGames } from "./useGames";
 
 export function usePagination(isSearched, maxPage, setGameHandler, loadingHandler, searchedResults, setSearchedResults) {
     const [page, setPage] = useState(0);
+    const getNextGames = useGetNextGames();
 
     function setPageHandler(value) {
         if (typeof(value) != "number") {

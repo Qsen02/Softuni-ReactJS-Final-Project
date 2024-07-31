@@ -1,7 +1,7 @@
 import { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createGame, deleteGame, editGame, getFirstGames, getGameById, likeGame, saveGame, unLikeGame, unsaveGame } from "../api/gameService";
+import { createGame, deleteGame, editGame, getFirstGames, getGameById, getNextGames, likeGame, saveGame, unLikeGame, unsaveGame } from "../api/gameService";
 import { getAuthorGames, getSavedGames, getUserById } from "../api/userService";
 
 import { getUserData } from "../utils/userDataHelper";
@@ -183,4 +183,12 @@ export function useProfile(initalUser, initalCreatedGames, initalSavedGames) {
         savedGames,
         isLoading
     };
+}
+
+export function useGetNextGames() {
+    async function getingNextGames(page) {
+        const data = await getNextGames(page);
+        return data;
+    }
+    return getingNextGames;
 }
