@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getGameById } from "../api/gameService";
 import { getCommentById } from "../api/commentService";
 
-export function useForm(initalvalues, callback, path, commentId, gameId) {
+export function useForm(initalvalues, callback, commentId, gameId) {
     const [formValues, setFormValues] = useState(initalvalues);
     const navigate = useNavigate();
 
@@ -41,9 +41,6 @@ export function useForm(initalvalues, callback, path, commentId, gameId) {
         event.preventDefault();
         callback();
         event.target.reset();
-        if (path && typeof(path) === "string") {
-            navigate(path);
-        }
     }
 
     return {

@@ -23,7 +23,7 @@ export default function GameEdit({
         description: ""
     }
     const editGame = useEditGame();
-    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onEdit, `/catalog/${gameId}`, null, gameId);
+    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onEdit, null, gameId);
 
     async function onEdit() {
         const name = formValues.name;
@@ -37,6 +37,7 @@ export default function GameEdit({
             const user=await getUserById(game.ownerId);
             game.owner=user.username;
             setCurGame(game);
+            navigate(`/catalog/${gameId}`);
         } catch (err) {
             setIsError(true);
             setErrMessage(JSON.parse(err.message));

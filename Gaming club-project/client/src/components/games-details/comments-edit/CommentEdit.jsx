@@ -13,13 +13,14 @@ export default function CommentEdit({
     const { gameId, commentId } = useParams();
     const editComment = useEditComment();
     const navigate=useNavigate();
-    const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onEdit, `/catalog/${gameId}`, commentId, null);
+    const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onEdit, commentId, null);
 
     async function onEdit() {
         const content = formValues.content;
         try {
             const data = await editComment(commentId, { content });
             setCurGame(data);
+            navigate(`/catalog/${gameId}`);
         } catch (err) {
             setErrMessage(JSON.parse(err.message));
             setIsError(true);

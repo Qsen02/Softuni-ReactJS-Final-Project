@@ -20,8 +20,9 @@ export default function Register() {
     }
     const register=useRegister();
     const { setUserHandler } = useUserContext();
+    const navigate=useNavigate();
 
-    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onRegister,"/");
+    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onRegister);
 
     async function onRegister() {
         const username = formValues.username;
@@ -33,6 +34,7 @@ export default function Register() {
             const user = await register({ username, email, password, repass });
             setUserData(user);
             setUserHandler(user);
+            navigate("/");
         } catch (err) {
             setErrMessage(JSON.parse(err.message));
             setIsError(true);
