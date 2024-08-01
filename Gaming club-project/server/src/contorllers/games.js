@@ -28,8 +28,6 @@ gameRouter.get("/:id", async(req, res) => {
         return;
     }
     let game = await getGameById(id).lean();
-    let creator = await getUserById(game.ownerId).lean();
-    game.owner = creator.username;
     res.json(game);
 })
 

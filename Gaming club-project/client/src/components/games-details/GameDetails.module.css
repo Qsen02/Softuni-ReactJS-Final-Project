@@ -335,3 +335,9 @@ button:hover {
     border: inset 10px rgb(0, 205, 255);
     animation: rotate 1s linear infinite;
 }
+
+.errorMessage {
+    color: red;
+    font-size: 14pt;
+    font-family: Arial, Helvetica, sans-serif;
+}

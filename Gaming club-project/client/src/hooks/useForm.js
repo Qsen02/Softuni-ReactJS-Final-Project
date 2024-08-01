@@ -6,7 +6,6 @@ import { getCommentById } from "../api/commentService";
 
 export function useForm(initalvalues, callback, commentId, gameId) {
     const [formValues, setFormValues] = useState(initalvalues);
-    const navigate = useNavigate();
 
     function changeHandler(event) {
         setFormValues(oldValues => ({...oldValues, [event.target.name]: event.target.value }));
@@ -41,6 +40,7 @@ export function useForm(initalvalues, callback, commentId, gameId) {
         event.preventDefault();
         callback();
         event.target.reset();
+        setFormValues(oldValues => ({...initalvalues }));
     }
 
     return {

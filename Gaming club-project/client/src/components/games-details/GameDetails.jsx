@@ -10,11 +10,12 @@ import CommentDelete from "./comments-delete/CommentDelete";
 import CommentEdit from "./comments-edit/CommentEdit";
 
 import { useGetOneGame } from "../../hooks/useGames.js";
-import {  useUserContext } from "../../context/userContext";
+import { useUserContext } from "../../context/userContext";
 
 import { LikesAndSavesContext } from "../../context/LikesAndSaveContext";
 import { useForm } from "../../hooks/useForm";
 import { useCreateComment } from "../../hooks/useComments.js";
+import { useState } from "react";
 
 export default function GameDetails() {
     const initalGameValues = {
@@ -22,12 +23,14 @@ export default function GameDetails() {
         userLikes: [],
         saves: []
     };
+    const [isError, setIsError] = useState(false);
+    const [errMessage, setErrMessage] = useState("");
     const initalOwnerValues = {};
     const { gameId } = useParams();
     const { user } = useUserContext();
-    const createComment=useCreateComment();
+    const createComment = useCreateComment();
     const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onComment);
-    const { game, userOwner, setGameHandler,isLoading } = useGetOneGame(initalGameValues, initalOwnerValues, gameId);
+    const { game, userOwner, setGameHandler, isLoading } = useGetOneGame(initalGameValues, initalOwnerValues, gameId);
 
 
     function onSetGameHandler(game) {
@@ -35,15 +38,17 @@ export default function GameDetails() {
     }
 
     async function onComment() {
-        const content=formValues.content;
+        const content = formValues.content;
         try {
             if (!content) {
                 throw new Error("Please fill the field!");
             }
+            setIsError(false);
             let data = await createComment(gameId, { content });
             setGameHandler(data);
         } catch (err) {
-            alert(err.message);
+            setErrMessage(err.message);
+            setIsError(true);
             return;
         }
     }
@@ -51,7 +56,7 @@ export default function GameDetails() {
     return (
         <>
             <Routes>
-                <Route path="/delete" element={<GameDelete name={game.name}/>} />
+                <Route path="/delete" element={<GameDelete name={game.name} />} />
                 <Route path="/edit" element={<GameEdit setCurGame={onSetGameHandler} />} />
                 <Route path="comment/:commentId/delete" element={<CommentDelete setCurGame={onSetGameHandler} />} />
                 <Route path="comment/:commentId/edit" element={<CommentEdit setCurGame={onSetGameHandler} />} />
@@ -73,7 +78,7 @@ export default function GameDetails() {
                 <p>{game.description}</p>
                 {user
                     ?
-                    <LikesAndSavesContext.Provider value={{userData:user,saves: game.saves, likesArray: game.userLikes, setGameHandler }}>
+                    <LikesAndSavesContext.Provider value={{ userData: user, saves: game.saves, likesArray: game.userLikes, setGameHandler }}>
                         <GamesDetailsButtons
                             ownerId={game.ownerId}
                             likes={game.likes}
@@ -87,6 +92,7 @@ export default function GameDetails() {
             <section className={styles.comments}>
                 <details>
                     <summary>Comments:<span>{game.comments.length}</span></summary>
+                    {isError ? <label className={styles.errorMessage}>{errMessage}</label> : ""}
                     <div className={styles.commentContent}>
                         {user
                             ? <form onSubmit={submitHandler}>
