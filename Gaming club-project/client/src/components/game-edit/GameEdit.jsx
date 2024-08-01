@@ -5,6 +5,7 @@ import styles from "../FormsAndErrors.module.css"
 
 import { useEditGame } from "../../hooks/useGames.js";
 import { useForm } from "../../hooks/useForm.js";
+import { getUserById } from "../../api/userService.js";
 
 export default function GameEdit({
     setCurGame
@@ -33,6 +34,8 @@ export default function GameEdit({
         const image = formValues.image;
         try {
             const game = await editGame(gameId, { name, category, year, image, creator, description, _id: gameId });
+            const user=await getUserById(game.ownerId);
+            game.owner=user.username;
             setCurGame(game);
         } catch (err) {
             setIsError(true);

@@ -59,7 +59,12 @@ export function useGetOneGame(initailGameValues, initialOwnerValues, gameId) {
     const [isLoading, setIsloading] = useState(false);
     const navigate = useNavigate();
 
+    console.log(userOwner);
+
     function setGameHandler(game) {
+        if (typeof(game) != "object" && game != null) {
+            return;
+        }
         setGame(game);
     }
 
