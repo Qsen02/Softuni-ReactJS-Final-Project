@@ -63,7 +63,7 @@ export default function GameDetails() {
             }
             <div className={styles.details}>
                 <h1>{game.name}</h1>
-                <p>Published by: {game.owner}</p>
+                <p>Published by: {userOwner.username}</p>
                 <img src={game.image} alt={game.name} />
                 <div className={styles.category}>
                     <p>Category: {game.category}</p>
@@ -73,7 +73,7 @@ export default function GameDetails() {
                 <p>{game.description}</p>
                 {user
                     ?
-                    <LikesAndSavesContext.Provider value={{ userData:user,saves: game.saves, likesArray: game.userLikes, setGameHandler }}>
+                    <LikesAndSavesContext.Provider value={{userData:user,saves: game.saves, likesArray: game.userLikes, setGameHandler }}>
                         <GamesDetailsButtons
                             ownerId={game.ownerId}
                             likes={game.likes}

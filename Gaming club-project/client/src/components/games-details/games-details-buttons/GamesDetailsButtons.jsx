@@ -14,11 +14,11 @@ export default function GamesDetailsButtons({
     gameId
 }) {
     const navigate = useNavigate();
-    const { userData,saves, likesArray, setGameHandler } = useContext(LikesAndSavesContext);
-    const likeGame=useLikeGame();
-    const unLikeGame=useUnlikeGame();
-    const saveGame=useSaveGame();
-    const unsaveGame=useUnsaveGame();
+    const { userData, saves, likesArray, setGameHandler } = useContext(LikesAndSavesContext);
+    const likeGame = useLikeGame();
+    const unLikeGame = useUnlikeGame();
+    const saveGame = useSaveGame();
+    const unsaveGame = useUnsaveGame();
     async function onLike() {
         try {
             const data = await likeGame(gameId);
