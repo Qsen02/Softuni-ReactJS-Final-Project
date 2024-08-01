@@ -12,6 +12,7 @@ import UserContextProvider from "./context/userContext";
 import Profile from "./components/profile/Profile";
 
 import { Routes, Route } from "react-router-dom";
+import GusetGard from "./common/GuestGard";
 
 function App() {
 
@@ -24,11 +25,13 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/catalog" element={<Catalog />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/logout" element={<Logout />} />
                         <Route path="/login" element={<Login />} />
-                        <Route path="/create" element={<Create />} />
                         <Route path="/catalog/:gameId/*" element={<GameDetails />} />
-                        <Route path="/profile" element={<Profile />} />
+                        <Route element={<GusetGard />}>
+                            <Route path="/profile" element={<Profile />} />
+                            <Route path="/create" element={<Create />} />
+                            <Route path="/logout" element={<Logout />} />
+                        </Route>
                         <Route path="*" element={<Status404 />} />
                     </Routes>
                 </main>
