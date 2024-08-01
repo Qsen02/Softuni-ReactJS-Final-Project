@@ -53,11 +53,11 @@ Comments:
 
 -Delete comment (DELETE): /comments/{commentId}
 
--Edit comment (PUT): /comments/{commentdId}
+-Edit comment (PUT): /comments/{commentId}
 # Features
-Users can login or register. All users can see the catalog, details and comments for games but only logged in users can like and save games and comment the games. Every logged in users have profile page which include information about username, email, created and saved games by this user. Every logged in user can post publications but only owner of the publication can edit or delete this publication.
+Users can login or register. All users can see the catalog, details and comments for games but only logged in users can like and save games and comment the games. Every logged in user have profile page which include information about username, email, created and saved games by this user. Every logged in user can post publications but only owner of the publication can edit or delete this publication.
 # How to start client and server
-You can start client with command "npm run dev". 
+You can start client with command "npm run dev".
 
 You can start server with command "npm start".
 # Screenshots
@@ -69,12 +69,3 @@ You can start server with command "npm start".
 ![Screenshot 2024-07-31 120900](https://github.com/user-attachments/assets/dd35a901-10f6-48a4-baea-ab3e3c704c47)
 -Profile:
 ![Screenshot 2024-07-31 121316](https://github.com/user-attachments/assets/23ddb6da-0f50-4905-968e-1414fa72d485)
-
-
-
-
-
-
-
-
-
