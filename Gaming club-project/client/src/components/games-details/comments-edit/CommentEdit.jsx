@@ -1,4 +1,4 @@
-import {useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useState } from "react";
 
 import styles from "../../FormsAndErrors.module.css"
@@ -11,8 +11,9 @@ export default function CommentEdit({
     const [errMessage, setErrMessage] = useState({});
     const [isError, setIsError] = useState(false);
     const { gameId, commentId } = useParams();
-    const editComment=useEditComment();
-    const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onEdit,`/catalog/${gameId}`, commentId, null);
+    const editComment = useEditComment();
+    const navigate=useNavigate();
+    const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onEdit, `/catalog/${gameId}`, commentId, null);
 
     async function onEdit() {
         const content = formValues.content;
@@ -23,6 +24,10 @@ export default function CommentEdit({
             setErrMessage(JSON.parse(err.message));
             setIsError(true);
         }
+    }
+
+    function onCancel(){
+        navigate(`/catalog/${gameId}`);
     }
 
     return (
@@ -37,7 +42,10 @@ export default function CommentEdit({
                             : ""
                     }
                     <input type="text" name="content" value={formValues.content} onChange={changeHandler} />
-                    <button type="submit">Submit</button>
+                    <div className={styles.buttons}>
+                        <button type="submit">Edit</button>
+                        <button onClick={onCancel}>Cancel</button>
+                    </div>
                 </div>
             </form>
         </div>

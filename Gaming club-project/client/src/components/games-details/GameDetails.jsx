@@ -73,16 +73,14 @@ export default function GameDetails() {
                 <p>{game.description}</p>
                 {user
                     ?
-                    <LikesAndSavesContext.Provider value={{ saves: game.saves, likesArray: game.userLikes, setGameHandler }}>
+                    <LikesAndSavesContext.Provider value={{ userData:user,saves: game.saves, likesArray: game.userLikes, setGameHandler }}>
                         <GamesDetailsButtons
-                            userData={user}
                             ownerId={game.ownerId}
                             likes={game.likes}
                             savesCount={game.saves.length}
                             gameId={game._id}
                         />
                     </LikesAndSavesContext.Provider>
-
                     : ""
                 }
             </div>

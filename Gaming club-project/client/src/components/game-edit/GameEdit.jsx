@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {  useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import styles from "../FormsAndErrors.module.css"
 
@@ -12,7 +12,7 @@ export default function GameEdit({
     const [errMessage, setErrMessage] = useState({});
     const [isError, setIsError] = useState(false);
     const { gameId } = useParams();
-    console.log(gameId);
+    const navigate = useNavigate();
     let initalValues = {
         name: "",
         category: "",
@@ -21,8 +21,8 @@ export default function GameEdit({
         creator: "",
         description: ""
     }
-    const editGame=useEditGame();
-    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onEdit, `/catalog/${gameId}`,null, gameId);
+    const editGame = useEditGame();
+    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onEdit, `/catalog/${gameId}`, null, gameId);
 
     async function onEdit() {
         const name = formValues.name;
@@ -39,6 +39,10 @@ export default function GameEdit({
             setErrMessage(JSON.parse(err.message));
             return;
         }
+    }
+
+    function onCancel() {
+        navigate(`/catalog/${gameId}`);
     }
 
     return (
@@ -80,7 +84,10 @@ export default function GameEdit({
                     : <label>Description</label>
                 }
                 <textarea name="description" value={formValues.description} onChange={changeHandler} />
-                <button type="submit">Edit</button>
+                <div className={styles.buttons}>
+                    <button type="submit">Edit</button>
+                    <button onClick={onCancel}>Cancel</button>
+                </div>
             </form>
         </div>
     )

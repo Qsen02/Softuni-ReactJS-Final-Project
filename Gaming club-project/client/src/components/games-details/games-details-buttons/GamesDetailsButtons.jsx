@@ -9,13 +9,12 @@ import { useLikeGame, useSaveGame, useUnlikeGame, useUnsaveGame } from "../../..
 
 export default function GamesDetailsButtons({
     ownerId,
-    userData,
     likes,
     savesCount,
     gameId
 }) {
     const navigate = useNavigate();
-    const { saves, likesArray, setGameHandler } = useContext(LikesAndSavesContext);
+    const { userData,saves, likesArray, setGameHandler } = useContext(LikesAndSavesContext);
     const likeGame=useLikeGame();
     const unLikeGame=useUnlikeGame();
     const saveGame=useSaveGame();
