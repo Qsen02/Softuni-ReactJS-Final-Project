@@ -14,6 +14,7 @@ import Profile from "./components/profile/Profile";
 import { Routes, Route } from "react-router-dom";
 import GuestGard from "./common/GuestGard";
 import UserGuard from "./common/UserGuard";
+import ErrorBoundry from "./components/ErrorBoundry";
 
 function App() {
 
@@ -22,21 +23,23 @@ function App() {
             <UserContextProvider>
                 <Header />
                 <main>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/catalog" element={<Catalog />} />
-                        <Route element={<UserGuard />}>
-                            <Route path="/register" element={<Register />} />
-                            <Route path="/login" element={<Login />} />
-                        </Route>
-                        <Route path="/catalog/:gameId/*" element={<GameDetails />} />
-                        <Route element={<GuestGard />}>
-                            <Route path="/profile" element={<Profile />} />
-                            <Route path="/create" element={<Create />} />
-                            <Route path="/logout" element={<Logout />} />
-                        </Route>
-                        <Route path="*" element={<Status404 />} />
-                    </Routes>
+                    <ErrorBoundry>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/catalog" element={<Catalog />} />
+                            <Route element={<UserGuard />}>
+                                <Route path="/register" element={<Register />} />
+                                <Route path="/login" element={<Login />} />
+                            </Route>
+                            <Route path="/catalog/:gameId/*" element={<GameDetails />} />
+                            <Route element={<GuestGard />}>
+                                <Route path="/profile" element={<Profile />} />
+                                <Route path="/create" element={<Create />} />
+                                <Route path="/logout" element={<Logout />} />
+                            </Route>
+                            <Route path="*" element={<Status404 />} />
+                        </Routes>
+                    </ErrorBoundry>
                 </main>
                 <Footer />
             </UserContextProvider>
