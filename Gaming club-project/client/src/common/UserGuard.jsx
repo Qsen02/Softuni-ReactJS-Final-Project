@@ -1,15 +1,14 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useUserContext } from "../context/userContext"
 
-export default function GuestGard() {
+export default function UserGuard() {
     const { user } = useUserContext();
 
     return (
         <>
             {user
-                ? <Outlet />
-                : <Navigate to="/login" />
-
+                ? <Navigate to="/" />
+                : <Outlet />
             }
         </>
     )

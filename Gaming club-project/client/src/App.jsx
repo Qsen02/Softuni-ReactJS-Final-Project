@@ -12,7 +12,8 @@ import UserContextProvider from "./context/userContext";
 import Profile from "./components/profile/Profile";
 
 import { Routes, Route } from "react-router-dom";
-import GusetGard from "./common/GuestGard";
+import GuestGard from "./common/GuestGard";
+import UserGuard from "./common/UserGuard";
 
 function App() {
 
@@ -24,10 +25,12 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/catalog" element={<Catalog />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/login" element={<Login />} />
+                        <Route element={<UserGuard />}>
+                            <Route path="/register" element={<Register />} />
+                            <Route path="/login" element={<Login />} />
+                        </Route>
                         <Route path="/catalog/:gameId/*" element={<GameDetails />} />
-                        <Route element={<GusetGard />}>
+                        <Route element={<GuestGard />}>
                             <Route path="/profile" element={<Profile />} />
                             <Route path="/create" element={<Create />} />
                             <Route path="/logout" element={<Logout />} />
