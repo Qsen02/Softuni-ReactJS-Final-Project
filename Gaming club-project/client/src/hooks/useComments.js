@@ -1,4 +1,5 @@
-import { createComment, deleteComment, editComment } from "../api/commentService";
+import { useEffect, useState } from "react";
+import { createComment, deleteComment, editComment, getCommentById } from "../api/commentService";
 
 export function useCreateComment() {
     async function creatingComment(gameId, commentData) {
@@ -25,4 +26,19 @@ export function useDeleteComment() {
     }
 
     return deletingComment;
+}
+
+export function useGetCommentById(commentId) {
+    const [comment, setComment] = useState({});
+
+    useEffect(() => {
+        (async() => {
+            const comment = await getCommentById(commentId);
+            setComment(comment);
+        })()
+    }, [])
+
+    return {
+        comment
+    }
 }

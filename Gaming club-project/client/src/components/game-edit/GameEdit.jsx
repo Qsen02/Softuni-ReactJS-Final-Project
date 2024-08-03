@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import styles from "../FormsAndErrors.module.css"
 
-import { useEditGame } from "../../hooks/useGames.js";
+import { useEditGame, useGetOneGame } from "../../hooks/useGames.js";
 import { useForm } from "../../hooks/useForm.js";
 
 export default function GameEdit({
@@ -13,16 +13,9 @@ export default function GameEdit({
     const [isError, setIsError] = useState(false);
     const { gameId } = useParams();
     const navigate = useNavigate();
-    let initalValues = {
-        name: "",
-        category: "",
-        year: "",
-        image: "",
-        creator: "",
-        description: ""
-    }
+    const {game}=useGetOneGame(gameId);
     const editGame = useEditGame();
-    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onEdit, null, gameId);
+    const { formValues, changeHandler, submitHandler } = useForm(game, onEdit, true);
 
     async function onEdit() {
         const name = formValues.name;

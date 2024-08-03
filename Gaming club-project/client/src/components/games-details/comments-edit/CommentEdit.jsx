@@ -2,8 +2,9 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useState } from "react";
 
 import styles from "../../FormsAndErrors.module.css"
-import { useEditComment } from "../../../hooks/useComments";
+import { useEditComment, useGetCommentById } from "../../../hooks/useComments";
 import { useForm } from "../../../hooks/useForm";
+import { useGetOneGame } from "../../../hooks/useGames";
 
 export default function CommentEdit({
     setCurGame
@@ -12,8 +13,9 @@ export default function CommentEdit({
     const [isError, setIsError] = useState(false);
     const { gameId, commentId } = useParams();
     const editComment = useEditComment();
+    const {comment}=useGetCommentById(commentId);
     const navigate=useNavigate();
-    const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onEdit, commentId, null);
+    const { formValues, changeHandler, submitHandler } = useForm(comment, onEdit,true);
 
     async function onEdit() {
         const content = formValues.content;

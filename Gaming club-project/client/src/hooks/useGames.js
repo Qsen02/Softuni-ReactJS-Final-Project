@@ -53,9 +53,13 @@ export function useGetAllGames(initalvalues) {
     }
 }
 
-export function useGetOneGame(initailGameValues, initialOwnerValues, gameId) {
-    const [game, setGame] = useState(initailGameValues)
-    const [userOwner, setUserOwner] = useState(initialOwnerValues);
+export function useGetOneGame(gameId) {
+    const [game, setGame] = useState({
+        userLikes: [],
+        saves: [],
+        comments: []
+    })
+    const [userOwner, setUserOwner] = useState({});
     const [isLoading, setIsloading] = useState(false);
     const navigate = useNavigate();
 
@@ -90,7 +94,7 @@ export function useGetOneGame(initailGameValues, initialOwnerValues, gameId) {
                 return;
             }
         })()
-    }, [])
+    }, [gameId])
 
     return {
         game,

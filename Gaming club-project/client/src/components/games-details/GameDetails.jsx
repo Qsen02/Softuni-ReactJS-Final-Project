@@ -18,19 +18,13 @@ import { useCreateComment } from "../../hooks/useComments.js";
 import { useState } from "react";
 
 export default function GameDetails() {
-    const initalGameValues = {
-        comments: [],
-        userLikes: [],
-        saves: []
-    };
     const [isError, setIsError] = useState(false);
     const [errMessage, setErrMessage] = useState("");
-    const initalOwnerValues = {};
     const { gameId } = useParams();
     const { user } = useUserContext();
     const createComment = useCreateComment();
     const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onComment);
-    const { game, userOwner, setGameHandler, isLoading } = useGetOneGame(initalGameValues, initalOwnerValues, gameId);
+    const { game, userOwner, setGameHandler, isLoading } = useGetOneGame( gameId);
 
 
     function onSetGameHandler(game) {
@@ -44,7 +38,7 @@ export default function GameDetails() {
                 throw new Error("Please fill the field!");
             }
             setIsError(false);
-            let data = await createComment(gameId, { content });
+            const data = await createComment(gameId, { content });
             setGameHandler(data);
         } catch (err) {
             setErrMessage(err.message);
