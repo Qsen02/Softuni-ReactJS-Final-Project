@@ -23,7 +23,7 @@ export default function GameDetails() {
     const { gameId } = useParams();
     const { user } = useUserContext();
     const createComment = useCreateComment();
-    const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onComment);
+    const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onComment,false,{isCommentForm:true});
     const { game, userOwner, setGameHandler, isLoading } = useGetOneGame( gameId);
 
 

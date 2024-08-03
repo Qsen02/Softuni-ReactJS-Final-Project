@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useForm(initalvalues, callback, initializedform = false) {
+export function useForm(initalvalues, callback, initializedform = false, options = { isCommentForm: false }) {
     const [formValues, setFormValues] = useState(initalvalues);
 
     function changeHandler(event) {
@@ -15,6 +15,10 @@ export function useForm(initalvalues, callback, initializedform = false) {
     function submitHandler(event) {
         event.preventDefault();
         callback();
+        event.target.reset();
+        if (options.isCommentForm) {
+            setFormValues(initalvalues);
+        }
     }
 
     return {
