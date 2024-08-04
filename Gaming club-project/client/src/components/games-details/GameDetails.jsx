@@ -1,13 +1,14 @@
 import { useParams, Route, Routes } from "react-router-dom"
+import { useState } from "react";
 
 import styles from "./GameDetails.module.css"
 
-import GameDetailsComments from "./games-details-comments/GameDetailsComments";
 import GamesDetailsButtons from "./games-details-buttons/GamesDetailsButtons";
 import GameEdit from "../game-edit/GameEdit";
 import GameDelete from "../game-delete/GameDelete";
 import CommentDelete from "./comments-delete/CommentDelete";
 import CommentEdit from "./comments-edit/CommentEdit";
+import GameCommentSection from "./game-comment-section/GameCommentSection.jsx";
 
 import { useGetOneGame } from "../../hooks/useGames.js";
 import { useUserContext } from "../../context/userContext";
@@ -15,7 +16,6 @@ import { useUserContext } from "../../context/userContext";
 import { LikesAndSavesContext } from "../../context/LikesAndSaveContext";
 import { useForm } from "../../hooks/useForm";
 import { useCreateComment } from "../../hooks/useComments.js";
-import { useState } from "react";
 
 export default function GameDetails() {
     const [isError, setIsError] = useState(false);
@@ -23,8 +23,8 @@ export default function GameDetails() {
     const { gameId } = useParams();
     const { user } = useUserContext();
     const createComment = useCreateComment();
-    const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onComment,false,{isCommentForm:true});
-    const { game, userOwner, setGameHandler, isLoading } = useGetOneGame( gameId);
+    const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onComment, false, { isCommentForm: true });
+    const { game, userOwner, setGameHandler, isLoading } = useGetOneGame(gameId);
 
 
     function onSetGameHandler(game) {
@@ -83,33 +83,16 @@ export default function GameDetails() {
                     : ""
                 }
             </div>
-            <section className={styles.comments}>
-                <details>
-                    <summary>Comments:<span>{game.comments.length}</span></summary>
-                    {isError ? <label className={styles.errorMessage}>{errMessage}</label> : ""}
-                    <div className={styles.commentContent}>
-                        {user
-                            ? <form onSubmit={submitHandler}>
-                                <input type="text" name="content" placeholder="Enter comment..." value={formValues.comment} onChange={changeHandler} />
-                                <button type="submit">Comment</button>
-                            </form>
-                            : ""}
-                        {game.comments.length == 0
-                            ? <h3>No comments yet, be the first one!</h3>
-                            : game.comments.map(el =>
-                                <GameDetailsComments
-                                    key={el._id}
-                                    commentId={el._id}
-                                    content={el.content}
-                                    username={el.username}
-                                    userData={user}
-                                    ownerName={userOwner.username}
-                                />
-                            )
-                        }
-                    </div>
-                </details>
-            </section>
+            <GameCommentSection
+                formValues={formValues}
+                changeHandler={changeHandler}
+                submitHandler={submitHandler}
+                commentCount={game.comments.length}
+                comments={game.comments}
+                error={errMessage}
+                hasError={isError}
+                ownerName={userOwner.username}
+            />
         </>
     )
 }
