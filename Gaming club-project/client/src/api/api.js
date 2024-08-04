@@ -1,13 +1,13 @@
 import { getUserData, removeUserData } from "../utils/userDataHelper"
 
-let host = "http://localhost:3000";
+const host = "http://localhost:3000";
 
 async function request(method, url, data) {
-    let options = {
+    const options = {
         method: method,
         headers: {}
     }
-    let userData = getUserData();
+    const userData = getUserData();
     if (userData) {
         options.headers["Content-Type"] = "application/json";
         options.headers["X-Authorization"] = userData.accessToken;
@@ -22,13 +22,13 @@ async function request(method, url, data) {
             if (response.status == 403) {
                 removeUserData();
             }
-            let err = await response.json();
+            const err = await response.json();
             throw new Error(err.message);
         }
         if (response.status == 204) {
             return response;
         }
-        let data = await response.json();
+        const data = await response.json();
         return data;
     } catch (err) {
         throw new Error(err.message);
