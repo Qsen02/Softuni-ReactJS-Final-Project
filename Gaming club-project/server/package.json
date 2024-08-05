@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "start": "node ./src/startServer.js",
-        "debug": "nodemon ./src/startServer.js"
+        "start": "node ./src/server.js",
+        "debug": "nodemon ./src/server.js"
     },
     "keywords": [],
     "author": "",
