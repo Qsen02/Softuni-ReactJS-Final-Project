@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "debug": "nodemon ./src/server.js"
+        "start": "node ./src/startServer.js",
+        "debug": "nodemon ./src/startServer.js"
     },
     "keywords": [],
     "author": "",
@@ -11,7 +12,6 @@
     "description": "",
     "dependencies": {
         "bcrypt": "^5.1.1",
-        "cookie-parser": "^1.4.6",
         "express": "^4.19.2",
         "express-validator": "^7.1.0",
         "jsonwebtoken": "^9.0.2",
