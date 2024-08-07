@@ -1,6 +1,7 @@
 import { getUserData, removeUserData } from "../utils/userDataHelper"
 
-const host = "http://localhost:3000";
+const host =
+    import.meta.env.VITE_API_URL
 
 async function request(method, url, data) {
     const options = {
@@ -17,7 +18,7 @@ async function request(method, url, data) {
         options.body = JSON.stringify(data);
     }
     try {
-        let response = await fetch(url, options);
+        const response = await fetch(url, options);
         if (!response.ok) {
             if (response.status == 403) {
                 removeUserData();
@@ -36,17 +37,17 @@ async function request(method, url, data) {
 }
 
 export async function get(url) {
-    return await request("get", host + url);
+    return await request("get", `${host}${url}`);
 }
 
 export async function post(url, data) {
-    return await request("post", host + url, data);
+    return await request("post", `${host}${url}`, data);
 }
 
 export async function del(url) {
-    return await request("delete", host + url);
+    return await request("delete", `${host}${url}`);
 }
 
 export async function put(url, data) {
-    return await request("put", host + url, data);
+    return await request("put", `${host}${url}`, data);
 }
