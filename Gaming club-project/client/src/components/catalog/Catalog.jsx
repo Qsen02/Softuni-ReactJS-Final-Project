@@ -5,11 +5,12 @@ import CatalogContent from "./catalogContent/CatalogContent"
 
 import { useState } from "react";
 
-import {  searching } from "../../api/gameService";
+import { searching } from "../../api/gameService";
 
 import { useGetAllGames } from "../../hooks/useGames.js";
 import { useForm } from "../../hooks/useForm";
 import { usePagination } from "../../hooks/usePagination.js";
+import CatalogPagination from "./catalogPagination/catalogPagination.jsx";
 
 export default function Catalog() {
     const [isSearched, setIsSearched] = useState(false);
@@ -21,7 +22,7 @@ export default function Catalog() {
         criteria: "name"
     };
     const { formValues, changeHandler, submitHandler } = useForm(initalvalues, onSearchHandler);
-    const {paginationHandler,page,setPageHandler}=usePagination(isSearched,maxPage,setGameHandler,loadingHandler,searchedResults,setSearchedResults);
+    const { paginationHandler, page, setPageHandler } = usePagination(isSearched, maxPage, setGameHandler, loadingHandler, searchedResults, setSearchedResults);
 
     async function onSearchHandler() {
         let name = formValues.name;
@@ -44,18 +45,18 @@ export default function Catalog() {
         }
     }
 
-     function nextPage(){
-        paginationHandler(page+1);
+    function nextPage() {
+        paginationHandler(page + 1);
     }
 
-     function previousPage(){
-        paginationHandler(page-1);
+    function previousPage() {
+        paginationHandler(page - 1);
     }
-    function finalPage(){
-        paginationHandler(maxPage-1);
+    function finalPage() {
+        paginationHandler(maxPage - 1);
     }
 
-    function firstPage(){
+    function firstPage() {
         paginationHandler(0);
     }
 
@@ -87,13 +88,17 @@ export default function Catalog() {
                 }
                 {isSearched && games.length == 0 ? <h1>No results :(</h1> : ""}
             </div>
-            <div className={styles.paginationButtons}>
-                <button onClick={firstPage}>&lt;&lt;</button>
-                <button onClick={previousPage} style={page + 1 == 1 ? { visibility: "hidden" } : { visibility: "visible" }}>&lt;</button>
-                <p>{page + 1} of {maxPage}</p>
-                <button onClick={nextPage} style={page + 1 == maxPage ? { visibility: "hidden" } : { visibility: "visible" }}>&gt;</button>
-                <button onClick={finalPage}>&gt;&gt;</button>
-            </div>
+            {games.length != 0
+                ? <CatalogPagination
+                    nextPage={nextPage}
+                    previousPage={previousPage}
+                    finalPage={finalPage}
+                    firstPage={firstPage}
+                    page={page}
+                    maxPage={maxPage}
+                />
+                : ""
+            }
         </>
     )
 }
