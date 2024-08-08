@@ -58,10 +58,10 @@ Comments:
 Users can login or register. All users can see the catalog, details and comments for games but only logged in users can like and save games and comment the games. Every logged in user have profile page which include information about username, email, created and saved games by this user. Every logged in user can post publications but only owner of the publication can edit or delete this publication.
 # How to start client and server
 You can start client with command "npm run dev".
-#Deployment link:
-https://gaming-club-7e60c.web.app
 
 You can start server with command "npm start".
+# Deployment link:
+https://gaming-club-7e60c.web.app
 # Screenshots
 -Catalog:
 ![Screenshot 2024-07-31 120815](https://github.com/user-attachments/assets/e4bcc314-c988-4b90-b717-6969518d7133)
