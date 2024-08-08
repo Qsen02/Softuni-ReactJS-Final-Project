@@ -1,7 +1,7 @@
 # Gaming club
 This is web site for posting publications related to games.
-# Techologies
--Front-end: React and react-dom-router library
+# Technologies
+-Front-end: React and react-router-dom library
 
 -Back-end: Express and MongoDB database
 # API Reference
