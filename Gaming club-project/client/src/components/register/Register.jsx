@@ -6,21 +6,20 @@ import styles from "../FormsAndErrors.module.css"
 import { setUserData } from "../../utils/userDataHelper";
 
 import { useForm } from "../../hooks/useForm";
-import {  useUserContext } from "../../context/userContext";
+import { useUserContext } from "../../context/userContext";
 import { useRegister } from "../../hooks/useAuth";
 
 export default function Register() {
     const [errMessage, setErrMessage] = useState({});
-    const [isError, setIsError] = useState(false);
     const initalValues = {
         username: "",
         email: "",
         password: "",
         repass: ""
     }
-    const register=useRegister();
+    const register = useRegister();
     const { setUserHandler } = useUserContext();
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
     const { formValues, changeHandler, submitHandler } = useForm(initalValues, onRegister);
 
@@ -31,11 +30,18 @@ export default function Register() {
         const repass = formValues.repass
 
         try {
+            if (!username || !email || !password || !repass) {
+                throw new Error("All fields required!");
+            }
             const user = await register({ username, email, password, repass });
             setUserData(user);
             setUserHandler(user);
             navigate("/");
         } catch (err) {
+            if (err.message === "All fields required!") {
+                setErrMessage(err.message);
+                return;
+            }
             setErrMessage(JSON.parse(err.message));
             setIsError(true);
             return;
@@ -48,6 +54,10 @@ export default function Register() {
                 <h3>Here you can make your registration</h3>
                 {errMessage instanceof Array
                     ? <label className={styles.errorMessage}>{errMessage[0]}</label>
+                    : ""
+                }
+                {typeof (errMessage) == "string"
+                    ? <label className={styles.errorMessage}>{errMessage}</label>
                     : ""
                 }
                 {
