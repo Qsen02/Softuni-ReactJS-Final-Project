@@ -1,4 +1,3 @@
-//X-Authorzation depends on the client
 function setCors() {
     return function(req, res, next) {
         res.setHeader("Access-Control-Allow-Origin", "*");

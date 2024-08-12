@@ -10,7 +10,7 @@ let userRouter = Router();
 userRouter.post("/register",
     body("username").trim().isLength({ min: 3 }).withMessage("Username must be at least 3 symbols long!"),
     body("email").trim().isLength({ min: 3 }).isEmail().withMessage("Email must be at least 3 symbols long!"),
-    body("password").trim().isLength({ min: 6 }).withMessage("Password must be at least 6 symbols and may contain onlu digits and letters!"),
+    body("password").trim().isLength({ min: 6 }).withMessage("Password must be at least 6 symbols and may contain only digits and letters!"),
     body("repass").trim().custom((value, { req }) => req.body.password == value).withMessage("Password must match!"),
     async(req, res) => {
         let fields = req.body;
@@ -36,7 +36,7 @@ userRouter.get("/logout", (req, res) => {
 
 userRouter.post("/login",
     body("username").trim().isLength({ min: 3 }).withMessage("Username must be at least 3 symbols long!"),
-    body("password").trim().isAlphanumeric().isLength({ min: 6 }).withMessage("Password must be at least 6 symbols and may contain onlu digits and letters!"),
+    body("password").trim().isAlphanumeric().isLength({ min: 6 }).withMessage("Password must be at least 6 symbols and may contain only digits and letters!"),
     async(req, res) => {
         let fields = req.body;
         let username = fields.username;

@@ -7,19 +7,18 @@ import styles from "../FormsAndErrors.module.css"
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import {  useUserContext } from "../../context/userContext";
+import { useUserContext } from "../../context/userContext";
 import { useLogin } from "../../hooks/useAuth";
 
 export default function Login() {
     const [errMessage, setErrMessage] = useState({});
-    const [isError, setIsError] = useState(false);
     const initalValues = {
         username: "",
         password: "",
     }
     const { setUserHandler } = useUserContext();
     const login = useLogin();
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const { formValues, changeHandler, submitHandler } = useForm(initalValues, onLogin);
 
     async function onLogin() {
@@ -27,11 +26,18 @@ export default function Login() {
         const password = formValues.password;
 
         try {
+            if (!username || !password) {
+                throw new Error("All fields required!");
+            }
             const user = await login({ username, password });
             setUserData(user);
             setUserHandler(user);
             navigate("/");
         } catch (err) {
+            if (err.message === "All fields required!") {
+                setErrMessage(err.message);
+                return;
+            }
             setErrMessage(JSON.parse(err.message));
             setIsError(true);
             return;
@@ -44,6 +50,10 @@ export default function Login() {
                 <h3>Here you can login in your account</h3>
                 {errMessage instanceof Array
                     ? <label className={styles.errorMessage}>{errMessage[0]}</label>
+                    : ""
+                }
+                {typeof (errMessage) == "string"
+                    ? <label className={styles.errorMessage}>{errMessage}</label>
                     : ""
                 }
                 {
