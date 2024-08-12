@@ -2,7 +2,7 @@ import ListItem from "./listItem/ListItem"
 import styles from "./Header.module.css"
 import {useUserContext } from "../../context/userContext"
 
-export default function Heade() {
+export default function Header() {
     const { user } =useUserContext();
     let isGuest = [
         { link: "/", name: "HOME" },

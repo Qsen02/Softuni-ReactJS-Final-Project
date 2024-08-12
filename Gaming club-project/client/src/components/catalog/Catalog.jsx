@@ -74,7 +74,8 @@ export default function Catalog() {
             />
             <h1>All available games</h1>
             <div className={styles.catalogWrapper}>
-                {!isSearched && games.length == 0
+                {isLoading && games.length == 0 ? <h1>Games loading...</h1> : ""}
+                {!isSearched && games.length == 0 && !isLoading
                     ? <h1>No games yet :(</h1>
                     : games.map(el => <CatalogContent
                         key={el._id}
