@@ -39,7 +39,6 @@ export default function Login() {
                 return;
             }
             setErrMessage(JSON.parse(err.message));
-            setIsError(true);
             return;
         }
     }

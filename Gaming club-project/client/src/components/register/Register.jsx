@@ -43,7 +43,6 @@ export default function Register() {
                 return;
             }
             setErrMessage(JSON.parse(err.message));
-            setIsError(true);
             return;
         }
     }

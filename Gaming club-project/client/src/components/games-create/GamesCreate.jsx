@@ -8,7 +8,6 @@ import { useCreateGame } from "../../hooks/useGames.js";
 
 export default function Create() {
     const [errMessage, setErrMessage] = useState({});
-    const [isError, setIsError] = useState(false);
     const initalValues = {
         name: "",
         category: "",
@@ -17,7 +16,7 @@ export default function Create() {
         creator: "",
         description: ""
     }
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const createGame = useCreateGame();
     const { formValues, changeHandler, submitHandler } = useForm(initalValues, onCreate);
 
@@ -29,10 +28,16 @@ export default function Create() {
         let description = formValues.description;
         let image = formValues.image;
         try {
+            if (!name || !category || !year || !creator || !description || !image) {
+                throw new Error("All fields required!");
+            }
             await createGame({ name, category, year, image, creator, description });
             navigate("/catalog");
         } catch (err) {
-            setIsError(true);
+            if (err.message === "All fields required!") {
+                setErrMessage(err.message);
+                return;
+            }
             setErrMessage(JSON.parse(err.message));
             return;
         }
@@ -43,6 +48,10 @@ export default function Create() {
             <h3>Here you can add game</h3>
             {errMessage instanceof Array
                 ? <label className={styles.errorMessage}>{errMessage[0]}</label>
+                : ""
+            }
+            {typeof (errMessage) == "string"
+                ? <label className={styles.errorMessage}>{errMessage}</label>
                 : ""
             }
             {errMessage.name
