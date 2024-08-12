@@ -10,10 +10,9 @@ export default function GameEdit({
     setCurGame
 }) {
     const [errMessage, setErrMessage] = useState({});
-    const [isError, setIsError] = useState(false);
     const { gameId } = useParams();
     const navigate = useNavigate();
-    const {game}=useGetOneGame(gameId);
+    const { game } = useGetOneGame(gameId);
     const editGame = useEditGame();
     const { formValues, changeHandler, submitHandler } = useForm(game, onEdit, true);
 
@@ -25,11 +24,17 @@ export default function GameEdit({
         const description = formValues.description;
         const image = formValues.image;
         try {
+            if (!name || !category || !year || !creator || !description || !image) {
+                throw new Error("All fields required!");
+            }
             const game = await editGame(gameId, { name, category, year, image, creator, description, _id: gameId });
             setCurGame(game);
             navigate(`/catalog/${gameId}`);
         } catch (err) {
-            setIsError(true);
+            if (err.message === "All fields required!") {
+                setErrMessage(err.message);
+                return;
+            }
             setErrMessage(JSON.parse(err.message));
             return;
         }
@@ -47,6 +52,10 @@ export default function GameEdit({
                     errMessage instanceof Array
                         ? <label className={styles.errorMessage}>{errMessage[0]}</label>
                         : ""
+                }
+                {typeof (errMessage) == "string"
+                    ? <label className={styles.errorMessage}>{errMessage}</label>
+                    : ""
                 }
                 {errMessage.name
                     ? <label className={styles.errorMessage}>{errMessage.name}</label>
