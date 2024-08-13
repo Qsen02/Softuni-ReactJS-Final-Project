@@ -29,7 +29,9 @@ export function useDeleteComment() {
 }
 
 export function useGetCommentById(commentId) {
-    const [comment, setComment] = useState({});
+    const [comment, setComment] = useState({
+        content: ""
+    });
 
     useEffect(() => {
         (async() => {

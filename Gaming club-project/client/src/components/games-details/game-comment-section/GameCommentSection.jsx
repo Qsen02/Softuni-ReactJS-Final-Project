@@ -2,10 +2,10 @@ import GameDetailsComments from "./games-details-comments/GameDetailsComments";
 
 import styles from "../GameDetails.module.css"
 import { useUserContext } from "../../../context/userContext";
+import { Form, Formik } from "formik";
+import CustomInput from "../../../common/CustomInput";
 
 export default function GameCommentSection({
-    formValues,
-    changeHandler,
     submitHandler,
     commentCount,
     comments,
@@ -13,7 +13,7 @@ export default function GameCommentSection({
     hasError,
     ownerName
 }) {
-    const {user}=useUserContext();
+    const { user } = useUserContext();
 
     return (
         <section className={styles.comments}>
@@ -22,12 +22,19 @@ export default function GameCommentSection({
                 {hasError ? <label className={styles.errorMessage}>{error}</label> : ""}
                 <div className={styles.commentContent}>
                     {user
-                        ? <form onSubmit={submitHandler}>
-                            <input type="text" name="content" placeholder="Enter comment..." value={formValues.comment} onChange={changeHandler} />
-                            <button type="submit">Comment</button>
-                        </form>
+                        ?
+                        <Formik initialValues={{ content: "" }} onSubmit={submitHandler}>
+                            {
+                                (props) => (
+                                    <Form>
+                                        <CustomInput type="text" name="content" placeholder="Enter comment..." />
+                                        <button type="submit">Comment</button>
+                                    </Form>
+                                )
+                            }
+                        </Formik>
                         : ""}
-                    {commentCount== 0
+                    {commentCount == 0
                         ? <h3>No comments yet, be the first one!</h3>
                         : comments.map(el =>
                             <GameDetailsComments

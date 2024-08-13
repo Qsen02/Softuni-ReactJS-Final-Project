@@ -19,7 +19,7 @@ commentRouter.get("/:id", async(req, res) => {
 
 commentRouter.post("/games/:id",
     isUser(),
-    body("content").isLength({ min: 1 }).withMessage("Please fill the field!!"),
+    body("content").isLength({ min: 1 }),
     async(req, res) => {
         let user = req.user;
         let id = req.params.id;
@@ -32,13 +32,13 @@ commentRouter.post("/games/:id",
         try {
             let results = validationResult(req);
             if (results.errors.length) {
-                throw results.errors;
+                throw new Error("Please fill the field!");
             }
             await addComment(user.username, content, id);
             const game = await getGameById(id).lean();
             res.json(game);
         } catch (err) {
-            res.status(400).json({ message: errorParser(err).errors });
+            res.status(400).json({ message: err.message });
             return;
         }
     });
@@ -57,7 +57,7 @@ commentRouter.delete("/:id", isUser(), async(req, res) => {
 });
 
 commentRouter.put("/:id", isUser(),
-    body("content").isLength({ min: 1 }).withMessage("Please fill the field!"),
+    body("content").isLength({ min: 1 }),
     async(req, res) => {
         let id = req.params.id;
         let isValid = await checkCommentId(id);
@@ -69,14 +69,14 @@ commentRouter.put("/:id", isUser(),
         try {
             let results = validationResult(req);
             if (results.errors.length) {
-                throw results.errors;
+                throw new Error("Please fill the field!");
             }
             await editComment(id, content);
             let comment = await getCommentById(id);
             const game = await getGameById(comment.gameId);
             res.json(game);
         } catch (err) {
-            res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });
+            res.status(400).json({ message: err.message });
             return;
         }
     });

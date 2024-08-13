@@ -14,7 +14,6 @@ import { useGetOneGame } from "../../hooks/useGames.js";
 import { useUserContext } from "../../context/userContext";
 
 import { LikesAndSavesContext } from "../../context/LikesAndSaveContext";
-import { useForm } from "../../hooks/useForm";
 import { useCreateComment } from "../../hooks/useComments.js";
 
 export default function GameDetails() {
@@ -23,7 +22,6 @@ export default function GameDetails() {
     const { gameId } = useParams();
     const { user } = useUserContext();
     const createComment = useCreateComment();
-    const { formValues, changeHandler, submitHandler } = useForm({ content: "" }, onComment, false, { isCommentForm: true });
     const { game, userOwner, setGameHandler, isLoading } = useGetOneGame(gameId);
 
 
@@ -31,8 +29,8 @@ export default function GameDetails() {
         setGameHandler(game);
     }
 
-    async function onComment() {
-        const content = formValues.content;
+    async function onComment(values,actions) {
+        const content = values.content;
         try {
             if (!content) {
                 throw new Error("Please fill the field!");
@@ -40,6 +38,7 @@ export default function GameDetails() {
             setIsError(false);
             const data = await createComment(gameId, { content });
             setGameHandler(data);
+            actions.resetForm();
         } catch (err) {
             setErrMessage(err.message);
             setIsError(true);
@@ -84,9 +83,7 @@ export default function GameDetails() {
                 }
             </div>
             <GameCommentSection
-                formValues={formValues}
-                changeHandler={changeHandler}
-                submitHandler={submitHandler}
+                submitHandler={onComment}
                 commentCount={game.comments.length}
                 comments={game.comments}
                 error={errMessage}
