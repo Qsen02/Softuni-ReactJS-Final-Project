@@ -1,20 +1,27 @@
+import { Form, Formik } from "formik"
 import styles from "./CatalogSearch.module.css"
+import CustomInput from "../../../common/CustomInput"
+import CustomSelect from "../../../common/CustomSelect"
 
 export default function CatalogSearch({
-    onSearch,
-    onChangeHandler,
-    formValues
+    onSearch
 }) {
 
     return (
-        <form onSubmit={onSearch} className={styles.search}>
-            <input name="name" type="text" placeholder="Enter search value..." value={formValues.name} onChange={onChangeHandler}/>
-            <select name="criteria" value={formValues.criteria} onChange={onChangeHandler}>
-                <option value="name">Name</option>
-                <option value="year">Year</option>
-                <option value="category">Category</option>
-            </select>
-            <button type="submit">Search</button>
-        </form>
+        <Formik initialValues={{ name: "", criteria: "name" }} onSubmit={onSearch}>
+            {
+                (props) => (
+                    <Form className={styles.search}>
+                        <CustomInput name="name" type="text" placeholder="Enter search value..." />
+                        <CustomSelect name="criteria">
+                            <option value="name">Name</option>
+                            <option value="year">Year</option>
+                            <option value="category">Category</option>
+                        </CustomSelect>
+                        <button type="submit">Search</button>
+                    </Form>
+                )
+            }
+        </Formik>
     )
 }

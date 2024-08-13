@@ -8,7 +8,6 @@ import { useState } from "react";
 import { searching } from "../../api/gameService";
 
 import { useGetAllGames } from "../../hooks/useGames.js";
-import { useForm } from "../../hooks/useForm";
 import { usePagination } from "../../hooks/usePagination.js";
 import CatalogPagination from "./catalogPagination/catalogPagination.jsx";
 
@@ -16,17 +15,11 @@ export default function Catalog() {
     const [isSearched, setIsSearched] = useState(false);
     const [searchedResults, setSearchedResults] = useState([]);
     const { games, setGameHandler, isLoading, loadingHandler, maxPage, setMaxPageHanlder } = useGetAllGames([]);
-
-    const initalvalues = {
-        name: "",
-        criteria: "name"
-    };
-    const { formValues, changeHandler, submitHandler } = useForm(initalvalues, onSearchHandler);
     const { paginationHandler, page, setPageHandler } = usePagination(isSearched, maxPage, setGameHandler, loadingHandler, searchedResults, setSearchedResults);
 
-    async function onSearchHandler() {
-        let name = formValues.name;
-        const criteria = formValues.criteria;
+    async function onSearchHandler(values) {
+        let name = values.name;
+        const criteria = values.criteria;
         try {
             if (name == "") {
                 name = " ";
@@ -68,9 +61,7 @@ export default function Catalog() {
             }
             <h1>Search for games here</h1>
             <CatalogSearch
-                onSearch={submitHandler}
-                formValues={formValues}
-                onChangeHandler={changeHandler}
+                onSearch={onSearchHandler}
             />
             <h1>All available games</h1>
             <div className={styles.catalogWrapper}>
