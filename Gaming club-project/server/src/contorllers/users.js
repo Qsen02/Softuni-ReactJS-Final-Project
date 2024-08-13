@@ -8,10 +8,10 @@ const { getAuthorGames, getSavedGames } = require("../services/games");
 let userRouter = Router();
 
 userRouter.post("/register",
-    body("username").trim().isLength({ min: 3 }).withMessage("Username must be at least 3 symbols long!"),
-    body("email").trim().isLength({ min: 3 }).isEmail().withMessage("Email must be at least 3 symbols long!"),
-    body("password").trim().isLength({ min: 6 }).withMessage("Password must be at least 6 symbols and may contain only digits and letters!"),
-    body("repass").trim().custom((value, { req }) => req.body.password == value).withMessage("Password must match!"),
+    body("username").trim().isLength({ min: 3 }),
+    body("email").trim().isLength({ min: 3 }).isEmail(),
+    body("password").trim().isLength({ min: 6 }),
+    body("repass").trim().custom((value, { req }) => req.body.password == value),
     async(req, res) => {
         let fields = req.body;
         let username = fields.username;
@@ -20,13 +20,13 @@ userRouter.post("/register",
         try {
             let results = validationResult(req);
             if (results.errors.length) {
-                throw results.errors;
+                throw new Error("Your data is not in valid format");
             }
             let user = await register(username, email, password);
             let token = setToken(user);
             res.json({ _id: user._id, username: user.username, email: user.email, accessToken: token });
         } catch (err) {
-            res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });
+            res.status(400).json({ message: err.message });
         }
     });
 
@@ -35,8 +35,8 @@ userRouter.get("/logout", (req, res) => {
 })
 
 userRouter.post("/login",
-    body("username").trim().isLength({ min: 3 }).withMessage("Username must be at least 3 symbols long!"),
-    body("password").trim().isAlphanumeric().isLength({ min: 6 }).withMessage("Password must be at least 6 symbols and may contain only digits and letters!"),
+    body("username").trim().isLength({ min: 3 }),
+    body("password").trim().isAlphanumeric().isLength({ min: 6 }),
     async(req, res) => {
         let fields = req.body;
         let username = fields.username;
@@ -44,13 +44,13 @@ userRouter.post("/login",
         try {
             let results = validationResult(req);
             if (results.errors.length) {
-                throw results.errors;
+                throw new Error("Username or password don't match!");
             }
             let user = await login(username, password);
             let token = setToken(user);
             res.json({ _id: user._id, username: user.username, email: user.email, accessToken: token });
         } catch (err) {
-            res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });
+            res.status(400).json({ message: err.message });
             return;
         }
     });
