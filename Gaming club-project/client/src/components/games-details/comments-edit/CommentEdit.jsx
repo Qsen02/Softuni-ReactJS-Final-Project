@@ -26,7 +26,10 @@ export default function CommentEdit({
             actions.resetForm();
             navigate(`/catalog/${gameId}`);
         } catch (err) {
-            console.log(err.message);
+            if (err.message.includes("[")) {
+                setErrMessage(JSON.parse(err.message));
+                return;
+            }
             setErrMessage(err.message);
             return;
         }
@@ -44,9 +47,9 @@ export default function CommentEdit({
                         <Form className={styles.form}>
                             <h3>Edit your comment</h3>
                             <div className={styles.editComment}>
-                                {errMessage
-                                    ? <label className={styles.errorMessage}>{errMessage}</label>
-                                    : ""
+                                {errMessage instanceof Array
+                                    ? <label className={styles.errorMessage}>{errMessage[0]}</label>
+                                    : <label className={styles.errorMessage}>{errMessage}</label>
                                 }
                                 <CustomInput type="text" name="content" />
                                 <div className={styles.buttons}>
