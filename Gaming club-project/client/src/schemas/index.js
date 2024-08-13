@@ -14,3 +14,12 @@ export const registerSchema = yup.object().shape({
         .required("Password is required!"),
     repass: yup.string().oneOf([yup.ref("password")], "Password must match!").required("Repeat password is required!")
 })
+
+export const gameSchema = yup.object().shape({
+    name: yup.string().min(3, "Name must be at least 3 characters long!").required("Name is required!"),
+    year: yup.number().min(1960, "Year must be between 1960 and 2030!").max(2030, "Year must be between 1960 and 2030!").required("Year is required!"),
+    category: yup.string().min(3, "Category must be at least 3 characters long!").required("Category is required!"),
+    creator: yup.string().min(3, "Creator must be at least 3 characters long!").required("Creator is required"),
+    description: yup.string().min(20, "Description must be between 20 and 1000 characters long!").max(1000, "Description must be between 20 and 1000 characters long!").required("Description is required!"),
+    image: yup.string().matches(/^https?:\/\//, "Image must be valid URL!").required("Image is required!")
+})

@@ -33,12 +33,12 @@ gameRouter.get("/:id", async(req, res) => {
 
 gameRouter.post("/",
     isUser(),
-    body("name").isLength({ min: 3 }).withMessage("Name must be at least 3 characters long!"),
-    body("year").isInt({ min: 1960, max: 2030 }).withMessage("Year must be between 1960 and 2030!"),
-    body("category").isLength({ min: 3 }).withMessage("Category must be at least 3 characters long!"),
-    body("creator").isLength({ min: 3 }).withMessage("Creator must be at least 3 characters long!"),
-    body("description").isLength({ min: 20, max: 1000 }).withMessage("Description must be between 20 and 1000 characters long!"),
-    body("image").matches(/^https?:\/\//).withMessage("Image must be valid URL!"),
+    body("name").isLength({ min: 3 }),
+    body("year").isInt({ min: 1960, max: 2030 }),
+    body("category").isLength({ min: 3 }),
+    body("creator").isLength({ min: 3 }),
+    body("description").isLength({ min: 20, max: 1000 }),
+    body("image").matches(/^https?:\/\//),
     async(req, res) => {
         let fields = req.body;
         let user = req.user;
@@ -52,12 +52,12 @@ gameRouter.post("/",
         try {
             let results = validationResult(req);
             if (results.errors.length) {
-                throw results.errors;
+                throw new Error("Your data is not in valid format");
             }
             await createGame({ name, year, description, category, creator, image }, user);
             res.status(200).json({ message: "Record created successfully!" })
         } catch (err) {
-            res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });
+            res.status(400).json({ message: err.message });
             return;
         }
     });

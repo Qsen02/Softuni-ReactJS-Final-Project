@@ -3,91 +3,65 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "../FormsAndErrors.module.css"
 
-import { useForm } from "../../hooks/useForm";
 import { useCreateGame } from "../../hooks/useGames.js";
+import { Form, Formik } from "formik";
+import { gameSchema } from "../../schemas/index.js";
+
+import CustomInput from "../../common/CustomInput.jsx";
+import CustomTextarea from "../../common/CustomTextarea.jsx";
 
 export default function Create() {
     const [errMessage, setErrMessage] = useState({});
-    const initalValues = {
-        name: "",
-        category: "",
-        year: "",
-        image: "",
-        creator: "",
-        description: ""
-    }
     const navigate = useNavigate();
     const createGame = useCreateGame();
-    const { formValues, changeHandler, submitHandler } = useForm(initalValues, onCreate);
 
-    async function onCreate() {
-        let name = formValues.name;
-        let category = formValues.category;
-        let year = formValues.year;
-        let creator = formValues.creator;
-        let description = formValues.description;
-        let image = formValues.image;
+    async function onCreate(values,actions) {
+        let name = values.name;
+        let category = values.category;
+        let year = values.year;
+        let creator = values.creator;
+        let description = values.description;
+        let image = values.image;
         try {
-            if (!name || !category || !year || !creator || !description || !image) {
-                throw new Error("All fields required!");
-            }
             await createGame({ name, category, year, image, creator, description });
+            actions.resetForm();
             navigate("/catalog");
         } catch (err) {
-            if (err.message === "All fields required!") {
-                setErrMessage(err.message);
+            if(err.message.includes("[")){
+                setErrMessage(JSON.parse(err.message));
                 return;
             }
-            setErrMessage(JSON.parse(err.message));
+            setErrMessage(err.message);
             return;
         }
     }
 
     return (
-        <form onSubmit={submitHandler} className={styles.form}>
-            <h3>Here you can add game</h3>
-            {errMessage instanceof Array
-                ? <label className={styles.errorMessage}>{errMessage[0]}</label>
-                : ""
+        <Formik initialValues={{ name: "", year: "", category: "", creator: "", description: "", image: "" }} validationSchema={gameSchema} onSubmit={onCreate}>
+            {
+                (props) => (
+                    <Form className={styles.form}>
+                        <h3>Here you can add game</h3>
+                        {errMessage instanceof Array
+                            ? <label className={styles.errorMessage}>{errMessage[0]}</label>
+                            : ""
+                        }
+                        {typeof (errMessage) == "string"
+                            ? <label className={styles.errorMessage}>{errMessage}</label>
+                            : ""
+                        }
+                        <CustomInput label="Name" type="text" name="name"  placeholder="Enter game name..." />
+                        <CustomInput label="Category" type="text" name="category"  placeholder="Enter game category..." />
+                        <CustomInput  label="Year" type="number" name="year"  placeholder="Enter game year..." />
+                        <CustomInput label="Image" type="text" name="image"  placeholder="Enter valid URL of the image..." />
+                        <CustomInput label="Creator" type="text" name="creator"  placeholder="Enter creator of the game..." />
+                        <CustomTextarea label="Description" type="text" name="description"  placeholder="Enter good description..." />
+                        <div className={styles.buttons}>
+                            <button type="submit">Create</button>
+                        </div>
+                    </Form>
+                )
             }
-            {typeof (errMessage) == "string"
-                ? <label className={styles.errorMessage}>{errMessage}</label>
-                : ""
-            }
-            {errMessage.name
-                ? <label className={styles.errorMessage}>{errMessage.name}</label>
-                : <label>Name</label>
-            }
-            <input type="text" name="name" value={formValues.name} onChange={changeHandler} placeholder="Enter game name..." />
-            {errMessage.category
-                ? <label className={styles.errorMessage}>{errMessage.category}</label>
-                : <label>Category</label>
-            }
-            <input type="text" name="category" value={formValues.category} onChange={changeHandler} placeholder="Enter game category..." />
-            {errMessage.year
-                ? <label className={styles.errorMessage}>{errMessage.year}</label>
-                : <label>Year</label>
-            }
-            <input type="number" name="year" value={formValues.year} onChange={changeHandler} placeholder="Enter game year..." />
-            {errMessage.image
-                ? <label className={styles.errorMessage}>{errMessage.image}</label>
-                : <label>Image</label>
-            }
-            <input type="text" name="image" value={formValues.image} onChange={changeHandler} placeholder="Enter valid URL of the image..." />
-            {errMessage.creator
-                ? <label className={styles.errorMessage}>{errMessage.creator}</label>
-                : <label>Creator</label>
-            }
-            <input type="text" name="creator" value={formValues.creator} onChange={changeHandler} placeholder="Enter creator of the game..." />
-            {errMessage.description
-                ? <label className={styles.errorMessage}>{errMessage.description}</label>
-                : <label>Description</label>
-            }
-            <textarea name="description" value={formValues.description} onChange={changeHandler} placeholder="Enter good description..." />
-            <div className={styles.buttons}>
-                <button type="submit">Create</button>
-            </div>
-
-        </form>
+        </Formik>
     )
 }

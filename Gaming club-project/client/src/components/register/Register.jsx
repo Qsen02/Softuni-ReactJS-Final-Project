@@ -4,22 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "../FormsAndErrors.module.css"
 
 import { setUserData } from "../../utils/userDataHelper";
-
-import { useForm } from "../../hooks/useForm";
-import { useUserContext } from "../../context/userContext";
 import { useRegister } from "../../hooks/useAuth";
+
+import { useUserContext } from "../../context/userContext";
 import { Formik, Form } from "formik";
-import CustomInput from "../../common/CustomInput";
 import { registerSchema } from "../../schemas";
+
+import CustomInput from "../../common/CustomInput";
 
 export default function Register() {
     const [errMessage, setErrMessage] = useState({});
-    const initalValues = {
-        username: "",
-        email: "",
-        password: "",
-        repass: ""
-    }
     const register = useRegister();
     const { setUserHandler } = useUserContext();
     const navigate = useNavigate();
@@ -38,7 +32,7 @@ export default function Register() {
         } catch (err) {
             if(err.message.includes("[")){
                 setErrMessage(JSON.parse(err.message));
-                return
+                return;
             }
             setErrMessage(err.message);
             return;
