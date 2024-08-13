@@ -16,12 +16,12 @@ export default function Create() {
     const createGame = useCreateGame();
 
     async function onCreate(values,actions) {
-        let name = values.name;
-        let category = values.category;
-        let year = values.year;
-        let creator = values.creator;
-        let description = values.description;
-        let image = values.image;
+        const name = values.name;
+        const category = values.category;
+        const year = values.year;
+        const creator = values.creator;
+        const description = values.description;
+        const image = values.image;
         try {
             await createGame({ name, category, year, image, creator, description });
             actions.resetForm();

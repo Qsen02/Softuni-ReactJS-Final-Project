@@ -55,6 +55,12 @@ export function useGetAllGames(initalvalues) {
 
 export function useGetOneGame(gameId) {
     const [game, setGame] = useState({
+        name: "",
+        year: "",
+        category: "",
+        creator: "",
+        description: "",
+        image: "",
         userLikes: [],
         saves: [],
         comments: []
