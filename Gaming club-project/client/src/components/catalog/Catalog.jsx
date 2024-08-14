@@ -3,7 +3,7 @@ import styles from "./Catalog.module.css"
 import CatalogSearch from "./catalogSearch/CatalogSearch"
 import CatalogContent from "./catalogContent/CatalogContent"
 
-import { useState } from "react";
+import {useState } from "react";
 
 import { searching } from "../../api/gameService";
 
@@ -11,10 +11,13 @@ import { useGetAllGames } from "../../hooks/useGames.js";
 import { usePagination } from "../../hooks/usePagination.js";
 import CatalogPagination from "./catalogPagination/catalogPagination.jsx";
 
+import { useSearchParams } from "react-router-dom";
+
 export default function Catalog() {
+    const [params, setParams] = useSearchParams();
     const [isSearched, setIsSearched] = useState(false);
     const [searchedResults, setSearchedResults] = useState([]);
-    const { games, setGameHandler, isLoading, loadingHandler, maxPage, setMaxPageHanlder } = useGetAllGames([]);
+    const { games, setGameHandler, isLoading, loadingHandler, maxPage, setMaxPageHanlder } = useGetAllGames([], params);
     const { paginationHandler, page, setPageHandler } = usePagination(isSearched, maxPage, setGameHandler, loadingHandler, searchedResults, setSearchedResults);
 
     async function onSearchHandler(values) {
@@ -31,6 +34,9 @@ export default function Catalog() {
             setIsSearched(true);
             setMaxPageHanlder(data.maxPage);
             setPageHandler(0);
+            params.set("name", name);
+            params.set("criteria", criteria);
+            setParams(params);
             loadingHandler(false);
         } catch (err) {
             alert(err.message);

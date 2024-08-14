@@ -8,7 +8,7 @@ import { getUserData } from "../utils/userDataHelper";
 
 import { gamesReducer } from "../reducers/gamesReducer";
 
-export function useGetAllGames(initalvalues) {
+export function useGetAllGames(initalvalues, params) {
     const [games, dispatch] = useReducer(gamesReducer, initalvalues);
     const [isLoading, setIsloading] = useState(false);
     const [maxPage, setMaxPage] = useState(1);
