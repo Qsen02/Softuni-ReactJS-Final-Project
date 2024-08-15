@@ -1,0 +1,38 @@
+@keyframes hovering {
+    0% {
+        color: rgb(127, 132, 132)
+    }
+    20% {
+        color: rgb(135, 145, 156)
+    }
+    40% {
+        color: rgb(150, 160, 170)
+    }
+    60% {
+        color: rgb(175, 180, 200)
+    }
+    80% {
+        color: rgb(196, 200, 204)
+    }
+    100% {
+        color: rgb(210, 215, 223)
+    }
+}
+
+.item {
+    display: inline-block;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.item a {
+    text-decoration: none;
+    color: rgb(127, 132, 132);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14pt;
+}
+
+.item a:hover {
+    animation: hovering 0.5s;
+    animation-fill-mode: forwards;
+}

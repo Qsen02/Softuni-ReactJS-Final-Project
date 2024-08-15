@@ -1,7 +1,8 @@
 import NavItems from "./navItems/NavItems"
+import styles from "./Header.module.css"
 
 export default function Header() {
-    const user=null;
+    const user = null;
     const userNav = [
         { link: "/", title: "HOME" },
         { link: "/catalog", title: "CATALOG" },
@@ -23,13 +24,15 @@ export default function Header() {
         { link: "/register", title: "REGISTER" }
     ]
     return (
-        <ul>
-            {user
-                ? user.isAdmin
-                    ? adminNav.map(el => <NavItems key={el.title} link={el.link} title={el.title} />)
-                    : userNav.map(el => <NavItems key={el.title} link={el.link} title={el.title} />)
-                : guestNav.map(el => <NavItems key={el.title} link={el.link} title={el.title} />)
-            }
-        </ul>
+        <header className={styles.header}>
+            <ul>
+                {user
+                    ? user.isAdmin
+                        ? adminNav.map(el => <NavItems key={el.title} link={el.link} title={el.title} />)
+                        : userNav.map(el => <NavItems key={el.title} link={el.link} title={el.title} />)
+                    : guestNav.map(el => <NavItems key={el.title} link={el.link} title={el.title} />)
+                }
+            </ul>
+        </header>
     )
 }
