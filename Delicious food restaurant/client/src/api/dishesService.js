@@ -1,3 +1,5 @@
+import {get, post, del, put } from "./api";
+
 const endpoint = "/dishes";
 
 export async function getAllDishes() {

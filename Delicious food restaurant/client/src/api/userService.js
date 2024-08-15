@@ -1,4 +1,4 @@
-import { post } from "./api";
+import { post, get } from "./api";
 
 const endpoint = "/users";
 

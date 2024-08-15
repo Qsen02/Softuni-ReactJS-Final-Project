@@ -17,15 +17,15 @@ cartRouter.get("/:cartId", isUser(), async(req, res) => {
     if (!isValid) {
         return res.status(404).json({ message: "Resource not found!" });
     }
-    const basket = await getCartById(id).lean();
-    res.json(basket);
+    const cart = await getCartById(id).lean();
+    res.json(cart);
 })
 
 cartRouter.put("/:cartId", isUser(), async(req, res) => {
     const id = req.params.cartId;
     const data = req.body;
-    const newDishInBasket = await addToCart(id, data);
-    res.json(newDishInBasket);
+    await addToCart(id, data);
+    res.status(200).json({ message: "Dish added succesfully" });
 })
 
 cartRouter.delete("/dishId/from/cartId", isUser(), async(req, res) => {
@@ -41,16 +41,6 @@ cartRouter.delete("/dishId/from/cartId", isUser(), async(req, res) => {
     }
     await removeFromCart(basketId, dishId);
     res.status(200).json({ message: "Record remove from basket successfully" });
-})
-
-cartRouter.get("/:cartId", isUser(), async(req, res) => {
-    const cartId = req.params.cartId;
-    const isValid = await checkCartId(cartId);
-    if (!isValid) {
-        return res.status(404).json({ message: "Resource not found!" });
-    }
-    const dish = await getCartById(cartId).lean();
-    res.json(dish);
 })
 
 cartRouter.post("/order/:cartId", isUser(), async(req, res) => {
