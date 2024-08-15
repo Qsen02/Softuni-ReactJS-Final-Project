@@ -49,8 +49,8 @@ userRouter.post("/login",
 
 userRouter.get("/logout", async(req, res) => {
     const user = req.user;
-    res.status(200).json({ message: "Logout was succesfull!" });
     await removeCart(user);
+    res.status(200).json({ message: "Logout was succesfull!" });
 })
 
 userRouter.get("/:userId", async(req, res) => {

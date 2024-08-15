@@ -99,7 +99,8 @@ dishesRouter.put("/:dishId",
                 throw new Error("Your data aren't in valid format");
             }
             await editDish(dishId, { title, price, category, image, description });
-            res.status(200).json({ message: "Record edited successsfully!" });
+            const dish = await getDishById(dishId).lean();
+            res.status(200).json(dish);
         } catch (err) {
             res.status(400).json({ message: err.message });
         }
@@ -113,7 +114,8 @@ dishesRouter.post("/:dishId/like", isUser(), async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await likeDish(dishId, user);
-    res.status(200).json({ message: "Record liked successsfully" });
+    const dish = await getDishById(dishId).lean();
+    res.status(200).json(dish);
 })
 
 dishesRouter.post("/:dishId/unlike", isUser(), async(req, res) => {
@@ -124,7 +126,8 @@ dishesRouter.post("/:dishId/unlike", isUser(), async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await unlikeDish(dishId, user);
-    res.status(200).json({ message: "Record unlike successsfully" });
+    const dish = await getDishById(dishId).lean();
+    res.status(200).json(dish);
 })
 
 module.exports = {
