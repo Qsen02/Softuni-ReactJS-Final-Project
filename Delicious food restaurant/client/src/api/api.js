@@ -8,9 +8,9 @@ async function requester(method, url, data) {
         headers: {}
     }
     const userData = getUserData();
-    headers["Content-type"] = "Application/json";
+    options.headers["Content-type"] = "application/json";
     if (userData) {
-        headers["X-Authorization"] = userData.accessToken;
+        options.headers["X-Authorization"] = userData.accessToken;
     }
     if (data) {
         options.body = JSON.stringify(data);
@@ -39,13 +39,13 @@ export async function get(url) {
 }
 
 export async function post(url, data) {
-    await requester("post", `${host}${url}`, data);
+    return await requester("post", `${host}${url}`, data);
 }
 
 export async function del(url) {
-    await requester("delete", `${host}${url}`);
+    return await requester("delete", `${host}${url}`);
 }
 
 export async function put(url, data) {
-    await requester("put", `${host}${url}`, data);
+    return await requester("put", `${host}${url}`, data);
 }
