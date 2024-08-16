@@ -9,7 +9,7 @@ const userContext = createContext();
 export default function UserContext(props) {
     const {user, setUserHandler} = usePresistedState(null);
 
-    async function setUseDatarHandler(user) {
+    function setUseDatarHandler(user) {
         setUserData(user);
         setUserHandler(user);
     }

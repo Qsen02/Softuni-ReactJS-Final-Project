@@ -31,6 +31,7 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <ul>
+            <li><img src="/assets/restaurant-logo,restaurant-icon-logo-free-design-template-e4e92c7d3b5631a777fce7a5d629a00a_screen.jpg"/></li>
                 {user
                     ? user.isAdmin
                         ? adminNav.map(el => <NavItems key={el.title} link={el.link} title={el.title} />)

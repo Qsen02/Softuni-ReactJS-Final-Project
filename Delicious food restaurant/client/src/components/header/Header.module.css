@@ -19,4 +19,18 @@ body {
     display: block;
     width: 100vw;
     max-width: fit-content;
+    margin-bottom: -10px;
+}
+
+.header li {
+    display: inline-block;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.header li img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-top: -25px;
 }
