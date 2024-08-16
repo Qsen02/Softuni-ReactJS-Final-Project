@@ -1,8 +1,12 @@
 import NavItems from "./navItems/NavItems"
+
 import styles from "./Header.module.css"
 
+import { useUserContext } from "../../context/UserContext"
+
 export default function Header() {
-    const user = null;
+    const { user } = useUserContext();
+
     const userNav = [
         { link: "/", title: "HOME" },
         { link: "/catalog", title: "CATALOG" },
@@ -23,6 +27,7 @@ export default function Header() {
         { link: "/login", title: "LOGIN" },
         { link: "/register", title: "REGISTER" }
     ]
+
     return (
         <header className={styles.header}>
             <ul>

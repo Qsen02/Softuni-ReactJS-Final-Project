@@ -1,4 +1,4 @@
-import { createContext} from "react";
+import { createContext, useContext} from "react";
 
 import { deleteUserData, setUserData } from "../utils/userHelper";
 import { logout } from "../api/userService";
@@ -25,4 +25,12 @@ export default function UserContext(props) {
             {props.children}
         </userContext.Provider>
     )
+}
+
+export function useUserContext(){
+    const {user,setUserHandler,clearUserHandler}=useContext(userContext);
+
+    return {
+        user,setUserHandler,clearUserHandler
+    }
 }
