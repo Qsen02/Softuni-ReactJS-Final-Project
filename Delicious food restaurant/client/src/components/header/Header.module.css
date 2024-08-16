@@ -1,11 +1,13 @@
 body {
-    padding: 0;
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .header {
+    box-sizing: border-box;
     display: block;
-    width: 100%;
+    width: 100vw;
     height: auto;
     background-color: rgb(5, 125, 47);
     margin: 0 auto;
@@ -13,6 +15,8 @@ body {
 }
 
 .header ul {
+    box-sizing: border-box;
     display: block;
-    width: 100%;
+    width: 100vw;
+    max-width: fit-content;
 }
