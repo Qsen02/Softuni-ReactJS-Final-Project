@@ -7,7 +7,7 @@ export default function NavItems({
     return (
         <li className={styles.item}>
             <NavLink
-                style={({ isActive }) => isActive ? { color: "rgb(210, 215, 223)" } : {}}
+                style={({ isActive }) => isActive ? { color: "rgb(166, 158, 167)" } : {}}
                 to={link}
             >
                 {title}
