@@ -18,7 +18,7 @@ async function register(username, email, password, address) {
     }
     const user = new Users(payload);
     await user.save();
-    return payload;
+    return user;
 }
 
 async function login(username, password) {

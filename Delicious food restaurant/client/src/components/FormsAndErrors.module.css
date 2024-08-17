@@ -7,7 +7,7 @@
     border-radius: 10px;
     text-align: center;
     color: white;
-    font-size: 16pt;
+    font-size: 14pt;
     font-family: Arial, Helvetica, sans-serif;
     padding: 20px;
     background-color: rgb(5, 125, 47);
@@ -17,11 +17,11 @@
     display: block;
     margin: 0 auto;
     width: 400px;
-    height: 50px;
+    height: 35px;
     border-radius: 7px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 16pt;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 14pt;
 }
 
 .form a {
@@ -56,16 +56,16 @@
 
 .errorParagraph {
     position: relative;
-    color: red;
+    color: rgb(203, 16, 16);
     font-size: 12pt;
     font-family: Arial, Helvetica, sans-serif;
-    right: 72px;
     bottom: 15px;
+    margin-bottom: -10px;
 }
 
 .errorDontMatch {
     text-align: center;
-    color: red;
+    color: rgb(203, 16, 16);
     font-size: 12pt;
     font-family: Arial, Helvetica, sans-serif;
 }

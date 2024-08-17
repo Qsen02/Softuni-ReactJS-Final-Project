@@ -44,8 +44,10 @@ async function checkCartId(id) {
 }
 
 async function removeCart(user) {
-    const basket = await Carts.findOne({ ownerId: user._id });
-    await Carts.findByIdAndDelete(basket._id);
+    const basket = await Carts.findOne({ ownerId: user._id }).lean();
+    if (basket) {
+        await Carts.findByIdAndDelete(basket._id);
+    }
 }
 
 function findUserCart(user) {
