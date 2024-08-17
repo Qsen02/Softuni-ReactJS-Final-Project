@@ -1,0 +1,42 @@
+.searchForm {
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    width: 600px;
+    height: auto;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: rgb(5, 125, 47);
+    color: white;
+}
+
+.searchForm input {
+    width: 400px;
+    border-radius: 7px;
+    height: 40px;
+    margin-right: 20px;
+    font-size: 12pt;
+}
+
+.searchForm input::placeholder {
+    font-size: 12pt;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.searchForm button {
+    margin: 0 auto;
+    width: 100px;
+    height: 50px;
+    background-color: rgb(205, 205, 6);
+    border: none;
+    border-radius: 10px;
+    font-size: 16pt;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+.searchForm button:hover {
+    background-color: yellow;
+}
