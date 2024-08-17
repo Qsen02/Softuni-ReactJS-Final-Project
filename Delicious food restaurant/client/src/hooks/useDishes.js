@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import { getAllDishes } from "../api/dishesService";
+import { getAllDishes, searchDishes } from "../api/dishesService";
 import { reducer } from "../reducers/dishReducer";
 
 export function useGetAllDishes(initialvalues) {
@@ -18,15 +18,17 @@ export function useGetAllDishes(initialvalues) {
         })()
     }, [])
 
-    function setDishesHandler(value) {
-        if (value instanceof Array) {
-            dispatch({ type: "setValues", payload: value });
-        }
-    }
-
     return {
         dishes,
-        setDishesHandler,
+        dispatch,
         isFetchFailed
     }
+}
+
+export function useSearch() {
+    async function searching(query) {
+        return await searchDishes(query);
+    }
+
+    return searching;
 }

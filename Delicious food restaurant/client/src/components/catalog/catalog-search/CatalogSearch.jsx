@@ -4,10 +4,12 @@ import CustomInput from "../../../common/CustomInput";
 
 import styles from "./CatalogSearch.module.css";
 
-export default function CatalogSearch() {
+export default function CatalogSearch({
+    onSearch
+}) {
     return (
         <>
-            <Formik initialValues={{ title: "" }}>
+            <Formik initialValues={{ title: "" }} onSubmit={onSearch}>
                 {
                     (props) => (
                         <Form className={styles.searchForm}>
