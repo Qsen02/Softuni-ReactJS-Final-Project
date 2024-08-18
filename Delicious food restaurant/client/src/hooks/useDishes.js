@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useState } from "react";
-import { createDish, getAllDishes, searchDishes } from "../api/dishesService";
+import { createDish, getAllDishes, getDishById, searchDishes } from "../api/dishesService";
 import { reducer } from "../reducers/dishReducer";
+import { getUserById } from "../api/userService";
 
 export function useGetAllDishes(initialvalues) {
     const [dishes, dispatch] = useReducer(reducer, initialvalues);
@@ -27,6 +28,43 @@ export function useGetAllDishes(initialvalues) {
         isFetchFailed,
         isLoading,
         setIsLoading
+    }
+}
+
+export function useGetOneDish(initialvalues, dishId) {
+    const [dish, setDish] = useState(initialvalues)
+    const [owner, setOwner] = useState(null);
+    const [isFetchFailed, setIsFetchFailed] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        (async() => {
+            try {
+                setIsLoading(true);
+                const data = await getDishById(dishId);
+                setDish(data);
+                const owner = await getUserById(data.ownerId);
+                setOwner(owner);
+                setIsLoading(false);
+            } catch (err) {
+                setIsFetchFailed(true);
+                return;
+            }
+        })()
+    }, [dishId])
+
+    function setDishHandler(value) {
+        if (typeof(value) === "object" && value != null) {
+            setDish(value);
+        }
+    }
+
+    return {
+        dish,
+        setDishHandler,
+        owner,
+        isLoading,
+        isFetchFailed
     }
 }
 
