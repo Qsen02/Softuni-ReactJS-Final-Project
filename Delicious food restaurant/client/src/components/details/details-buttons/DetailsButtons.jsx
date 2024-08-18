@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import styles from "../Details.module.css"
+
 export default function DetailsButtons({
     curUser,
     setDish,
@@ -11,15 +13,15 @@ export default function DetailsButtons({
         <>
             {curUser
                 ? curUser.isAdmin
-                    ? <div>
+                    ? <div className={styles.buttons}>
                         <Link to="edit"><button>Edit</button></Link >
                         <Link to="delete"><button>Delete</button></Link>
-                        <div>
+                        <div className={styles.adminButtons}>
                             <i class="fa-solid fa-heart"></i>
                             <p>{likesCount}</p>
                         </div>
                     </div>
-                    : <div>
+                    : <div className={styles.buttons}>
                         <Link to="addToCart"><button>Add to cart</button></Link>
                         <Link to="/cart"><i class="fa-solid fa-cart-shopping"></i></Link>
                         {stringLikes.includes(curUser._id.toString())
@@ -35,7 +37,7 @@ export default function DetailsButtons({
                             </div>
                         }
                     </div>
-                : <div>
+                : <div className={styles.guestButtons}>
                     <i class="fa-solid fa-heart"></i>
                     <p>{likesCount}</p>
                 </div>
