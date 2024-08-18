@@ -17,6 +17,6 @@ export const createSchema = yup.object().shape({
     title: yup.string().min(3, "Title must be at least 3 characters long!").required("Title required!"),
     price: yup.number().min(0, "Price must be positive numnber!").required("Price required!"),
     category: yup.string().min(3, "Category must be at least 3 characters long!").required("Category required!"),
-    image: yup.string().matches(/^https?:\/\//, "Image must be valid URL!").required("Image required"),
+    image: yup.string().matches(/^https?:\/\//, "Image URL must begin with http or https!").required("Image required"),
     description: yup.string().min(10, "Description must be between 10 and 200 characters long!").max(200, "Description must be between 10 and 200 characters long!").required("Description required!")
 })
