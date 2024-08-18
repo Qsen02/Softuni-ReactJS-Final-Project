@@ -8,6 +8,7 @@ import Login from "./components/login/login"
 import Register from "./components/register/Register"
 import Logout from "./components/logout/Lougout"
 import Catalog from "./components/catalog/Catalog"
+import CreateForm from "./components/createForm/CreateForm"
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/logout" element={<Logout />} />
                     <Route path="/catalog" element={<Catalog />} />
+                    <Route path="/create" element={<CreateForm />} />
                 </Routes>
             </main>
             <Footer />
