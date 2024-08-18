@@ -8,18 +8,20 @@ import styles from "./Catalog.module.css"
 
 export default function Catalog() {
     const [isSearched, setIsSearched] = useState(false);
-    const { dishes, dispatch, isFetchFailed } = useGetAllDishes([]);
+    const { dishes, dispatch, isFetchFailed, isLoading, setIsLoading } = useGetAllDishes([]);
     const searchDishes = useSearch();
 
-    async function onSearch(values, action) {
+    async function onSearch(values) {
         let title = values.title;
         try {
             if (title == "") {
                 title = "empty";
             }
+            setIsLoading(true);
             const searchedResults = await searchDishes(title);
             setIsSearched(true);
             dispatch({ type: "onSearch", payload: searchedResults });
+            setIsLoading(false);
         } catch (err) {
             alert(err.message);
             return;
@@ -28,6 +30,10 @@ export default function Catalog() {
 
     return (
         <>
+            {isLoading && !isFetchFailed
+                ? <div className={styles.loadingSpinner}></div>
+                : ""
+            }
             <CatalogSearch onSearch={onSearch} />
             <h1 className={styles.title}>All available dishes</h1>
             <div className={styles.catalog}>
@@ -35,11 +41,16 @@ export default function Catalog() {
                     ? <h1 className={styles.message}>Failed to fetch</h1>
                     : dishes.length > 0
                         ? dishes.map(el => <CatalogContent key={el._id} id={el._id} title={el.title} price={el.price} image={el.image} />)
-                        : !isSearched ? <h1 className={styles.message}>No dishes yet...</h1> : ""
+                        : !isSearched && !isLoading ? <h1 className={styles.message}>No dishes yet</h1> : ""
                 }
                 {
-                    isSearched && dishes.length == 0
+                    isSearched && dishes.length == 0 && !isLoading
                         ? <h1 className={styles.message}>No results</h1>
+                        : ""
+                }
+                {
+                    isLoading && !isFetchFailed
+                        ? <h1 className={styles.message}>Loading dishes...</h1>
                         : ""
                 }
             </div>

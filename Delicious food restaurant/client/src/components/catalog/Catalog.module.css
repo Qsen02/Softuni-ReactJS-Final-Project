@@ -1,3 +1,12 @@
+@keyframes rotating {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .catalog {
     display: grid;
     grid-template-columns: auto auto auto;
@@ -23,7 +32,8 @@
     padding: 20px;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
-    box-shadow: inset 1px 1px 20px 1px grey;
+    box-shadow: inset 1px 1px 30px 1px grey;
+    margin: 20px;
 }
 
 .catalog div img {
@@ -40,7 +50,11 @@
 }
 
 .catalog div a {
+    display: block;
     text-decoration: none;
+    width: 100px;
+    height: 50px;
+    margin: 0 auto;
 }
 
 .catalog div a button {
@@ -65,4 +79,16 @@
     padding: 10px;
     border-radius: 10px;
     box-shadow: inset 1px 1px 20px 1px grey;
+}
+
+.loadingSpinner {
+    display: block;
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    left: 47%;
+    bottom: 40%;
+    border-radius: 50%;
+    border: inset 10px yellow;
+    animation: rotating 1s linear infinite;
 }

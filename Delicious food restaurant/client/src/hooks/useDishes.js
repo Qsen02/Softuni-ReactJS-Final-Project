@@ -5,12 +5,15 @@ import { reducer } from "../reducers/dishReducer";
 export function useGetAllDishes(initialvalues) {
     const [dishes, dispatch] = useReducer(reducer, initialvalues);
     const [isFetchFailed, setIsFetchFailed] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         (async() => {
             try {
+                setIsLoading(true);
                 const data = await getAllDishes();
                 dispatch({ type: "getAll", payload: data });
+                setIsLoading(false);
             } catch (err) {
                 setIsFetchFailed(true);
                 return;
@@ -21,7 +24,9 @@ export function useGetAllDishes(initialvalues) {
     return {
         dishes,
         dispatch,
-        isFetchFailed
+        isFetchFailed,
+        isLoading,
+        setIsLoading
     }
 }
 
