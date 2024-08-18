@@ -33,7 +33,6 @@ export function useGetAllDishes(initialvalues) {
 
 export function useGetOneDish(initialvalues, dishId) {
     const [dish, setDish] = useState(initialvalues)
-    const [owner, setOwner] = useState(null);
     const [isFetchFailed, setIsFetchFailed] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -43,8 +42,6 @@ export function useGetOneDish(initialvalues, dishId) {
                 setIsLoading(true);
                 const data = await getDishById(dishId);
                 setDish(data);
-                const owner = await getUserById(data.ownerId);
-                setOwner(owner);
                 setIsLoading(false);
             } catch (err) {
                 setIsFetchFailed(true);
@@ -62,7 +59,6 @@ export function useGetOneDish(initialvalues, dishId) {
     return {
         dish,
         setDishHandler,
-        owner,
         isLoading,
         isFetchFailed
     }

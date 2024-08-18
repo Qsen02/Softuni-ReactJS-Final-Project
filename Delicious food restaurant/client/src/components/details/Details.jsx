@@ -13,7 +13,7 @@ export default function Details() {
     }
     const { dishId } = useParams();
     const { user } = useUserContext();
-    const { dish, setDishHandler, owner, isLoading, isFetchFailed } = useGetOneDish(initialvalues, dishId);
+    const { dish, setDishHandler, isLoading, isFetchFailed } = useGetOneDish(initialvalues, dishId);
 
     return (
         <>
@@ -26,7 +26,7 @@ export default function Details() {
                         <div>
                             <h2>{dish.title}</h2>
                             <p>Category: {dish.category}</p>
-                            <DetailsButtons />
+                            <DetailsButtons curUser={user} setDish={setDishHandler} likes={dish.likes} likesCount={dish.likes.length}/>
                         </div>
                     </div>
                     <div className={styles.detailsBody}>
