@@ -138,6 +138,24 @@
     bottom: 25px;
 }
 
+.buttons .unlike i {
+    position: relative;
+    left: 20px;
+    bottom: 5px;
+    font-size: 24pt;
+    cursor: pointer;
+    color: red;
+}
+
+.buttons .like i {
+    position: relative;
+    left: 20px;
+    bottom: 5px;
+    font-size: 24pt;
+    cursor: pointer;
+    color: black;
+}
+
 .guestButtons p {
     position: relative;
     left: 17px;

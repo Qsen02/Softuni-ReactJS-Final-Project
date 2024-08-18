@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import { createDish, getAllDishes, getDishById, searchDishes } from "../api/dishesService";
+import { createDish, getAllDishes, getDishById, likeDish, searchDishes } from "../api/dishesService";
 import { reducer } from "../reducers/dishReducer";
 import { getUserById } from "../api/userService";
 
@@ -60,7 +60,8 @@ export function useGetOneDish(initialvalues, dishId) {
         dish,
         setDishHandler,
         isLoading,
-        isFetchFailed
+        isFetchFailed,
+        setIsFetchFailed
     }
 }
 
@@ -78,4 +79,12 @@ export function useCreateDish() {
     }
 
     return creating;
+}
+
+export function useLike() {
+    async function liking(dishId) {
+        return await likeDish(dishId);
+    }
+
+    return liking;
 }
