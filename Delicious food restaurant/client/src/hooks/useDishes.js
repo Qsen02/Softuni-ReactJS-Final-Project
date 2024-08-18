@@ -1,7 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
-import { createDish, getAllDishes, getDishById, likeDish, searchDishes } from "../api/dishesService";
+import { createDish, deleteDish, getAllDishes, getDishById, likeDish, searchDishes, unlikeDish } from "../api/dishesService";
 import { reducer } from "../reducers/dishReducer";
-import { getUserById } from "../api/userService";
 
 export function useGetAllDishes(initialvalues) {
     const [dishes, dispatch] = useReducer(reducer, initialvalues);
@@ -87,4 +86,20 @@ export function useLike() {
     }
 
     return liking;
+}
+
+export function useUnlike() {
+    async function unliking(dishId) {
+        return await unlikeDish(dishId);
+    }
+
+    return unliking;
+}
+
+export function useDeleteDish() {
+    async function deletingDish(dishId) {
+        return await deleteDish(dishId);
+    }
+
+    return deletingDish;
 }

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import styles from "../Details.module.css"
 
-import { useLike } from "../../../hooks/useDishes";
+import { useLike, useUnlike } from "../../../hooks/useDishes";
 
 export default function DetailsButtons({
     setFailed,
@@ -14,10 +14,21 @@ export default function DetailsButtons({
 }) {
     const stringLikes = likes.map(el => el.toString());
     const likeDish = useLike();
+    const unlikeDish=useUnlike();
 
     async function onLike() {
         try {
             const dish = await likeDish(id);
+            setDish(dish);
+        } catch (err) {
+            setFailed(true);
+            return;
+        }
+    }
+
+    async function onUnlike() {
+        try {
+            const dish = await unlikeDish(id);
             setDish(dish);
         } catch (err) {
             setFailed(true);
@@ -30,10 +41,10 @@ export default function DetailsButtons({
             {curUser
                 ? curUser.isAdmin
                     ? <div className={styles.buttons}>
-                        <Link to="edit"><button>Edit</button></Link >
-                        <Link to="delete"><button>Delete</button></Link>
+                        <Link to={`/catalog/${id}/edit`}><button>Edit</button></Link >
+                        <Link to={`/catalog/${id}/delete`}><button>Delete</button></Link>
                         <div className={styles.adminButtons}>
-                            <i class="fa-solid fa-heart"></i>
+                            <i className="fa-solid fa-heart"></i>
                             <p>{likesCount}</p>
                         </div>
                     </div>
@@ -42,17 +53,17 @@ export default function DetailsButtons({
                         <Link to="/cart"><i class="fa-solid fa-cart-shopping"></i></Link>
                         {stringLikes.includes(curUser._id.toString())
                             ? <div className={styles.unlike}>
-                                <i  class="fa-solid fa-heart"></i>
+                                <i onClick={onUnlike} className="fa-solid fa-heart"></i>
                                 <p>{likesCount}</p>
                             </div>
                             : <div className={styles.like}>
-                                <i onClick={onLike} class="fa-regular fa-heart"></i>
+                                <i onClick={onLike} className="fa-regular fa-heart"></i>
                                 <p>{likesCount}</p>
                             </div >
                         }
                     </div >
                 : <div className={styles.guestButtons}>
-                    <i class="fa-solid fa-heart"></i>
+                    <i className="fa-solid fa-heart"></i>
                     <p>{likesCount}</p>
                 </div>
             }

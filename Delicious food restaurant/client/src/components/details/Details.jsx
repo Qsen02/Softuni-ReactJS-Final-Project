@@ -1,7 +1,9 @@
-import { useParams } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom"
+;
 import { useGetOneDish } from "../../hooks/useDishes";
 
 import DetailsButtons from "./details-buttons/DetailsButtons";
+import DeleteDish from "../deleteDish/DeleteDish";
 
 import styles from "./Details.module.css"
 
@@ -17,6 +19,9 @@ export default function Details() {
 
     return (
         <>
+        <Routes>
+            <Route path="/delete" element={<DeleteDish dish={dish}/>}/>
+        </Routes>
             {isLoading && !isFetchFailed? <div className={styles.loadingSpinner}></div> : ""}
             {isFetchFailed
                 ? <h1 className={styles.message}>Fetch failed please return to catalog.</h1>
