@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import { getAllDishes, searchDishes } from "../api/dishesService";
+import { createDish, getAllDishes, searchDishes } from "../api/dishesService";
 import { reducer } from "../reducers/dishReducer";
 
 export function useGetAllDishes(initialvalues) {
@@ -36,4 +36,12 @@ export function useSearch() {
     }
 
     return searching;
+}
+
+export function useCreateDish() {
+    async function creating(data) {
+        return await createDish(data);
+    }
+
+    return creating;
 }
