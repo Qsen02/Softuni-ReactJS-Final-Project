@@ -9,6 +9,7 @@ import Register from "./components/register/Register"
 import Logout from "./components/logout/Lougout"
 import Catalog from "./components/catalog/Catalog"
 import CreateForm from "./components/createForm/CreateForm"
+import Details from "./components/details/Details"
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
                     <Route path="/logout" element={<Logout />} />
                     <Route path="/catalog" element={<Catalog />} />
                     <Route path="/create" element={<CreateForm />} />
+                    <Route path="/catalog/:id" element={<Details />} />
                 </Routes>
             </main>
             <Footer />

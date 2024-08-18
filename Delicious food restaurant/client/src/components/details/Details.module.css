@@ -1,0 +1,56 @@
+.wrapper {
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-radius: 15px;
+    box-shadow: inset 1px 1px 20px 1px grey;
+    width: 1000px;
+    height: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 20px;
+}
+
+.detailsHeader {
+    display: block;
+    width: 1000px;
+    height: auto;
+}
+
+.detailsHeader img {
+    width: 500px;
+    height: 400px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.detailsHeader div {
+    display: inline-block;
+    height: auto;
+    width: 400px;
+}
+
+.detailsHeader div h2 {
+    position: relative;
+    bottom: 320px;
+    text-align: center;
+}
+
+.detailsHeader div p {
+    position: relative;
+    bottom: 320px;
+    text-align: center;
+    font-size: 16pt;
+    word-break: break-word;
+}
+
+.detailsBody {
+    display: block;
+    width: 950px;
+    height: auto;
+}
+
+.detailsBody p {
+    text-align: left;
+    font-size: 16pt;
+    word-break: break-word;
+}
