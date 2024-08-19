@@ -9,6 +9,7 @@ import styles from "./Details.module.css"
 
 import { useUserContext } from "../../context/UserContext";
 import { errorHandler } from "../../utils/imageErrorHandler";
+import EditDish from "../editDish/EditDish";
 
 export default function Details() {
     const initialvalues = {
@@ -22,6 +23,7 @@ export default function Details() {
         <>
             <Routes>
                 <Route path="/delete" element={<DeleteDish dish={dish} />} />
+                <Route path="/edit" element={<EditDish setDish={setDishHandler}/>}/>
             </Routes>
             {isLoading && !isFetchFailed ? <div className={styles.loadingSpinner}></div> : ""}
             {isFetchFailed
@@ -32,6 +34,7 @@ export default function Details() {
                         <div>
                             <h2>{dish.title}</h2>
                             <p>Category: {dish.category}</p>
+                            <p>Price: {dish.price}$</p>
                             <DetailsButtons setFailed={setIsFetchFailed} id={dishId} curUser={user} setDish={setDishHandler} likes={dish.likes} likesCount={dish.likes.length} />
                         </div>
                     </div>

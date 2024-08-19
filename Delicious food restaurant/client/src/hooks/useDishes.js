@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import { createDish, deleteDish, getAllDishes, getDishById, likeDish, searchDishes, unlikeDish } from "../api/dishesService";
+import { createDish, deleteDish, editDish, getAllDishes, getDishById, likeDish, searchDishes, unlikeDish } from "../api/dishesService";
 import { reducer } from "../reducers/dishReducer";
 
 export function useGetAllDishes(initialvalues) {
@@ -102,4 +102,12 @@ export function useDeleteDish() {
     }
 
     return deletingDish;
+}
+
+export function useEditDish() {
+    async function editingDish(dishId, data) {
+        return await editDish(dishId, data);
+    }
+
+    return editingDish;
 }

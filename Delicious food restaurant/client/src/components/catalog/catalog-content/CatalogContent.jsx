@@ -11,7 +11,7 @@ export default function CatalogContent({
         <div>
             <img src={image} alt={title} onError={errorHandler}/>
             <h3>{title}</h3>
-            <p>{price}$</p>
+            <p>Price: {price}$</p>
             <Link to={`/catalog/${id}`}><button >Details</button></Link>
         </div>
     )
