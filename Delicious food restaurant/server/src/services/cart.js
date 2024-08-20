@@ -51,7 +51,7 @@ async function removeCart(user) {
 }
 
 function findUserCart(user) {
-    const cart = Carts.find({ ownerId: user._id });
+    const cart = Carts.findOne({ ownerId: user._id });
     return cart;
 }
 

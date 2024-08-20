@@ -24,6 +24,7 @@ cartRouter.get("/:cartId", isUser(), async(req, res) => {
 cartRouter.put("/:cartId", isUser(), async(req, res) => {
     const id = req.params.cartId;
     const data = req.body;
+    console.log(data);
     await addToCart(id, data);
     res.status(200).json({ message: "Dish added succesfully" });
 })

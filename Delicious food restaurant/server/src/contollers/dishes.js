@@ -32,7 +32,10 @@ dishesRouter.get("/page/:pageNumber", async(req, res) => {
 })
 
 dishesRouter.get("/search/:query", async(req, res) => {
-    const query = req.params.query;
+    let query = req.params.query;
+    if (query == "empty") {
+        query = "";
+    }
     const results = await searchDishes(query).lean();
     res.json(results);
 })

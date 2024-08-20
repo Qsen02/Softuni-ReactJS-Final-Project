@@ -104,7 +104,7 @@
     margin-left: 20px;
 }
 
-.buttons a button {
+.buttons button {
     width: 100px;
     height: 50px;
     background-color: rgb(205, 205, 6);
@@ -115,7 +115,7 @@
     cursor: pointer;
 }
 
-.buttons a button:hover {
+.buttons button:hover {
     background-color: yellow;
 }
 
@@ -156,6 +156,17 @@
     font-size: 24pt;
     cursor: pointer;
     color: black;
+}
+
+.buttons .added {
+    background-color: rgb(5, 125, 47);
+    color: white;
+    cursor: default;
+}
+
+.buttons .added:hover {
+    background-color: rgb(5, 125, 47);
+    color: white;
 }
 
 .guestButtons p {
