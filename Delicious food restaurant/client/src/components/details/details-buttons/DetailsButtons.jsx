@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import styles from "../Details.module.css"
 
 import { useGetOneDish, useLike, useUnlike } from "../../../hooks/useDishes";
-import { useAddToCart, useGetUserCart, useIsAddedToCart } from "../../../hooks/useCart";
+import { useAddToCart, useGetUserCart } from "../../../hooks/useCart";
 import { useUserContext } from "../../../context/UserContext";
 
 export default function DetailsButtons({
+    isAdded,
+    setIsAdded,
     setFailed,
     id,
-    curUser,
     setDish,
     likes,
     likesCount
@@ -20,8 +21,7 @@ export default function DetailsButtons({
     const findUserCart = useGetUserCart();
     const addDishToCart = useAddToCart();
     const { user } = useUserContext();
-    const { dish } = useGetOneDish({likes:[]},id);
-    const { isAdded, setIsAddedHandler } = useIsAddedToCart(false, user, id);
+    const { dish } = useGetOneDish({ likes: [] }, id);
 
     async function onLike() {
         try {
@@ -46,9 +46,9 @@ export default function DetailsButtons({
     async function onAdd() {
         try {
             const cart = await findUserCart(user._id);
-            const cartId=cart._id.toString();
-            await addDishToCart(cartId,dish);
-            setIsAddedHandler(true);
+            const cartId = cart._id.toString();
+            await addDishToCart(cartId, dish);
+            setIsAdded(true);
         } catch (err) {
             setFailed(true);
             return;

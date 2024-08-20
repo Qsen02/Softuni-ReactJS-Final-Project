@@ -27,8 +27,8 @@ export function useIsAddedToCart(initalValues, user, dishId) {
                 if (!cart.dishes) {
                     return;
                 }
-                const dishesIds = cart.dishes.map(el => el.toString());
-                if (dishesIds.includes(dishId.toString())) {
+                const isAdded = cart.dishes.find(el => el._id == dishId);
+                if (isAdded) {
                     setIsAdded(true);
                 } else {
                     setIsAdded(false);

@@ -10,6 +10,7 @@ import styles from "./Details.module.css"
 import { useUserContext } from "../../context/UserContext";
 import { errorHandler } from "../../utils/imageErrorHandler";
 import EditDish from "../editDish/EditDish";
+import { useIsAddedToCart } from "../../hooks/useCart";
 
 export default function Details() {
     const initialvalues = {
@@ -18,6 +19,7 @@ export default function Details() {
     const { dishId } = useParams();
     const { user } = useUserContext();
     const { dish, setDishHandler, isLoading, isFetchFailed, setIsFetchFailed } = useGetOneDish(initialvalues, dishId);
+    const { isAdded, setIsAddedHandler } = useIsAddedToCart(false, user, dishId);
 
     return (
         <>
@@ -35,7 +37,7 @@ export default function Details() {
                             <h2>{dish.title}</h2>
                             <p>Category: {dish.category}</p>
                             <p>Price: {dish.price}$</p>
-                            <DetailsButtons setFailed={setIsFetchFailed} id={dishId} curUser={user} setDish={setDishHandler} likes={dish.likes} likesCount={dish.likes.length} />
+                            <DetailsButtons isAdded={isAdded} setIsAdded={setIsAddedHandler} setFailed={setIsFetchFailed} id={dishId} setDish={setDishHandler} likes={dish.likes} likesCount={dish.likes.length} />
                         </div>
                     </div>
                     <div className={styles.detailsBody}>
