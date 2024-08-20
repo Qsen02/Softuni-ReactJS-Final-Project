@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import styles from "../Details.module.css"
 
 import { useLike, useUnlike } from "../../../hooks/useDishes";
+import { useAddToCart, useGetUserCart, useIsAddedToCart } from "../../../hooks/useCart";
+import { useUserContext } from "../../../context/UserContext";
 
 export default function DetailsButtons({
     setFailed,
@@ -14,7 +16,11 @@ export default function DetailsButtons({
 }) {
     const stringLikes = likes.map(el => el.toString());
     const likeDish = useLike();
-    const unlikeDish=useUnlike();
+    const unlikeDish = useUnlike();
+    const findUserCart = useGetUserCart();
+    const addDishToCart = useAddToCart();
+    const { user } = useUserContext();
+    const { isAdded, setIsAddedHandler } = useIsAddedToCart(false, user, id);
 
     async function onLike() {
         try {
@@ -49,7 +55,10 @@ export default function DetailsButtons({
                         </div>
                     </div>
                     : <div className={styles.buttons}>
-                        <Link to="addToCart"><button>Add to cart</button></Link>
+                        {isAdded
+                            ? <p>Added to cart!</p>
+                            : <Link to="addToCart"><button>Add to cart</button></Link>
+                        }
                         <Link to="/cart"><i class="fa-solid fa-cart-shopping"></i></Link>
                         {stringLikes.includes(curUser._id.toString())
                             ? <div className={styles.unlike}>

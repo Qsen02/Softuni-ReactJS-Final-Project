@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { addDishToCart, findUserCart } from "../api/cartService";
 
 export function useGetUserCart() {
@@ -14,4 +15,36 @@ export function useAddToCart() {
     }
 
     return addingToCart;
+}
+
+export function useIsAddedToCart(initalValues, user, dishId) {
+    const [isAdded, setIsAdded] = useState(initalValues);
+
+    useEffect(() => {
+        (async() => {
+            try {
+                const cart = await findUserCart(user._id);
+                const dishesIds = cart.dishes.map(el => el.toString());
+                if (dishesIds.includes(dishId.toString())) {
+                    setIsAdded(true);
+                } else {
+                    setIsAdded(false);
+                }
+            } catch (err) {
+                alert(err.message);
+                return;
+            }
+        })()
+    }, [])
+
+    function setIsAddedHandler(value) {
+        if (typeof(value) === "boolean") {
+            setIsAdded(value)
+        }
+    }
+
+    return {
+        isAdded,
+        setIsAddedHandler
+    }
 }
