@@ -10,6 +10,7 @@ import Logout from "./components/logout/Lougout"
 import Catalog from "./components/catalog/Catalog"
 import CreateForm from "./components/createForm/CreateForm"
 import Details from "./components/details/Details"
+import Cart from "./components/cart/Cart"
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
                     <Route path="/catalog" element={<Catalog />} />
                     <Route path="/create" element={<CreateForm />} />
                     <Route path="/catalog/:dishId/*" element={<Details />}/>
+                    <Route path="/cart" element={<Cart/>}/>
                 </Routes>
             </main>
             <Footer />

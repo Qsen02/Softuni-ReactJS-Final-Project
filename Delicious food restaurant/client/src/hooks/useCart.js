@@ -51,3 +51,50 @@ export function useIsAddedToCart(initalValues, user, dishId) {
         setIsAddedHandler
     }
 }
+
+export function useGetDishesFromCart(initalvalues, user) {
+    const [dishes, setDishes] = useState(initalvalues);
+    const [loading, setLoading] = useState(false);
+    const [fetchFailed, setFetchFailed] = useState(false);
+
+    useEffect(() => {
+        (async() => {
+            try {
+                setLoading(true);
+                const cart = await findUserCart(user._id);
+                setDishes(cart.dishes);
+                setLoading(false);
+            } catch (err) {
+                setFetchFailed(true);
+                return;
+            }
+        })()
+    }, [])
+
+    function setDishesHandler(value) {
+        if (value instanceof Array) {
+            setDishes(value);
+        }
+    }
+
+    function setFetchFailedHandler(value) {
+        if (typeof(value) === "boolean") {
+            setFetchFailed(value);
+        }
+    }
+
+    function setLoadingHandler(value) {
+        if (typeof(value) === "boolean") {
+            setLoading(value);
+        }
+    }
+
+    return {
+        dishes,
+        setDishesHandler,
+        loading,
+        setLoadingHandler,
+        fetchFailed,
+        setFetchFailedHandler
+    }
+}
