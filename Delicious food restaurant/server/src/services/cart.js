@@ -37,7 +37,7 @@ async function ordering(basketId, user) {
         totalPrice: basket.dishes.map(el => el.price).reduce((acc, val) => acc + val)
     })
     await newOrder.save();
-    const order = await Orders.findOne({ ownerId: user._id }).lean();
+    const order = await Orders.findById(newOrder._id.toString()).lean();
     await Users.findByIdAndUpdate(user._id.toString(), { $push: { orderHistory: order } });
     await Carts.findByIdAndUpdate(basketId, { $set: { dishes: [] } });
 }

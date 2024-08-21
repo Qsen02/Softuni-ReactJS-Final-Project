@@ -36,7 +36,7 @@ async function login(username, password) {
 }
 
 async function getUserById(userId) {
-    const user = await Users.findById(userId).lean();
+    const user = await Users.findById(userId).populate("orderHistory").lean();
     console.log(user);
     if (user.isAdmin) {
         const dishes = await Dishes.find({ ownerId: userId }).lean();
