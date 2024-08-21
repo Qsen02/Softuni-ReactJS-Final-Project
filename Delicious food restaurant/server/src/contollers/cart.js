@@ -28,7 +28,7 @@ cartRouter.put("/:cartId", isUser(), async(req, res) => {
     res.status(200).json({ message: "Dish added succesfully" });
 })
 
-cartRouter.delete("/dishId/from/cartId", isUser(), async(req, res) => {
+cartRouter.delete("/remove/:dishId/from/:cartId", isUser(), async(req, res) => {
     const dishId = req.params.dishId;
     const basketId = req.params.cartId;
     const isBasketValid = await checkCartId(basketId);
@@ -40,7 +40,8 @@ cartRouter.delete("/dishId/from/cartId", isUser(), async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await removeFromCart(basketId, dishId);
-    res.status(200).json({ message: "Record remove from basket successfully" });
+    const cart = await getCartById(basketId).lean();
+    res.status(200).json(cart.dishes);
 })
 
 cartRouter.post("/order/:cartId", isUser(), async(req, res) => {

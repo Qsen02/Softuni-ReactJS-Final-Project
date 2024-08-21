@@ -21,7 +21,7 @@ async function cancelOrder(id) {
 }
 
 function getCartById(id) {
-    const dish = Carts.findById(id);
+    const dish = Carts.findById(id).populate("dishes");
     return dish;
 }
 

@@ -10,7 +10,7 @@ import CartContent from "./cartContent/CartContent";
 export default function Cart() {
     const { user } = useUserContext();
     const navigate = useNavigate();
-    const { dishes, setDishesHandler, loading, setLoadingHandler, fetchFailed, setFetchFailedHandler } = useGetDishesFromCart([], user);
+    const { dishes, setDishesHandler, cart, loading, setLoadingHandler, fetchFailed, setFetchFailedHandler } = useGetDishesFromCart([], user);
 
     return (
         <>
@@ -22,18 +22,24 @@ export default function Cart() {
                 <h1>Cart</h1>
                 {dishes.length == 0 && !loading && !fetchFailed
                     ? <h2 className={styles.message}>No dishes in cart yet</h2>
-                    : dishes.map(el => <CartContent key={el._id} id={el._id} title={el.title} price={el.price} image={el.image} />)
+                    : fetchFailed ? <h2 className={styles.message}>Fetch failed please return to catalog.</h2>
+                        : dishes.map(el => <CartContent
+                            key={el._id}
+                            setDishes={setDishesHandler}
+                            setFetchFailed={setFetchFailedHandler}
+                            cart={cart}
+                            id={el._id}
+                            title={el.title}
+                            price={el.price}
+                            image={el.image}
+                        />)
                 }
                 {!fetchFailed && loading
                     ? <h2 className={styles.message}>Dishes loading...</h2>
                     : ""
                 }
-                {fetchFailed
-                    ? <h2 className={styles.message}>Fetch failed please return to catalog.</h2>
-                    : ""
-                }
-                    <button className={styles.buttons}>Order</button>
-                    <button className={styles.buttons}>Cancel</button>
+                <button className={styles.buttons}>Order</button>
+                <button className={styles.buttons}>Cancel</button>
             </div>
         </>
     )

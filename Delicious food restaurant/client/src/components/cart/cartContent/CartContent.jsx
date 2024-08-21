@@ -2,16 +2,26 @@ import { Link } from "react-router-dom";
 import { useRemoveDishFromCart } from "../../../hooks/useCart";
 
 export default function CartContent({
-    id, title, price, image
+    setDishes, setFetchFailed, cart, id, title, price, image
 }) {
-    const removeDishFromCart=useRemoveDishFromCart();
+    const removeDishFromCart = useRemoveDishFromCart();
+
+    async function onRemove() {
+        try {
+            const dishes = await removeDishFromCart(id, cart._id);
+            setDishes(dishes);
+        } catch (err) {
+            setFetchFailed(true);
+            return;
+        }
+    }
 
     return (
         <div>
             <img src={image} alt={title} />
             <p>{title}</p>
             <p>Price: {price}$</p>
-            <button>Remove</button>
+            <button onClick={onRemove}>Remove</button>
             <Link to={`/catalog/${id}`}><button>Details</button></Link>
         </div>
     )

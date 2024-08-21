@@ -56,12 +56,14 @@ export function useGetDishesFromCart(initalvalues, user) {
     const [dishes, setDishes] = useState(initalvalues);
     const [loading, setLoading] = useState(false);
     const [fetchFailed, setFetchFailed] = useState(false);
+    const [cart, setCart] = useState({ dishes: [] });
 
     useEffect(() => {
         (async() => {
             try {
                 setLoading(true);
                 const cart = await findUserCart(user._id);
+                setCart(cart);
                 setDishes(cart.dishes);
                 setLoading(false);
             } catch (err) {
@@ -92,6 +94,7 @@ export function useGetDishesFromCart(initalvalues, user) {
     return {
         dishes,
         setDishesHandler,
+        cart,
         loading,
         setLoadingHandler,
         fetchFailed,

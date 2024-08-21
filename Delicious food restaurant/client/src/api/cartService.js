@@ -15,7 +15,7 @@ export async function addDishToCart(cartId, data) {
 }
 
 export async function removeDishFromCart(dishId, cartId) {
-    await del(`${endpoint}/${dishId}/from/${cartId}`);
+    return await del(`${endpoint}/remove/${dishId}/from/${cartId}`);
 }
 
 export async function orderDishes(cartId) {
