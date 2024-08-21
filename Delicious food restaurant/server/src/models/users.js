@@ -25,7 +25,7 @@ const userShcema = new mongoose.Schema({
     },
     orderHistory: {
         type: [mongoose.SchemaTypes.ObjectId],
-        ref: "Dishes",
+        ref: "Orders",
         default: []
     }
 })

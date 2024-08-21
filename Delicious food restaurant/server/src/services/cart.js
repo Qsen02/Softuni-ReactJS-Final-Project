@@ -1,4 +1,5 @@
 const { Carts } = require("../models/cart");
+const { Orders } = require("../models/orders");
 const { Users } = require("../models/users");
 
 async function createCart(user) {
@@ -25,12 +26,19 @@ function getCartById(id) {
     return dish;
 }
 
-async function ordering(basketId, userId) {
-    const basket = await Carts.findById(basketId).lean();
+async function ordering(basketId, user) {
+    const basket = await Carts.findById(basketId).populate("dishes").lean();
     if (basket.dishes.length == 0) {
         throw new Error("Basket is empty!");
     }
-    await Users.findByIdAndUpdate(userId, { $push: { orderHistory: basket.dishes } });
+    const newOrder = new Orders({
+        dishes: basket.dishes,
+        ownerId: user._id,
+        totalPrice: basket.dishes.map(el => el.price).reduce((acc, val) => acc + val)
+    })
+    await newOrder.save();
+    const order = await Orders.findOne({ ownerId: user._id }).lean();
+    await Users.findByIdAndUpdate(user._id.toString(), { $push: { orderHistory: order } });
     await Carts.findByIdAndUpdate(basketId, { $set: { dishes: [] } });
 }
 

@@ -47,10 +47,10 @@ cartRouter.post("/order/:cartId", isUser(), async(req, res) => {
     const id = req.params.cartId;
     const user = req.user;
     try {
-        await ordering(id, user._id);
+        await ordering(id, user);
         res.status(200).json({ message: "Order was successfull!" });
     } catch (err) {
-        res.status(400).json({ message: JSON.stringify(errorParser(err).errors) });
+        res.status(400).json({ message: err.message });
     }
 })
 
