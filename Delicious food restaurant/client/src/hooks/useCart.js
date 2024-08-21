@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { addDishToCart, findUserCart, orderDishes, removeDishFromCart } from "../api/cartService";
+import { addDishToCart, cancelOrder, findUserCart, orderDishes, removeDishFromCart } from "../api/cartService";
 
 export function useGetUserCart() {
     async function gettingCart() {
@@ -116,4 +116,12 @@ export function useOrderDishes() {
     }
 
     return orderingDishes;
+}
+
+export function useCancelOrder() {
+    async function cancelingOrder(cartId) {
+        return await cancelOrder(cartId);
+    }
+
+    return cancelingOrder;
 }

@@ -40,8 +40,7 @@ cartRouter.delete("/remove/:dishId/from/:cartId", isUser(), async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await removeFromCart(basketId, dishId);
-    const cart = await getCartById(basketId).lean();
-    res.status(200).json(cart.dishes);
+    res.status(200).json([]);
 })
 
 cartRouter.post("/order/:cartId", isUser(), async(req, res) => {
@@ -58,7 +57,8 @@ cartRouter.post("/order/:cartId", isUser(), async(req, res) => {
 cartRouter.post("/cancel/:cartId", isUser(), async(req, res) => {
     const id = req.params.cartId;
     await cancelOrder(id);
-    res.status(200).json({ message: "Order was canceled successfully" });
+    const cart = await getCartById(id).lean();
+    res.status(200).json(cart.dishes);
 })
 
 module.exports = {

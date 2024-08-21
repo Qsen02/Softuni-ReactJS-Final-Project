@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { useUserContext } from "../../context/UserContext";
-import { useGetDishesFromCart, useOrderDishes } from "../../hooks/useCart"
+import { useCancelOrder, useGetDishesFromCart, useOrderDishes } from "../../hooks/useCart"
 
 import styles from "./cart.module.css"
 
@@ -11,12 +11,27 @@ export default function Cart() {
     const { user } = useUserContext();
     const navigate = useNavigate();
     const orderDishes = useOrderDishes();
+    const cancelOrder = useCancelOrder();
     const { dishes, setDishesHandler, cart, loading, setLoadingHandler, fetchFailed, setFetchFailedHandler } = useGetDishesFromCart([], user);
 
     async function onOrder() {
         try {
+            setLoadingHandler(true);
             await orderDishes(cart._id);
             navigate("/profile");
+            setLoadingHandler(false);
+        } catch (err) {
+            setFetchFailedHandler(true);
+            return;
+        }
+    }
+
+    async function onCancelOrder() {
+        try {
+            setLoadingHandler(true);
+            const dishes = await cancelOrder(cart._id);
+            setDishesHandler(dishes);
+            setLoadingHandler(false);
         } catch (err) {
             setFetchFailedHandler(true);
             return;
@@ -50,7 +65,7 @@ export default function Cart() {
                     : ""
                 }
                 <button onClick={onOrder} className={styles.buttons}>Order</button>
-                <button className={styles.buttons}>Cancel</button>
+                <button onClick={onCancelOrder} className={styles.buttons}>Cancel</button>
             </div>
         </>
     )

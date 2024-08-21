@@ -17,7 +17,7 @@ async function removeFromCart(basketId, dish) {
 }
 
 async function cancelOrder(id) {
-    await Carts.findByIdAndDelete(id);
+    await Carts.findByIdAndUpdate(id, { dishes: [] });
 }
 
 function getCartById(id) {
