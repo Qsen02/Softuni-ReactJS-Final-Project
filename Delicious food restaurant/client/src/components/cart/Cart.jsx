@@ -21,6 +21,9 @@ export default function Cart() {
             navigate("/profile");
             setLoadingHandler(false);
         } catch (err) {
+            if (err.message == "Resource not found!") {
+                navigate("/404");
+            }
             setFetchFailedHandler(true);
             return;
         }
@@ -33,6 +36,9 @@ export default function Cart() {
             setDishesHandler(dishes);
             setLoadingHandler(false);
         } catch (err) {
+            if (err.message == "Resource not found!") {
+                navigate("/404");
+            }
             setFetchFailedHandler(true);
             return;
         }

@@ -11,7 +11,8 @@ import Catalog from "./components/catalog/Catalog"
 import CreateForm from "./components/createForm/CreateForm"
 import Details from "./components/details/Details"
 import Cart from "./components/cart/Cart"
-import Status404 from "./components/catalog/status404/Status404"
+import Status404 from "./components/status404/Status404"
+import Profile from "./components/profile/Profile"
 
 function App() {
 
@@ -26,9 +27,10 @@ function App() {
                     <Route path="/logout" element={<Logout />} />
                     <Route path="/catalog" element={<Catalog />} />
                     <Route path="/create" element={<CreateForm />} />
-                    <Route path="/catalog/:dishId/*" element={<Details />}/>
-                    <Route path="/cart" element={<Cart/>}/>
-                    <Route path="*" element={<Status404/>}/>
+                    <Route path="/catalog/:dishId/*" element={<Details />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="*" element={<Status404 />} />
                 </Routes>
             </main>
             <Footer />

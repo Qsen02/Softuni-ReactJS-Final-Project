@@ -8,7 +8,7 @@ import styles from "./Catalog.module.css"
 
 export default function Catalog() {
     const [isSearched, setIsSearched] = useState(false);
-    const { dishes, dispatch, isFetchFailed, isLoading, setIsLoading } = useGetAllDishes([]);
+    const { dishes, dispatch, isFetchFailed, setFetchFailedHandler, isLoading, setIsLoading } = useGetAllDishes([]);
     const searchDishes = useSearch();
 
     async function onSearch(values) {
@@ -23,7 +23,7 @@ export default function Catalog() {
             dispatch({ type: "onSearch", payload: searchedResults });
             setIsLoading(false);
         } catch (err) {
-            alert(err.message);
+            setFetchFailedHandler(true);
             return;
         }
     }

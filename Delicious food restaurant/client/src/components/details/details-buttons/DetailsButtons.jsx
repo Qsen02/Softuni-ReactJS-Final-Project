@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import styles from "../Details.module.css"
 
@@ -20,6 +20,7 @@ export default function DetailsButtons({
     const unlikeDish = useUnlike();
     const findUserCart = useGetUserCart();
     const addDishToCart = useAddToCart();
+    const navigate=useNavigate();
     const { user } = useUserContext();
     const { dish } = useGetOneDish({ likes: [] }, id);
 
@@ -28,6 +29,9 @@ export default function DetailsButtons({
             const dish = await likeDish(id);
             setDish(dish);
         } catch (err) {
+            if (err.message == "Resource not found!") {
+                navigate("/404");
+            }
             setFailed(true);
             return;
         }
@@ -38,6 +42,9 @@ export default function DetailsButtons({
             const dish = await unlikeDish(id);
             setDish(dish);
         } catch (err) {
+            if (err.message == "Resource not found!") {
+                navigate("/404");
+            }
             setFailed(true);
             return;
         }
@@ -50,6 +57,9 @@ export default function DetailsButtons({
             await addDishToCart(cartId, dish);
             setIsAdded(true);
         } catch (err) {
+            if (err.message == "Resource not found!") {
+                navigate("/404");
+            }
             setFailed(true);
             return;
         }

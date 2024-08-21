@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const { Users } = require("../models/users");
+const { Dishes } = require("../models/dishes");
 
 async function register(username, email, password, address) {
     const userUsername = await Users.findOne({ username: username }).lean();
@@ -34,8 +35,13 @@ async function login(username, password) {
     return user;
 }
 
-function getUserById(userId) {
-    const user = Users.findById(userId);
+async function getUserById(userId) {
+    const user = await Users.findById(userId).lean();
+    console.log(user);
+    if (user.isAdmin) {
+        const dishes = await Dishes.find({ ownerId: userId }).lean();
+        user.createdDishes = dishes;
+    }
     return user;
 }
 

@@ -66,7 +66,8 @@ userRouter.get("/:userId", async(req, res) => {
         res.status(404).json({ message: "Resource not found!" });
         return;
     }
-    const user = await getUserById(userId).lean();
+    const user = await getUserById(userId);
+    console.log(user);
     res.json(user);
 })
 

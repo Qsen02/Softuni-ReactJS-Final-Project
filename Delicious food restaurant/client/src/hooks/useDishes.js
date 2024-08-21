@@ -22,10 +22,17 @@ export function useGetAllDishes(initialvalues) {
         })()
     }, [])
 
+    function setFetchFailedHandler(value) {
+        if (typeof(value) === "boolean") {
+            setIsFetchFailed(value);
+        }
+    }
+
     return {
         dishes,
         dispatch,
         isFetchFailed,
+        setFetchFailedHandler,
         isLoading,
         setIsLoading
     }

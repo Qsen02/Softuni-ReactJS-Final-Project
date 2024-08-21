@@ -11,6 +11,9 @@ export default function CartContent({
             const dishes = await removeDishFromCart(id, cart._id);
             setDishes(dishes);
         } catch (err) {
+            if (err.message == "Resource not found!") {
+                navigate("/404");
+            }
             setFetchFailed(true);
             return;
         }
