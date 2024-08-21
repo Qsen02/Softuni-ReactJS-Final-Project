@@ -11,6 +11,7 @@ import Catalog from "./components/catalog/Catalog"
 import CreateForm from "./components/createForm/CreateForm"
 import Details from "./components/details/Details"
 import Cart from "./components/cart/Cart"
+import Status404 from "./components/catalog/status404/Status404"
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
                     <Route path="/create" element={<CreateForm />} />
                     <Route path="/catalog/:dishId/*" element={<Details />}/>
                     <Route path="/cart" element={<Cart/>}/>
+                    <Route path="*" element={<Status404/>}/>
                 </Routes>
             </main>
             <Footer />

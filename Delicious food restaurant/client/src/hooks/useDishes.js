@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useState } from "react";
 import { createDish, deleteDish, editDish, getAllDishes, getDishById, likeDish, searchDishes, unlikeDish } from "../api/dishesService";
 import { reducer } from "../reducers/dishReducer";
+import { useNavigate } from "react-router-dom";
 
 export function useGetAllDishes(initialvalues) {
     const [dishes, dispatch] = useReducer(reducer, initialvalues);
@@ -34,6 +35,7 @@ export function useGetOneDish(initialvalues, dishId) {
     const [dish, setDish] = useState(initialvalues)
     const [isFetchFailed, setIsFetchFailed] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         (async() => {
@@ -43,6 +45,9 @@ export function useGetOneDish(initialvalues, dishId) {
                 setDish(data);
                 setIsLoading(false);
             } catch (err) {
+                if (err.message == "Resource not found!") {
+                    navigate("/404");
+                }
                 setIsFetchFailed(true);
                 return;
             }
