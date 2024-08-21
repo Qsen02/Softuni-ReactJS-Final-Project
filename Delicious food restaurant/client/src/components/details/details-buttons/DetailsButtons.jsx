@@ -57,8 +57,8 @@ export default function DetailsButtons({
 
     return (
         <>
-            {curUser
-                ? curUser.isAdmin
+            {user
+                ? user.isAdmin
                     ? <div className={styles.buttons}>
                         <Link to={`/catalog/${id}/edit`}><button>Edit</button></Link >
                         <Link to={`/catalog/${id}/delete`}><button>Delete</button></Link>
@@ -73,7 +73,7 @@ export default function DetailsButtons({
                             : <button onClick={onAdd}>Add to cart</button>
                         }
                         <Link to="/cart"><i class="fa-solid fa-cart-shopping"></i></Link>
-                        {stringLikes.includes(curUser._id.toString())
+                        {stringLikes.includes(user._id.toString())
                             ? <div className={styles.unlike}>
                                 <i onClick={onUnlike} className="fa-solid fa-heart"></i>
                                 <p>{likesCount}</p>

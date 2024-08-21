@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { addDishToCart, findUserCart } from "../api/cartService";
+import { addDishToCart, findUserCart, removeDishFromCart } from "../api/cartService";
 
 export function useGetUserCart() {
     async function gettingCart() {
@@ -97,4 +97,12 @@ export function useGetDishesFromCart(initalvalues, user) {
         fetchFailed,
         setFetchFailedHandler
     }
+}
+
+export function useRemoveDishFromCart() {
+    async function removingDishFromCart(dishId, cartId) {
+        return await removeDishFromCart(dishId, cartId);
+    }
+
+    return removingDishFromCart;
 }
