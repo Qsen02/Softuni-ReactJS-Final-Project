@@ -53,8 +53,10 @@ userRouter.post("/login",
 
 userRouter.get("/logout", async(req, res) => {
     const user = req.user;
-    if (!user.isAdmin) {
-        await removeCart(user);
+    if (user) {
+        if (!user.isAdmin) {
+            await removeCart(user);
+        }
     }
     res.status(200).json({ message: "Logout was succesfull!" });
 })

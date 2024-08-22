@@ -12,8 +12,11 @@ import CreateForm from "./components/createForm/CreateForm"
 import Cart from "./components/cart/Cart"
 import Status404 from "./components/status404/Status404"
 import Profile from "./components/profile/Profile"
-import GameDetails from "./components/details/GameDetails"
 import OrderDetails from "./components/orderDetails/OrderDetails"
+import UserGuard from "./common/UserGuard"
+import GuestGuard from "./common/GuestGuard"
+import DishDetails from "./components/details/DishDetails"
+import AdminGuard from "./common/AdminGuard"
 
 function App() {
 
@@ -23,15 +26,21 @@ function App() {
             <main>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/logout" element={<Logout />} />
+                    <Route path="/catalog/:dishId/*" element={< DishDetails />} />
                     <Route path="/catalog" element={<Catalog />} />
-                    <Route path="/create" element={<CreateForm />} />
-                    <Route path="/catalog/:dishId/*" element={< GameDetails/>} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/profile/order/:orderId" element={<OrderDetails/>} />
+                    <Route path="/logout" element={<Logout />} />
+                    <Route element={<UserGuard />}>
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                    </Route>
+                    <Route element={<GuestGuard />}>
+                        <Route path="/cart" element={<Cart />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/profile/order/:orderId" element={<OrderDetails />} />
+                    </Route>
+                    <Route element={<AdminGuard/>}>
+                        <Route path="/create" element={<CreateForm />} />
+                    </Route>
                     <Route path="*" element={<Status404 />} />
                 </Routes>
             </main>
