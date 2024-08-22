@@ -125,17 +125,20 @@ export function useEditDish() {
     return editingDish;
 }
 
-export function getDishesFromOrder(initialvalues, orderId) {
+export function useGetDishesFromOrder(initialvalues, orderId) {
     const [dishes, setDishes] = useState(initialvalues);
     const [loading, setLoading] = useState(false);
     const [fetchFailed, setFetchFailed] = useState(false);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
         (async() => {
             try {
                 setLoading(true);
                 const order = await getOrderById(orderId);
+                console.log(order.dishes)
                 setDishes(order.dishes);
+                setTotalPrice(order.totalPrice);
                 setLoading(false);
             } catch (err) {
                 if (err.message == "Resource font found!") {
@@ -151,6 +154,7 @@ export function getDishesFromOrder(initialvalues, orderId) {
     return {
         dishes,
         loading,
-        fetchFailed
+        fetchFailed,
+        totalPrice
     }
 }

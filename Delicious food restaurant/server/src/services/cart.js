@@ -64,13 +64,13 @@ function findUserCart(user) {
 }
 
 function getOrderById(orderId) {
-    const order = Orders.findById(orderId);
+    const order = Orders.findById(orderId).populate("dishes");
     return order;
 }
 
 async function checkOrderId(orderId) {
     const orders = await Orders.find().lean();
-    const isValid = orders.find(el => el._id.toString() == id);
+    const isValid = orders.find(el => el._id.toString() == orderId);
     if (isValid) {
         return true;
     }
