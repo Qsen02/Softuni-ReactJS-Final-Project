@@ -6,7 +6,7 @@ export default function OrderDetailsDish({
     return (
         <div>
             <img src={image} alt={title} onError={errorHandler} />
-            <h3>{title}</h3>
+            <p>{title}</p>
             <p>Price: {price}$</p>
         </div>
     )

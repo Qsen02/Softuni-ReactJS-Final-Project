@@ -32,7 +32,7 @@ export function useGetUser(initalvalues, userId) {
                 setCurUser(user);
                 setLoading(false);
             } catch (err) {
-                if (err.message == "Resource font found!") {
+                if (err.message == "Resource not found!") {
                     navigate("/404");
                     return;
                 }

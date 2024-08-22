@@ -1,0 +1,80 @@
+@keyframes rotating {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loadingSpinner {
+    display: block;
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    left: 47%;
+    bottom: 40%;
+    border-radius: 50%;
+    border: inset 10px yellow;
+    animation: rotating 1s linear infinite;
+}
+
+.wrapper {
+    display: block;
+    width: 670px;
+    margin: 0 auto;
+    box-shadow: inset 1px 1px 30px 1px grey;
+    padding: 20px;
+    height: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    border-radius: 15px;
+}
+
+.wrapper div {
+    display: block;
+    width: 620px;
+    height: 120px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: inset 1px 1px 20px 1px grey;
+    margin-bottom: 20px;
+}
+
+.wrapper div img {
+    display: block;
+    float: left;
+    width: 100px;
+    height: 100px;
+    border-radius: 7px;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.wrapper div p {
+    display: block;
+    float: left;
+    margin-left: 20px;
+    width: 200px;
+    font-size: 14pt;
+    margin-top: 50px;
+}
+
+.wrapper button {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    height: 50px;
+    background-color: rgb(205, 205, 6);
+    border: none;
+    border-radius: 10px;
+    font-size: 16pt;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+.wrapper button:hover {
+    background-color: yellow;
+}

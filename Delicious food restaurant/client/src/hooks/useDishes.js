@@ -130,18 +130,18 @@ export function useGetDishesFromOrder(initialvalues, orderId) {
     const [loading, setLoading] = useState(false);
     const [fetchFailed, setFetchFailed] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         (async() => {
             try {
                 setLoading(true);
                 const order = await getOrderById(orderId);
-                console.log(order.dishes)
                 setDishes(order.dishes);
                 setTotalPrice(order.totalPrice);
                 setLoading(false);
             } catch (err) {
-                if (err.message == "Resource font found!") {
+                if (err.message == "Resource not found!") {
                     navigate("/404");
                     return;
                 }

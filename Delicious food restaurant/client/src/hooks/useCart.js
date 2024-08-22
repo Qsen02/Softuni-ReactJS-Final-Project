@@ -23,6 +23,9 @@ export function useIsAddedToCart(initalValues, user, dishId) {
     useEffect(() => {
         (async() => {
             try {
+                if (!user) {
+                    return;
+                }
                 const cart = await findUserCart(user._id);
                 if (!cart) {
                     return;
@@ -67,6 +70,9 @@ export function useGetDishesFromCart(initalvalues, user) {
                 setDishes(cart.dishes);
                 setLoading(false);
             } catch (err) {
+                if (err.message == "Resource not found!") {
+                    navigate("/404");
+                }
                 setFetchFailed(true);
                 return;
             }
