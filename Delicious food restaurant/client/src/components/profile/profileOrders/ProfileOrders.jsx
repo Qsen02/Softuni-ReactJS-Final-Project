@@ -5,8 +5,8 @@ export default function ProfileOrders({
 }) {
     return (
         <div>
-            <h2>Order</h2>
-            <p>Total price: {totalPrice}</p>
+            <h3>Order</h3>
+            <p>Total price: {totalPrice}$</p>
             <Link to={`/profile/order/${id}`}><button>Details</button></Link>
         </div>
     )

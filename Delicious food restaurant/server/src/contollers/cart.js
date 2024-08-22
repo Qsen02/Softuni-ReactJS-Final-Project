@@ -40,7 +40,8 @@ cartRouter.delete("/remove/:dishId/from/:cartId", isUser(), async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await removeFromCart(basketId, dishId);
-    res.status(200).json([]);
+    const cart = await getCartById(basketId).lean();
+    res.status(200).json(cart.dishes);
 })
 
 cartRouter.post("/order/:cartId", isUser(), async(req, res) => {

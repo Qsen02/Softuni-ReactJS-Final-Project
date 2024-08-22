@@ -82,3 +82,58 @@
 .adminBody div a button:hover {
     background-color: yellow;
 }
+
+.userBody {
+    display: block;
+    margin: 0 auto;
+    border-radius: 15px;
+    width: 600px;
+    height: auto;
+    box-shadow: inset 1px 1px 30px 1px grey;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
+
+.userBody div {
+    display: block;
+    width: 550px;
+    box-shadow: inset 1px 1px 30px 1px grey;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 20px;
+    font-size: 16pt;
+}
+
+.userBody div h3 {
+    display: inline-block;
+    margin-right: 70px;
+}
+
+.userBody div p {
+    display: inline-block;
+    margin-right: 70px;
+}
+
+.userBody div a {
+    display: inline-block;
+}
+
+.userBody div a button {
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    background-color: rgb(205, 205, 6);
+    border: none;
+    border-radius: 10px;
+    font-size: 16pt;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+.userBody div a button:hover {
+    background-color: yellow;
+}

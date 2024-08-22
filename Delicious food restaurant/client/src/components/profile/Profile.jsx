@@ -47,14 +47,14 @@ export default function Profile() {
                 : <>
                     {!fetchFailed
                         ? <>
-                            <div>
+                            <div className={styles.adminHeader}>
                                 <i class="fa-solid fa-circle-user"></i>
                                 <h2>Username: {curUser.username}</h2>
                                 <h2>Email: {curUser.email}</h2>
                                 <p>Addess: {curUser.address}</p>
                                 <p>Orders count: {curUser.orderHistory.length}</p>
                             </div>
-                            <div>
+                            <div className={styles.userBody}>
                                 <h2>Your orders</h2>
                                 {curUser.orderHistory.length == 0
                                     ? <h2>No orders yet</h2>
