@@ -6,7 +6,7 @@ export default function GuestGuard() {
 
     return (
         <>
-            {user && !user.isAdmin
+            {user
                 ? <Outlet />
                 : <Navigate to="/login" />
             }
