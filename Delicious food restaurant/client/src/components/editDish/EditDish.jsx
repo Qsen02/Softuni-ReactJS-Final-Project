@@ -41,6 +41,10 @@ export default function EditDish({
         }
     }
 
+    function onCancel(){
+        navigate(`/catalog/${dishId}`);
+    }
+
     return (
         <Formik
             initialValues={{ title: dish.title, price: dish.price, category: dish.category, image: dish.image, description: dish.description }}
@@ -63,7 +67,8 @@ export default function EditDish({
                             <CustomInput label="Category" type="text" name="category" placeholder="Enter food category..." />
                             <CustomInput label="Image" type="text" name="image" placeholder="Enter image url..." />
                             <CustomTextarea label="Description" type="text" name="description" placeholder="Enter description..." />
-                            <button type="submit">Submit</button>
+                            <button type="submit">Edit</button>
+                            <button onClick={onCancel}>Cancel</button>
                         </Form>
                     </div>
                 )

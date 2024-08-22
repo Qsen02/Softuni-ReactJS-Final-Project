@@ -18,6 +18,7 @@ export default function Details() {
     }
     const { dishId } = useParams();
     const { user } = useUserContext();
+    console.log(user);
     const { dish, setDishHandler, isLoading, isFetchFailed, setIsFetchFailed } = useGetOneDish(initialvalues, dishId);
     const { isAdded, setIsAddedHandler } = useIsAddedToCart(false, user, dishId);
 

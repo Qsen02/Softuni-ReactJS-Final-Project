@@ -24,7 +24,7 @@ export function useIsAddedToCart(initalValues, user, dishId) {
         (async() => {
             try {
                 const cart = await findUserCart(user._id);
-                if (!cart.dishes) {
+                if (!cart) {
                     return;
                 }
                 const isAdded = cart.dishes.find(el => el._id == dishId);

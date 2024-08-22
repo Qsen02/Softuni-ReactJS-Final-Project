@@ -1,13 +1,23 @@
-@keyframes rotating {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+.adminHeader {
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    background-color: rgb(5, 125, 47);
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 15px;
+    width: 400px;
+    height: auto;
+    text-align: center;
+    color: white;
+    font-size: 14pt;
+    padding: 20px;
 }
 
-.catalog {
+.adminHeader i {
+    font-size: 50pt;
+}
+
+.adminBody {
     display: grid;
     grid-template-columns: auto auto auto;
     justify-content: center;
@@ -22,7 +32,12 @@
     font-size: 16pt;
 }
 
-.catalog div {
+.title {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.adminBody div {
     display: block;
     width: 400px;
     height: auto;
@@ -35,7 +50,7 @@
     margin: 20px;
 }
 
-.catalog div img {
+.adminBody div img {
     display: block;
     margin: 0 auto;
     width: 300px;
@@ -43,12 +58,7 @@
     border-radius: 10px;
 }
 
-.title {
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.catalog div a {
+.adminBody div a {
     display: block;
     text-decoration: none;
     width: 100px;
@@ -56,7 +66,7 @@
     margin: 0 auto;
 }
 
-.catalog div a button {
+.adminBody div a button {
     display: block;
     margin: 0 auto;
     width: 100px;
@@ -69,25 +79,6 @@
     cursor: pointer;
 }
 
-.catalog div a button:hover {
+.adminBody div a button:hover {
     background-color: yellow;
-}
-
-.message {
-    font-size: 22pt;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: inset 1px 1px 20px 1px grey;
-}
-
-.loadingSpinner {
-    display: block;
-    width: 75px;
-    height: 75px;
-    position: absolute;
-    left: 47%;
-    bottom: 40%;
-    border-radius: 50%;
-    border: inset 10px yellow;
-    animation: rotating 1s linear infinite;
 }
