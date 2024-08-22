@@ -9,10 +9,11 @@ import Register from "./components/register/Register"
 import Logout from "./components/logout/Lougout"
 import Catalog from "./components/catalog/Catalog"
 import CreateForm from "./components/createForm/CreateForm"
-import Details from "./components/details/Details"
 import Cart from "./components/cart/Cart"
 import Status404 from "./components/status404/Status404"
 import Profile from "./components/profile/Profile"
+import GameDetails from "./components/details/GameDetails"
+import OrderDetails from "./components/orderDetails/OrderDetails"
 
 function App() {
 
@@ -27,9 +28,10 @@ function App() {
                     <Route path="/logout" element={<Logout />} />
                     <Route path="/catalog" element={<Catalog />} />
                     <Route path="/create" element={<CreateForm />} />
-                    <Route path="/catalog/:dishId/*" element={<Details />} />
+                    <Route path="/catalog/:dishId/*" element={< GameDetails/>} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/profile/order/:orderId" element={<OrderDetails/>} />
                     <Route path="*" element={<Status404 />} />
                 </Routes>
             </main>

@@ -9,12 +9,12 @@ import styles from "./Profile.module.css"
 
 export default function Profile() {
     const { user } = useUserContext();
-    const { curUser, setCurUserHandler, loading, setLoadingHandler, fetchFailed, setFetchFailedHandler } = useGetUser({ orderHistory: [] }, user._id)
+    const { curUser, loading, fetchFailed } = useGetUser({ orderHistory: [] }, user._id)
 
     return (
         <>
             {loading && !fetchFailed
-                ? <div></div>
+                ? <div className={styles.loadingSpinner}></div>
                 : ""
             }
             {user.isAdmin
@@ -22,7 +22,7 @@ export default function Profile() {
                     {!fetchFailed
                         ? <>
                             <div className={styles.adminHeader}>
-                                <i class="fa-solid fa-circle-user"></i>
+                                <i className="fa-solid fa-circle-user"></i>
                                 <h2>Username: {curUser.username}</h2>
                                 <h2>Email: {curUser.email}</h2>
                                 <p>Created dishes count: {curUser.createdDishes?.length}</p>

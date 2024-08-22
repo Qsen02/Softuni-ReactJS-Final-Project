@@ -1,3 +1,24 @@
+@keyframes rotating {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loadingSpinner {
+    display: block;
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    left: 47%;
+    bottom: 40%;
+    border-radius: 50%;
+    border: inset 10px yellow;
+    animation: rotating 1s linear infinite;
+}
+
 .adminHeader {
     display: block;
     margin: 0 auto;

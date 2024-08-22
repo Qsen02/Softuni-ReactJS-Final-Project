@@ -63,6 +63,20 @@ function findUserCart(user) {
     return cart;
 }
 
+function getOrderById(orderId) {
+    const order = Orders.findById(orderId);
+    return order;
+}
+
+async function checkOrderId(orderId) {
+    const orders = await Orders.find().lean();
+    const isValid = orders.find(el => el._id.toString() == id);
+    if (isValid) {
+        return true;
+    }
+    return false;
+}
+
 module.exports = {
     cancelOrder,
     checkCartId,
@@ -72,5 +86,7 @@ module.exports = {
     removeFromCart,
     ordering,
     removeCart,
-    findUserCart
+    findUserCart,
+    checkOrderId,
+    getOrderById
 }

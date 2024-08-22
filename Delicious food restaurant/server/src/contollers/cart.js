@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { ordering, cancelOrder, checkCartId, getCartById, addToCart, removeFromCart, findUserCart } = require("../services/cart");
+const { ordering, cancelOrder, checkCartId, getCartById, addToCart, removeFromCart, findUserCart, checkOrderId, getOrderById } = require("../services/cart");
 const { isUser } = require("../middlewares/guard");
 const { checkDishId } = require("../services/dishes");
 
@@ -60,6 +60,16 @@ cartRouter.post("/cancel/:cartId", isUser(), async(req, res) => {
     await cancelOrder(id);
     const cart = await getCartById(id).lean();
     res.status(200).json(cart.dishes);
+})
+
+cartRouter.get("/order/:orderId", async(req, res) => {
+    const orderId = req.params.orderId;
+    const isValid = await checkOrderId(orderId);
+    if (!isValid) {
+        return res.status(404).json({ message: "Resource not found!" });
+    }
+    const order = await getOrderById(orderId).lean();
+    res.json(order);
 })
 
 module.exports = {

@@ -12,7 +12,7 @@ import { errorHandler } from "../../utils/imageErrorHandler";
 import EditDish from "../editDish/EditDish";
 import { useIsAddedToCart } from "../../hooks/useCart";
 
-export default function Details() {
+export default function GameDetails() {
     const initialvalues = {
         likes: []
     }

@@ -2,6 +2,7 @@ import { useEffect, useReducer, useState } from "react";
 import { createDish, deleteDish, editDish, getAllDishes, getDishById, likeDish, searchDishes, unlikeDish } from "../api/dishesService";
 import { reducer } from "../reducers/dishReducer";
 import { useNavigate } from "react-router-dom";
+import { getOrderById } from "../api/cartService";
 
 export function useGetAllDishes(initialvalues) {
     const [dishes, dispatch] = useReducer(reducer, initialvalues);
@@ -122,4 +123,34 @@ export function useEditDish() {
     }
 
     return editingDish;
+}
+
+export function getDishesFromOrder(initialvalues, orderId) {
+    const [dishes, setDishes] = useState(initialvalues);
+    const [loading, setLoading] = useState(false);
+    const [fetchFailed, setFetchFailed] = useState(false);
+
+    useEffect(() => {
+        (async() => {
+            try {
+                setLoading(true);
+                const order = await getOrderById(orderId);
+                setDishes(order.dishes);
+                setLoading(false);
+            } catch (err) {
+                if (err.message == "Resource font found!") {
+                    navigate("/404");
+                    return;
+                }
+                setFetchFailed(true);
+                return;
+            }
+        })()
+    }, [])
+
+    return {
+        dishes,
+        loading,
+        fetchFailed
+    }
 }

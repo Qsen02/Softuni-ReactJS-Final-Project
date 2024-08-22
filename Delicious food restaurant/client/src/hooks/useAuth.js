@@ -42,30 +42,9 @@ export function useGetUser(initalvalues, userId) {
         })()
     }, [])
 
-    function setCurUserHandler(value) {
-        if (typeof(value) === "object" && value != null) {
-            setCurUser(value);
-        }
-    }
-
-    function setLoadingHandler(value) {
-        if (typeof(value) === "boolean") {
-            setLoading(value);
-        }
-    }
-
-    function setFetchFailedHandler(value) {
-        if (typeof(value) === "boolean") {
-            setFetchFailed(value);
-        }
-    }
-
     return {
         curUser,
-        setCurUserHandler,
         loading,
-        setLoadingHandler,
         fetchFailed,
-        setFetchFailedHandler
     }
 }

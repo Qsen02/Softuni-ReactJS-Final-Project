@@ -25,3 +25,7 @@ export async function orderDishes(cartId) {
 export async function cancelOrder(cartId) {
     return await post(`${endpoint}/cancel/${cartId}`);
 }
+
+export async function getOrderById(orderId) {
+    return await get(`${endpoint}/order/${orderId}`)
+}
