@@ -22,6 +22,7 @@ export function useGetUser(initalvalues, userId) {
     const [curUser, setCurUser] = useState(initalvalues);
     const [loading, setLoading] = useState(false);
     const [fetchFailed, setFetchFailed] = useState(false);
+    const [createdDishes, setCreatedDishes] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,6 +30,9 @@ export function useGetUser(initalvalues, userId) {
             try {
                 setLoading(true);
                 const user = await getUserById(userId);
+                if (user.createdDishes) {
+                    setCreatedDishes(user.createdDishes);
+                }
                 setCurUser(user);
                 setLoading(false);
             } catch (err) {

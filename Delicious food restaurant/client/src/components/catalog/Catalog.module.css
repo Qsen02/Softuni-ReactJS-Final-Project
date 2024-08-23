@@ -110,11 +110,6 @@
     cursor: pointer;
 }
 
-
-/* .pagination i:nth-child(2) {
-    margin-right: 70px;
-} */
-
 .pagination i:hover {
     background-color: yellow;
 }

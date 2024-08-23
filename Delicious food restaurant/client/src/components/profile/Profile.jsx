@@ -39,6 +39,13 @@ export default function Profile() {
                                         : ""
                                     }
                                 </div>
+                                <div className={styles.pagination}>
+                                    <i className="fa-solid fa-angles-left"></i>
+                                    <i className="fa-solid fa-chevron-left "></i>
+                                    <p>1 of 1</p>
+                                    <i className="fa-solid fa-chevron-right"></i>
+                                    <i  className="fa-solid fa-angles-right"></i>
+                                </div>
                             </>
                         </>
                         : <h2>Fetch failed please return to catalog.</h2>
