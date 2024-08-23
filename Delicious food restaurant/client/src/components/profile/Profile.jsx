@@ -6,10 +6,28 @@ import ProfleCreatedDishes from "./createdDishes/ProfileCreatedDishes";
 import ProfileOrders from "./profileOrders/ProfileOrders";
 
 import styles from "./Profile.module.css"
+import { useProfilePagination } from "../../hooks/usePagination";
 
 export default function Profile() {
     const { user } = useUserContext();
-    const { curUser, loading, fetchFailed } = useGetUser({ orderHistory: [] }, user._id)
+    const { curUser, loading, setLoadingHandler, fetchFailed,createdDishes, setCreatedDishesHandler, maxPage,allCreatedDishes } = useGetUser({ orderHistory: [] }, user._id);
+    const { page, profilePaginationHandler } = useProfilePagination(maxPage, setCreatedDishesHandler, setLoadingHandler,allCreatedDishes);
+
+    function nextPage() {
+        profilePaginationHandler(page + 1);
+    }
+
+    function previousPage() {
+        profilePaginationHandler(page - 1);
+    }
+
+    function lastPage() {
+        profilePaginationHandler(maxPage - 1);
+    }
+
+    function firstPage() {
+        profilePaginationHandler(0);
+    }
 
     return (
         <>
@@ -32,7 +50,7 @@ export default function Profile() {
                                 <div className={styles.adminBody}>
                                     {curUser.createdDishes?.length == 0
                                         ? <h2>No created dishes yet</h2>
-                                        : curUser.createdDishes?.map(el => <ProfleCreatedDishes key={el._id} id={el._id} image={el.image} title={el.title} price={el.price} />)
+                                        : createdDishes?.map(el => <ProfleCreatedDishes key={el._id} id={el._id} image={el.image} title={el.title} price={el.price} />)
                                     }
                                     {loading && !fetchFailed
                                         ? <h2>Created dishes loading...</h2>
@@ -40,11 +58,11 @@ export default function Profile() {
                                     }
                                 </div>
                                 <div className={styles.pagination}>
-                                    <i className="fa-solid fa-angles-left"></i>
-                                    <i className="fa-solid fa-chevron-left "></i>
-                                    <p>1 of 1</p>
-                                    <i className="fa-solid fa-chevron-right"></i>
-                                    <i  className="fa-solid fa-angles-right"></i>
+                                    <i  onClick={firstPage} className="fa-solid fa-angles-left"></i>
+                                    <i onClick={previousPage} className={`fa-solid fa-chevron-left ${page + 1 == 1 || maxPage==1 ? styles.invisible : ""}`}></i>
+                                    <p>{page + 1} of {maxPage}</p>
+                                    <i onClick={nextPage} className={`fa-solid fa-chevron-right ${page + 1 == maxPage || maxPage==1?styles.invisible:""}`}></i>
+                                    <i onClick={lastPage} className="fa-solid fa-angles-right"></i>
                                 </div>
                             </>
                         </>

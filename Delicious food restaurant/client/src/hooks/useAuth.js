@@ -23,6 +23,8 @@ export function useGetUser(initalvalues, userId) {
     const [loading, setLoading] = useState(false);
     const [fetchFailed, setFetchFailed] = useState(false);
     const [createdDishes, setCreatedDishes] = useState([]);
+    const [allCreatedDishes, setAllCreatedDishes] = useState([]);
+    const [maxPage, setMaxPage] = useState(1);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -31,7 +33,10 @@ export function useGetUser(initalvalues, userId) {
                 setLoading(true);
                 const user = await getUserById(userId);
                 if (user.createdDishes) {
-                    setCreatedDishes(user.createdDishes);
+                    setAllCreatedDishes(user.createdDishes)
+                    const firstDishes = user.createdDishes.slice(0, 6);
+                    setCreatedDishes(firstDishes);
+                    setMaxPage(user.maxPage);
                 }
                 setCurUser(user);
                 setLoading(false);
@@ -46,9 +51,26 @@ export function useGetUser(initalvalues, userId) {
         })()
     }, [])
 
+    function setCreatedDishesHandler(value) {
+        if (value instanceof Array) {
+            setCreatedDishes(value);
+        }
+    }
+
+    function setLoadingHandler(value) {
+        if (typeof(value) === "boolean") {
+            setLoading(value);
+        }
+    }
+
     return {
         curUser,
         loading,
+        setLoadingHandler,
         fetchFailed,
+        createdDishes,
+        setCreatedDishesHandler,
+        maxPage,
+        allCreatedDishes
     }
 }
