@@ -28,7 +28,9 @@ dishesRouter.get("/page/:pageNumber", async(req, res) => {
         return;
     }
     const dishes = await getNextDishes(page).lean();
-    res.json(dishes);
+    const allDishes = await getAllDishes().lean();
+    const pageCount = Math.ceil(allDishes.length / 6);
+    res.json({ dishes: dishes, maxPage: pageCount });
 })
 
 dishesRouter.get("/search/:query", async(req, res) => {
@@ -37,7 +39,9 @@ dishesRouter.get("/search/:query", async(req, res) => {
         query = "";
     }
     const results = await searchDishes(query).lean();
-    res.json(results);
+    console.log(results);
+    const pageCount = Math.ceil(results.length / 6);
+    res.json({ dishes: results, maxPage: pageCount });
 })
 
 dishesRouter.post("/",

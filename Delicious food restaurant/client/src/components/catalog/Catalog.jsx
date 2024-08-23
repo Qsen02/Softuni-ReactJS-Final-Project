@@ -5,11 +5,14 @@ import CatalogContent from "./catalog-content/CatalogContent";
 import CatalogSearch from "./catalog-search/CatalogSearch";
 
 import styles from "./Catalog.module.css"
+import { usePagination } from "../../hooks/usePagination";
 
 export default function Catalog() {
     const [isSearched, setIsSearched] = useState(false);
-    const { dishes, dispatch, isFetchFailed, setFetchFailedHandler, isLoading, setIsLoading, maxPage, page, setPage } = useGetAllDishes([]);
+    const [searchedResults,setSearchedResults]=useState([]);
+    const { dishes, setDishesHandler, isFetchFailed, setFetchFailedHandler, isLoading, setIsLoading, maxPage,setMaxPageHandler } = useGetAllDishes([]);
     const searchDishes = useSearch();
+    const {paginationHandler,page,setPageHandler}=usePagination(isSearched,maxPage,setDishesHandler,setIsLoading,searchedResults,setSearchedResults);
 
     async function onSearch(values) {
         let title = values.title;
@@ -18,9 +21,12 @@ export default function Catalog() {
                 title = "empty";
             }
             setIsLoading(true);
-            const searchedResults = await searchDishes(title);
+            const results = await searchDishes(title);
             setIsSearched(true);
-            dispatch({ type: "onSearch", payload: searchedResults });
+            setSearchedResults(results.dishes);
+            setPageHandler(0);
+            setMaxPageHandler(results.maxPage);
+            setDishesHandler({ type: "onSearch", payload: results.dishes });
             setIsLoading(false);
         } catch (err) {
             setFetchFailedHandler(true);
@@ -29,19 +35,19 @@ export default function Catalog() {
     }
 
     function nextPage() {
-        setPage(page => page + 1);
+        paginationHandler(page+1);
     }
 
     function previousPage() {
-        setPage(page => page - 1);
+        paginationHandler(page-1);
     }
 
     function lastPage() {
-        setPage(maxPage - 1);
+        paginationHandler(maxPage-1);
     }
 
     function firstPage() {
-        setPage(0);
+        paginationHandler(0);
     }
 
     return (
@@ -73,9 +79,9 @@ export default function Catalog() {
             {dishes.length > 0
                 ? <div className={styles.pagination}>
                     <i onClick={firstPage} className="fa-solid fa-angles-left"></i>
-                    <i onClick={previousPage} className={`fa-solid fa-chevron-left ${page + 1 == 1 ? styles.invisible : ""}`}></i>
+                    <i onClick={previousPage} className={`fa-solid fa-chevron-left ${page + 1 == 1 || maxPage==1 ? styles.invisible : ""}`}></i>
                     <p>{page + 1} of {maxPage}</p>
-                    <i onClick={nextPage} className={`fa-solid fa-chevron-right ${page + 1 == maxPage?styles.invisible:""}`}></i>
+                    <i onClick={nextPage} className={`fa-solid fa-chevron-right ${page + 1 == maxPage || maxPage==1?styles.invisible:""}`}></i>
                     <i onClick={lastPage} className="fa-solid fa-angles-right"></i>
                 </div>
                 : ""

@@ -11,8 +11,8 @@ function getDishById(dishId) {
 }
 
 function getNextDishes(page) {
-    const skipCount = 3 * page;
-    const dishes = Dishes.find().skip(skipCount).limit(3);
+    const skipCount = 6 * page;
+    const dishes = Dishes.find().skip(skipCount).limit(6);
     return dishes;
 }
 

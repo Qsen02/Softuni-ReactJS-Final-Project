@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import { createDish, deleteDish, editDish, getDishById, getFirstDishes, likeDish, searchDishes, unlikeDish } from "../api/dishesService";
+import { createDish, deleteDish, editDish, getDishById, getDishesByPage, getFirstDishes, likeDish, searchDishes, unlikeDish } from "../api/dishesService";
 import { reducer } from "../reducers/dishReducer";
 import { useNavigate } from "react-router-dom";
 import { getOrderById } from "../api/cartService";
@@ -9,7 +9,18 @@ export function useGetAllDishes(initialvalues) {
     const [isFetchFailed, setIsFetchFailed] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [maxPage, setMaxPage] = useState(1);
-    const [page, setPage] = useState(0);
+
+    function setDishesHandler(data) {
+        if (typeof(data) === "object" && data != null && data.type && typeof(data.type) === "string") {
+            dispatch(data);
+        }
+    }
+
+    function setMaxPageHandler(value) {
+        if (typeof(value) === "number") {
+            setMaxPage(value);
+        }
+    }
 
     useEffect(() => {
         (async() => {
@@ -34,14 +45,13 @@ export function useGetAllDishes(initialvalues) {
 
     return {
         dishes,
-        dispatch,
+        setDishesHandler,
         isFetchFailed,
         setFetchFailedHandler,
         isLoading,
         setIsLoading,
         maxPage,
-        page,
-        setPage
+        setMaxPageHandler
     }
 }
 
@@ -163,4 +173,12 @@ export function useGetDishesFromOrder(initialvalues, orderId) {
         fetchFailed,
         totalPrice
     }
+}
+
+export function useGetNextDishes() {
+    async function getingNextDishes(page) {
+        return await getDishesByPage(page);
+    }
+
+    return getingNextDishes;
 }

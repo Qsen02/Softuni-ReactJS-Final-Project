@@ -69,7 +69,6 @@ userRouter.get("/:userId", async(req, res) => {
         return;
     }
     const user = await getUserById(userId);
-    console.log(user);
     res.json(user);
 })
 
