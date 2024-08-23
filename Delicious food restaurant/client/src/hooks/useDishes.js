@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import { createDish, deleteDish, editDish, getAllDishes, getDishById, likeDish, searchDishes, unlikeDish } from "../api/dishesService";
+import { createDish, deleteDish, editDish, getDishById, getFirstDishes, likeDish, searchDishes, unlikeDish } from "../api/dishesService";
 import { reducer } from "../reducers/dishReducer";
 import { useNavigate } from "react-router-dom";
 import { getOrderById } from "../api/cartService";
@@ -8,13 +8,16 @@ export function useGetAllDishes(initialvalues) {
     const [dishes, dispatch] = useReducer(reducer, initialvalues);
     const [isFetchFailed, setIsFetchFailed] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [maxPage, setMaxPage] = useState(1);
+    const [page, setPage] = useState(0);
 
     useEffect(() => {
         (async() => {
             try {
                 setIsLoading(true);
-                const data = await getAllDishes();
-                dispatch({ type: "getAll", payload: data });
+                const data = await getFirstDishes();
+                dispatch({ type: "getAll", payload: data.dishes });
+                setMaxPage(data.maxPage);
                 setIsLoading(false);
             } catch (err) {
                 setIsFetchFailed(true);
@@ -35,7 +38,10 @@ export function useGetAllDishes(initialvalues) {
         isFetchFailed,
         setFetchFailedHandler,
         isLoading,
-        setIsLoading
+        setIsLoading,
+        maxPage,
+        page,
+        setPage
     }
 }
 

@@ -8,7 +8,7 @@ import styles from "./Catalog.module.css"
 
 export default function Catalog() {
     const [isSearched, setIsSearched] = useState(false);
-    const { dishes, dispatch, isFetchFailed, setFetchFailedHandler, isLoading, setIsLoading } = useGetAllDishes([]);
+    const { dishes, dispatch, isFetchFailed, setFetchFailedHandler, isLoading, setIsLoading, maxPage, page, setPage } = useGetAllDishes([]);
     const searchDishes = useSearch();
 
     async function onSearch(values) {
@@ -26,6 +26,22 @@ export default function Catalog() {
             setFetchFailedHandler(true);
             return;
         }
+    }
+
+    function nextPage() {
+        setPage(page => page + 1);
+    }
+
+    function previousPage() {
+        setPage(page => page - 1);
+    }
+
+    function lastPage() {
+        setPage(maxPage - 1);
+    }
+
+    function firstPage() {
+        setPage(0);
     }
 
     return (
@@ -54,13 +70,16 @@ export default function Catalog() {
                         : ""
                 }
             </div>
-            <div className={styles.pagination}>
-                <i className="fa-solid fa-angles-left"></i>
-                <i className="fa-solid fa-chevron-left"></i>
-                <p>1 of 1</p>
-                <i className="fa-solid fa-chevron-right"></i>
-                <i className="fa-solid fa-angles-right"></i>
-            </div>
+            {dishes.length > 0
+                ? <div className={styles.pagination}>
+                    <i onClick={firstPage} className="fa-solid fa-angles-left"></i>
+                    <i onClick={previousPage} className={`fa-solid fa-chevron-left ${page + 1 == 1 ? styles.invisible : ""}`}></i>
+                    <p>{page + 1} of {maxPage}</p>
+                    <i onClick={nextPage} className={`fa-solid fa-chevron-right ${page + 1 == maxPage?styles.invisible:""}`}></i>
+                    <i onClick={lastPage} className="fa-solid fa-angles-right"></i>
+                </div>
+                : ""
+            }
         </>
     )
 }

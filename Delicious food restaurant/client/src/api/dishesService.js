@@ -2,8 +2,8 @@ import {get, post, del, put } from "./api";
 
 const endpoint = "/dishes";
 
-export async function getAllDishes() {
-    return await get(`${endpoint}`);
+export async function getFirstDishes() {
+    return await get(`${endpoint}/page/0`);
 }
 
 export async function getDishById(dishId) {
