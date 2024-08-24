@@ -15,7 +15,7 @@ export default function DetailsButtons({
     likes,
     likesCount
 }) {
-    const stringLikes = likes.map(el => el.toString());
+    const stringLikes = likes.map(el => el._id.toString());
     const likeDish = useLike();
     const unlikeDish = useUnlike();
     const findUserCart = useGetUserCart();
@@ -74,7 +74,7 @@ export default function DetailsButtons({
                         <Link to={`/catalog/${id}/delete`}><button>Delete</button></Link>
                         <div className={styles.adminButtons}>
                             <i className="fa-solid fa-heart"></i>
-                            <p>{likesCount}</p>
+                            <Link to={`catalog/${id}/likes`}>{likesCount}</Link>
                         </div>
                     </div>
                     : <div className={styles.buttons}>
@@ -86,11 +86,11 @@ export default function DetailsButtons({
                         {stringLikes.includes(user._id.toString())
                             ? <div className={styles.unlike}>
                                 <i onClick={onUnlike} className="fa-solid fa-heart"></i>
-                                <p>{likesCount}</p>
+                                <Link to={`catalog/${id}/likes`}><p>{likesCount}</p></Link>
                             </div>
                             : <div className={styles.like}>
                                 <i onClick={onLike} className="fa-regular fa-heart"></i>
-                                <p>{likesCount}</p>
+                                <Link to={`catalog/${id}/likes`}><p>{likesCount}</p></Link>
                             </div >
                         }
                     </div >
