@@ -12,6 +12,8 @@ import { errorHandler } from "../../utils/imageErrorHandler";
 import EditDish from "../editDish/EditDish";
 import { useIsAddedToCart } from "../../hooks/useCart";
 
+import DishLikes from "../dishLikes/DishLikes";
+
 export default function DishDetails() {
     const initialvalues = {
         likes: []
@@ -26,6 +28,7 @@ export default function DishDetails() {
             <Routes>
                 <Route path="/delete" element={<DeleteDish dish={dish} />} />
                 <Route path="/edit" element={<EditDish setDish={setDishHandler}/>}/>
+                <Route path="/likes" element={<DishLikes/>}/>
             </Routes>
             {isLoading && !isFetchFailed ? <div className={styles.loadingSpinner}></div> : ""}
             {isFetchFailed

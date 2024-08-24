@@ -18,7 +18,6 @@ import GuestGuard from "./common/GuestGuard"
 import DishDetails from "./components/details/DishDetails"
 import AdminGuard from "./common/AdminGuard"
 import ErrorBoundary from "./components/ErrorBoundary"
-import DishLikes from "./components/dishLikes/DishLikes"
 
 function App() {
 
@@ -40,7 +39,6 @@ function App() {
                             <Route path="/cart" element={<Cart />} />
                             <Route path="/profile" element={<Profile />} />
                             <Route path="/profile/order/:orderId" element={<OrderDetails />} />
-                            <Route path="/catalog/:dishId/likes" element={<DishLikes/>}/>
                         </Route>
                         <Route element={<AdminGuard />}>
                             <Route path="/create" element={<CreateForm />} />
