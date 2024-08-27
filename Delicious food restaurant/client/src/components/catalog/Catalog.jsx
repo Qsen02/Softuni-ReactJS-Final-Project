@@ -61,7 +61,7 @@ export default function Catalog() {
             <div className={styles.catalog}>
                 {isFetchFailed
                     ? <h1 className={styles.message}>Failed to fetch</h1>
-                    : dishes.length > 0
+                    : dishes.length > 0 && !isLoading
                         ? dishes.map(el => <CatalogContent key={el._id} id={el._id} title={el.title} price={el.price} image={el.image} />)
                         : !isSearched && !isLoading ? <h1 className={styles.message}>No dishes yet</h1> : ""
                 }
@@ -76,7 +76,7 @@ export default function Catalog() {
                         : ""
                 }
             </div>
-            {dishes.length > 0
+            {dishes.length && !isLoading > 0
                 ? <div className={styles.pagination}>
                     <i onClick={firstPage} className="fa-solid fa-angles-left"></i>
                     <i onClick={previousPage} className={`fa-solid fa-chevron-left ${page + 1 == 1 || maxPage==1 ? styles.invisible : ""}`}></i>
