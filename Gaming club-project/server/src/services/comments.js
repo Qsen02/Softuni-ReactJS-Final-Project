@@ -45,5 +45,7 @@ module.exports = {
     deleteComment,
     editComment,
     checkCommentId,
-    getCommentById
+    getCommentById,
+    likeComment,
+    unlikeComment
 }

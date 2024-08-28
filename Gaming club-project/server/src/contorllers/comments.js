@@ -1,11 +1,10 @@
 const { Router } = require("express");
-const { checkCommentId, deleteComment, getCommentById, addComment, editComment } = require("../services/comments");
+const { checkCommentId, deleteComment, getCommentById, addComment, editComment, likeComment, unlikeComment } = require("../services/comments");
 const { isUser } = require("../middlewears/guards");
 const { checkGameId, getGameById } = require("../services/games");
 const { body, validationResult } = require("express-validator");
-const { errorParser } = require("../util");
 
-let commentRouter = Router();
+const commentRouter = Router();
 
 commentRouter.get("/:id", async(req, res) => {
     let id = req.params.id;
@@ -80,6 +79,28 @@ commentRouter.put("/:id", isUser(),
             return;
         }
     });
+
+commentRouter.post("/:commentId/like", async(req, res) => {
+    const user = req.user;
+    const commentId = req.params.commentId;
+    const isValid = await checkCommentId(commentId);
+    if (!isValid) {
+        return res.status(404).json({ message: "Resource not found!" });
+    }
+    await likeComment(commentId, user);
+    res.status(200);
+})
+
+commentRouter.post("/:commentId/unlike", async(req, res) => {
+    const user = req.user;
+    const commentId = req.params.commentId;
+    const isValid = await checkCommentId(commentId);
+    if (!isValid) {
+        return res.status(404).json({ message: "Resource not found!" });
+    }
+    await unlikeComment(commentId, user);
+    res.status(200);
+})
 
 module.exports = {
     commentRouter
