@@ -66,7 +66,6 @@ export function useGetOneDish(initialvalues, dishId) {
             try {
                 setIsLoading(true);
                 const data = await getDishById(dishId);
-                console.log(data);
                 setDish(data);
                 setIsLoading(false);
             } catch (err) {
