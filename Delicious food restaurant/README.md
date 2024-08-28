@@ -55,7 +55,7 @@ Get order by id (POST): /cart/order/{orderId}
 # Features:
 Authenticated users can see catalog and details and can search dishes through catalog. They can like dishes and see list of likes for current dish. Users can add dishes to cart and remove them and when they are ready they can cancel or make order. Details about user orders can be viewed in user profiles. Guests can see catalog and search through catalog and view details about dishes but they can't like dishes or order dishes. We have admin profiles too, they can create dishes and edit or delete them but they can't like or order dishes.
 # How to start client and server:
-Clent: enter command  `npm run dev`  in terminal.
+Client: enter command  `npm run dev`  in terminal.
 
 Server: enter command  `npm start`  in terminal.
 # Screenshots:
