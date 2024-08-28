@@ -12,6 +12,11 @@ let commentSchema = new mongoose.Schema({
     gameId: {
         type: String,
         require: true
+    },
+    likes: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "Users",
+        default: []
     }
 });
 

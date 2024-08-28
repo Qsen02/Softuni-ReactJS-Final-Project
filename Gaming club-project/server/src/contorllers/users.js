@@ -2,7 +2,6 @@ const { Router } = require("express");
 const { setToken } = require("../services/token");
 const { register, login, getUserById, checkUserId } = require("../services/users");
 const { body, validationResult } = require("express-validator");
-const { errorParser } = require("../util");
 const { getAuthorGames, getSavedGames } = require("../services/games");
 
 let userRouter = Router();

@@ -31,6 +31,15 @@ function getCommentById(id) {
     let comment = Comments.findById(id);
     return comment;
 }
+
+async function likeComment(commentId, user) {
+    await Comments.findByIdAndUpdate(commentId, { $push: { likes: user._id } });
+}
+
+async function unlikeComment(commentId, user) {
+    await Comments.findByIdAndUpdate(commentId, { $pull: { likes: user._id } });
+}
+
 module.exports = {
     addComment,
     deleteComment,
