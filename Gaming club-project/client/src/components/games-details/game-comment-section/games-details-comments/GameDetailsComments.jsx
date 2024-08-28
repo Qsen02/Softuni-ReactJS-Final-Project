@@ -3,14 +3,46 @@ import { Link } from "react-router-dom"
 import styles from "../../GameDetails.module.css"
 
 import { useUserContext } from "../../../../context/userContext"
+import { useLikeComment, useUnlikeComment } from "../../../../hooks/useComments";
+import { getGameById } from "../../../../api/gameService";
 
 export default function GameDetailsComments({
+    setGame,
+    gameId,
+    id,
+    commentLikes,
     username,
     commentId,
     content,
     ownerName,
 }) {
     const { user } = useUserContext();
+    const likeComment = useLikeComment();
+    const unlikeComment=useUnlikeComment();
+
+    async function onLike() {
+        try {
+            await likeComment(id);
+            const game=await getGameById(gameId);
+            console.log(game);
+            setGame(game);
+        } catch (err) {
+            alert(err.message);
+            return;
+        }
+    }
+
+    async function onUnlike(){
+        try {
+            await unlikeComment(id);
+            const game=await getGameById(gameId);
+            console.log(game);
+            setGame(game);
+        } catch (err) {
+            alert(err.message);
+            return;
+        }
+    }
     return (
         <div className={username == user?.username ? styles.yourComment : ""}>
             <h3 className={ownerName == username ? styles.ownerComment : ""}>{username}</h3>
@@ -24,13 +56,15 @@ export default function GameDetailsComments({
             {user
                 ? username != user.username ?
                     <div className={styles.userLike}>
-                        {/* <i name="liked" className="fa-solid fa-heart"></i> */}
-                        <i className="fa-regular fa-heart"></i>
-                        <p>0</p>
+                        {commentLikes.includes(user._id)
+                            ? <i onClick={onUnlike} name="liked" className="fa-solid fa-heart"></i>
+                            : <i onClick={onLike} className="fa-regular fa-heart"></i>
+                        }
+                        <p>{commentLikes.length}</p>
                     </div>
                     : <div className={styles.ownerLike}>
                         <i className="fa-solid fa-heart"></i>
-                        <p>0</p>
+                        <p>{commentLikes.length}</p>
                     </div>
                 : ""
             }

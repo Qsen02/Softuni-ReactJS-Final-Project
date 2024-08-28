@@ -6,6 +6,8 @@ import { Form, Formik } from "formik";
 import CustomInput from "../../../common/CustomInput";
 
 export default function GameCommentSection({
+    setGame,
+    gameId,
     submitHandler,
     commentCount,
     comments,
@@ -39,6 +41,10 @@ export default function GameCommentSection({
                         : comments.map(el =>
                             <GameDetailsComments
                                 key={el._id}
+                                setGame={setGame}
+                                gameId={gameId}
+                                id={el._id}
+                                commentLikes={el.likes}
                                 commentId={el._id}
                                 content={el.content}
                                 username={el.username}

@@ -17,3 +17,11 @@ export async function editComment(commentId, data) {
 export async function getCommentById(commentId, ) {
     return await get(`${endpoint}/${commentId}`);
 }
+
+export async function likeComment(commentId) {
+    await post(`${endpoint}/${commentId}/like`, {});
+}
+
+export async function unlikeComment(commentId) {
+    await post(`${endpoint}/${commentId}/unlike`, {});
+}

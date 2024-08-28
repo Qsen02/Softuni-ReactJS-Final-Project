@@ -29,7 +29,7 @@ export default function GameDetails() {
         setGameHandler(game);
     }
 
-    async function onComment(values,actions) {
+    async function onComment(values, actions) {
         const content = values.content;
         try {
             if (!content) {
@@ -83,6 +83,8 @@ export default function GameDetails() {
                 }
             </div>
             <GameCommentSection
+                setGame={setGameHandler}
+                gameId={game._id}
                 submitHandler={onComment}
                 commentCount={game.comments.length}
                 comments={game.comments}

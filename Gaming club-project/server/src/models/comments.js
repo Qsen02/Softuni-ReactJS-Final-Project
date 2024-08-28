@@ -14,8 +14,7 @@ let commentSchema = new mongoose.Schema({
         require: true
     },
     likes: {
-        type: [mongoose.SchemaTypes.ObjectId],
-        ref: "Users",
+        type: [String],
         default: []
     }
 });

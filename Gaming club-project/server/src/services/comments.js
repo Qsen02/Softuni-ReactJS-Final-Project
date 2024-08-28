@@ -32,12 +32,12 @@ function getCommentById(id) {
     return comment;
 }
 
-async function likeComment(commentId, user) {
-    await Comments.findByIdAndUpdate(commentId, { $push: { likes: user._id } });
+async function likeComment(commentId, userId) {
+    await Comments.findByIdAndUpdate(commentId, { $push: { likes: userId } });
 }
 
-async function unlikeComment(commentId, user) {
-    await Comments.findByIdAndUpdate(commentId, { $pull: { likes: user._id } });
+async function unlikeComment(commentId, userId) {
+    await Comments.findByIdAndUpdate(commentId, { $pull: { likes: userId } });
 }
 
 module.exports = {

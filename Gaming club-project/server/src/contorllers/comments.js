@@ -87,7 +87,7 @@ commentRouter.post("/:commentId/like", async(req, res) => {
     if (!isValid) {
         return res.status(404).json({ message: "Resource not found!" });
     }
-    await likeComment(commentId, user);
+    await likeComment(commentId, user._id);
     res.status(200);
 })
 
@@ -98,7 +98,7 @@ commentRouter.post("/:commentId/unlike", async(req, res) => {
     if (!isValid) {
         return res.status(404).json({ message: "Resource not found!" });
     }
-    await unlikeComment(commentId, user);
+    await unlikeComment(commentId, user._id);
     res.status(200);
 })
 

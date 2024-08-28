@@ -382,7 +382,7 @@ button:hover {
 
 .commentContent div .ownerLike i {
     position: relative;
-    left: 490px;
+    left: 500px;
     top: 7px;
     font-size: 18pt;
     color: red;
@@ -390,7 +390,7 @@ button:hover {
 
 .commentContent div .ownerLike p {
     position: relative;
-    left: 510px;
+    left: 520px;
     top: -8px;
     font-size: 14pt;
 }
