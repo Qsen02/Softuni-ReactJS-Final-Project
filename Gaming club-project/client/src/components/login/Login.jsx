@@ -35,7 +35,7 @@ export default function Login() {
         } catch (err) {
             if(err.message.includes("[")){
                 setErrMessage(JSON.parse(err.message));
-                return
+                return;
             }
             setErrMessage(err.message);
             return;
