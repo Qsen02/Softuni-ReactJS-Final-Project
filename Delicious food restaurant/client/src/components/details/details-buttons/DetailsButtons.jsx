@@ -82,7 +82,7 @@ export default function DetailsButtons({
                             ? <button className={styles.added} disabled={true}>Added to cart!</button>
                             : <button onClick={onAdd}>Add to cart</button>
                         }
-                        <Link to="/cart"><i class="fa-solid fa-cart-shopping"></i></Link>
+                        <Link to="/cart"><i className="fa-solid fa-cart-shopping"></i></Link>
                         {stringLikes.includes(user._id.toString())
                             ? <div className={styles.unlike}>
                                 <i onClick={onUnlike} className="fa-solid fa-heart"></i>
