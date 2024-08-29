@@ -19,9 +19,9 @@ export async function getCommentById(commentId, ) {
 }
 
 export async function likeComment(commentId) {
-    return await post(`${endpoint}/${commentId}/like`, {});
+    await post(`${endpoint}/${commentId}/like`, {});
 }
 
 export async function unlikeComment(commentId) {
-    return await post(`${endpoint}/${commentId}/unlike`, {});
+    await post(`${endpoint}/${commentId}/unlike`, {});
 }

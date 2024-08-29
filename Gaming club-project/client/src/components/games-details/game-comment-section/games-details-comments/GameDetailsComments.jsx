@@ -53,17 +53,17 @@ export default function GameDetailsComments({
                 : ""
             }
             {user
-                ? username != user.username ?
+                ? username != user?.username ?
                     <div className={styles.userLike}>
-                        {commentLikes.includes(user._id)
+                        {commentLikes?.includes(user?._id)
                             ? <i onClick={onUnlike} name="liked" className="fa-solid fa-heart"></i>
                             : <i onClick={onLike} className="fa-regular fa-heart"></i>
                         }
-                        <p>{commentLikes.length}</p>
+                        <p>{commentLikes?.length}</p>
                     </div>
                     : <div className={styles.ownerLike}>
                         <i className="fa-solid fa-heart"></i>
-                        <p>{commentLikes.length}</p>
+                        <p>{commentLikes?.length}</p>
                     </div>
                 : ""
             }
