@@ -88,7 +88,8 @@ commentRouter.post("/:commentId/like", async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await likeComment(commentId, user._id);
-    res.status(200);
+    const comment = await getCommentById(commentId).lean();
+    res.status(200).json(comment);
 })
 
 commentRouter.post("/:commentId/unlike", async(req, res) => {
@@ -99,7 +100,8 @@ commentRouter.post("/:commentId/unlike", async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await unlikeComment(commentId, user._id);
-    res.status(200);
+    const comment = await getCommentById(commentId).lean();
+    res.status(200).json(comment);
 })
 
 module.exports = {

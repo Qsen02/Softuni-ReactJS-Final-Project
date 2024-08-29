@@ -5,6 +5,7 @@ import styles from "../../GameDetails.module.css"
 import { useUserContext } from "../../../../context/userContext"
 import { useLikeComment, useUnlikeComment } from "../../../../hooks/useComments";
 import { getGameById } from "../../../../api/gameService";
+import CommentEdit from "../../comments-edit/CommentEdit";
 
 export default function GameDetailsComments({
     setGame,
@@ -24,7 +25,6 @@ export default function GameDetailsComments({
         try {
             await likeComment(id);
             const game=await getGameById(gameId);
-            console.log(game);
             setGame(game);
         } catch (err) {
             alert(err.message);
@@ -36,7 +36,6 @@ export default function GameDetailsComments({
         try {
             await unlikeComment(id);
             const game=await getGameById(gameId);
-            console.log(game);
             setGame(game);
         } catch (err) {
             alert(err.message);
