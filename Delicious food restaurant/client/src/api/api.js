@@ -1,6 +1,7 @@
 import { deleteUserData, getUserData } from "../utils/userHelper"
 
-const host = "http://localhost:3000";
+const host =
+    import.meta.env.VITE_API_URL;
 
 async function requester(method, url, data) {
     const options = {
