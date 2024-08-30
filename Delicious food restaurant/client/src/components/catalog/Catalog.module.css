@@ -153,12 +153,15 @@
         font-size: 12pt;
     }
     .loadingSpinner {
+        width: 35px;
+        height: 35px;
         bottom: 16%;
         left: 45%;
     }
     .message {
         margin-top: 60px;
         margin-bottom: 20px;
+        font-size: 16pt;
     }
     .pagination {
         width: 300px;
