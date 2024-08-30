@@ -79,6 +79,7 @@
 @media(max-width:550px) {
     .wrapper {
         width: 300px;
+        margin-right: 50px;
     }
     .wrapper h2 {
         color: white;

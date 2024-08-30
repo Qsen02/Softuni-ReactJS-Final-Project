@@ -43,8 +43,8 @@
 @media(max-width:550px) {
     .deleteWrapper {
         width: 300px;
+        left: 41.5%;
         height: auto;
-        left: 42.5%;
     }
     .deleteWrapper button {
         width: 60px;

@@ -204,6 +204,12 @@
 }
 
 @media(max-width:550px) {
+    .loadingSpinner {
+        width: 35px;
+        height: 35px;
+        left: 35%;
+        bottom: 43%;
+    }
     .wrapper {
         width: 300px;
         margin-bottom: 100px;
