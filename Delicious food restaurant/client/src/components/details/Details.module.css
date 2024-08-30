@@ -202,3 +202,129 @@
     color: black;
     font-size: 16pt;
 }
+
+@media(max-width:750px) {
+    .wrapper {
+        width: 450px;
+        margin-bottom: 100px;
+    }
+    .detailsHeader {
+        display: block;
+        width: 450px;
+        height: auto;
+    }
+    .detailsHeader img {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+    .detailsHeader div {
+        display: block;
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+    .detailsHeader div h2 {
+        display: block;
+        bottom: 10px;
+        margin: 0 auto;
+        width: 400px;
+        word-break: break-word;
+    }
+    .detailsHeader div p {
+        display: block;
+        bottom: 15px;
+        margin-right: 30px;
+        margin-left: 40px;
+    }
+    .detailsBody {
+        width: 450px;
+    }
+    .detailsBody p {
+        text-align: center;
+    }
+    .buttons {
+        position: relative;
+        bottom: 50px;
+        right: 10px;
+        display: block;
+        margin: 0 auto;
+        width: 300px;
+        height: auto;
+        text-align: center;
+    }
+    .buttons button {
+        width: 100px;
+        height: 50px;
+        background-color: rgb(205, 205, 6);
+        border: none;
+        border-radius: 10px;
+        font-size: 16pt;
+        font-family: Arial, Helvetica, sans-serif;
+        cursor: pointer;
+        margin-right: 15px;
+    }
+    .buttons button:hover {
+        background-color: yellow;
+    }
+    .buttons a i {
+        position: relative;
+        bottom: 5px;
+        left: 10px;
+        font-size: 24pt;
+        color: black;
+    }
+    .buttons div {
+        position: relative;
+        display: inline-block;
+        top: 40px;
+        width: 30px;
+        height: 30px;
+    }
+    .buttons div a p {
+        position: relative;
+        left: 12px;
+        bottom: 25px;
+    }
+    .buttons div a {
+        text-decoration: none;
+        color: black;
+    }
+    .buttons .unlike i {
+        position: relative;
+        left: 40px;
+        bottom: 7px;
+        font-size: 24pt;
+        cursor: pointer;
+        color: red;
+    }
+    .buttons .like i {
+        position: relative;
+        left: 40px;
+        bottom: 7px;
+        font-size: 24pt;
+        cursor: pointer;
+        color: black;
+    }
+    .buttons .added {
+        background-color: rgb(5, 125, 47);
+        color: white;
+        cursor: default;
+        margin-right: 15px;
+    }
+    .buttons .added:hover {
+        background-color: rgb(5, 125, 47);
+        color: white;
+    }
+    .guestButtons p {
+        position: relative;
+        left: 13px;
+        bottom: 100px;
+    }
+    .guestButtons i {
+        position: relative;
+        left: 200px;
+        bottom: 0;
+        font-size: 24pt;
+        color: red;
+    }
+}
