@@ -36,7 +36,7 @@ body {
     margin-top: -25px;
 }
 
-@media(max-width:750px) {
+@media(max-width:550px) {
     .header ul {
         display: block;
         margin: 0 auto;
@@ -50,5 +50,9 @@ body {
         display: block;
         margin: 0 auto;
         margin-bottom: 50px;
+    }
+    .header li img {
+        height: 50px;
+        width: 50px;
     }
 }

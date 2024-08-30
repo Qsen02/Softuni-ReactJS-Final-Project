@@ -41,12 +41,23 @@
     background-color: yellow;
 }
 
-@media(max-width:750px) {
+@media(max-width:550px) {
     .searchForm button {
         display: block;
         margin-top: 20px;
+        width: 60px;
+        height: 30px;
+        font-size: 12pt;
     }
     .searchForm {
-        width: 500px;
+        width: 200px;
+    }
+    .searchForm input {
+        width: 150px;
+        height: 30px;
+        font-size: 10pt;
+    }
+    .searchForm input::placeholder {
+        font-size: 10pt;
     }
 }
