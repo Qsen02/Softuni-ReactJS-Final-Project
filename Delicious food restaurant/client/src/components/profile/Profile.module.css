@@ -206,3 +206,81 @@
     box-shadow: inset 1px 1px 20px 1px grey;
     text-align: center;
 }
+
+@media(max-width:550px) {
+    .loadingSpinner {
+        width: 35px;
+        height: 35px;
+        bottom: 40%;
+        left: 45%;
+    }
+    .message {
+        display: block;
+        margin: 0 auto;
+        margin-top: 50px;
+        width: 100px;
+        font-size: 12pt;
+    }
+    .adminHeader {
+        width: 300px;
+        font-size: 12pt;
+    }
+    .adminHeader i {
+        font-size: 25pt;
+    }
+    .adminBody {
+        width: 300px;
+        display: block;
+        font-size: 12pt;
+    }
+    .adminBody div {
+        width: 200px;
+    }
+    .adminBody div img {
+        width: 150px;
+        height: 150px;
+    }
+    .adminBody div a {
+        width: 60px;
+        height: 30px;
+    }
+    .adminBody div a button {
+        width: 60px;
+        height: 30px;
+        font-size: 12pt;
+    }
+    .pagination {
+        width: 300px;
+        height: 50px;
+    }
+    .pagination i {
+        font-size: 12pt;
+        padding: 10px;
+    }
+    .pagination p {
+        font-size: 12pt;
+    }
+    .userBody {
+        width: 350px;
+    }
+    .userBody div {
+        width: 300px;
+        font-size: 12pt;
+    }
+    .userBody div h3 {
+        display: inline-block;
+        margin-right: 20px;
+    }
+    .userBody div p {
+        display: inline-block;
+        margin-right: 20px;
+    }
+    .userBody div a {
+        display: inline-block;
+    }
+    .userBody div a button {
+        width: 65px;
+        height: 35px;
+        font-size: 12pt;
+    }
+}
