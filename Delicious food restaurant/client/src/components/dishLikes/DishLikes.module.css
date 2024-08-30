@@ -75,3 +75,29 @@
 .wrapper .yourLike {
     background-color: rgb(255, 255, 0);
 }
+
+@media(max-width:550px) {
+    .wrapper {
+        width: 300px;
+    }
+    .wrapper h2 {
+        color: white;
+    }
+    .wrapper div {
+        width: 250px;
+        height: 30px;
+    }
+    .wrapper div i {
+        font-size: 20px;
+        margin-top: 5px;
+    }
+    .wrapper div p {
+        font-size: 12pt;
+        margin-top: 6px;
+    }
+    .wrapper button {
+        width: 60px;
+        height: 30px;
+        font-size: 12pt;
+    }
+}

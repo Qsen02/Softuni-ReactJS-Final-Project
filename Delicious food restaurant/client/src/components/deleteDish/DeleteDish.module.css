@@ -39,3 +39,16 @@
 .deleteWrapper button:hover {
     background-color: yellow;
 }
+
+@media(max-width:550px) {
+    .deleteWrapper {
+        width: 300px;
+        height: auto;
+        left: 42.5%;
+    }
+    .deleteWrapper button {
+        width: 60px;
+        height: 30px;
+        font-size: 12pt;
+    }
+}
