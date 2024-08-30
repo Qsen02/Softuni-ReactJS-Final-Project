@@ -126,3 +126,18 @@
 .invisible {
     visibility: hidden;
 }
+
+@media(max-width:900px) {
+    .catalog {
+        display: block;
+        width: 500px;
+    }
+    .loadingSpinner {
+        bottom: 16%;
+        left: 45%;
+    }
+    .message {
+        margin-top: 60px;
+        margin-bottom: 20px;
+    }
+}

@@ -39,6 +39,7 @@ body {
 @media(max-width:750px) {
     .header ul {
         display: block;
+        margin: 0 auto;
     }
     .header li {
         display: block;

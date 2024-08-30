@@ -40,3 +40,13 @@
 .searchForm button:hover {
     background-color: yellow;
 }
+
+@media(max-width:750px) {
+    .searchForm button {
+        display: block;
+        margin-top: 20px;
+    }
+    .searchForm {
+        width: 500px;
+    }
+}
