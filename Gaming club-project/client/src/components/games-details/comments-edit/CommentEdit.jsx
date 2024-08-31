@@ -14,16 +14,19 @@ export default function CommentEdit({
     const editComment = useEditComment();
     const { comment } = useGetCommentById(commentId);
     const navigate = useNavigate();
+    const [clicked, setClicked] = useState(false);
 
     async function onEdit(values, actions) {
         const content = values.content;
         try {
+            setClicked(true);
             if (!content) {
                 throw new Error("Please fill the field!");
             }
             const data = await editComment(commentId, { content });
             setCurGame(data);
             actions.resetForm();
+            setClicked(false);
             navigate(`/catalog/${gameId}`);
         } catch (err) {
             if (err.message.includes("[")) {
@@ -36,7 +39,9 @@ export default function CommentEdit({
     }
 
     function onCancel() {
+        setClicked(true);
         navigate(`/catalog/${gameId}`);
+        setClicked(false);
     }
 
     return (
@@ -53,8 +58,8 @@ export default function CommentEdit({
                                 }
                                 <CustomInput type="text" name="content" />
                                 <div className={styles.buttons}>
-                                    <button type="submit">Edit</button>
-                                    <button onClick={onCancel}>Cancel</button>
+                                    <button disabled={clicked ? true : false}  type="submit">Edit</button>
+                                    <button disabled={clicked ? true : false}  onClick={onCancel}>Cancel</button>
                                 </div>
                             </div>
                         </Form>

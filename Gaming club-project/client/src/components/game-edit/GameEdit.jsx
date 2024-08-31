@@ -18,6 +18,7 @@ export default function GameEdit({
     const navigate = useNavigate();
     const { game } = useGetOneGame(gameId);
     const editGame = useEditGame();
+    const [clicked, setClicked] = useState(false);
 
     async function onEdit(values, actions) {
         const name = values.name;
@@ -27,9 +28,11 @@ export default function GameEdit({
         const description = values.description;
         const image = values.image;
         try {
+            setClicked(true);
             const game = await editGame(gameId, { name, category, year, image, creator, description, _id: gameId });
             setCurGame(game);
             actions.resetForm();
+            setClicked(false);
             navigate(`/catalog/${gameId}`);
         } catch (err) {
             if (err.message.includes("[")) {
@@ -42,7 +45,9 @@ export default function GameEdit({
     }
 
     function onCancel() {
+        setClicked(true);
         navigate(`/catalog/${gameId}`);
+        setClicked(false);
     }
 
     return (
@@ -68,8 +73,8 @@ export default function GameEdit({
                             <CustomInput label="Creator" type="text" name="creator" placeholder="Enter creator of the game..." />
                             <CustomTextarea label="Description" type="text" name="description" placeholder="Enter good description..." />
                             <div className={styles.buttons}>
-                                <button type="submit">Edit</button>
-                                <button onClick={onCancel}>Cancel</button>
+                                <button disabled={clicked ? true : false} type="submit">Edit</button>
+                                <button disabled={clicked ? true : false} onClick={onCancel}>Cancel</button>
                             </div>
                         </Form>
                     </div >

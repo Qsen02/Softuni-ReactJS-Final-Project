@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import styles from "../../game-delete/GameDelete.module.css"
 
 import { useDeleteComment } from "../../../hooks/useComments";
+import { useState } from "react";
 
 export default function CommentDelete({
     setCurGame
@@ -9,15 +10,20 @@ export default function CommentDelete({
     const { gameId, commentId } = useParams();
     const navigate = useNavigate();
     const deleteComment=useDeleteComment();
+    const [clicked, setClicked] = useState(false);
 
     function onCancel() {
+        setClicked(true);
         navigate(`/catalog/${gameId}`);
+        setClicked(false);
     }
 
     async function onDelete() {
         try {
+            setClicked(true);
             const data = await deleteComment(commentId);
             setCurGame(data);
+            setClicked(false);
             navigate(`/catalog/${gameId}`);
         } catch (err) {
             if (err.message == "Resource not found!") {
@@ -32,8 +38,8 @@ export default function CommentDelete({
         <div className={styles.modal}>
             <div className={styles.deleteWrapper}>
                 <h1>Are you sure you want to delete this comment?</h1>
-                <button onClick={onDelete}>Yes</button>
-                <button onClick={onCancel}>No</button>
+                <button disabled={clicked ? true : false} onClick={onDelete}>Yes</button>
+                <button disabled={clicked ? true : false} onClick={onCancel}>No</button>
             </div>
         </div>
     )
