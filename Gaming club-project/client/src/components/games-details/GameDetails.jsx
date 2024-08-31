@@ -20,9 +20,10 @@ export default function GameDetails() {
     const [isError, setIsError] = useState(false);
     const [errMessage, setErrMessage] = useState("");
     const { gameId } = useParams();
-    const { user } = useUserContext();
+    const { user,clearUserHandler } = useUserContext();
     const createComment = useCreateComment();
     const { game, userOwner, setGameHandler, isLoading } = useGetOneGame(gameId);
+    const [clicked,setClicked]=useState(false);
 
 
     function onSetGameHandler(game) {
@@ -32,6 +33,7 @@ export default function GameDetails() {
     async function onComment(values, actions) {
         const content = values.content;
         try {
+            setClicked(true);
             if (!content) {
                 throw new Error("Please fill the field!");
             }
@@ -39,7 +41,12 @@ export default function GameDetails() {
             const data = await createComment(gameId, { content });
             setGameHandler(data);
             actions.resetForm();
+            setClicked(false);
         } catch (err) {
+            if(err.message=="You dont't have credentials, please login or register!"){
+                clearUserHandler();
+                return;
+            }
             setErrMessage(err.message);
             setIsError(true);
             return;
@@ -91,6 +98,7 @@ export default function GameDetails() {
                 error={errMessage}
                 hasError={isError}
                 ownerName={userOwner.username}
+                clicked={clicked}
             />
         </>
     )

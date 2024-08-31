@@ -6,6 +6,7 @@ import styles from ".././GameDetails.module.css"
 import { LikesAndSavesContext } from "../../../context/LikesAndSaveContext"
 
 import { useLikeGame, useSaveGame, useUnlikeGame, useUnsaveGame } from "../../../hooks/useGames";
+import { useUserContext } from "../../../context/userContext";
 
 export default function GamesDetailsButtons({
     ownerId,
@@ -19,11 +20,17 @@ export default function GamesDetailsButtons({
     const unLikeGame = useUnlikeGame();
     const saveGame = useSaveGame();
     const unsaveGame = useUnsaveGame();
+    const {clearUserHandler}=useUserContext();
+
     async function onLike() {
         try {
             const data = await likeGame(gameId);
             setGameHandler(data);
         } catch (err) {
+            if(err.message=="You dont't have credentials, please login or register!"){
+                clearUserHandler();
+                return;
+            }
             if (err.message == "Resource not found!") {
                 navigate("/404");
                 return;
@@ -37,6 +44,10 @@ export default function GamesDetailsButtons({
             const data = await unLikeGame(gameId);
             setGameHandler(data);
         } catch (err) {
+            if(err.message=="You dont't have credentials, please login or register!"){
+                clearUserHandler();
+                return;
+            }
             if (err.message == "Resource not found!") {
                 navigate("/404");
                 return;
@@ -50,6 +61,10 @@ export default function GamesDetailsButtons({
             const data = await saveGame(gameId);
             setGameHandler(data);
         } catch (err) {
+            if(err.message=="You dont't have credentials, please login or register!"){
+                clearUserHandler();
+                return;
+            }
             if (err.message == "Resource not found!") {
                 navigate("/404");
                 return;
@@ -63,6 +78,10 @@ export default function GamesDetailsButtons({
             const data = await unsaveGame(gameId);
             setGameHandler(data);
         } catch (err) {
+            if(err.message=="You dont't have credentials, please login or register!"){
+                clearUserHandler();
+                return;
+            }
             if (err.message == "Resource not found!") {
                 navigate("/404");
                 return;

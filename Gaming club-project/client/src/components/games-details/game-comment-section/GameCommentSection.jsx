@@ -13,7 +13,8 @@ export default function GameCommentSection({
     comments,
     error,
     hasError,
-    ownerName
+    ownerName,
+    clicked
 }) {
     const { user } = useUserContext();
 
@@ -30,7 +31,7 @@ export default function GameCommentSection({
                                 (props) => (
                                     <Form>
                                         <CustomInput type="text" name="content" placeholder="Enter comment..." />
-                                        <button type="submit">Comment</button>
+                                        <button disabled={clicked ? true : false} type="submit">Comment</button>
                                     </Form>
                                 )
                             }

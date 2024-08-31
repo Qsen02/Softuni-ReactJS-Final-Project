@@ -5,6 +5,7 @@ import styles from "../../FormsAndErrors.module.css"
 import { useEditComment, useGetCommentById } from "../../../hooks/useComments";
 import { Form, Formik } from "formik";
 import CustomInput from "../../../common/CustomInput";
+import { useUserContext } from "../../../context/userContext";
 
 export default function CommentEdit({
     setCurGame
@@ -15,6 +16,7 @@ export default function CommentEdit({
     const { comment } = useGetCommentById(commentId);
     const navigate = useNavigate();
     const [clicked, setClicked] = useState(false);
+    const {clearUserHandler}=useUserContext();
 
     async function onEdit(values, actions) {
         const content = values.content;
@@ -29,6 +31,10 @@ export default function CommentEdit({
             setClicked(false);
             navigate(`/catalog/${gameId}`);
         } catch (err) {
+            if(err.message=="You dont't have credentials, please login or register!"){
+                clearUserHandler();
+                return;
+            }
             if (err.message.includes("[")) {
                 setErrMessage(JSON.parse(err.message));
                 return;

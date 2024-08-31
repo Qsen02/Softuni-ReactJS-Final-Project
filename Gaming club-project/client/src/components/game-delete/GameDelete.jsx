@@ -3,23 +3,33 @@ import { useNavigate, useParams } from "react-router-dom"
 import styles from "./GameDelete.module.css"
 import { useDeleteGame } from "../../hooks/useGames.js";
 import { useState } from "react";
+import { useUserContext } from "../../context/userContext.jsx";
 
 export default function GameDelete({
     name
 }) {
     const { gameId } = useParams();
     const navigate = useNavigate();
-    const deleteGame=useDeleteGame();
+    const deleteGame = useDeleteGame();
     const [clicked, setClicked] = useState(false);
+    const {clearUserHandler}=useUserContext();
 
     async function onDelete() {
-        setClicked(true);
-        await deleteGame(gameId);
-        navigate("/catalog");
-        setClicked(false);
+        try {
+            setClicked(true);
+            await deleteGame(gameId);
+            navigate("/catalog");
+            setClicked(false);
+        } catch (err) {
+            if (err.message == "You dont't have credentials, please login or register!") {
+                clearUserHandler();
+                return;
+            }
+            return;
+        }
     }
 
-    function onCancel(){
+    function onCancel() {
         setClicked(true);
         navigate(`/catalog/${gameId}`);
         setClicked(false);

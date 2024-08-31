@@ -3,6 +3,7 @@ import styles from "../../game-delete/GameDelete.module.css"
 
 import { useDeleteComment } from "../../../hooks/useComments";
 import { useState } from "react";
+import { useUserContext } from "../../../context/userContext";
 
 export default function CommentDelete({
     setCurGame
@@ -11,6 +12,7 @@ export default function CommentDelete({
     const navigate = useNavigate();
     const deleteComment=useDeleteComment();
     const [clicked, setClicked] = useState(false);
+    const {clearUserHandler}=useUserContext();
 
     function onCancel() {
         setClicked(true);
@@ -26,6 +28,10 @@ export default function CommentDelete({
             setClicked(false);
             navigate(`/catalog/${gameId}`);
         } catch (err) {
+            if(err.message=="You dont't have credentials, please login or register!"){
+                clearUserHandler();
+                return;
+            }
             if (err.message == "Resource not found!") {
                 navigate("/404");
                 return;

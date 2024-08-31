@@ -9,12 +9,14 @@ import { gameSchema } from "../../schemas/index.js";
 
 import CustomInput from "../../common/CustomInput.jsx";
 import CustomTextarea from "../../common/CustomTextarea.jsx";
+import { useUserContext } from "../../context/userContext.jsx";
 
 export default function Create() {
     const [errMessage, setErrMessage] = useState({});
     const navigate = useNavigate();
     const createGame = useCreateGame();
     const [clicked, setClicked] = useState(false);
+    const {clearUserHandler}=useUserContext();
 
     async function onCreate(values,actions) {
         const name = values.name;
@@ -30,6 +32,10 @@ export default function Create() {
             setClicked(false);
             navigate("/catalog");
         } catch (err) {
+            if(err.message=="You dont't have credentials, please login or register!"){
+                clearUserHandler();
+                return;
+            }
             if(err.message.includes("[")){
                 setErrMessage(JSON.parse(err.message));
                 return;

@@ -9,6 +9,7 @@ import { Form, Formik } from "formik";
 import CustomInput from "../../common/CustomInput.jsx";
 import CustomTextarea from "../../common/CustomTextarea.jsx";
 import { gameSchema } from "../../schemas/index.js";
+import { useUserContext } from "../../context/userContext.jsx";
 
 export default function GameEdit({
     setCurGame
@@ -19,6 +20,7 @@ export default function GameEdit({
     const { game } = useGetOneGame(gameId);
     const editGame = useEditGame();
     const [clicked, setClicked] = useState(false);
+    const {clearUserHandler}=useUserContext();
 
     async function onEdit(values, actions) {
         const name = values.name;
@@ -35,6 +37,10 @@ export default function GameEdit({
             setClicked(false);
             navigate(`/catalog/${gameId}`);
         } catch (err) {
+            if(err.message=="You dont't have credentials, please login or register!"){
+                clearUserHandler();
+                return;
+            }
             if (err.message.includes("[")) {
                 setErrMessage(JSON.parse(err.message));
                 return;
