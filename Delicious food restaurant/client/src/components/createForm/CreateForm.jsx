@@ -14,6 +14,7 @@ import { useState } from "react"
 export default function CreateForm() {
     const createDish = useCreateDish();
     const navigate = useNavigate();
+    const [isClicked,setIsClicked]=useState(false);
     const [errMessage, setErrMessage] = useState("");
 
     async function onCreate(values, action) {
@@ -23,8 +24,10 @@ export default function CreateForm() {
         const image = values.image;
         const description = values.description;
         try {
+            setIsClicked(true);
             await createDish({ title, price, category, image, description });
             action.resetForm();
+            setIsClicked(false);
             navigate("/catalog");
         } catch (err) {
             if (err.message.includes("[")) {
@@ -56,7 +59,7 @@ export default function CreateForm() {
                         <CustomInput label="Category" type="text" name="category" placeholder="Enter food category..." />
                         <CustomInput label="Image" type="text" name="image" placeholder="Enter image url..." />
                         <CustomTextarea label="Description" type="text" name="description" placeholder="Enter description..." />
-                        <button type="submit">Submit</button>
+                        <button disabled={isClicked?true:false} type="submit">Submit</button>
                     </Form>
                 )
             }

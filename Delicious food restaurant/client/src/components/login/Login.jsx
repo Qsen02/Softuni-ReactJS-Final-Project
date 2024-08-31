@@ -15,12 +15,14 @@ export default function Login() {
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const { setUserHandler } = useUserContext();
+    const [isClicked,setIsClicked]=useState(false);
     const navigate = useNavigate();
 
     async function onLogin(values, actions) {
         const username = values.username;
         const password = values.password;
         try {
+            setIsClicked(true);
             if (username.length < 3) {
                 throw new Error("Username or password don't match!");
             }
@@ -30,6 +32,7 @@ export default function Login() {
             const user = await login({ username, password });
             setUserHandler(user);
             actions.resetForm();
+            setIsClicked(false);
             navigate("/");
         } catch (err) {
             setIsError(true);
@@ -57,7 +60,7 @@ export default function Login() {
                         <CustomInput label="Username" type="text" name="username" />
                         <CustomInput label="Password" type="password" name="password" />
                         <p>Don't have account? <Link to="/register">Register</Link> here.</p>
-                        <button type="submit">Submit</button>
+                        <button disabled={isClicked?true:false} type="submit">Submit</button>
                     </Form>
                 )
             }

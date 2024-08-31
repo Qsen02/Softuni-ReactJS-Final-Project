@@ -14,6 +14,7 @@ export default function Register() {
     const register = useRegister();
     const [errorMessage, setErrorMessage] = useState("");
     const { setUserHandler } = useUserContext();
+    const [isClicked,setIsClicked]=useState(false);
     const navigate = useNavigate();
 
     async function onRegister(values, actions) {
@@ -23,9 +24,11 @@ export default function Register() {
         const repass = values.repass;
         const address = values.address;
         try {
+            setIsClicked(true);
             const user = await register({ username, email, password, repass, address });
             setUserHandler(user);
             actions.resetForm();
+            setIsClicked(false);
             navigate("/");
         } catch (err) {
             if (err.message.includes("[")) {
@@ -54,7 +57,7 @@ export default function Register() {
                         <CustomInput label="Repeat password" type="password" name="repass" />
                         <CustomInput label="Address" type="text" name="address" />
                         <p>Already have account? <Link to="/login">Login</Link> here.</p>
-                        <button type="submit">Submit</button>
+                        <button disabled={isClicked?true:false} type="submit">Submit</button>
                     </Form>
                 )
             }

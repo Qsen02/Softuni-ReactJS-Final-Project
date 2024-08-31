@@ -17,6 +17,7 @@ export default function EditDish({
     const editDish = useEditDish();
     const navigate = useNavigate();
     const [errMessage, setErrMessage] = useState("");
+    const [isClicked,setIsClicked]=useState(false);
     const { dishId } = useParams();
     const { dish } = useGetOneDish({ title: "", price: "", category: "", image: "", description: "" }, dishId);
 
@@ -27,9 +28,11 @@ export default function EditDish({
         const image = values.image;
         const description = values.description;
         try {
+            setIsClicked(true);
             const updatedDish = await editDish(dishId, { title, price, category, image, description });
             action.resetForm();
             setDish(updatedDish);
+            setIsClicked(false);
             navigate(`/catalog/${dishId}`);
         } catch (err) {
             if (err.message.includes("[")) {
@@ -42,7 +45,9 @@ export default function EditDish({
     }
 
     function onCancel(){
+        setIsClicked(true);
         navigate(`/catalog/${dishId}`);
+        setIsClicked(false);
     }
 
     return (
@@ -67,8 +72,8 @@ export default function EditDish({
                             <CustomInput label="Category" type="text" name="category" placeholder="Enter food category..." />
                             <CustomInput label="Image" type="text" name="image" placeholder="Enter image url..." />
                             <CustomTextarea label="Description" type="text" name="description" placeholder="Enter description..." />
-                            <button type="submit">Edit</button>
-                            <button onClick={onCancel}>Cancel</button>
+                            <button disabled={isClicked?true:false} type="submit">Edit</button>
+                            <button disabled={isClicked?true:false} onClick={onCancel}>Cancel</button>
                         </Form>
                     </div>
                 )
