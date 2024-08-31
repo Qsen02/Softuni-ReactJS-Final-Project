@@ -10,12 +10,14 @@ import styles from "./EditDish.module.css"
 import { useEditDish, useGetOneDish } from "../../hooks/useDishes"
 import { useNavigate, useParams } from "react-router-dom"
 import { useState } from "react"
+import { useUserContext } from "../../context/UserContext"
 
 export default function EditDish({
     setDish
 }) {
     const editDish = useEditDish();
     const navigate = useNavigate();
+    const {clearUserHandler}=useUserContext();
     const [errMessage, setErrMessage] = useState("");
     const [isClicked,setIsClicked]=useState(false);
     const { dishId } = useParams();
@@ -35,6 +37,10 @@ export default function EditDish({
             setIsClicked(false);
             navigate(`/catalog/${dishId}`);
         } catch (err) {
+            if (err.message == "You don't have credentials, please login or register!") {
+                clearUserHandler();
+                return;
+            }
             if (err.message.includes("[")) {
                 setErrMessage(JSON.parse(err.message));
                 return;

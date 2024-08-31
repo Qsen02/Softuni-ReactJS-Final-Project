@@ -71,6 +71,7 @@ export function useGetOneDish(initialvalues, dishId) {
             } catch (err) {
                 if (err.message == "Resource not found!") {
                     navigate("/404");
+                    return;
                 }
                 setIsFetchFailed(true);
                 return;

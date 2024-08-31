@@ -21,7 +21,7 @@ export default function DetailsButtons({
     const findUserCart = useGetUserCart();
     const addDishToCart = useAddToCart();
     const navigate=useNavigate();
-    const { user } = useUserContext();
+    const { user,clearUserHandler } = useUserContext();
     const { dish } = useGetOneDish({ likes: [] }, id);
 
     async function onLike() {
@@ -29,8 +29,13 @@ export default function DetailsButtons({
             const dish = await likeDish(id);
             setDish(dish);
         } catch (err) {
+            if (err.message == "You don't have credentials, please login or register!") {
+                clearUserHandler();
+                return;
+            }
             if (err.message == "Resource not found!") {
                 navigate("/404");
+                return;
             }
             setFailed(true);
             return;
@@ -42,8 +47,13 @@ export default function DetailsButtons({
             const dish = await unlikeDish(id);
             setDish(dish);
         } catch (err) {
+            if (err.message == "You don't have credentials, please login or register!") {
+                clearUserHandler();
+                return;
+            }
             if (err.message == "Resource not found!") {
                 navigate("/404");
+                return;
             }
             setFailed(true);
             return;
@@ -57,8 +67,13 @@ export default function DetailsButtons({
             await addDishToCart(cartId, dish);
             setIsAdded(true);
         } catch (err) {
+            if (err.message == "You don't have credentials, please login or register!") {
+                clearUserHandler();
+                return;
+            }
             if (err.message == "Resource not found!") {
                 navigate("/404");
+                return;
             }
             setFailed(true);
             return;

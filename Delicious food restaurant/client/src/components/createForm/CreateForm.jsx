@@ -7,12 +7,14 @@ import { createSchema } from "../../schemas"
 
 import styles from "../FormsAndErrors.module.css"
 
-import { useCreateDish } from "../../hooks/useDishes"
+import { useCreateDish, useUnlike } from "../../hooks/useDishes"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
+import { useUserContext } from "../../context/UserContext"
 
 export default function CreateForm() {
     const createDish = useCreateDish();
+    const {clearUserHandler}=useUserContext();
     const navigate = useNavigate();
     const [isClicked,setIsClicked]=useState(false);
     const [errMessage, setErrMessage] = useState("");
@@ -30,6 +32,10 @@ export default function CreateForm() {
             setIsClicked(false);
             navigate("/catalog");
         } catch (err) {
+            if (err.message == "You don't have credentials, please login or register!") {
+                clearUserHandler();
+                return;
+            }
             if (err.message.includes("[")) {
                 setErrMessage(JSON.parse(err.message));
                 return;

@@ -6,12 +6,14 @@ import CatalogSearch from "./catalog-search/CatalogSearch";
 
 import styles from "./Catalog.module.css"
 import { usePagination } from "../../hooks/usePagination";
+import { useUserContext } from "../../context/UserContext";
 
 export default function Catalog() {
     const [isSearched, setIsSearched] = useState(false);
     const [searchedResults,setSearchedResults]=useState([]);
     const { dishes, setDishesHandler, isFetchFailed, setFetchFailedHandler, isLoading, setIsLoading, maxPage,setMaxPageHandler } = useGetAllDishes([]);
     const searchDishes = useSearch();
+    const {clearUserHandler}=useUserContext();
     const {paginationHandler,page,setPageHandler}=usePagination(isSearched,maxPage,setDishesHandler,setIsLoading,searchedResults,setSearchedResults);
 
     async function onSearch(values) {
@@ -29,6 +31,10 @@ export default function Catalog() {
             setDishesHandler({ type: "onSearch", payload: results.dishes });
             setIsLoading(false);
         } catch (err) {
+            if (err.message == "You don't have credentials, please login or register!") {
+                clearUserHandler();
+                return;
+            }
             setFetchFailedHandler(true);
             return;
         }

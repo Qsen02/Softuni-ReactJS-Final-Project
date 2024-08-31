@@ -8,7 +8,7 @@ import styles from "./cart.module.css"
 import CartContent from "./cartContent/CartContent";
 
 export default function Cart() {
-    const { user } = useUserContext();
+    const { user,clearUserHandler } = useUserContext();
     const navigate = useNavigate();
     const orderDishes = useOrderDishes();
     const cancelOrder = useCancelOrder();
@@ -21,6 +21,10 @@ export default function Cart() {
             navigate("/profile");
             setLoadingHandler(false);
         } catch (err) {
+            if (err.message == "You don't have credentials, please login or register!") {
+                clearUserHandler();
+                return;
+            }
             if (err.message == "Resource not found!") {
                 navigate("/404");
             }
@@ -36,6 +40,10 @@ export default function Cart() {
             setDishesHandler(dishes);
             setLoadingHandler(false);
         } catch (err) {
+            if (err.message == "You don't have credentials, please login or register!") {
+                clearUserHandler();
+                return;
+            }
             if (err.message == "Resource not found!") {
                 navigate("/404");
             }

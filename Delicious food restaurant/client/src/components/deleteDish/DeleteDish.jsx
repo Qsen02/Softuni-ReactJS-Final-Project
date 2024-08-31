@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom"
 import styles from "./DeleteDish.module.css"
 import { useDeleteDish } from "../../hooks/useDishes";
+import { useUserContext } from "../../context/UserContext";
 
 export default function DeleteDish({
     dish
@@ -8,10 +9,19 @@ export default function DeleteDish({
     const { dishId } = useParams();
     const navigate = useNavigate();
     const deleteDish = useDeleteDish();
+    const {clearUserHandler}=useUserContext();
 
     async function onDelete() {
+        try{
         await deleteDish(dishId);
         navigate("/catalog");
+        }catch(err){
+            if (err.message == "You don't have credentials, please login or register!") {
+                clearUserHandler();
+                return;
+            }
+            return;
+        }
     }
 
     async function onCancel(){
