@@ -401,3 +401,195 @@ button:hover {
     top: -5px;
     font-size: 14pt;
 }
+
+@media(max-width:750px) {
+    .details {
+        width: 350px;
+        font-size: 12pt;
+    }
+    .details img {
+        width: 250px;
+        height: 250px;
+    }
+    .buttons {
+        width: 300px;
+        margin: 0 auto;
+    }
+    .buttons button {
+        width: 75px;
+        height: 35px;
+        border-radius: 15px;
+        padding: 0;
+        font-size: 14pt;
+        margin-bottom: 20px;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .ownerSave {
+        display: inline-block;
+        display: inline-block;
+        margin-right: 0;
+        margin-left: 175px;
+    }
+    .ownerSave i {
+        position: relative;
+        bottom: 40px;
+        left: 10px;
+        font-size: 18pt;
+    }
+    .ownerSave p {
+        position: relative;
+        left: 50px;
+        top: -10px;
+    }
+    .ownerLike {
+        display: inline-block;
+        margin-left: 0;
+    }
+    .ownerLike i {
+        position: relative;
+        top: 35px;
+        left: 30px;
+        color: red;
+        font-size: 18pt;
+    }
+    .ownerLike p {
+        position: relative;
+        font-size: 12pt;
+        left: 30px;
+        top: 22px;
+    }
+    .saves {
+        display: inline-block;
+        margin-right: 0;
+        margin-left: 0;
+    }
+    .saves i {
+        position: relative;
+        bottom: 20px;
+        right: 40px;
+        font-size: 18pt;
+        cursor: pointer;
+    }
+    .saves p {
+        position: relative;
+        left: 0px;
+        top: 10px;
+    }
+    .likes i {
+        position: relative;
+        top: 20px;
+        font-size: 18pt;
+        color: aliceblue;
+        cursor: pointer;
+    }
+    .likes p {
+        position: relative;
+        font-size: 12pt;
+        top: 10px;
+    }
+    .likes {
+        display: inline-block;
+        margin-left: 40px;
+    }
+    .liked {
+        display: inline-block;
+        margin-left: 40px;
+    }
+    .liked i {
+        position: relative;
+        top: 20px;
+        color: red;
+        font-size: 18pt;
+        cursor: pointer;
+    }
+    .liked p {
+        position: relative;
+        font-size: 12pt;
+        top: 10px;
+    }
+    .comments {
+        width: 350px;
+        margin-top: -85px;
+        margin-bottom: 120px;
+    }
+    .comments details {
+        font-size: 14pt;
+    }
+    .commentContent form {
+        display: block;
+        margin: 0 auto;
+        height: auto;
+        width: 340px;
+        border-radius: 10px;
+        margin-bottom: -20px;
+    }
+    .commentContent form input {
+        position: relative;
+        bottom: 0px;
+        width: 250px;
+        height: 30px;
+        font-size: 12pt;
+        padding-left: 5px;
+        margin-left: 20px;
+    }
+    .commentContent form input::placeholder {
+        font-family: Arial, Helvetica, sans-serif;
+        color: aliceblue;
+        font-family: 12pt;
+    }
+    .commentContent form button {
+        display: block;
+        position: relative;
+        bottom: 20px;
+        height: 40px;
+        width: 90px;
+        font-size: 14pt;
+        border-radius: 15px;
+        padding: 0px;
+    }
+    .errorMessage {
+        position: relative;
+        top: 5px;
+        font-size: 12pt;
+    }
+    .commentContent {
+        width: 340px;
+    }
+    .commentContent div {
+        width: 300px;
+        font-size: 12pt;
+    }
+    .commentContent div a i {
+        font-size: 14pt;
+    }
+    .commentContent div .userLike i {
+        left: 15px;
+        font-size: 14pt;
+    }
+    .commentContent div .userLike i[name="liked"] {
+        left: 15px;
+        top: 10px;
+        font-size: 14pt;
+    }
+    .commentContent div .userLike p {
+        top: 1px;
+        font-size: 10pt;
+    }
+    .commentContent div .ownerLike i {
+        left: 17px;
+        top: 10px;
+        font-size: 14pt;
+    }
+    .commentContent div .ownerLike p {
+        top: 2px;
+        font-size: 10pt;
+    }
+    .commentContent span {
+        display: inline-block;
+        font-size: 10pt;
+        margin-right: -10px;
+        color: lightgrey;
+    }
+}

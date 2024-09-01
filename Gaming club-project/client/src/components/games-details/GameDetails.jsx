@@ -35,6 +35,7 @@ export default function GameDetails() {
         try {
             setClicked(true);
             if (!content) {
+                setClicked(false);
                 throw new Error("Please fill the field!");
             }
             setIsError(false);
