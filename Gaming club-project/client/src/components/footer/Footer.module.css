@@ -73,8 +73,8 @@
     .footer ul {
         display: block;
         margin: 0 auto;
-        margin-left: 30px;
         width: 300px;
+        position: none;
     }
     .footer ul li {
         margin-right: 10px;

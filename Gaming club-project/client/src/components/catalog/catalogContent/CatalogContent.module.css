@@ -55,9 +55,11 @@
         font-size: 14pt;
         height: 35px;
         border-radius: 15px;
+        margin: 0 auto;
     }
     .catalogContent a {
         width: 75px;
         height: 35px;
+        margin: 0 auto;
     }
 }
