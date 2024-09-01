@@ -62,3 +62,41 @@
     padding-left: 7px;
     cursor: pointer;
 }
+
+@media(max-width:750px) {
+    .search {
+        width: 400px;
+        margin-top: 20px;
+    }
+    .search input {
+        display: block;
+        width: 300px;
+        height: 30px;
+        font-size: 12pt;
+        margin: 0 auto;
+    }
+    .search input::placeholder {
+        font-size: 12pt;
+    }
+    .search button {
+        display: block;
+        width: 75px;
+        height: 35px;
+        font-size: 14pt;
+        padding: 7px;
+        border-radius: 15px;
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+    .search a {
+        display: block;
+    }
+    .search select {
+        display: block;
+        margin: 0 auto;
+        margin-top: 10px;
+        font-size: 12pt;
+        height: 30px;
+        width: 100px;
+    }
+}

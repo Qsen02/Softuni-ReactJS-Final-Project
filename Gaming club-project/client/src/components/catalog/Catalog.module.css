@@ -90,3 +90,23 @@ h1 {
     text-align: center;
     font-size: 16pt;
 }
+
+@media(max-width:750px) {
+    h1 {
+        font-size: 14pt;
+    }
+    .catalogWrapper {
+        display: block;
+        width: 350px;
+    }
+    .paginationButtons {
+        width: 275px;
+    }
+    .paginationButtons button {
+        font-size: 14pt;
+    }
+    .paginationButtons p {
+        font-size: 12pt;
+        margin: 0 auto;
+    }
+}

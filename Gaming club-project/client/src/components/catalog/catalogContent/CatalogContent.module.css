@@ -45,3 +45,19 @@
     height: 50px;
     margin: 0 auto;
 }
+
+@media(max-width:750px) {
+    .catalogContent img {
+        width: 200px;
+        height: 200px;
+    }
+    .catalogContent button {
+        font-size: 14pt;
+        height: 35px;
+        border-radius: 15px;
+    }
+    .catalogContent a {
+        width: 75px;
+        height: 35px;
+    }
+}
