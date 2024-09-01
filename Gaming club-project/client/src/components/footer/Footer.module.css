@@ -61,7 +61,7 @@
 
 @media(max-width:750px) {
     .footer {
-        padding-bottom: 40px;
+        padding-bottom: 20px;
     }
     .footer div {
         display: block;
@@ -74,7 +74,8 @@
         display: block;
         margin: 0 auto;
         width: 300px;
-        position: none;
+        position: static;
+        margin-right: 50px;
     }
     .footer ul li {
         margin-right: 10px;
