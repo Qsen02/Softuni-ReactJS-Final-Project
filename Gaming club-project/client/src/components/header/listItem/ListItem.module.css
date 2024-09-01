@@ -35,3 +35,13 @@
     animation: hovering 1s;
     animation-fill-mode: forwards;
 }
+
+@media(max-width:750px) {
+    .listItem {
+        display: block;
+        margin-top: 10px;
+    }
+    .listItem a {
+        font-size: 12pt;
+    }
+}

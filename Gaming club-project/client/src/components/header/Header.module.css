@@ -5,16 +5,27 @@ body {
 }
 
 .navigation {
-    width: 96.9%;
+    width: 100vw;
     height: auto;
     display: flex;
-    padding: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     background-color: rgb(89, 86, 86);
 }
 
 .navigation ul {
     display: block;
     margin: 0 auto;
-    width: 700;
+    width: 700px;
     height: auto;
+}
+
+@media(max-width:750px) {
+    .navigation {
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+    .navigation ul {
+        width: 150px;
+    }
 }

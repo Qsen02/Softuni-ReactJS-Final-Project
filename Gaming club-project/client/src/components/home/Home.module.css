@@ -23,3 +23,16 @@
 .home p {
     font-size: 16pt;
 }
+
+@media(max-width:750px) {
+    .home {
+        width: 300px;
+    }
+    .home img {
+        width: 300px;
+        height: 200px;
+    }
+    .home p {
+        font-size: 12pt;
+    }
+}
