@@ -30,6 +30,7 @@
 
 .footer div {
     display: inline-block;
+    margin-left: 100px;
     font-size: 14pt;
 }
 
@@ -66,11 +67,13 @@
         display: block;
         font-size: 12pt;
         text-align: center;
+        margin: 0 auto;
+        margin-right: 70px;
     }
     .footer ul {
         display: block;
         margin: 0 auto;
-        margin-right: 0;
+        margin-left: 30px;
         width: 300px;
     }
     .footer ul li {
