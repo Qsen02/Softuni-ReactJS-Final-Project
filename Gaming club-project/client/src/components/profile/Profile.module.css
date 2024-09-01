@@ -109,11 +109,43 @@
 .loading {
     display: block;
     position: absolute;
-    top: 65%;
-    left: 48%;
+    top: 75%;
+    left: 45%;
     width: 60px;
     height: 60px;
     border-radius: 50%;
     border: inset 10px rgb(0, 205, 255);
     animation: rotate 1s linear infinite;
+}
+
+@media(max-width:750px) {
+    .profile {
+        width: 300px;
+        font-size: 12pt;
+    }
+    .profile i {
+        font-size: 35pt;
+    }
+    .profilePosts {
+        width: 400px;
+        display: block;
+        margin-top: 10px;
+    }
+    .profileSection {
+        width: 375px;
+    }
+    .profileContent {
+        width: 350px;
+    }
+    .profileDivContent {
+        width: 250px;
+        padding: 5px;
+    }
+    .profileDivContent button {
+        width: 75px;
+        height: 35px;
+        border-radius: 15px;
+        font-size: 14pt;
+        padding: 0;
+    }
 }
