@@ -103,3 +103,30 @@
     margin-bottom: 20px;
     margin-left: 20px;
 }
+
+@media(max-width:750px) {
+    .form {
+        width: 300px;
+        font-size: 12pt;
+    }
+    .form input,
+    .form textarea {
+        width: 250px;
+        height: 30px;
+        font-size: 12pt;
+    }
+    .form p a {
+        font-size: 14pt;
+    }
+    .errorMessage {
+        font-size: 10pt;
+    }
+    .form button {
+        width: 75px;
+        height: 35px;
+        font-size: 14pt;
+        padding: 0;
+        border-radius: 15px;
+        margin-top: 10px;
+    }
+}
