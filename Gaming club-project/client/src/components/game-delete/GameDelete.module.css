@@ -12,7 +12,7 @@
     border-radius: 10px;
 }
 
-.deleteWrapperbutton {
+.deleteWrapper button {
     display: inline-block;
     margin-top: 20px;
     margin-right: 50px;
@@ -43,4 +43,19 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
+}
+
+@media(max-width:750px) {
+    .deleteWrapper {
+        width: 300px;
+        height: 150px;
+    }
+    .deleteWrapper button {
+        width: 75px;
+        height: 35px;
+        border-radius: 15px;
+        font-size: 14pt;
+        margin-right: 25px;
+        margin-left: 30px;
+    }
 }
