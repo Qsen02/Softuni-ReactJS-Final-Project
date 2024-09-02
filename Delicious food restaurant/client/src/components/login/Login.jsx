@@ -24,9 +24,11 @@ export default function Login() {
         try {
             setIsClicked(true);
             if (username.length < 3) {
+                setIsClicked(false);
                 throw new Error("Username or password don't match!");
             }
             if (!(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;"'<>,.?\/~`|-]).{6,}$/.test(password))) {
+                setIsClicked(false);
                 throw new Error("Username or password don't match!");
             }
             const user = await login({ username, password });
