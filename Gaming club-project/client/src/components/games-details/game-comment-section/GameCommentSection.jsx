@@ -49,6 +49,7 @@ export default function GameCommentSection({
                                 commentId={el._id}
                                 content={el.content}
                                 username={el.username}
+                                answers={el.answers}
                                 ownerName={ownerName}
                             />
                         )

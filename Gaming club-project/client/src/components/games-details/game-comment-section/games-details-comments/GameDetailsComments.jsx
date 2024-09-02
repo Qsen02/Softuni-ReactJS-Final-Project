@@ -16,6 +16,7 @@ export default function GameDetailsComments({
     commentId,
     content,
     ownerName,
+    answers
 }) {
     const { user } = useUserContext();
     const likeComment = useLikeComment();
@@ -68,7 +69,7 @@ export default function GameDetailsComments({
                 : ""
             }
             <p>{content}</p>
-            <Link to={`/comment/${id}/answers`} className={styles.answers}>Answers(5)</Link>
+            <Link to={`/comment/${id}/answers`} className={styles.answers}>Answers({answers.length})</Link>
         </div>
     )
 }
