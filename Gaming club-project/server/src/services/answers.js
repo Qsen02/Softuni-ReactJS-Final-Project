@@ -2,12 +2,20 @@ const { Answers } = require("../models/answers");
 const { Comments } = require("../models/comments");
 
 async function getAllAnswers(commentId) {
-    const comment = await Comments.findById(commentId).lean();
+    const comment = await Comments.findById(commentId).populate("answers").lean();
     return comment.answers;
 }
 
-async function createAnswer(commentId, data) {
-    await Comments.findByIdAndUpdate(commentId, { $push: { answers: data } });
+function getAnswerById(answerId) {
+    const answer = Answers.findById(answerId);
+    return answer;
+}
+
+async function createAnswer(commentId, data, user) {
+    const answer = new Answers(data);
+    answer.ownerId = user._id;
+    await answer.save();
+    await Comments.findByIdAndUpdate(commentId, { $push: { answers: answer } });
 }
 
 async function editAnswer(answerId, data) {
@@ -15,6 +23,7 @@ async function editAnswer(answerId, data) {
 }
 
 async function deleteAnswer(commentId, answerId) {
+    await Answers.findByIdAndDelete(answerId);
     await Comments.findByIdAndUpdate(commentId, { $pull: { answers: answerId } });
 }
 
@@ -31,5 +40,6 @@ module.exports = {
     createAnswer,
     editAnswer,
     deleteAnswer,
-    checkAnswerId
+    checkAnswerId,
+    getAnswerById
 }
