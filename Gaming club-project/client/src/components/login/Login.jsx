@@ -24,16 +24,18 @@ export default function Login() {
         try {
             setClicked(true);
             if (username.length < 3) {
+                setClicked(false);
                 throw new Error("Username or password don't match!");
             }
             if (password.length < 6) {
+                setClicked(false);
                 throw new Error("Username or password don't match!");
             }
             const user = await login({ username, password });
             setUserData(user);
             setUserHandler(user);
             actions.resetForm();
-            setClicked(true);
+            setClicked(false);
             navigate("/");
         } catch (err) {
             if (err.message.includes("[")) {
