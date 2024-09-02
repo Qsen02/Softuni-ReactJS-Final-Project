@@ -58,8 +58,6 @@ Authenticated users can see catalog and details and can search dishes through ca
 Client: enter command  `npm run dev`  in terminal.
 
 Server: enter command  `npm start`  in terminal.
-# Deployment link:
-https://delicious-food-restaurant.web.app/
 # Screenshots:
 Catalog:
 ![Екранна снимка 2024-08-28 095959](https://github.com/user-attachments/assets/1bae8e68-9dc8-4699-afde-cfb3a395b7a6)
@@ -72,7 +70,3 @@ Cart:
 
 User profile:
 ![Екранна снимка 2024-08-28 100104](https://github.com/user-attachments/assets/d6be53ec-e08e-45fa-b9dc-6857d374feaf)
-
-
-
-
