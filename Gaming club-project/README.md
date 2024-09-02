@@ -60,8 +60,6 @@ Users can login or register. All users can see the catalog, details and comments
 You can start client with command  `npm run dev` .
 
 You can start server with command  `npm start` .
-# Deployment link:
-https://gaming-club-7e60c.web.app
 # Screenshots
 -Catalog:
 ![Screenshot 2024-07-31 120815](https://github.com/user-attachments/assets/e4bcc314-c988-4b90-b717-6969518d7133)
