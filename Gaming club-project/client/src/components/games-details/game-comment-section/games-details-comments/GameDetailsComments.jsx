@@ -68,6 +68,7 @@ export default function GameDetailsComments({
                 : ""
             }
             <p>{content}</p>
+            <Link to={`/comment/${id}/answers`} className={styles.answers}>Answers(5)</Link>
         </div>
     )
 }

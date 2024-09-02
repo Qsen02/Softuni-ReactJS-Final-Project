@@ -402,6 +402,18 @@ button:hover {
     font-size: 14pt;
 }
 
+.commentContent div .answers {
+    text-decoration: none;
+    color: aliceblue;
+}
+
+.commentContent div .answers:hover {
+    border: solid 1px white;
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+}
+
 @media(max-width:750px) {
     .details {
         width: 350px;
