@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useCreateAnswer, useGetAllAnswers } from "../../../hooks/useAnswers"
 import CommentsAnswersDetails from "./comments-answers-details/CommentsAnswersDetails";
 
@@ -10,11 +10,12 @@ import CustomInput from "../../../common/CustomInput";
 import { useState } from "react";
 
 export default function CommentsAnswers() {
-    const { commentId } = useParams();
+    const { gameId, commentId } = useParams();
     const { user } = useUserContext();
     const createAnswer = useCreateAnswer();
     const [error, setError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
+    const navigate = useNavigate();
     const { answers, setAnswersHandler, loading, answersTo } = useGetAllAnswers([], commentId);
 
     async function onCreate(values, actions) {
@@ -34,13 +35,19 @@ export default function CommentsAnswers() {
         }
     }
 
+    function onBack(event) {
+        event.stopPropagation();
+        navigate(`/catalog/${gameId}`);
+    }
+
     return (
-        <div className={styles.modal}>
+            <div className={styles.modal}>
             {loading
                 ? <div className={styles.loadingSpinner}></div>
                 : ""
             }
             <div className={styles.wrapper}>
+            <button className={styles.backDrop} onClick={onBack}>X</button>
                 <h2>Answers to {answersTo.username}</h2>
                 {error ? <p>{errorMsg}</p> : ""}
                 <Formik initialValues={{ content: "" }} onSubmit={onCreate} className={styles.form}>
@@ -69,8 +76,7 @@ export default function CommentsAnswers() {
                         : ""
                     }
                 </div>
-
             </div>
-        </div>
+            </div>
     )
 }
