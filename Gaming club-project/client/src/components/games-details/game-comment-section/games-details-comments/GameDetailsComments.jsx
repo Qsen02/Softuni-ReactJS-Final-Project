@@ -5,7 +5,6 @@ import styles from "../../GameDetails.module.css"
 import { useUserContext } from "../../../../context/userContext"
 import { useLikeComment, useUnlikeComment } from "../../../../hooks/useComments";
 import { getGameById } from "../../../../api/gameService";
-import CommentEdit from "../../comments-edit/CommentEdit";
 
 export default function GameDetailsComments({
     setGame,
@@ -69,7 +68,7 @@ export default function GameDetailsComments({
                 : ""
             }
             <p>{content}</p>
-            <Link to={`/comment/${id}/answers`} className={styles.answers}>Answers({answers.length})</Link>
+            <Link to={`comment/${id}/answers`} className={styles.answers}>Answers({answers.length})</Link>
         </div>
     )
 }

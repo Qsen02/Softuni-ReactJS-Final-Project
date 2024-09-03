@@ -15,6 +15,7 @@ import { useUserContext } from "../../context/userContext";
 
 import { LikesAndSavesContext } from "../../context/LikesAndSaveContext";
 import { useCreateComment } from "../../hooks/useComments.js";
+import CommentsAnswers from "./comments-answers/CommentsAnswers.jsx";
 
 export default function GameDetails() {
     const [isError, setIsError] = useState(false);
@@ -61,6 +62,7 @@ export default function GameDetails() {
                 <Route path="/edit" element={<GameEdit setCurGame={onSetGameHandler} />} />
                 <Route path="comment/:commentId/delete" element={<CommentDelete setCurGame={onSetGameHandler} />} />
                 <Route path="comment/:commentId/edit" element={<CommentEdit setCurGame={onSetGameHandler} />} />
+                <Route path="comment/:commentId/answers" element={<CommentsAnswers/>}/>
             </Routes>
             {isLoading ?
                 <div className={styles.loading}></div>
