@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllAnswers } from "../api/answersService";
+import { getCommentById } from "../api/commentService";
 
 export function useGetAllAnswers(initialvalues, commentId) {
     const [answers, setAsnwers] = useState(initialvalues);
     const [loading, setLoading] = useState(false);
+    const [answersTo, setAnswersTo] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -13,6 +15,8 @@ export function useGetAllAnswers(initialvalues, commentId) {
                 setLoading(true);
                 const answers = await getAllAnswers(commentId);
                 setAsnwers(answers);
+                const comment = await getCommentById(commentId);
+                setAnswersTo(comment);
                 setLoading(false);
             } catch (err) {
                 if (err.message == "Resource not found!") {
@@ -32,6 +36,7 @@ export function useGetAllAnswers(initialvalues, commentId) {
     return {
         answers,
         setAnswersHandler,
-        loading
+        loading,
+        answersTo
     }
 }
