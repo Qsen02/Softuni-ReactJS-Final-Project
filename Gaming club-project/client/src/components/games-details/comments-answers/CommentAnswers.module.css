@@ -1,0 +1,54 @@
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.modal {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1000px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    font-size: 16pt;
+    color: aliceblue;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.loadingSpinner {
+    display: block;
+    position: absolute;
+    top: 65%;
+    left: 47%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: inset 10px rgb(0, 205, 255);
+    animation: rotate 1s linear infinite;
+}
+
+.wrapper {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 470px;
+    padding: 10px;
+    width: 800px;
+    height: auto;
+    background-color: rgb(89, 86, 86);
+    border-radius: 15px;
+}
+
+.answers {
+    display: block;
+    margin: 0 auto;
+    width: 750px;
+    height: auto;
+}
