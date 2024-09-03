@@ -17,7 +17,7 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
-    font-size: 16pt;
+    font-size: 14pt;
     color: aliceblue;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
@@ -39,7 +39,7 @@
     display: block;
     margin: 0 auto;
     margin-bottom: 470px;
-    padding: 10px;
+    padding: 20px;
     width: 800px;
     height: auto;
     background-color: rgb(89, 86, 86);
@@ -51,4 +51,61 @@
     margin: 0 auto;
     width: 750px;
     height: auto;
+}
+
+.form {
+    display: block;
+    margin: 0 auto;
+    width: 750px;
+}
+
+.form input {
+    width: 400px;
+    height: 50px;
+    border-radius: 7px;
+    background-color: grey;
+    border: none;
+    font-size: 14pt;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form input::placeholder {
+    color: lightgray;
+    font-size: 14pt;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.answers div {
+    display: block;
+    width: 750px;
+    border-radius: 10px;
+    text-align: left;
+    word-wrap: break-word;
+    margin: 0 auto;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: grey;
+}
+
+.answers .yourAnswer {
+    background-color: rgb(3, 194, 247);
+}
+
+.answers div h2 {
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: -10px;
+}
+
+.answers div a {
+    display: inline-block;
+    font-size: 18pt;
+    color: grey;
+    margin-right: 7px;
+}
+
+.answers div a i {
+    font-size: 18pt;
+    color: grey;
+    margin-right: 7px;
 }

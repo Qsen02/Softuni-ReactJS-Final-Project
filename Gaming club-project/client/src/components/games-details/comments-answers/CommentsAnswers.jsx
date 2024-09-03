@@ -16,7 +16,7 @@ export default function CommentsAnswers() {
             }
             <div className={styles.wrapper}>
                 <h2>Answers to {answersTo.username}</h2>
-                <form>
+                <form className={styles.form}>
                     <input type="text" name="content" placeholder="Enter answer here" />
                     <button>Answer</button>
                 </form>
