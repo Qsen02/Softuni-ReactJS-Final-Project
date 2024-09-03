@@ -7,7 +7,7 @@ export async function getAllAnswers(commentId) {
 }
 
 export async function createAnswer(commentId, data) {
-    await post(`${endpoint}/${commentId}`, data);
+    return await post(`${endpoint}/${commentId}`, data);
 }
 
 export async function editAnswer(answerId, data) {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllAnswers } from "../api/answersService";
+import { createAnswer, getAllAnswers } from "../api/answersService";
 import { getCommentById } from "../api/commentService";
 
 export function useGetAllAnswers(initialvalues, commentId) {
@@ -39,4 +39,12 @@ export function useGetAllAnswers(initialvalues, commentId) {
         loading,
         answersTo
     }
+}
+
+export function useCreateAnswer() {
+    async function creatingAnswer(commentId, data) {
+        return await createAnswer(commentId, data);
+    }
+
+    return creatingAnswer;
 }

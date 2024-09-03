@@ -1,12 +1,38 @@
 import { useParams } from "react-router-dom"
-import { useGetAllAnswers } from "../../../hooks/useAnswers"
+import { useCreateAnswer, useGetAllAnswers } from "../../../hooks/useAnswers"
 import CommentsAnswersDetails from "./comments-answers-details/CommentsAnswersDetails";
 
 import styles from "./CommentAnswers.module.css"
+import { useUserContext } from "../../../context/userContext";
+
+import { Form, Formik } from "formik";
+import CustomInput from "../../../common/CustomInput";
+import { useState } from "react";
 
 export default function CommentsAnswers() {
     const { commentId } = useParams();
+    const { user } = useUserContext();
+    const createAnswer = useCreateAnswer();
+    const [error, setError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
     const { answers, setAnswersHandler, loading, answersTo } = useGetAllAnswers([], commentId);
+
+    async function onCreate(values, actions) {
+        const content = values.content;
+        const username = user?.username;
+        try {
+            if (!content) {
+                throw new Error("Please, fill the field!");
+            }
+            const answers = await createAnswer(commentId, { content, username });
+            setAnswersHandler(answers);
+            actions.resetForm();
+        } catch (err) {
+            setErrorMsg(err.message);
+            setError(true);
+            return;
+        }
+    }
 
     return (
         <div className={styles.modal}>
@@ -16,10 +42,17 @@ export default function CommentsAnswers() {
             }
             <div className={styles.wrapper}>
                 <h2>Answers to {answersTo.username}</h2>
-                <form className={styles.form}>
-                    <input type="text" name="content" placeholder="Enter answer here" />
-                    <button>Answer</button>
-                </form>
+                {error ? <p>{errorMsg}</p> : ""}
+                <Formik initialValues={{ content: "" }} onSubmit={onCreate} className={styles.form}>
+                    {
+                        (props) => (
+                            <Form className={styles.form}>
+                                <CustomInput type="text" name="content" placeholder="Enter answer here..." />
+                                <button type="submit">Answer</button>
+                            </Form>
+                        )
+                    }
+                </Formik>
                 <div className={styles.answers}>
                     {answers.length > 0 && !loading
                         ? answers.map(el => <CommentsAnswersDetails
