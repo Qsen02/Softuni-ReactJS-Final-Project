@@ -8,6 +8,7 @@ import { useUserContext } from "../../../context/userContext";
 import { Form, Formik } from "formik";
 import CustomInput from "../../../common/CustomInput";
 import { useState } from "react";
+import CommentEdit from "../comments-edit/CommentEdit";
 
 export default function CommentsAnswers() {
     const { gameId, commentId } = useParams();
@@ -68,6 +69,7 @@ export default function CommentsAnswers() {
                             content={el.content}
                             username={el.username}
                             ownerId={el.ownerId}
+                            commentId={commentId}
                         />)
                         : <h2>No answers yet</h2>
                     }
