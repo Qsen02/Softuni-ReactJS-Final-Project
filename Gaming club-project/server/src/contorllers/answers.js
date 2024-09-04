@@ -1,10 +1,10 @@
 const { Router } = require("express");
-const { checkCommentId } = require("../services/comments");
+const { checkCommentId, getCommentById } = require("../services/comments");
 const { getAllAnswers, createAnswer, checkAnswerId, editAnswer, getAnswerById, deleteAnswer } = require("../services/answers");
 
 const answerRouter = Router();
 
-answerRouter.get("/:commentId", async(req, res) => {
+answerRouter.get("/comment/:commentId", async(req, res) => {
     const commentId = req.params.commentId;
     const isValid = await checkCommentId(commentId);
     if (!isValid) {
@@ -14,7 +14,7 @@ answerRouter.get("/:commentId", async(req, res) => {
     res.json(answers);
 })
 
-answerRouter.post("/:commentId", async(req, res) => {
+answerRouter.post("/comment/:commentId", async(req, res) => {
     const commentId = req.params.commentId;
     const answer = req.body;
     const user = req.user;
@@ -23,7 +23,18 @@ answerRouter.post("/:commentId", async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await createAnswer(commentId, answer, user);
-    res.json({ message: "Record created successfully!" });
+    const comment = await getCommentById(commentId).lean();
+    res.json(comment.answers);
+})
+
+answerRouter.get("/:answerId", async(req, res) => {
+    const answerId = req.params.answerId;
+    const isValid = await checkAnswerId(answerId);
+    if (!isValid) {
+        return res.status(404).json({ message: "Resource not found!" });
+    }
+    const answer = await getAnswerById(answerId).lean();
+    res.json(answer);
 })
 
 answerRouter.put("/:answerId", async(req, res) => {

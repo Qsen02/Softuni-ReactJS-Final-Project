@@ -28,7 +28,7 @@ async function checkCommentId(id) {
 }
 
 function getCommentById(id) {
-    let comment = Comments.findById(id);
+    let comment = Comments.findById(id).populate("answers");
     return comment;
 }
 
