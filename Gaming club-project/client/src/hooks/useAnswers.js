@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createAnswer, deleteAnswer, getAllAnswers } from "../api/answersService";
+import { createAnswer, deleteAnswer, getAllAnswers, getAnswerById } from "../api/answersService";
 import { getCommentById } from "../api/commentService";
 
 export function useGetAllAnswers(initialvalues, commentId) {
@@ -57,4 +57,25 @@ export function useDeleteAnswer() {
     }
 
     return deletingAnswer;
+}
+
+export function useGetOneAnswer(initialvalues, answerId) {
+    const [answer, setAsnwer] = useState(initialvalues);
+
+    useEffect(() => {
+        (async() => {
+            try {
+                const answer = await getAnswerById(answerId);
+                setAsnwer(answer);
+            } catch (err) {
+                alert(err.message);
+                return;
+            }
+        })()
+    }, [answerId]);
+
+    return {
+        answer
+    }
+
 }
