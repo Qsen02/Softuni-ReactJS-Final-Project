@@ -8,11 +8,13 @@ import { useUserContext } from "../../../context/userContext";
 import { Form, Formik } from "formik";
 import CustomInput from "../../../common/CustomInput";
 import { useState } from "react";
-import CommentEdit from "../comments-edit/CommentEdit";
+import { getGameById } from "../../../api/gameService";
 
-export default function CommentsAnswers() {
+export default function CommentsAnswers({
+    setGame
+}) {
     const { gameId, commentId } = useParams();
-    const { user } = useUserContext();
+    const { user,clearUserHandler } = useUserContext();
     const createAnswer = useCreateAnswer();
     const [error, setError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
@@ -30,14 +32,19 @@ export default function CommentsAnswers() {
             setAnswersHandler(answers);
             actions.resetForm();
         } catch (err) {
+            if(err.message=="You dont't have credentials, please login or register!"){
+                clearUserHandler();
+                return;
+            }
             setErrorMsg(err.message);
             setError(true);
             return;
         }
     }
 
-    function onBack(event) {
-        event.stopPropagation();
+    async function onBack() {
+        const game=await getGameById(gameId);
+        setGame(game);
         navigate(`/catalog/${gameId}`);
     }
 

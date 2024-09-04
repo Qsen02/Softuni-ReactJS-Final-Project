@@ -63,7 +63,7 @@ export default function GameDetails() {
                 <Route path="/edit" element={<GameEdit setCurGame={onSetGameHandler} />} />
                 <Route path="comment/:commentId/delete" element={<CommentDelete setCurGame={onSetGameHandler} />} />
                 <Route path="comment/:commentId/edit" element={<CommentEdit setCurGame={onSetGameHandler} />} />
-                <Route path="comment/:commentId/answers" element={<CommentsAnswers/>}/>
+                <Route path="comment/:commentId/answers" element={<CommentsAnswers setGame={setGameHandler}/>}/>
                 <Route path="comment/:commentId/answers/:answerId/delete" element={<DeleteAnswer/>}/>
             </Routes>
             {isLoading ?

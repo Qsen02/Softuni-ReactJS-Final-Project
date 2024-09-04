@@ -20,6 +20,7 @@ export default function GameDetailsComments({
     const { user } = useUserContext();
     const likeComment = useLikeComment();
     const unlikeComment=useUnlikeComment();
+    const {clearUserHandler}=useUserContext
 
     async function onLike() {
         try {
@@ -27,6 +28,10 @@ export default function GameDetailsComments({
             const game=await getGameById(gameId);
             setGame(game);
         } catch (err) {
+            if(err.message=="You dont't have credentials, please login or register!"){
+                clearUserHandler();
+                return;
+            }
             alert(err.message);
             return;
         }
@@ -38,6 +43,10 @@ export default function GameDetailsComments({
             const game=await getGameById(gameId);
             setGame(game);
         } catch (err) {
+            if(err.message=="You dont't have credentials, please login or register!"){
+                clearUserHandler();
+                return;
+            }
             alert(err.message);
             return;
         }

@@ -6,7 +6,9 @@ import { getCommentById } from "../api/commentService";
 export function useGetAllAnswers(initialvalues, commentId) {
     const [answers, setAsnwers] = useState(initialvalues);
     const [loading, setLoading] = useState(false);
-    const [answersTo, setAnswersTo] = useState({});
+    const [answersTo, setAnswersTo] = useState({
+        likes: []
+    });
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -50,8 +52,8 @@ export function useCreateAnswer() {
 }
 
 export function useDeleteAnswer() {
-    async function deletingAnswer(commentId, answerId) {
-        return await deleteAnswer(commentId, answerId);
+    async function deletingAnswer(answerId, commentId) {
+        return await deleteAnswer(answerId, commentId);
     }
 
     return deletingAnswer;
