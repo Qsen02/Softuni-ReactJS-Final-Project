@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createAnswer, deleteAnswer, getAllAnswers, getAnswerById } from "../api/answersService";
+import { createAnswer, deleteAnswer, editAnswer, getAllAnswers, getAnswerById } from "../api/answersService";
 import { getCommentById } from "../api/commentService";
 
 export function useGetAllAnswers(initialvalues, commentId) {
@@ -78,4 +78,12 @@ export function useGetOneAnswer(initialvalues, answerId) {
         answer
     }
 
+}
+
+export function useEditAnswer() {
+    async function editingAnswer(answerId, data) {
+        return await editAnswer(answerId, data);
+    }
+
+    return editingAnswer;
 }
