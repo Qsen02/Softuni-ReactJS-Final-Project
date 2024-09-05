@@ -130,3 +130,83 @@
 .backDrop {
     color: lightgray;
 }
+
+@media(max-width:1400px) {
+    .modal {
+        font-size: 14pt;
+    }
+    .wrapper {
+        right: 100px;
+        width: 500px;
+    }
+    .answers {
+        width: 450px;
+    }
+    .answers div {
+        width: 450px;
+    }
+    .form {
+        width: 500px;
+    }
+    .form input {
+        font-size: 14pt;
+        width: 400px;
+        height: 40px;
+    }
+    .form input::placeholder {
+        font-size: 14pt;
+    }
+    .form button {
+        width: 80px;
+        height: 40px;
+        font-size: 16pt;
+        padding: 0;
+    }
+    .answers div a i {
+        font-size: 16pt;
+    }
+    .backDrop {
+        font-size: 12pt;
+        right: 5px;
+    }
+}
+
+@media(max-width:750px) {
+    .modal {
+        font-size: 12pt;
+    }
+    .wrapper {
+        right: 100px;
+        width: 250px;
+    }
+    .answers {
+        width: 200px;
+    }
+    .answers div {
+        width: 200px;
+    }
+    .form {
+        width: 250px;
+    }
+    .form input {
+        font-size: 12pt;
+        width: 200px;
+        height: 30px;
+    }
+    .form input::placeholder {
+        font-size: 12pt;
+    }
+    .form button {
+        width: 75px;
+        height: 35px;
+        font-size: 14pt;
+        padding: 0;
+    }
+    .answers div a i {
+        font-size: 14pt;
+    }
+    .backDrop {
+        font-size: 10pt;
+        right: 5px;
+    }
+}
