@@ -40,15 +40,18 @@
 }
 
 .wrapper {
-    position: absolute;
-    top: 50px;
-    right: 500px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
     padding: 20px;
     width: 800px;
     height: auto;
     background-color: rgb(89, 86, 86);
     border-radius: 15px;
-    margin-bottom: 20px;
+}
+
+.wrapper h2 {
+    margin-top: -40px;
 }
 
 .answers {
@@ -117,11 +120,11 @@
 }
 
 .backDrop {
-    position: absolute;
+    position: relative;
     background-color: rgb(89, 86, 86);
     color: grey;
-    top: 0;
-    right: 15px;
+    top: -20px;
+    left: 370px;
     padding: 0;
     width: 0;
     height: 0;
@@ -167,7 +170,7 @@
     }
     .backDrop {
         font-size: 12pt;
-        right: 5px;
+        left: 230px;
     }
 }
 
@@ -207,6 +210,7 @@
     }
     .backDrop {
         font-size: 10pt;
-        right: 5px;
+        left: 115px;
+        bottom: 20px;
     }
 }
