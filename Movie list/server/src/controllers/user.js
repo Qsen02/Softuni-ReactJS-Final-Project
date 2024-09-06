@@ -6,8 +6,8 @@ const { setToken } = require("../services/token");
 const userRouter = Router();
 
 userRouter.post("/register",
-    body("username").trim().isLength(3),
-    body("email").trim().isEmail().isLength(3),
+    body("username").trim().isLength({ min: 3 }),
+    body("email").trim().isEmail().isLength({ min: 3 }),
     body("password").trim().matches(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;"'<>,.?\/~`|-]).{6,}$/),
     body("repass").trim().custom((value, { req }) => req.body.password == value),
     async(req, res) => {
@@ -26,7 +26,7 @@ userRouter.post("/register",
     })
 
 userRouter.post("/login",
-    body("username").trim().isLength(3),
+    body("username").trim().isLength({ min: 3 }),
     body("password").trim().matches(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;"'<>,.?\/~`|-]).{6,}$/),
     async(req, res) => {
         const fields = req.body;

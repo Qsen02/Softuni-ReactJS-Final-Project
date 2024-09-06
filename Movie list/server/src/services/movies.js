@@ -16,7 +16,7 @@ function searchMovie(query) {
 }
 
 function pagination(page) {
-    const skipCount = page * 6;
+    const skipCount = Number(page) * 6;
     return Movies.find().skip(skipCount).limit(6);
 }
 

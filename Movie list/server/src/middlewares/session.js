@@ -6,7 +6,7 @@ function session() {
         if (token) {
             try {
                 const payload = verifyToken(token);
-                res.user = payload;
+                req.user = payload;
             } catch (err) {
                 return res.status(403).json({ message: "You dont't have credentialsq please login or register!" });
             }
