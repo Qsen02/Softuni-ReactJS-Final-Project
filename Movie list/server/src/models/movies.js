@@ -21,6 +21,10 @@ const movieSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    ownerId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Users"
+    },
     likes: {
         type: [mongoose.SchemaTypes.ObjectId],
         ref: "Users",
