@@ -54,6 +54,22 @@ Comments:
 -Delete comment (DELETE): /comments/{commentId}
 
 -Edit comment (PUT): /comments/{commentId}
+
+-Like comment (POST): /comments/{commentId}/like
+
+-Unlike comment (POST): /comments/{commentId}/unlike
+
+Answers:
+
+-Get all answers for comment (GET): /answers/comment/{commentId}
+
+-Create answer for comment (POST): /answers/comment/{commentId}
+
+-Get answer by id (GET): /answers/{answerId}
+
+-Edit answer (PUT): /answers/{answerId}
+
+-Delete answer (DELETE): /answer/{answerId}/from/{commentId}
 # Features
 Users can login or register. All users can see the catalog, details and comments for games but only logged in users can like and save games and comment the games. Every logged in user have profile page which include information about username, email, created and saved games by this user. Every logged in user can post publications but only owner of the publication can edit or delete this publication.
 # How to start client and server
