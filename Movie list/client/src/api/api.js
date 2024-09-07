@@ -36,17 +36,17 @@ async function requester(method, url, data) {
 }
 
 export async function get(url) {
-    return await requester("get", url);
+    return await requester("get", `${host}/${url}`);
 }
 
 export async function post(url, data) {
-    return await requester("post", url, data);
+    return await requester("post", `${host}/${url}`, data);
 }
 
 export async function del(url) {
-    return await requester("delete", url);
+    return await requester("delete", `${host}/${url}`);
 }
 
 export async function put(url, data) {
-    return await requester("put", url, data);
+    return await requester("put", `${host}/${url}`, data);
 }
