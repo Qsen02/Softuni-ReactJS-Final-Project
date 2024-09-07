@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { getTopMovies } from "../api/movieService";
 
-export function useGetTopMovies(initialvalues) {
+export function useGetTopMovies(initialvalues:[]) {
     const [movies, setMovies] = useState(initialvalues);
 
     useEffect(() => {
