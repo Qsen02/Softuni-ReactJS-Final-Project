@@ -20,6 +20,11 @@ function pagination(page) {
     return Movies.find().skip(skipCount).limit(6);
 }
 
+function getTopThree() {
+    const movies = Movies.aggregate([{ $addFields: { likesCount: { $size: "$likes" } } }, { $sort: { likesCount: -1 } }, { $limit: 3 }]);
+    return movies;
+}
+
 async function createMovie(data, user) {
     const newMovie = new Movies(data);
     newMovie.ownerId = user._id;
@@ -72,5 +77,6 @@ module.exports = {
     unsaveMovie,
     likeMovie,
     unlikeMovie,
-    checkMovieId
+    checkMovieId,
+    getTopThree
 }

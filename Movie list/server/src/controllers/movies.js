@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getAllMovies, checkMovieId, getMovieById, searchMovie, pagination, createMovie, editMovie, deleteMovie, likeMovie, unlikeMovie, saveMovie, unsaveMovie } = require("../services/movies");
+const { getAllMovies, checkMovieId, getMovieById, searchMovie, pagination, createMovie, editMovie, deleteMovie, likeMovie, unlikeMovie, saveMovie, unsaveMovie, getTopThree } = require("../services/movies");
 const { body, validationResult } = require("express-validator");
 
 const movieRouter = Router();
@@ -130,6 +130,11 @@ movieRouter.post("/:movieId/unsave", async(req, res) => {
     }
     await unsaveMovie(movieId, user);
     res.status(200).json({ message: "Record was unsaved successfully!" })
+})
+
+movieRouter.get("/top/movies", async(req, res) => {
+    const movies = await getTopThree();
+    res.json(movies);
 })
 
 module.exports = {
