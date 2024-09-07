@@ -1,0 +1,35 @@
+.homeHeader {
+    display: block;
+    border-radius: 20px;
+    background-color: rgb(29, 29, 29);
+    margin: 0 auto;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 16pt;
+    color: white;
+    width: 400px;
+    height: auto;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.homeBody {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin: 0 auto;
+    width: 1000px;
+    margin-top: 30px;
+    font-size: 16pt;
+}
+
+@media(max-width:750px) {
+    .homeHeader {
+        width: 300px;
+        font-size: 12pt;
+    }
+    .homeBody {
+        width: 300px;
+        font-size: 12pt;
+    }
+}
