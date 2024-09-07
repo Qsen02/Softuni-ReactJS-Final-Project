@@ -10,6 +10,10 @@ export async function getMovieById(movieId) {
     return await get(`${endpoint}/${movieId}`);
 }
 
+export async function getTopMovies() {
+    return await get(`${endpoint}/top/movies`);
+}
+
 export async function createMovie(data) {
     await post(endpoint, data);
 }
