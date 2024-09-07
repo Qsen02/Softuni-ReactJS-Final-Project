@@ -9,7 +9,7 @@ export default function Header() {
         isAdmin: boolean
     }|null
 
-    const curUser: User=null;
+    const curUser: User=null
 
     const guest = [
         { name: "HOME", link: "/" },

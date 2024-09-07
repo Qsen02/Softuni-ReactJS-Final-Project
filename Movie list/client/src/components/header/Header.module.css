@@ -20,6 +20,7 @@
 }
 
 body {
+    margin: 0;
     padding: 0;
     background-color: rgb(44, 44, 44);
 }
@@ -28,7 +29,7 @@ body {
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 30px;
     width: 700px;
     height: auto;
     border-radius: 30px;
@@ -52,4 +53,16 @@ body {
 .navigation li a:hover {
     animation: coloring 0.7s;
     animation-fill-mode: forwards;
+}
+
+@media(max-width:750px) {
+    .navigation {
+        width: 350px;
+    }
+    .navigation li {
+        margin-right: 10px;
+    }
+    .navigation li a {
+        font-size: 12pt;
+    }
 }
