@@ -35,7 +35,7 @@ async function unlikeComment(commentId, user) {
 
 async function checkCommentId(commentId) {
     const comments = await Comments.find().lean();
-    const isValid = comments.find(el => el._id.toString() == movieId);
+    const isValid = comments.find(el => el._id.toString() == commentId);
     if (isValid) {
         return true;
     }
