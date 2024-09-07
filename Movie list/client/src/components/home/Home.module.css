@@ -18,9 +18,65 @@
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     margin: 0 auto;
-    width: 1000px;
+    width: 1400px;
     margin-top: 30px;
     font-size: 16pt;
+    margin-bottom: 120px;
+}
+
+.homeBody div {
+    display: inline-block;
+    margin-right: 30px;
+    width: 400px;
+    border-radius: 15px;
+    background-color: rgb(29, 29, 29);
+    font-size: 16pt;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.homeBody div img {
+    display: block;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.homeBody div a {
+    width: 100px;
+    height: 50px;
+}
+
+.homeBody div a button {
+    width: 100px;
+    height: 50px;
+    border: none;
+    background-color: rgb(200, 200, 7);
+    font-size: 18pt;
+    color: black;
+    border-radius: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+.homeBody div a button:hover {
+    background-color: yellow;
+}
+
+@media(max-width:1200px) {
+    .homeBody {
+        width: 500px;
+    }
+    .homeBody div {
+        display: block;
+        margin: 0 auto;
+        margin-top: 30px;
+    }
 }
 
 @media(max-width:750px) {
@@ -31,5 +87,18 @@
     .homeBody {
         width: 300px;
         font-size: 12pt;
+    }
+    .homeBody div {
+        width: 300px;
+        font-size: 12pt;
+    }
+    .homeBody div img {
+        width: 200px;
+        height: 200px;
+    }
+    .homeBody div a button {
+        width: 70px;
+        height: 30px;
+        font-size: 14pt;
     }
 }
