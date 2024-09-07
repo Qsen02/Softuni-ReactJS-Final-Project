@@ -1,16 +1,16 @@
 import HeaderItems from "./headerItems/HeaderItems";
 
+import styles from "./Header.module.css";
+
 export default function Header() {
     type User = {
         username: string,
         email: string,
         isAdmin: boolean
     }|null
-    const curUser: User={
-        username:"Pesho",
-        email:"pesho@gmail.com",
-        isAdmin:false
-    };
+
+    const curUser: User=null;
+
     const guest = [
         { name: "HOME", link: "/" },
         { name: "CATALOG", link: "/catalog" },
@@ -32,7 +32,7 @@ export default function Header() {
     ]
     return (
         <header>
-            <ul>
+            <ul className={styles.navigation}>
                 {curUser
                     ? curUser?.isAdmin
                         ? admin.map(el => <HeaderItems key={el.name} name={el.name} link={el.link} />)
