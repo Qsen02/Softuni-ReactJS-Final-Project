@@ -2,8 +2,17 @@ import { clearUserData, getUserData } from "../utils/userHelper";
 
 const host = "http://localhost:3000"
 
-async function requester(method, url, data) {
-    const options = {
+type Options={
+    method:string,
+    headers: {
+        "Content-type": "application/json"
+        "X-Authorization"?:string
+    },
+    body?:{}
+}
+
+async function requester(method:string, url:string, data?:{}) {
+    const options :Options= {
         method,
         headers: {
             "Content-type": "application/json"
@@ -28,25 +37,29 @@ async function requester(method, url, data) {
         if (response.status == 204) {
             return response;
         }
-        const data = await response.json();
+        const data:[]|{} = await response.json();
         return data;
     } catch (err) {
         throw new Error(err.message);
     }
 }
 
-export async function get(url) {
-    return await requester("get", `${host}/${url}`);
+export async function get(url:string) {
+    const result:[]|{}=await requester("get", `${host}/${url}`)
+    return result;
 }
 
-export async function post(url, data) {
-    return await requester("post", `${host}/${url}`, data);
+export async function post(url:string, data:{}) {
+    const result:[]|{}=await requester("post", `${host}/${url}`, data)
+    return result;
 }
 
-export async function del(url) {
-    return await requester("delete", `${host}/${url}`);
+export async function del(url:string) {
+    const result:[]|{}=await requester("delete", `${host}/${url}`)
+    return result;
 }
 
-export async function put(url, data) {
-    return await requester("put", `${host}/${url}`, data);
+export async function put(url:string, data:{}) {
+    const result:[]|{}=await requester("put", `${host}/${url}`, data)
+    return result;
 }
