@@ -3,15 +3,18 @@ import { get ,post,del,put} from "./api";
 const endpoint = "movies";
 
 export async function getAllMovies() {
-    return  await get(endpoint);
+    const movies=await get(endpoint)
+    return  movies as [];
 }
 
 export async function getMovieById(movieId:string) {
-    return await get(`${endpoint}/${movieId}`);
+    const movie=await get(`${endpoint}/${movieId}`);
+    return movie;
 }
 
 export async function getTopMovies() {
-    return await get(`${endpoint}/top/movies`);
+    const movies=await get(`${endpoint}/top/movies`);
+    return movies as [];
 }
 
 export async function createMovie(data:{}) {

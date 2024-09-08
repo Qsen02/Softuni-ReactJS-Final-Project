@@ -26,7 +26,7 @@ async function requester(method:string, url:string, data?:{}) {
         options.body = data;
     }
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(url, options as {});
         if (!response.ok) {
             if (response.status == 403) {
                 clearUserData();

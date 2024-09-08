@@ -1,8 +1,6 @@
-import { useEffect, useReducer } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { getAllMovies, getTopMovies } from "../api/movieService";
-import { catalogReducer } from "../reducers/catalogReducer";
-import { string } from "yup";
 
 export function useGetTopMovies(initialvalues: []) {
     type CutomHookType = [
@@ -42,6 +40,7 @@ export function useGetAllMovies(initialvalues: []) {
         }
     ] | []
     const [movies, setMovies] = useState<CutomHookType>(initialvalues);
+
     useEffect(() => {
         (async () => {
             try {

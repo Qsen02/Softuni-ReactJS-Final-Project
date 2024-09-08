@@ -1,0 +1,145 @@
+.catalogForm {
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 400px;
+}
+
+.catalogForm input {
+    width: 400px;
+    height: 50px;
+    background-color: rgb(29, 29, 29);
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: 14pt;
+    border-radius: 20px;
+    border: none;
+}
+
+.catalogForm input::placeholder {
+    font-size: 14pt;
+    padding: 10px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.catalogForm button {
+    height: 47px;
+    width: 30px;
+    margin-left: -45px;
+    background-color: rgb(29, 29, 29);
+    border: none;
+    border-left: solid 2px white;
+    cursor: pointer;
+}
+
+.catalogForm button i {
+    color: white;
+    font-size: 16pt;
+}
+
+.catalogContent {
+    display: block;
+    margin: 0 auto;
+    width: 1400px;
+    text-align: center;
+    font-size: 16pt;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 100px;
+}
+
+.catalogContent div {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    width: 1300px;
+}
+
+.catalogContent div div {
+    display: block;
+    margin: 20px;
+    width: 400px;
+    border-radius: 20px;
+    background-color: rgb(29, 29, 29);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.catalogContent div div img {
+    height: 300px;
+    width: 300px;
+    border-radius: 10px;
+}
+
+.catalogContent div div button {
+    width: 100px;
+    height: 50px;
+    border: none;
+    background-color: rgb(200, 200, 7);
+    font-size: 18pt;
+    color: black;
+    border-radius: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+.catalogContent div div button:hover {
+    background-color: yellow;
+}
+
+@media(max-width:1300px) {
+    .catalogContent {
+        width: 500px;
+    }
+    .catalogContent div {
+        display: block;
+        width: 500px;
+    }
+    .catalogContent div div {
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width:750px) {
+    .catalogContent {
+        width: 350px;
+        font-size: 12pt;
+    }
+    .catalogContent div {
+        width: 350px;
+    }
+    .catalogContent div div {
+        width: 300px;
+        font-size: 12pt;
+    }
+    .catalogContent div div img {
+        width: 200px;
+        height: 200px;
+    }
+    .catalogContent div div button {
+        width: 70px;
+        height: 35px;
+        font-size: 12pt;
+    }
+    .catalogForm {
+        width: 300px;
+    }
+    .catalogForm input {
+        width: 300px;
+        font-size: 12pt;
+        height: 30px;
+    }
+    .catalogForm input::placeholder {
+        font-size: 12pt;
+    }
+    .catalogForm button {
+        height: 27px;
+        width: 20px;
+    }
+    .catalogForm button i {
+        font-size: 12pt;
+    }
+}
