@@ -40,7 +40,7 @@ async function requester(method:string, url:string, data?:{}) {
         const data:[]|{} = await response.json();
         return data;
     } catch (err) {
-        throw new Error(err.message);
+        throw new Error((err as {message:string}).message);
     }
 }
 
