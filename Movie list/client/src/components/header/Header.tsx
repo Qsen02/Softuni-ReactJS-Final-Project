@@ -4,12 +4,13 @@ import styles from "./Header.module.css";
 
 export default function Header() {
     type User = {
+        _id: string,
         username: string,
         email: string,
-        isAdmin: boolean
-    }|null
+        isAdmin?: boolean
+    } | null
 
-    const curUser: User=null
+    const curUser: User = null;
 
     const guest = [
         { name: "HOME", link: "/" },
