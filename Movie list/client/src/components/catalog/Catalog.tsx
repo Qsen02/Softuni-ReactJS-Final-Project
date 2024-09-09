@@ -4,25 +4,27 @@ import { useGetAllMovies, useSearchMovies } from "../../hooks/useMovies"
 import CatalogContent from "./catalog-content/CatalogContent";
 
 import styles from "./Catalog.module.css"
-import CustomInput from "../../commons/customInput";
+import CustomInput from "../../commons/CustomInput";
 import { useState } from "react";
 
 export default function Catalog() {
-    const { movies, setMovies } = useGetAllMovies([]);
+    const { movies, setMovies, loading, setLoading, fetchError, setFetchError } = useGetAllMovies([]);
     const searchMovies = useSearchMovies();
     const [isSearched, setIsSearched] = useState(false);
 
     async function onSearch(values: { title: string }) {
         let title = values.title;
         try {
-            if(title==""){
-                title="empty";
+            if (title == "") {
+                title = "empty";
             }
+            setLoading(true);
             const results = await searchMovies(title);
             setMovies(results);
             setIsSearched(true);
+            setLoading(false);
         } catch (err) {
-            alert((err as { message: string }).message);
+            setFetchError(true);
             return;
         }
 
@@ -30,6 +32,10 @@ export default function Catalog() {
 
     return (
         <>
+            {loading && !fetchError
+                ? <div className={styles.loadingSpinner}></div>
+                : ""
+            }
             <Formik initialValues={{ title: "" }} onSubmit={onSearch}>
                 {
                     (props) => (
@@ -43,11 +49,15 @@ export default function Catalog() {
             <div className={styles.catalogContent}>
                 <h2>All available movies</h2>
                 <div>
-                    {movies.length > 0
+                    {movies.length > 0 && !loading
                         ? movies.map(el => <CatalogContent key={el._id} id={el._id} title={el.title} genre={el.genre} image={el.image} />)
-                        : isSearched
-                            ? <h2>No results</h2>
-                            : <h2>No movies yet</h2>
+                        : isSearched && !loading && !fetchError
+                            ? <h2 className={styles.errorMessage}>No results</h2>
+                            : loading && !fetchError
+                                ? <h2 className={styles.errorMessage}>Movies loading...</h2>
+                                : fetchError
+                                    ? <h2 className={styles.errorMessage}>Movies cannot be loaded please try again later.</h2>
+                                    : <h2 className={styles.errorMessage}>No movies yet</h2>
                     }
                 </div>
             </div>

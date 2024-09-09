@@ -40,26 +40,30 @@ export function useGetAllMovies(initialvalues: []) {
         }
     ] | []
     const [movies, setMovies] = useState<CutomHookType>(initialvalues);
+    const [loading, setLoading] = useState(false);
+    const [fetchError, setFetchError] = useState(false);
 
     useEffect(() => {
         (async () => {
             try {
+                setLoading(true);
                 const movies = await getAllMovies();
-                setMovies( movies );
+                setMovies(movies);
+                setLoading(false);
             } catch (err) {
-                alert((err as { message: string }).message);
+                setFetchError(true);
                 return;
             }
         })()
     }, [])
 
     return {
-        movies,setMovies
+        movies, setMovies,loading,setLoading,fetchError,setFetchError
     }
 }
 
-export function useSearchMovies(){
-    async function searchingMovies(query:string){
+export function useSearchMovies() {
+    async function searchingMovies(query: string) {
         return await searchMovies(query);
     }
 
