@@ -17,6 +17,11 @@ export async function getTopMovies() {
     return movies as [];
 }
 
+export async function searchMovies(query:string){
+    const movies=await get(`${endpoint}/search/${query}`);
+    return movies as [];
+}
+
 export async function createMovie(data:{}) {
     await post(endpoint, data);
 }

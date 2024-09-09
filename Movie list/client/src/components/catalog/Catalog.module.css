@@ -56,6 +56,10 @@
     width: 1300px;
 }
 
+.catalogContent div h2 {
+    text-align: center;
+}
+
 .catalogContent div div {
     display: block;
     margin: 20px;

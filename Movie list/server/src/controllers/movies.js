@@ -20,7 +20,10 @@ movieRouter.get("/:movieId", async(req, res) => {
 })
 
 movieRouter.get("/search/:query", async(req, res) => {
-    const query = req.params.query;
+    let query = req.params.query;
+    if (query == "empty") {
+        query = "";
+    }
     const results = await searchMovie(query).lean();
     res.json(results);
 })

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { getAllMovies, getTopMovies } from "../api/movieService";
+import { getAllMovies, getTopMovies, searchMovies } from "../api/movieService";
 
 export function useGetTopMovies(initialvalues: []) {
     type CutomHookType = [
@@ -56,4 +56,12 @@ export function useGetAllMovies(initialvalues: []) {
     return {
         movies,setMovies
     }
+}
+
+export function useSearchMovies(){
+    async function searchingMovies(query:string){
+        return await searchMovies(query);
+    }
+
+    return searchingMovies;
 }
