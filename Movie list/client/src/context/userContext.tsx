@@ -7,7 +7,8 @@ type User = {
     _id: string,
     username: string,
     email: string,
-    isAdmin: boolean
+    isAdmin: boolean,
+    accessToken:string
 } | null
 
 type UserContextType ={
@@ -16,7 +17,7 @@ type UserContextType ={
     clearUserState: () => Promise<void>;
 }
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+const UserContext = createContext<UserContextType | null>(null);
 
 export default function UserContextProvider(props:{children:React.ReactNode}) {
 

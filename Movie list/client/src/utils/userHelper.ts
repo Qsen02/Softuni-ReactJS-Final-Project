@@ -2,7 +2,8 @@ type User={
     _id:string,
     accessToken:string,
     username:string,
-    email:string
+    email:string,
+    isAdmin:boolean;
 }
 
 export function setUserData(data: {}) {

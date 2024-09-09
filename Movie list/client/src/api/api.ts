@@ -5,17 +5,18 @@ const host = "http://localhost:3000"
 type Options={
     method:string,
     headers: {
-        "Content-type": "application/json"
+        "Content-Type": string,
         "X-Authorization"?:string
     },
     body?:{}
 }
 
 async function requester(method:string, url:string, data?:{}) {
-    const options :Options= {
+    debugger
+        const options :Options= {
         method,
         headers: {
-            "Content-type": "application/json"
+            "Content-Type": "application/json"
         }
     }
     const userData = getUserData();
@@ -23,7 +24,7 @@ async function requester(method:string, url:string, data?:{}) {
         options.headers["X-Authorization"] = userData.accessToken;
     }
     if (data) {
-        options.body = data;
+        options.body = JSON.stringify(data);
     }
     try {
         const response = await fetch(url, options as {});

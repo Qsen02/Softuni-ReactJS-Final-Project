@@ -5,7 +5,8 @@ type User = {
     _id: string,
     username: string,
     email: string,
-    isAdmin: boolean
+    isAdmin: boolean,
+    accessToken:string
 } | null
 
 export function usePresistedState(initialvalues: User) {
