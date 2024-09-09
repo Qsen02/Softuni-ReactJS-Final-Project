@@ -1,16 +1,11 @@
 import HeaderItems from "./headerItems/HeaderItems";
 
 import styles from "./Header.module.css";
+import { useUserContext } from "../../context/userContext";
 
 export default function Header() {
-    type User = {
-        _id: string,
-        username: string,
-        email: string,
-        isAdmin?: boolean
-    } | null
 
-    const curUser: User = null;
+const {user}=useUserContext();
 
     const guest = [
         { name: "HOME", link: "/" },
@@ -18,7 +13,7 @@ export default function Header() {
         { name: "LOGIN", link: "/login" },
         { name: "REGISTER", link: "/register" },
     ]
-    const user = [
+    const authUser = [
         { name: "HOME", link: "/" },
         { name: "CATALOG", link: "/catalog" },
         { name: "PROFILE", link: "/profile" },
@@ -34,10 +29,10 @@ export default function Header() {
     return (
         <header>
             <ul className={styles.navigation}>
-                {curUser
-                    ? curUser?.isAdmin
+                {user
+                    ? user.isAdmin
                         ? admin.map(el => <HeaderItems key={el.name} name={el.name} link={el.link} />)
-                        : user.map(el => <HeaderItems key={el.name} name={el.name} link={el.link} />)
+                        : authUser.map(el => <HeaderItems key={el.name} name={el.name} link={el.link} />)
                     : guest.map(el => <HeaderItems key={el.name} name={el.name} link={el.link} />)
                 }
             </ul>
