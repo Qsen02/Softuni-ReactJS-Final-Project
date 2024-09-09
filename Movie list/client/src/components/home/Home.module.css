@@ -1,3 +1,12 @@
+@keyframes rotating {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .homeHeader {
     display: block;
     border-radius: 20px;
@@ -66,6 +75,26 @@
 
 .homeBody div a button:hover {
     background-color: yellow;
+}
+
+.errorMessage {
+    background-color: rgb(29, 29, 29);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.loadingSpinner {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    width: 70px;
+    height: 70px;
+    border: inset 10px white;
+    border-radius: 50%;
+    animation: rotating;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
 }
 
 @media(max-width:1200px) {

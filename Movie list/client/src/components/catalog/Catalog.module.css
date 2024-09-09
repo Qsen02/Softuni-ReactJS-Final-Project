@@ -110,7 +110,7 @@
 
 .loadingSpinner {
     position: absolute;
-    top: 45%;
+    top: 47%;
     left: 45%;
     width: 70px;
     height: 70px;
@@ -174,5 +174,8 @@
     }
     .catalogForm button i {
         font-size: 12pt;
+    }
+    .loadingSpinner {
+        top: 50%;
     }
 }
