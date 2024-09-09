@@ -2,15 +2,22 @@ import { createContext, useContext, useState } from "react";
 import { logout } from "../api/userService";
 import { clearUserData } from "../utils/userHelper";
 
-const UserContext = createContext();
+type User = {
+    _id: string,
+    username: string,
+    email: string,
+    isAdmin: boolean
+} | null
 
-export default function UserContextProvider(props:React.Children) {
-    type User = {
-        _id: string,
-        username: string,
-        email: string,
-        isAdmin: boolean
-    } | null
+type UserContextType ={
+    user: User;
+    setUserState: (user: User) => void;
+    clearUserState: () => Promise<void>;
+}
+
+const UserContext = createContext<UserContextType | undefined>(undefined);
+
+export default function UserContextProvider(props:{children:React.ReactNode}) {
 
     const [user, setUser] = useState<User>(null);
 
@@ -32,9 +39,11 @@ export default function UserContextProvider(props:React.Children) {
 }
 
 export function useUserContext(){
-    const {user,setUserState,clearUserState}=useContext(UserContext);
+    const context=useContext(UserContext);
 
     return {
-        user,setUserState,clearUserState
+        user:context?.user,
+        setUserState:context?.setUserState,
+        clearUserState:context?.clearUserState
     }
 }
