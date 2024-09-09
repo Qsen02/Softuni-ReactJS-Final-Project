@@ -1,9 +1,10 @@
 import { useField } from "formik"
-import { HTMLAttributes } from "react";
 
 type CustomInputProps = {
-    label: string,
-    props: [string]
+    label?: string,
+    type:string,
+    name:string,
+    placeholder?:string
 }
 
 export default function CustomInput({ label, ...props }: CustomInputProps) {
