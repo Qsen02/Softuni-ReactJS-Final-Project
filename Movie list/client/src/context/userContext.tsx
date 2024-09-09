@@ -1,6 +1,7 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { logout } from "../api/userService";
 import { clearUserData } from "../utils/userHelper";
+import { usePresistedState } from "../hooks/usePresistedState";
 
 type User = {
     _id: string,
@@ -10,7 +11,7 @@ type User = {
 } | null
 
 type UserContextType ={
-    user: User;
+    user: User | null;
     setUserState: (user: User) => void;
     clearUserState: () => Promise<void>;
 }
@@ -19,16 +20,16 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export default function UserContextProvider(props:{children:React.ReactNode}) {
 
-    const [user, setUser] = useState<User>(null);
+    const {user, setUserData} = usePresistedState(null);
 
     function setUserState(user: User) {
-        setUser(user);
+        setUserData(user);
     }
 
     async function clearUserState(){
         await logout();
         clearUserData();
-        setUser(null);
+        setUserData(null);
     }
 
     return (
