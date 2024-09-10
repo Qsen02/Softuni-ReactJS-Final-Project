@@ -1,0 +1,107 @@
+@keyframes coloring {
+    0% {
+        color: rgb(170, 166, 166)
+    }
+    20% {
+        color: rgb(190, 185, 185)
+    }
+    40% {
+        color: rgb(210, 200, 200)
+    }
+    60% {
+        color: rgb(230, 220, 220)
+    }
+    80% {
+        color: rgb(240, 240, 240)
+    }
+    100% {
+        color: rgb(255, 255, 255)
+    }
+}
+
+.form {
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 500px;
+    height: auto;
+    background-color: rgb(29, 29, 29);
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 16pt;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form input {
+    display: block;
+    margin: 0 auto;
+    width: 400px;
+    border-radius: 10px;
+    height: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 14pt;
+}
+
+.form button {
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 100px;
+    height: 50px;
+    border: none;
+    background-color: rgb(200, 200, 7);
+    font-size: 18pt;
+    color: black;
+    border-radius: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+.form button:hover {
+    background-color: yellow;
+}
+
+.form p a {
+    text-decoration: none;
+    color: rgb(170, 166, 166)
+}
+
+.form p a:hover {
+    animation: coloring 0.7s;
+    animation-fill-mode: forwards;
+}
+
+.error {
+    color: red;
+    font-size: 12pt;
+}
+
+.form i {
+    font-size: 25pt;
+}
+
+@media(max-width:750px) {
+    .form {
+        width: 300px;
+        font-size: 12pt;
+    }
+    .form input {
+        width: 200px;
+        font-size: 12pt;
+        height: 25px;
+    }
+    .form button {
+        width: 70px;
+        height: 35px;
+        font-size: 14pt;
+    }
+    .error {
+        font-size: 10pt;
+    }
+    .form i {
+        font-size: 18pt;
+    }
+}

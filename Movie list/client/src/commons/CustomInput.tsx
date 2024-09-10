@@ -1,4 +1,6 @@
-import { useField } from "formik"
+import { useField } from "formik";
+
+import styles from "../components/FormsAndErrors.module.css";
 
 type CustomInputProps = {
     label?: string,
@@ -14,7 +16,7 @@ export default function CustomInput({ label, ...props }: CustomInputProps) {
             <label>{label}</label>
             <input {...field} {...props} />
             {
-                meta.touched && meta.error ? <p>{meta.error}</p> : ""
+                meta.touched && meta.error ? <p className={styles.error}>{meta.error}</p> : ""
             }
         </>
     )
