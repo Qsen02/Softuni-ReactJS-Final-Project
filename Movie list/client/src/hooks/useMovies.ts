@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { getAllMovies, getTopMovies, searchMovies } from "../api/movieService";
+import { getAllMovies, getMovieById, getTopMovies, searchMovies } from "../api/movieService";
 
 export function useGetTopMovies(initialvalues: []) {
     type CutomHookType = [
@@ -23,7 +23,7 @@ export function useGetTopMovies(initialvalues: []) {
                 setMovies(movies);
                 setLoading(false);
             } catch (err) {
-               setFetchError(true);
+                setFetchError(true);
                 return;
             }
         })()
@@ -64,7 +64,7 @@ export function useGetAllMovies(initialvalues: []) {
     }, [])
 
     return {
-        movies, setMovies,loading,setLoading,fetchError,setFetchError
+        movies, setMovies, loading, setLoading, fetchError, setFetchError
     }
 }
 
@@ -74,4 +74,41 @@ export function useSearchMovies() {
     }
 
     return searchingMovies;
+}
+
+export function useGetOneMovie(initialvalues: { likes: [], saves: [], comments: [] }, movieId: string|undefined) {
+    type MovieType = {
+        _id: string,
+        title: string,
+        genre: string,
+        year: number,
+        image: string,
+        description: string,
+        likes: [{}],
+        comments: [{}],
+        saves: [{}],
+        ownerId: string
+    } | { likes: [], saves: [], comments: [] }
+
+    const [movie, setMovie] = useState<MovieType>(initialvalues)
+    const [loading, setLoading] = useState(false);
+    const [fetchError, setFetchError] = useState(false);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                setLoading(true);
+                const movie:MovieType = await getMovieById(movieId);
+                setMovie(movie);
+                setLoading(false);
+            } catch (err) {
+                setFetchError(true);
+                return;
+            }
+        })()
+    },[movieId])
+
+    return{
+        movie,setMovie,loading,setLoading,fetchError,setFetchError
+    }
 }
