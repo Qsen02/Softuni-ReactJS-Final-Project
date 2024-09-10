@@ -12,7 +12,6 @@ type Options={
 }
 
 async function requester(method:string, url:string, data?:{}) {
-    debugger
         const options :Options= {
         method,
         headers: {

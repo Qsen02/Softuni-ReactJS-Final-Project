@@ -14,7 +14,7 @@ export default function CustomInput({ label, ...props }: CustomInputProps) {
     return (
         <>
             <label>{label}</label>
-            <input {...field} {...props} />
+            <input {...field} {...props}/>
             {
                 meta.touched && meta.error ? <p className={styles.error}>{meta.error}</p> : ""
             }
