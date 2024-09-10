@@ -9,7 +9,7 @@ export async function getAllMovies() {
 
 export async function getMovieById(movieId: string | undefined) {
     const movie = await get(`${endpoint}/${movieId}`);
-    return movie as { likes: [], saves: [], comments: [] };
+    return movie as {};
 }
 
 export async function getTopMovies() {

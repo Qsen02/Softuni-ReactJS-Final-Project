@@ -76,7 +76,7 @@ export function useSearchMovies() {
     return searchingMovies;
 }
 
-export function useGetOneMovie(initialvalues: { likes: [], saves: [], comments: [] }, movieId: string|undefined) {
+export function useGetOneMovie(initialvalues: {}, movieId: string|undefined) {
     type MovieType = {
         _id: string,
         title: string,
@@ -88,8 +88,7 @@ export function useGetOneMovie(initialvalues: { likes: [], saves: [], comments: 
         comments: [{}],
         saves: [{}],
         ownerId: string
-    } | { likes: [], saves: [], comments: [] }
-
+    }|{}
     const [movie, setMovie] = useState<MovieType>(initialvalues)
     const [loading, setLoading] = useState(false);
     const [fetchError, setFetchError] = useState(false);
@@ -98,7 +97,7 @@ export function useGetOneMovie(initialvalues: { likes: [], saves: [], comments: 
         (async () => {
             try {
                 setLoading(true);
-                const movie:MovieType = await getMovieById(movieId);
+                const movie = await getMovieById(movieId);
                 setMovie(movie);
                 setLoading(false);
             } catch (err) {
