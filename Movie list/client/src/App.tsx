@@ -7,6 +7,7 @@ import UserContextProvider from "./context/userContext"
 import Login from "./components/login/Login"
 import Logout from "./components/logout/Logout"
 import Register from "./components/register/Register"
+import Status404 from "./components/status404/Status404"
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/logout" element={<Logout/>}/>
                         <Route path="/register" element={<Register/>}/>
+                        <Route path="*" element={<Status404/>}/>
                     </Routes>
                 </main>
                 <Footer />
