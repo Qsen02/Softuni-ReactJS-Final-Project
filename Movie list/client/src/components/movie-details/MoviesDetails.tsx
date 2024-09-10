@@ -4,6 +4,7 @@ import { useGetOneMovie } from "../../hooks/useMovies";
 import { useUserContext } from "../../context/userContext";
 
 import errorStyles from "../status404/Status404.module.css";
+import styles from "./MovieDetails.module.css";
 
 import { onImageError } from "../../utils/imageError";
 
@@ -18,11 +19,13 @@ export default function MovieDetails() {
                 : ""
             }
             {!fetchError
-                ? <div>
+                ? <div className={styles.detailsWrapper}>
                     <h1>{(movie as { title: string }).title}</h1>
-                    <img src={(movie as { image: string }).image} alt={(movie as { title: string }).title} onError={onImageError}/>
-                    <p>Genre: {(movie as { genre: string }).genre}</p>
-                    <p>Year: {(movie as { year: number }).year}</p>
+                    <img src={(movie as { image: string }).image} alt={(movie as { title: string }).title} onError={onImageError} />
+                    <div>
+                        <p>Genre: {(movie as { genre: string }).genre}</p>
+                        <p>Year: {(movie as { year: number }).year}</p>
+                    </div>
                     <p>{(movie as { description: string }).description}</p>
                 </div>
                 : <div className={errorStyles.wrapper}>

@@ -42,3 +42,10 @@
     animation: coloring 1s;
     animation-fill-mode: forwards;
 }
+
+@media(max-width:750px) {
+    .wrapper {
+        width: 300px;
+        font-size: 12pt;
+    }
+}

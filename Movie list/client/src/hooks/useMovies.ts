@@ -105,7 +105,7 @@ export function useGetOneMovie(initialvalues: {}, movieId: string|undefined) {
                 return;
             }
         })()
-    },[movieId])
+    },[])
 
     return{
         movie,setMovie,loading,setLoading,fetchError,setFetchError
