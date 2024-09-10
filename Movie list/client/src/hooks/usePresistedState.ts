@@ -18,11 +18,11 @@ export function usePresistedState(initialvalues: User) {
         return initialvalues;
     })
 
-    function setUserData(value: User) {
+    function setCurUser(value: User) {
         setUser(value);
     }
 
     return {
-        user, setUserData
+        user, setCurUser
     }
 }

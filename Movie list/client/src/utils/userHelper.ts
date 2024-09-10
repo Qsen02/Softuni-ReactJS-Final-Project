@@ -1,18 +1,18 @@
-type User={
-    _id:string,
-    accessToken:string,
-    username:string,
-    email:string,
-    isAdmin:boolean;
+type User = {
+    _id: string,
+    accessToken: string,
+    username: string,
+    email: string,
+    isAdmin: boolean;
 }
 
-export function setUserData(data: {}) {
+export function setUserData(data: User | null) {
     localStorage.setItem("user", JSON.stringify(data));
 }
 
 export function getUserData() {
-    const item:string= localStorage.getItem("user");
-    const data:User = JSON.parse(item);
+    const item: string = localStorage.getItem("user");
+    const data: User = JSON.parse(item);
     return data;
 }
 

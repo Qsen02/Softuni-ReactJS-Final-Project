@@ -119,8 +119,8 @@
         font-size: 18pt;
     }
     .form #seePassword {
-        bottom: 145px;
-        right: 80px;
+        top: 47px;
+        right: 65px;
         font-size: 12pt;
     }
 }

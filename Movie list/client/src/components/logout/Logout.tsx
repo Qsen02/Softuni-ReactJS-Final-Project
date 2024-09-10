@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useUserContext } from "../../context/userContext"
+import { useUserContext } from "../../context/userContext";
+
+import styles from "./Logout.module.css";
 
 export default function Logout(){
     const {clearUserState}=useUserContext();
@@ -15,9 +17,9 @@ export default function Logout(){
     }
 
     return(
-        <div>
+        <div className={styles.modal}>
             <div>
-                <h2>Are you sure want to logout?</h2>
+                <h3>Are you sure want to logout?</h3>
                 <i className="fa-solid fa-arrow-right-from-bracket"></i>
                 <button onClick={onLogout}>Logout</button>
                 <button onClick={onBack}>Back</button>
