@@ -5,6 +5,7 @@ import Home from "./components/home/Home"
 import Catalog from "./components/catalog/Catalog"
 import UserContextProvider from "./context/userContext"
 import Login from "./components/login/Login"
+import Logout from "./components/logout/Logout"
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/catalog" element={<Catalog />} />
                         <Route path="/login" element={<Login/>}/>
+                        <Route path="/logout" element={<Logout/>}/>
                     </Routes>
                 </main>
                 <Footer />
