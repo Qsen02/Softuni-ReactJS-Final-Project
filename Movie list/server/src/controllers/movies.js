@@ -99,7 +99,8 @@ movieRouter.post("/:movieId/like", async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await likeMovie(movieId, user);
-    res.status(200).json({ message: "Record was liked successfully!" })
+    const movie = await getMovieById(movieId).lean()
+    res.json(movie);
 })
 
 movieRouter.post("/:movieId/unlike", async(req, res) => {
@@ -110,7 +111,8 @@ movieRouter.post("/:movieId/unlike", async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await unlikeMovie(movieId, user);
-    res.status(200).json({ message: "Record was unliked successfully!" })
+    const movie = await getMovieById(movieId).lean()
+    res.json(movie);
 })
 
 movieRouter.post("/:movieId/save", async(req, res) => {
@@ -121,7 +123,8 @@ movieRouter.post("/:movieId/save", async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await saveMovie(movieId, user);
-    res.status(200).json({ message: "Record was saved successfully!" })
+    const movie = await getMovieById(movieId).lean()
+    res.json(movie);
 })
 
 movieRouter.post("/:movieId/unsave", async(req, res) => {
@@ -132,7 +135,8 @@ movieRouter.post("/:movieId/unsave", async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await unsaveMovie(movieId, user);
-    res.status(200).json({ message: "Record was unsaved successfully!" })
+    const movie = await getMovieById(movieId).lean()
+    res.json(movie);
 })
 
 movieRouter.get("/top/movies", async(req, res) => {

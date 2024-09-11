@@ -6,7 +6,7 @@ function getAllMovies() {
 }
 
 function getMovieById(movieId) {
-    const movies = Movies.findById(movieId).populate("comments");
+    const movies = Movies.findById(movieId).populate("comments").populate("likes").populate("saves");
     return movies;
 }
 
