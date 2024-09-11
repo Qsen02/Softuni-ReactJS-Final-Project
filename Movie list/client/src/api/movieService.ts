@@ -34,18 +34,18 @@ export async function editMovie(movieId: string|undefined, data: {}) {
    return await put(`${endpoint}/${movieId}`, data);
 }
 
-export async function likeMovie(movieId: string) {
-    await post(`${endpoint}/${movieId}/like`, {});
+export async function likeMovie(movieId:  string|undefined) {
+    return await post(`${endpoint}/${movieId}/like`, {});
 }
 
-export async function unlikeMovie(movieId: string) {
-    await post(`${endpoint}/${movieId}/unlike`, {});
+export async function unlikeMovie(movieId:  string|undefined) {
+   return await post(`${endpoint}/${movieId}/unlike`, {});
 }
 
-export async function saveMovie(movieId: string) {
-    await post(`${endpoint}/${movieId}/save`, {});
+export async function saveMovie(movieId:  string|undefined) {
+    return await post(`${endpoint}/${movieId}/save`, {});
 }
 
-export async function unsaveMovie(movieId: string) {
-    await post(`${endpoint}/${movieId}/unsave`, {});
+export async function unsaveMovie(movieId:  string|undefined) {
+   return await post(`${endpoint}/${movieId}/unsave`, {});
 }

@@ -42,6 +42,7 @@ export default function MovieDetails() {
                                 ? <MovieDetailsButtons
                                     user={user}
                                     ownerId={(movie as { ownerId: string }).ownerId}
+                                    setMovie={setMovie}
                                     likes={(movie as { likes: [] }).likes}
                                     saves={(movie as { saves: [] }).saves}
                                     movieId={movieId}

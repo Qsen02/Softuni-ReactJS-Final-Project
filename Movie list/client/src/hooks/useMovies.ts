@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { createMovie, deleteMovie, editMovie, getAllMovies, getMovieById, getTopMovies, searchMovies } from "../api/movieService";
+import { createMovie, deleteMovie, editMovie, getAllMovies, getMovieById, getTopMovies, likeMovie, saveMovie, searchMovies, unlikeMovie, unsaveMovie } from "../api/movieService";
 import { useNavigate } from "react-router-dom";
 
 export function useGetTopMovies(initialvalues: []) {
@@ -140,4 +140,36 @@ export function useEditMovie(){
     }
 
     return editingMovie;
+}
+
+export function useLikeMovie(){
+    async function likingMovie(id:string|undefined){
+        return await likeMovie(id);
+    }
+
+    return likingMovie;
+}
+
+export function useUnlikeMovie(){
+    async function unlikingMovie(id:string|undefined){
+        return await unlikeMovie(id);
+    }
+
+    return unlikingMovie;
+}
+
+export function useSaveMovie(){
+    async function savingMovie(id:string|undefined){
+        return await saveMovie(id);
+    }
+
+    return savingMovie;
+}
+
+export function useUnsaveMovie(){
+    async function unsavingMovie(id:string|undefined){
+        return await unsaveMovie(id);
+    }
+
+    return unsavingMovie;
 }
