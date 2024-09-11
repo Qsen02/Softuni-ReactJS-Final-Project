@@ -1,3 +1,17 @@
+.loadingSpinner {
+    position: absolute;
+    top: 47%;
+    left: 45%;
+    width: 70px;
+    height: 70px;
+    border: inset 10px white;
+    border-radius: 50%;
+    animation: rotating;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+}
+
 .detailsWrapper {
     display: block;
     margin: 0 auto;

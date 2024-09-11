@@ -36,7 +36,8 @@
     margin-bottom: 100px;
 }
 
-.form input {
+.form input,
+.form textarea {
     display: block;
     margin: 0 auto;
     width: 400px;
@@ -45,6 +46,7 @@
     margin-top: 20px;
     margin-bottom: 10px;
     font-size: 14pt;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .form div {
@@ -103,7 +105,8 @@
         width: 300px;
         font-size: 12pt;
     }
-    .form input {
+    .form input,
+    .form textarea {
         width: 200px;
         font-size: 12pt;
         height: 25px;

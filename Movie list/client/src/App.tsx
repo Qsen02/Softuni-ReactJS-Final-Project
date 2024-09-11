@@ -10,6 +10,7 @@ import Logout from "./components/logout/Logout"
 import Register from "./components/register/Register"
 import Status404 from "./components/status404/Status404"
 import MovieDetails from "./components/movie-details/MoviesDetails"
+import MovieCreate from "./components/movie-create/MovieCreate"
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
                         <Route path="/logout" element={<Logout/>}/>
                         <Route path="/register" element={<Register/>}/>
                         <Route path="/catalog/:movieId" element={<MovieDetails/>}/>
+                        <Route path="/create" element={<MovieCreate/>}/>
                         <Route path="*" element={<Status404/>}/>
                     </Routes>
                 </main>

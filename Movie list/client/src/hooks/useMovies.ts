@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { getAllMovies, getMovieById, getTopMovies, searchMovies } from "../api/movieService";
+import { createMovie, getAllMovies, getMovieById, getTopMovies, searchMovies } from "../api/movieService";
+import { useNavigate } from "react-router-dom";
 
 export function useGetTopMovies(initialvalues: []) {
     type CutomHookType = [
@@ -92,6 +93,7 @@ export function useGetOneMovie(initialvalues: {}, movieId: string|undefined) {
     const [movie, setMovie] = useState<MovieType>(initialvalues)
     const [loading, setLoading] = useState(false);
     const [fetchError, setFetchError] = useState(false);
+    const navigate=useNavigate();
 
     useEffect(() => {
         (async () => {
@@ -101,6 +103,10 @@ export function useGetOneMovie(initialvalues: {}, movieId: string|undefined) {
                 setMovie(movie);
                 setLoading(false);
             } catch (err) {
+                if((err as {message:string}).message=="Resource not found!"){
+                    navigate(`404`);
+                    return;
+                }
                 setFetchError(true);
                 return;
             }
@@ -110,4 +116,12 @@ export function useGetOneMovie(initialvalues: {}, movieId: string|undefined) {
     return{
         movie,setMovie,loading,setLoading,fetchError,setFetchError
     }
+}
+
+export function useCreateMovie(){
+    async function creatingMovie(data:{}){
+        return await createMovie(data);
+    }
+
+    return creatingMovie;
 }

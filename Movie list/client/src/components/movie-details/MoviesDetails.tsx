@@ -18,7 +18,7 @@ export default function MovieDetails() {
     return (
         <>
             {loading && !fetchError
-                ? <div></div>
+                ? <div className={styles.loadingSpinner}></div>
                 : ""
             }
             {!fetchError
