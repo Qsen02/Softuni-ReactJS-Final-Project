@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+
+import styles from "../MovieDetails.module.css"
 
 type MovieDetailsButtonsType = {
     user: {
@@ -11,7 +13,7 @@ type MovieDetailsButtonsType = {
     ownerId: string,
     likes: [],
     saves: [],
-    movieId: string|undefined
+    movieId: string | undefined
 }
 
 export default function MovieDetailsButtons({
@@ -22,22 +24,40 @@ export default function MovieDetailsButtons({
     return (
         <>
             {user._id == ownerId
-                ? <>
-                    <i className="fa-solid fa-thumbs-up">{likes.length}</i>
+                ? <div className={styles.adminButtons}>
+                    <div>
+                        <i className="fa-solid fa-thumbs-up"></i>
+                        <p>{likes.length}</p>
+                    </div>
                     <Link to={`/catalog/${movieId}/edit`}><button>Edit</button></Link>
                     <Link to={`/catalog/${movieId}/delete`}><button>Delete</button></Link>
-                    <i className="fa-solid fa-bookmark">{saves.length}</i>
-                </>
-                : <>
+                    <div>
+                        <i className="fa-solid fa-bookmark"></i>
+                        <p>{saves.length}</p>
+                    </div>
+                </div>
+                : <div className={styles.userButtons}>
                     {likesIds.includes(user._id)
-                        ? <i className="fa-solid fa-thumbs-up">{likes.length}</i>
-                        : <i className="fa-regular fa-thumbs-up">{likes.length}</i>
+                        ? <div>
+                            <i className="fa-solid fa-thumbs-up"></i>
+                            <p>{likes.length}</p>
+                        </div>
+                        : <div>
+                            <i className="fa-regular fa-thumbs-up"></i>
+                            <p>{likes.length}</p>
+                        </div>
                     }
                     {savesIds.includes(user._id)
-                        ? <i className="fa-solid fa-bookmark">{saves.length}</i>
-                        : <i className="fa-regular fa-bookmark">{saves.length}</i>
+                        ? <div>
+                            <i className="fa-solid fa-bookmark"></i>
+                            <p>{saves.length}</p>
+                        </div>
+                        : <div>
+                            <i className="fa-regular fa-bookmark"></i>
+                            <p>{saves.length}</p>
+                        </div>
                     }
-                </>
+                </div>
             }
         </>
     )

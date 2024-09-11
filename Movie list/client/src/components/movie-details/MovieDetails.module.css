@@ -35,6 +35,70 @@
     word-wrap: break-word;
 }
 
+.adminButtons {
+    display: block;
+    margin: 0 auto;
+    width: 600px;
+}
+
+.adminButtons div {
+    display: inline-block;
+}
+
+.adminButtons div i {
+    position: relative;
+    margin-left: 35px;
+    font-size: 24pt;
+}
+
+.adminButtons div p {
+    position: relative;
+    right: 18px;
+    top: 25px;
+    font-size: 16pt;
+}
+
+.adminButtons button {
+    width: 100px;
+    height: 50px;
+    border: none;
+    background-color: rgb(200, 200, 7);
+    font-size: 18pt;
+    color: black;
+    border-radius: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    margin-right: 40px;
+}
+
+.adminButtons button:hover {
+    background-color: yellow;
+}
+
+.userButtons {
+    display: block;
+    margin: 0 auto;
+    width: 300px;
+}
+
+.userButtons div {
+    display: inline-block;
+    margin-left: 40px;
+}
+
+.userButtons div i {
+    position: relative;
+    cursor: pointer;
+    font-size: 24pt;
+}
+
+.userButtons div p {
+    position: relative;
+    top: 23px;
+    right: 18px;
+    font-size: 16pt;
+}
+
 @media(max-width:900px) {
     .detailsWrapper {
         width: 300px;
@@ -47,5 +111,37 @@
     .detailsWrapper div p {
         display: block;
         margin-right: 0;
+    }
+    .adminButtons {
+        width: 300px;
+    }
+    .adminButtons div i {
+        position: relative;
+        top: 35px;
+        right: 20px;
+        font-size: 16pt;
+    }
+    .adminButtons div p {
+        position: relative;
+        right: 3px;
+        top: 20px;
+        font-size: 12pt;
+    }
+    .adminButtons button {
+        width: 70px;
+        height: 35px;
+        font-size: 14pt;
+        margin-right: 10px;
+    }
+    .userButtons {
+        width: 200px;
+    }
+    .userButtons div i {
+        top: 35px;
+        right: 18px;
+        font-size: 16pt;
+    }
+    .userButtons div p {
+        font-size: 12pt;
     }
 }
