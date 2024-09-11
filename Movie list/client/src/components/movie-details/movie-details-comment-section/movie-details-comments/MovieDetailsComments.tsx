@@ -1,3 +1,5 @@
+import styles from "../../MovieDetails.module.css";
+
 type MovieDetailsCommentsType = {
     id: string,
     username: string,
@@ -19,9 +21,9 @@ export default function MovieDetailsComments({
 }: MovieDetailsCommentsType) {
     const likesIds = likes.map(el => (el as { _id: string })._id);
     return (
-        <div>
-            <div>
-                <h2>{username}</h2>
+        <div className={commentOwnerId == user?._id ? styles.yourComment : ""}>
+            <div className={commentOwnerId == user?._id ? styles.yourComment : ""}>
+                <h2 className={commentOwnerId == movieOwnerId ? styles.owner : ""}>{username}</h2>
                 {commentOwnerId == user?._id
                     ? <>
                         <i className="fa-solid fa-trash"></i>
@@ -29,9 +31,25 @@ export default function MovieDetailsComments({
                     </>
                     : ""
                 }
-                {user && likesIds.includes(user._id)
-                    ? <i className="fa-solid fa-thumbs-up"></i>
-                    : <i className="fa-regular fa-thumbs-up"></i>
+                {commentOwnerId == user?._id
+                    ? <>
+                        <i id={styles.ownerCommentLikes} className="fa-solid fa-thumbs-up"></i>
+                        <p>{likes.length}</p>
+                    </>
+                    : !user
+                        ? <>
+                            <i id={styles.guestCommentLikes} className="fa-solid fa-thumbs-up"></i>
+                            <p>{likes.length}</p>
+                        </>
+                        : likesIds.includes(user._id)
+                            ? <>
+                                <i id={styles.commentLikes} className="fa-solid fa-thumbs-up"></i>
+                                <p>{likes.length}</p>
+                            </>
+                            : <>
+                                <i id={styles.commentLikes} className="fa-regular fa-thumbs-up"></i>
+                                <p>{likes.length}</p>
+                            </>
                 }
             </div>
             <p>{content}</p>

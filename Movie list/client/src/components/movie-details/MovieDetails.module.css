@@ -121,8 +121,110 @@
     text-align: center;
 }
 
+.commentWrapper form {
+    display: block;
+    margin: 0 auto;
+    width: 800px;
+}
+
+.commentWrapper form input {
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 150px;
+    width: 400px;
+    height: 30px;
+    border-radius: 10px;
+    font-size: 14pt;
+}
+
+.commentWrapper form input::placeholder {
+    font-size: 14pt;
+}
+
+.commentWrapper form button {
+    width: 100px;
+    height: 50px;
+    border: none;
+    background-color: rgb(200, 200, 7);
+    font-size: 16pt;
+    color: black;
+    border-radius: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+.commentWrapper form button:hover {
+    background-color: yellow;
+}
+
+.commentWrapper div {
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 750px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: rgb(44, 44, 44);
+}
+
+.commentWrapper div div {
+    position: relative;
+    display: block;
+    width: 750px;
+    padding: 0;
+    margin-bottom: -25px;
+}
+
 .commentWrapper div div h2 {
+    display: inline-block;
     text-align: left;
+    margin-top: -50px;
+}
+
+.commentWrapper div p {
+    word-wrap: break-word;
+}
+
+.commentWrapper div div i {
+    display: inline-block;
+    margin-left: 15px;
+    font-size: 18pt;
+    cursor: pointer;
+}
+
+.commentWrapper .owner {
+    color: rgb(200, 200, 7);
+}
+
+.commentWrapper .yourComment {
+    background-color: rgb(75, 73, 73);
+}
+
+.commentWrapper div div #ownerCommentLikes {
+    position: absolute;
+    top: -10px;
+    right: 30px;
+    cursor: default;
+}
+
+.commentWrapper div div #guestCommentLikes {
+    position: absolute;
+    top: -10px;
+    right: 30px;
+    cursor: default;
+}
+
+.commentWrapper #commentLikes {
+    position: absolute;
+    top: -10px;
+    right: 30px;
+}
+
+.commentWrapper div div p {
+    position: absolute;
+    right: 35px;
+    top: 0;
+    font-size: 14pt;
 }
 
 @media(max-width:900px) {
@@ -168,6 +270,61 @@
         font-size: 16pt;
     }
     .userButtons div p {
+        font-size: 12pt;
+    }
+    .commentWrapper {
+        width: 300px;
+        font-size: 12pt;
+    }
+    .commentWrapper h2 {
+        text-align: center;
+    }
+    .commentWrapper form {
+        width: 300px;
+    }
+    .commentWrapper form input {
+        display: block;
+        margin: 0 auto;
+        margin-top: 20px;
+        width: 250px;
+        height: 20px;
+        font-size: 12pt;
+    }
+    .commentWrapper form input::placeholder {
+        font-size: 12pt;
+    }
+    .commentWrapper form button {
+        display: block;
+        margin: 0 auto;
+        width: 80px;
+        height: 35px;
+        margin-top: 10px;
+        font-size: 12pt;
+    }
+    .commentWrapper div {
+        margin-top: 20px;
+        width: 250px;
+    }
+    .commentWrapper div div {
+        width: 250px;
+        margin-bottom: -10px;
+    }
+    .commentWrapper div div i {
+        font-size: 14pt;
+    }
+    .commentWrapper .yourComment {
+        background-color: rgb(75, 73, 73);
+    }
+    .commentWrapper div div #ownerCommentLikes {
+        top: -5px;
+    }
+    .commentWrapper div div #guestCommentLikes {
+        top: -5px;
+    }
+    .commentWrapper #commentLikes {
+        top: -5px;
+    }
+    .commentWrapper div div p {
         font-size: 12pt;
     }
 }
