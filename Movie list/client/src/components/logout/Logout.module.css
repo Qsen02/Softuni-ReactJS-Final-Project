@@ -10,7 +10,7 @@
     z-index: 1000;
 }
 
-.modal div {
+.modal section {
     display: block;
     margin: 0 auto;
     margin-bottom: 100px;
@@ -25,14 +25,14 @@
     border-radius: 20px;
 }
 
-.modal div i {
+.modal section i {
     display: block;
     margin: 0 auto;
     margin-bottom: 10px;
     font-size: 25pt;
 }
 
-.modal div button {
+.modal section button {
     width: 100px;
     height: 50px;
     border: none;
@@ -47,19 +47,19 @@
     margin-top: 10px;
 }
 
-.modal div button:hover {
+.modal section button:hover {
     background-color: yellow;
 }
 
 @media(max-width:750px) {
-    .modal div {
+    .modal section {
         width: 300px;
         font-size: 12pt;
     }
-    .modal div i {
+    .modal section i {
         font-size: 18pt;
     }
-    .modal div button {
+    .modal section button {
         width: 70px;
         height: 35px;
         font-size: 14pt;

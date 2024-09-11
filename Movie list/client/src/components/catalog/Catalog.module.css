@@ -58,18 +58,18 @@
     margin-bottom: 100px;
 }
 
-.catalogContent div {
+.catalogContent section {
     display: grid;
     grid-template-columns: auto auto auto;
     justify-content: center;
     width: 1300px;
 }
 
-.catalogContent div h2 {
+.catalogContent section h2 {
     text-align: center;
 }
 
-.catalogContent div div {
+.catalogContent section article {
     display: block;
     margin: 20px;
     width: 400px;
@@ -80,13 +80,13 @@
     text-align: center;
 }
 
-.catalogContent div div img {
+.catalogContent section articleimg {
     height: 300px;
     width: 300px;
     border-radius: 10px;
 }
 
-.catalogContent div div button {
+.catalogContent section article button {
     width: 100px;
     height: 50px;
     border: none;
@@ -98,7 +98,7 @@
     cursor: pointer;
 }
 
-.catalogContent div div button:hover {
+.catalogContent section article button:hover {
     background-color: yellow;
 }
 
@@ -126,11 +126,11 @@
     .catalogContent {
         width: 500px;
     }
-    .catalogContent div {
+    .catalogContent section {
         display: block;
         width: 500px;
     }
-    .catalogContent div div {
+    .catalogContent section article {
         margin: 0 auto;
         margin-top: 20px;
     }
@@ -141,18 +141,18 @@
         width: 350px;
         font-size: 12pt;
     }
-    .catalogContent div {
+    .catalogContent section {
         width: 350px;
     }
-    .catalogContent div div {
+    .catalogContent section article {
         width: 300px;
         font-size: 12pt;
     }
-    .catalogContent div div img {
+    .catalogContent section article img {
         width: 200px;
         height: 200px;
     }
-    .catalogContent div div button {
+    .catalogContent section article button {
         width: 70px;
         height: 35px;
         font-size: 12pt;

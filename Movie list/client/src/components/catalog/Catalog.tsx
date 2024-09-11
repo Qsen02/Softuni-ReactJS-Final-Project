@@ -46,9 +46,9 @@ export default function Catalog() {
                     )
                 }
             </Formik>
-            <div className={styles.catalogContent}>
+            <section className={styles.catalogContent}>
                 <h2>All available movies</h2>
-                <div>
+                <section>
                     {movies.length > 0 && !loading
                         ? movies.map(el => <CatalogContent key={el._id} id={el._id} title={el.title} genre={el.genre} image={el.image} />)
                         : isSearched && !loading && !fetchError
@@ -59,8 +59,8 @@ export default function Catalog() {
                                     ? <h2 className={styles.errorMessage}>Movies cannot be loaded please try again later.</h2>
                                     : <h2 className={styles.errorMessage}>No movies yet</h2>
                     }
-                </div>
-            </div>
+                </section>
+            </section>
         </>
     )
 }

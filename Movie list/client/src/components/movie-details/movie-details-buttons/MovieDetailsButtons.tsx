@@ -24,7 +24,7 @@ export default function MovieDetailsButtons({
     return (
         <>
             {user._id == ownerId
-                ? <div className={styles.adminButtons}>
+                ? <article className={styles.adminButtons}>
                     <div>
                         <i className="fa-solid fa-thumbs-up"></i>
                         <p>{likes.length}</p>
@@ -35,8 +35,8 @@ export default function MovieDetailsButtons({
                         <i className="fa-solid fa-bookmark"></i>
                         <p>{saves.length}</p>
                     </div>
-                </div>
-                : <div className={styles.userButtons}>
+                </article>
+                : <article className={styles.userButtons}>
                     {likesIds.includes(user._id)
                         ? <div>
                             <i className="fa-solid fa-thumbs-up"></i>
@@ -57,7 +57,7 @@ export default function MovieDetailsButtons({
                             <p>{saves.length}</p>
                         </div>
                     }
-                </div>
+                </article>
             }
         </>
     )

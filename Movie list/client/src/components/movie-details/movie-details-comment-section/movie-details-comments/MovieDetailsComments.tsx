@@ -21,8 +21,8 @@ export default function MovieDetailsComments({
 }: MovieDetailsCommentsType) {
     const likesIds = likes.map(el => (el as { _id: string })._id);
     return (
-        <div className={commentOwnerId == user?._id ? styles.yourComment : ""}>
-            <div className={commentOwnerId == user?._id ? styles.yourComment : ""}>
+        <section className={commentOwnerId == user?._id ? styles.yourComment : ""}>
+            <article className={commentOwnerId == user?._id ? styles.yourComment : ""}>
                 <h2 className={commentOwnerId == movieOwnerId ? styles.owner : ""}>{username}</h2>
                 {commentOwnerId == user?._id
                     ? <>
@@ -51,8 +51,8 @@ export default function MovieDetailsComments({
                                 <p>{likes.length}</p>
                             </>
                 }
-            </div>
+            </article>
             <p>{content}</p>
-        </div>
+        </section>
     )
 }

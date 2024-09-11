@@ -36,11 +36,11 @@ export default function MovieDelete() {
 
     return (
         <div className={styles.modal}>
-            <div>
+            <section>
                 <h2>Are you sure you want to delete {(movie as { title: string }).title}?</h2>
                 <button onClick={onDelete}>Yes</button>
                 <button onClick={onCancel}>No</button>
-            </div>
+            </section>
         </div>
     )
 }

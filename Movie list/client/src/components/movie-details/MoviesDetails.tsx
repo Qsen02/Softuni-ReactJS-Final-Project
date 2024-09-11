@@ -24,15 +24,15 @@ export default function MovieDetails() {
             }
             {!fetchError
                 ? <>
-                    <div className={styles.detailsWrapper}>
+                    <section className={styles.detailsWrapper}>
                         <h1>{(movie as { title: string }).title}</h1>
                         <img src={(movie as { image: string }).image} alt={(movie as { title: string }).title} onError={onImageError} />
-                        <div>
+                        <article>
                             <p>Genre: {(movie as { genre: string }).genre}</p>
                             <p>Year: {(movie as { year: number }).year}</p>
-                        </div>
+                        </article>
                         <p>{(movie as { description: string }).description}</p>
-                        <div>
+                        <article>
                             {user
                                 ? <MovieDetailsButtons
                                     user={user}
@@ -43,17 +43,17 @@ export default function MovieDetails() {
                                 />
                                 : ""
                             }
-                        </div>
-                    </div>
+                        </article>
+                    </section>
                 <MovieDetailsCommentSection
                         ownerId={(movie as { ownerId: string }).ownerId}
                         comments={(movie as {comments:[]}).comments}
                         />
                 </>
-                : <div className={errorStyles.wrapper}>
+                : <section className={errorStyles.wrapper}>
                     <h2>Movie cannot be loaded</h2>
                     <p>Please return to <Link to="/catalog">CATALOG</Link>.</p>
-                </div>
+                </section>
             }
         </>
     )

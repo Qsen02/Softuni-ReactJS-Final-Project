@@ -33,7 +33,7 @@
     margin-bottom: 120px;
 }
 
-.homeBody div {
+.homeBody article {
     display: inline-block;
     margin-right: 30px;
     width: 400px;
@@ -48,7 +48,7 @@
     text-align: center;
 }
 
-.homeBody div img {
+.homeBody article img {
     display: block;
     width: 300px;
     height: 300px;
@@ -56,12 +56,12 @@
     border-radius: 10px;
 }
 
-.homeBody div a {
+.homeBody article a {
     width: 100px;
     height: 50px;
 }
 
-.homeBody div a button {
+.homeBody article a button {
     width: 100px;
     height: 50px;
     border: none;
@@ -73,7 +73,7 @@
     cursor: pointer;
 }
 
-.homeBody div a button:hover {
+.homeBody article a button:hover {
     background-color: yellow;
 }
 
@@ -101,7 +101,7 @@
     .homeBody {
         width: 500px;
     }
-    .homeBody div {
+    .homeBody article {
         display: block;
         margin: 0 auto;
         margin-top: 30px;
@@ -117,15 +117,15 @@
         width: 300px;
         font-size: 12pt;
     }
-    .homeBody div {
+    .homeBody article {
         width: 300px;
         font-size: 12pt;
     }
-    .homeBody div img {
+    .homeBody article img {
         width: 200px;
         height: 200px;
     }
-    .homeBody div a button {
+    .homeBody article a button {
         width: 70px;
         height: 30px;
         font-size: 14pt;

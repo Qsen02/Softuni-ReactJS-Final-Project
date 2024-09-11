@@ -12,11 +12,11 @@ export default function HomeContent({
 id,title,genre,image
 }:HomeContentProps){
     return(
-        <div>
+        <article>
             <img src={image} alt={title} onError={onImageError}/>
             <h2>{title}</h2>
             <p>Genre: {genre}</p>
             <Link to={`/catalog/${id}`}><button>Details</button></Link>
-        </div>
+        </article>
     )
 }

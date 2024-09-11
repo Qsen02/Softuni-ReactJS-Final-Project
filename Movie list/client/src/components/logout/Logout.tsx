@@ -18,12 +18,12 @@ export default function Logout(){
 
     return(
         <div className={styles.modal}>
-            <div>
+            <section>
                 <h3>Are you sure want to logout?</h3>
                 <i className="fa-solid fa-arrow-right-from-bracket"></i>
                 <button onClick={onLogout}>Logout</button>
                 <button onClick={onBack}>Back</button>
-            </div>
+            </section>
         </div>
     )
 }
