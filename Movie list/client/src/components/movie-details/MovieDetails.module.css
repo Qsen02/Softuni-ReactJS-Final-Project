@@ -10,7 +10,7 @@
     font-size: 16pt;
     font-family: Arial, Helvetica, sans-serif;
     padding: 20px;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
 }
 
 .detailsWrapper img {
@@ -97,6 +97,32 @@
     top: 23px;
     right: 18px;
     font-size: 16pt;
+}
+
+.commentWrapper {
+    display: block;
+    width: 800px;
+    margin: 0 auto;
+    background-color: rgb(29, 29, 29);
+    margin-bottom: 100px;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 16pt;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.commentWrapper summary {
+    text-align: center;
+    cursor: pointer;
+}
+
+.commentWrapper h2 {
+    text-align: center;
+}
+
+.commentWrapper div div h2 {
+    text-align: left;
 }
 
 @media(max-width:900px) {
