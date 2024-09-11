@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom"
+import { Link, Outlet, useParams } from "react-router-dom"
 
 import { useGetOneMovie } from "../../hooks/useMovies";
 import { useUserContext } from "../../context/userContext";
@@ -17,6 +17,7 @@ export default function MovieDetails() {
 
     return (
         <>
+        <Outlet/>
             {loading && !fetchError
                 ? <div className={styles.loadingSpinner}></div>
                 : ""

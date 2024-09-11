@@ -11,6 +11,7 @@ import Register from "./components/register/Register"
 import Status404 from "./components/status404/Status404"
 import MovieDetails from "./components/movie-details/MoviesDetails"
 import MovieCreate from "./components/movie-create/MovieCreate"
+import MovieDelete from "./components/movie-delete/MovieDelete"
 
 function App() {
 
@@ -22,12 +23,14 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/catalog" element={<Catalog />} />
-                        <Route path="/login" element={<Login/>}/>
-                        <Route path="/logout" element={<Logout/>}/>
-                        <Route path="/register" element={<Register/>}/>
-                        <Route path="/catalog/:movieId" element={<MovieDetails/>}/>
-                        <Route path="/create" element={<MovieCreate/>}/>
-                        <Route path="*" element={<Status404/>}/>
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/logout" element={<Logout />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/catalog/:movieId" element={<MovieDetails />} >
+                            <Route path="/catalog/:movieId/delete" element={<MovieDelete />} />
+                        </Route>
+                        <Route path="/create" element={<MovieCreate />} />
+                        <Route path="*" element={<Status404 />} />
                     </Routes>
                 </main>
                 <Footer />
