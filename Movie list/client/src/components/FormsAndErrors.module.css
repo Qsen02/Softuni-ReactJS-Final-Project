@@ -112,6 +112,12 @@
     z-index: 1000;
 }
 
+.form .editFormButtons {
+    display: inline-block;
+    margin-right: 30px;
+    margin-left: 20px;
+}
+
 @media(max-width:750px) {
     .form {
         width: 300px;

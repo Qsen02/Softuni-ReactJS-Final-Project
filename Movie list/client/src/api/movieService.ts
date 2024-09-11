@@ -26,12 +26,12 @@ export async function createMovie(data: {}) {
     await post(endpoint, data);
 }
 
-export async function deleteMovie(movieId: string) {
+export async function deleteMovie(movieId: string|undefined) {
     await del(`${endpoint}/${movieId}`);
 }
 
-export async function editMovie(movieId: string, data: {}) {
-    await put(`${endpoint}/${movieId}`, data);
+export async function editMovie(movieId: string|undefined, data: {}) {
+   return await put(`${endpoint}/${movieId}`, data);
 }
 
 export async function likeMovie(movieId: string) {

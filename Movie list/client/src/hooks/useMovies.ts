@@ -127,7 +127,7 @@ export function useCreateMovie(){
 }
 
 export function useDeleteMovie(){
-    async function deletingMovie(id:string){
+    async function deletingMovie(id:string|undefined){
         return await deleteMovie(id);
     }
 
@@ -135,7 +135,7 @@ export function useDeleteMovie(){
 }
 
 export function useEditMovie(){
-    async function editingMovie(id:string,data:{}){
+    async function editingMovie(id:string|undefined,data:{}){
         return await editMovie(id,data);
     }
 

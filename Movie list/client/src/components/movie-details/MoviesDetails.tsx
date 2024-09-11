@@ -1,4 +1,4 @@
-import { Link, Outlet, useParams } from "react-router-dom"
+import { Link, Outlet, Route, Routes, useParams } from "react-router-dom"
 
 import { useGetOneMovie } from "../../hooks/useMovies";
 import { useUserContext } from "../../context/userContext";
@@ -9,6 +9,8 @@ import styles from "./MovieDetails.module.css";
 import { onImageError } from "../../utils/imageError";
 import MovieDetailsButtons from "./movie-details-buttons/MovieDetailsButtons";
 import MovieDetailsCommentSection from "./movie-details-comment-section/MovieDetailsCommentSection";
+import MovieDelete from "../movie-delete/MovieDelete";
+import MovieEdit from "../movie-edit/MovieEdit";
 
 export default function MovieDetails() {
     const { movieId } = useParams();
@@ -17,7 +19,10 @@ export default function MovieDetails() {
 
     return (
         <>
-        <Outlet/>
+            <Routes>
+                <Route path="delete" element={<MovieDelete curMovie={movie} />} />
+                <Route path="edit" element={<MovieEdit setMovie={setMovie} curMovie={movie} />} />
+            </Routes>
             {loading && !fetchError
                 ? <div className={styles.loadingSpinner}></div>
                 : ""
@@ -45,10 +50,10 @@ export default function MovieDetails() {
                             }
                         </article>
                     </section>
-                <MovieDetailsCommentSection
+                    <MovieDetailsCommentSection
                         ownerId={(movie as { ownerId: string }).ownerId}
-                        comments={(movie as {comments:[]}).comments}
-                        />
+                        comments={(movie as { comments: [] }).comments}
+                    />
                 </>
                 : <section className={errorStyles.wrapper}>
                     <h2>Movie cannot be loaded</h2>

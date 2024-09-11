@@ -1,11 +1,16 @@
 import { useNavigate, useParams } from "react-router-dom"
-import { useDeleteMovie, useGetOneMovie } from "../../hooks/useMovies";
+import { useDeleteMovie } from "../../hooks/useMovies";
 
 import styles from "../logout/Logout.module.css";
 
-export default function MovieDelete() {
+type MovieDeleteProps={
+    curMovie:{}
+}
+
+export default function MovieDelete({
+    curMovie
+}:MovieDeleteProps) {
     const { movieId } = useParams();
-    const { movie } = useGetOneMovie({}, movieId);
     const navigate = useNavigate();
     const deleteMovie = useDeleteMovie();
 
@@ -37,7 +42,7 @@ export default function MovieDelete() {
     return (
         <div className={styles.modal}>
             <section>
-                <h2>Are you sure you want to delete {(movie as { title: string }).title}?</h2>
+                <h2>Are you sure you want to delete {(curMovie as { title: string }).title}?</h2>
                 <button onClick={onDelete}>Yes</button>
                 <button onClick={onCancel}>No</button>
             </section>
