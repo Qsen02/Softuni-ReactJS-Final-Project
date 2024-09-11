@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { createMovie, getAllMovies, getMovieById, getTopMovies, searchMovies } from "../api/movieService";
+import { createMovie, deleteMovie, getAllMovies, getMovieById, getTopMovies, searchMovies } from "../api/movieService";
 import { useNavigate } from "react-router-dom";
 
 export function useGetTopMovies(initialvalues: []) {
@@ -124,4 +124,12 @@ export function useCreateMovie(){
     }
 
     return creatingMovie;
+}
+
+export function useDeleteMovie(){
+    async function deletingMovie(id:string){
+        return await deleteMovie(id);
+    }
+
+    return deletingMovie;
 }
