@@ -100,6 +100,18 @@
     cursor: pointer;
 }
 
+.modal {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1000px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
 @media(max-width:750px) {
     .form {
         width: 300px;

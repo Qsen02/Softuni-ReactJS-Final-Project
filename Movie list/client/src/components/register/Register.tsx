@@ -24,7 +24,7 @@ export default function Register() {
         repass:string
     }
 
-    async function onLogin(values: FormValues, actions: FormikHelpers<FormValues>) {
+    async function onRegister(values: FormValues, actions: FormikHelpers<FormValues>) {
         const username = values.username;
         const email=values.email;
         const password = values.password;
@@ -61,7 +61,7 @@ export default function Register() {
     }
 
     return (
-        <Formik initialValues={{ username: "", email:"",password: "",repass:"" }} validationSchema={registerShema} onSubmit={onLogin}>
+        <Formik initialValues={{ username: "", email:"",password: "",repass:"" }} validationSchema={registerShema} onSubmit={onRegister}>
             {
                 (props) => (
                     <Form className={styles.form}>
