@@ -11,6 +11,7 @@ import MovieDetailsButtons from "./movie-details-buttons/MovieDetailsButtons";
 import MovieDetailsCommentSection from "./movie-details-comment-section/MovieDetailsCommentSection";
 import MovieDelete from "../movie-delete/MovieDelete";
 import MovieEdit from "../movie-edit/MovieEdit";
+import MovieDetailsLikes from "./movie-details-likes/MovieDetailsLikes";
 
 export default function MovieDetails() {
     const { movieId } = useParams();
@@ -22,6 +23,7 @@ export default function MovieDetails() {
             <Routes>
                 <Route path="delete" element={<MovieDelete curMovie={movie} />} />
                 <Route path="edit" element={<MovieEdit setMovie={setMovie} curMovie={movie} />} />
+                <Route path="likes" element={<MovieDetailsLikes curMovie={movie}/>}/>
             </Routes>
             {loading && !fetchError
                 ? <div className={styles.loadingSpinner}></div>

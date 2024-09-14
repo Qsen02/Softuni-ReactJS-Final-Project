@@ -72,6 +72,11 @@
     font-size: 16pt;
 }
 
+.adminButtons div p>a {
+    color: white;
+    text-decoration: none;
+}
+
 .adminButtons button {
     width: 100px;
     height: 50px;
@@ -111,6 +116,11 @@
     top: 23px;
     right: 18px;
     font-size: 16pt;
+}
+
+.userButtons div p>a {
+    color: white;
+    text-decoration: none;
 }
 
 .commentWrapper {
