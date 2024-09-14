@@ -251,6 +251,12 @@
     font-size: 14pt;
 }
 
+.errorMessage {
+    color: red;
+    font-size: 12pt;
+    text-align: center;
+}
+
 @media(max-width:900px) {
     .detailsWrapper {
         width: 300px;
@@ -350,5 +356,8 @@
     }
     .commentWrapper section article p {
         font-size: 12pt;
+    }
+    .errorMessage {
+        font-size: 10pt;
     }
 }

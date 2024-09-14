@@ -22,8 +22,9 @@ commentRouter.post("/in/:movieId", async(req, res) => {
     if (!isValid) {
         return res.status(404).json({ message: "Resource not found!" });
     }
-    const newComment = await createComment(movieId, fields, user);
-    res.json(newComment);
+    await createComment(movieId, fields, user);
+    const movie = await getMovieById(movieId).lean();
+    res.json(movie);
 })
 
 commentRouter.delete("/:commentId/in/:movieId", async(req, res) => {

@@ -12,7 +12,6 @@ async function createComment(movieId, data, user) {
     newComment.movieId = movieId;
     await newComment.save();
     await Movies.findByIdAndUpdate(movieId, { $push: { comments: newComment._id } });
-    return newComment;
 }
 
 async function deleteComment(movieId, commentId) {

@@ -6,7 +6,7 @@ export async function getCommentById(commentId:string) {
     return await get(`${endpoint}/${commentId}`);
 }
 
-export async function createComment(movieId:string, data:{}) {
+export async function createComment(movieId:string|undefined, data:{}) {
     return await post(`${endpoint}/in/${movieId}`, data);
 }
 
