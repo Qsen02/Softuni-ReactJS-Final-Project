@@ -10,7 +10,7 @@ export async function createComment(movieId:string|undefined, data:{}) {
     return await post(`${endpoint}/in/${movieId}`, data);
 }
 
-export async function deleteComment(commentId:string, movieId:{}) {
+export async function deleteComment(commentId:string|undefined, movieId:string|undefined) {
     return await del(`${endpoint}/${commentId}/in/${movieId}`);
 }
 

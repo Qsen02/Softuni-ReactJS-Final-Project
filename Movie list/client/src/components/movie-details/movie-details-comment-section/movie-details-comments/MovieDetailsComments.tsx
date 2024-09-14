@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "../../MovieDetails.module.css";
 
 type MovieDetailsCommentsType = {
@@ -13,11 +14,12 @@ type MovieDetailsCommentsType = {
         isAdmin: boolean,
         accessToken: string
     } | null | undefined,
-    likes: []
+    likes: [],
+    movieId:string|undefined
 }
 
 export default function MovieDetailsComments({
-    id, username, content, commentOwnerId, movieOwnerId, user, likes
+    id, username, content, commentOwnerId, movieOwnerId, user, likes,movieId
 }: MovieDetailsCommentsType) {
     const likesIds = likes.map(el => (el as { _id: string })._id);
     return (
@@ -26,8 +28,8 @@ export default function MovieDetailsComments({
                 <h2 className={commentOwnerId == movieOwnerId ? styles.owner : ""}>{username}</h2>
                 {commentOwnerId == user?._id
                     ? <>
-                        <i className="fa-solid fa-trash"></i>
-                        <i className="fa-solid fa-pen-to-square"></i>
+                        <Link to={`/catalog/${movieId}/comment/${id}/delete`}><i className="fa-solid fa-trash"></i></Link>
+                        <Link to={`/catalog/${movieId}/comment/${id}/edit`}><i className="fa-solid fa-pen-to-square"></i></Link>
                     </>
                     : ""
                 }

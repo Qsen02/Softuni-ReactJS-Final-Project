@@ -209,6 +209,10 @@
     word-wrap: break-word;
 }
 
+.commentWrapper section article a {
+    color: white;
+}
+
 .commentWrapper section article i {
     display: inline-block;
     margin-left: 15px;

@@ -1,4 +1,4 @@
-import { Link, Route, Routes, useParams } from "react-router-dom"
+import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom"
 
 import { useGetOneMovie } from "../../hooks/useMovies";
 import { useUserContext } from "../../context/userContext";
@@ -16,6 +16,7 @@ import MovieDetailsSaves from "./movie-details-saves/MovieDetailsSaves";
 import { FormikHelpers } from "formik";
 import { useState } from "react";
 import { useCreateComment } from "../../hooks/useComments";
+import CommentDelete from "./comment-delete/CommentDelete";
 
 export default function MovieDetails() {
     const { movieId } = useParams();
@@ -23,6 +24,7 @@ export default function MovieDetails() {
     const { movie, setMovie, loading, setLoading, fetchError, setFetchError } = useGetOneMovie({ likes: [], saves: [], comments: [] }, movieId);
     const [errMsg, setErrMsg] = useState("");
     const createComment = useCreateComment();
+    const navigate=useNavigate();
 
     async function onCreateComment(values: { content: string }, actions: FormikHelpers<{ content: string }>) {
         const content = values.content;
@@ -37,6 +39,10 @@ export default function MovieDetails() {
             actions.resetForm();
             setLoading(false);
         } catch (err) {
+            if((err as { message: string }).message=="Resource not found!"){
+                navigate("/404");
+                return;
+            }
             setErrMsg((err as { message: string }).message);
             return;
         }
@@ -49,6 +55,8 @@ export default function MovieDetails() {
                 <Route path="edit" element={<MovieEdit setMovie={setMovie} curMovie={movie} />} />
                 <Route path="likes" element={<MovieDetailsLikes curMovie={movie} />} />
                 <Route path="saves" element={<MovieDetailsSaves curMovie={movie} />} />
+                <Route path="comment/:commentId/delete" element={<CommentDelete setMovie={setMovie}/>}/>
+                <></>
             </Routes>
             {loading && !fetchError
                 ? <div className={styles.loadingSpinner}></div>
@@ -83,6 +91,7 @@ export default function MovieDetails() {
                         comments={(movie as { comments: [] }).comments}
                         onCreateComment={onCreateComment}
                         errMsg={errMsg}
+                        movieId={movieId}
                     />
                 </>
                 : <section className={errorStyles.wrapper}>
