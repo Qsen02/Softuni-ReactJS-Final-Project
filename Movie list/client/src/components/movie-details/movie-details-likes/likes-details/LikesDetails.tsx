@@ -1,16 +1,22 @@
-import { onProfileImageError } from "../../../../utils/imageError"
+import { useUserContext } from "../../../../context/userContext";
 
-type LikesDetailsProps={
-    username:string,
-    image:string
+import { onProfileImageError } from "../../../../utils/imageError";
+
+import styles from "../MovieDetailsLikes.module.css";
+
+type LikesDetailsProps = {
+    userId: string,
+    username: string,
+    image: string
 }
 
 export default function LikesDetails({
-    username,image
-}:LikesDetailsProps){
+    userId, username, image
+}: LikesDetailsProps) {
+    const { user } = useUserContext();
     return (
-        <article>
-            <img src={image} alt={username} onError={onProfileImageError}/>
+        <article className={user?._id == userId ? styles.you : ""}>
+            <img src={image} alt={username} onError={onProfileImageError} />
             <p>{username}</p>
         </article>
     )
