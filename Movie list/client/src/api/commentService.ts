@@ -2,7 +2,7 @@ import { del, get, post, put } from "./api";
 
 const endpoint = "comments";
 
-export async function getCommentById(commentId:string) {
+export async function getCommentById(commentId:string|undefined) {
     return await get(`${endpoint}/${commentId}`);
 }
 
@@ -14,7 +14,7 @@ export async function deleteComment(commentId:string|undefined, movieId:string|u
     return await del(`${endpoint}/${commentId}/in/${movieId}`);
 }
 
-export async function editComment(commentId:string, movieId:string, data:{}) {
+export async function editComment(commentId:string|undefined, movieId:string|undefined, data:{}) {
     return await put(`${endpoint}/${commentId}/in/${movieId}`, data);
 }
 

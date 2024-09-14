@@ -1,22 +1,24 @@
-import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom"
+import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { FormikHelpers } from "formik";
 
 import { useGetOneMovie } from "../../hooks/useMovies";
 import { useUserContext } from "../../context/userContext";
+import { useCreateComment } from "../../hooks/useComments";
 
 import errorStyles from "../status404/Status404.module.css";
 import styles from "./MovieDetails.module.css";
 
 import { onImageError } from "../../utils/imageError";
+
 import MovieDetailsButtons from "./movie-details-buttons/MovieDetailsButtons";
 import MovieDetailsCommentSection from "./movie-details-comment-section/MovieDetailsCommentSection";
 import MovieDelete from "../movie-delete/MovieDelete";
 import MovieEdit from "../movie-edit/MovieEdit";
 import MovieDetailsLikes from "./movie-details-likes/MovieDetailsLikes";
 import MovieDetailsSaves from "./movie-details-saves/MovieDetailsSaves";
-import { FormikHelpers } from "formik";
-import { useState } from "react";
-import { useCreateComment } from "../../hooks/useComments";
 import CommentDelete from "./comment-delete/CommentDelete";
+import CommentEdit from "./comment-edit/CommentEdit";
 
 export default function MovieDetails() {
     const { movieId } = useParams();
@@ -56,7 +58,7 @@ export default function MovieDetails() {
                 <Route path="likes" element={<MovieDetailsLikes curMovie={movie} />} />
                 <Route path="saves" element={<MovieDetailsSaves curMovie={movie} />} />
                 <Route path="comment/:commentId/delete" element={<CommentDelete setMovie={setMovie}/>}/>
-                <></>
+                <Route path="comment/:commentId/edit" element={<CommentEdit setMovie={setMovie}/>}/>
             </Routes>
             {loading && !fetchError
                 ? <div className={styles.loadingSpinner}></div>
