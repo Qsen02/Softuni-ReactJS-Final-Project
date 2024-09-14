@@ -1,4 +1,4 @@
-import { Link, Outlet, Route, Routes, useParams } from "react-router-dom"
+import { Link, Route, Routes, useParams } from "react-router-dom"
 
 import { useGetOneMovie } from "../../hooks/useMovies";
 import { useUserContext } from "../../context/userContext";
@@ -45,7 +45,7 @@ export default function MovieDetails() {
                                     setMovie={setMovie}
                                     likes={(movie as { likes: [] }).likes}
                                     saves={(movie as { saves: [] }).saves}
-                                    movieId={movieId}
+                                    movie={movie}
                                 />
                                 : ""
                             }

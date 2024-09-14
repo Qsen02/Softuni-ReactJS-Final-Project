@@ -16,11 +16,11 @@ type MovieDetailsButtonsType = {
     setMovie: React.Dispatch<React.SetStateAction<{}>>,
     likes: [],
     saves: [],
-    movieId: string | undefined
+    movie: {}
 }
 
 export default function MovieDetailsButtons({
-    user, ownerId, setMovie, likes, saves, movieId
+    user, ownerId, setMovie, likes, saves, movie
 }: MovieDetailsButtonsType) {
     const likesIds = likes.map(el => (el as { _id: string })._id);
     const savesIds = saves.map(el => (el as { _id: string })._id);
@@ -32,8 +32,8 @@ export default function MovieDetailsButtons({
 
     async function onLike() {
         try {
-            const movie = await likeMovie(movieId);
-            setMovie(movie);
+            const newMovie = await likeMovie(movie);
+            setMovie(newMovie);
         } catch (err) {
             if ((err as { message: string }).message == "Resource not found!") {
                 navigate(`404`);
@@ -45,8 +45,8 @@ export default function MovieDetailsButtons({
 
     async function onUnlike() {
         try {
-            const movie = await unlikeMovie(movieId);
-            setMovie(movie);
+            const newMovie = await unlikeMovie(movie);
+            setMovie(newMovie);
         } catch (err) {
             if ((err as { message: string }).message == "Resource not found!") {
                 navigate(`404`);
@@ -57,8 +57,8 @@ export default function MovieDetailsButtons({
     }
     async function onSave() {
         try {
-            const movie = await saveMovie(movieId);
-            setMovie(movie);
+            const newMovie = await saveMovie(movie);
+            setMovie(newMovie);
         } catch (err) {
             if ((err as { message: string }).message == "Resource not found!") {
                 navigate(`404`);
@@ -69,8 +69,8 @@ export default function MovieDetailsButtons({
     }
     async function onUnsave() {
         try {
-            const movie = await unsaveMovie(movieId);
-            setMovie(movie);
+            const newMovie = await unsaveMovie(movie);
+            setMovie(newMovie);
         } catch (err) {
             if ((err as { message: string }).message == "Resource not found!") {
                 navigate(`404`);
@@ -87,8 +87,8 @@ export default function MovieDetailsButtons({
                         <i className="fa-solid fa-thumbs-up"></i>
                         <p>{likes.length}</p>
                     </div>
-                    <Link to={`/catalog/${movieId}/edit`}><button>Edit</button></Link>
-                    <Link to={`/catalog/${movieId}/delete`}><button>Delete</button></Link>
+                    <Link to={`/catalog/${(movie as {_id:string})._id}/edit`}><button>Edit</button></Link>
+                    <Link to={`/catalog/${(movie as {_id:string})._id}/delete`}><button>Delete</button></Link>
                     <div>
                         <i className="fa-solid fa-bookmark"></i>
                         <p>{saves.length}</p>

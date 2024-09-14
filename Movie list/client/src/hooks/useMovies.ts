@@ -143,32 +143,32 @@ export function useEditMovie(){
 }
 
 export function useLikeMovie(){
-    async function likingMovie(id:string|undefined){
-        return await likeMovie(id);
+    async function likingMovie(data:{}){
+        return await likeMovie(data);
     }
 
     return likingMovie;
 }
 
 export function useUnlikeMovie(){
-    async function unlikingMovie(id:string|undefined){
-        return await unlikeMovie(id);
+    async function unlikingMovie(data:{}){
+        return await unlikeMovie(data);
     }
 
     return unlikingMovie;
 }
 
 export function useSaveMovie(){
-    async function savingMovie(id:string|undefined){
-        return await saveMovie(id);
+    async function savingMovie(data:{}){
+        return await saveMovie(data);
     }
 
     return savingMovie;
 }
 
 export function useUnsaveMovie(){
-    async function unsavingMovie(id:string|undefined){
-        return await unsaveMovie(id);
+    async function unsavingMovie(data:{}){
+        return await unsaveMovie(data);
     }
 
     return unsavingMovie;
