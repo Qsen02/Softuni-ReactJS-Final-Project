@@ -57,12 +57,12 @@ body {
 
 @media(max-width:750px) {
     .navigation {
-        width: 350px;
+        width: 300px;
     }
     .navigation li {
         margin-right: 10px;
     }
     .navigation li a {
-        font-size: 12pt;
+        font-size: 10pt;
     }
 }

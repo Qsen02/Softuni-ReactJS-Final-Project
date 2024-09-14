@@ -104,7 +104,7 @@ export function useGetOneMovie(initialvalues: {}, movieId: string|undefined) {
                 setLoading(false);
             } catch (err) {
                 if((err as {message:string}).message=="Resource not found!"){
-                    navigate(`404`);
+                    navigate(`/404`);
                     return;
                 }
                 setFetchError(true);

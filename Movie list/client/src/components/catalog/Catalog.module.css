@@ -138,14 +138,14 @@
 
 @media (max-width:750px) {
     .catalogContent {
-        width: 350px;
+        width: 300px;
         font-size: 12pt;
     }
     .catalogContent section {
-        width: 350px;
+        width: 300px;
     }
     .catalogContent section article {
-        width: 300px;
+        width: 250px;
         font-size: 12pt;
     }
     .catalogContent section article img {
@@ -158,10 +158,10 @@
         font-size: 12pt;
     }
     .catalogForm {
-        width: 300px;
+        width: 250px;
     }
     .catalogForm input {
-        width: 300px;
+        width: 250px;
         font-size: 12pt;
         height: 30px;
     }

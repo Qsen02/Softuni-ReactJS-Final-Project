@@ -120,7 +120,7 @@
 
 @media(max-width:750px) {
     .form {
-        width: 300px;
+        width: 250px;
         font-size: 12pt;
     }
     .form input,
@@ -142,7 +142,7 @@
     }
     .form #seePassword {
         top: 47px;
-        right: 65px;
+        right: 40px;
         font-size: 12pt;
     }
 }

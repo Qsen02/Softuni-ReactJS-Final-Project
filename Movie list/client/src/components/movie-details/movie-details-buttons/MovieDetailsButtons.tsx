@@ -36,7 +36,7 @@ export default function MovieDetailsButtons({
             setMovie(newMovie);
         } catch (err) {
             if ((err as { message: string }).message == "Resource not found!") {
-                navigate(`404`);
+                navigate(`/404`);
                 return;
             }
             return;
@@ -49,7 +49,7 @@ export default function MovieDetailsButtons({
             setMovie(newMovie);
         } catch (err) {
             if ((err as { message: string }).message == "Resource not found!") {
-                navigate(`404`);
+                navigate(`/404`);
                 return;
             }
             return;
@@ -61,7 +61,7 @@ export default function MovieDetailsButtons({
             setMovie(newMovie);
         } catch (err) {
             if ((err as { message: string }).message == "Resource not found!") {
-                navigate(`404`);
+                navigate(`/404`);
                 return;
             }
             return;
@@ -73,7 +73,7 @@ export default function MovieDetailsButtons({
             setMovie(newMovie);
         } catch (err) {
             if ((err as { message: string }).message == "Resource not found!") {
-                navigate(`404`);
+                navigate(`/404`);
                 return;
             }
             return;

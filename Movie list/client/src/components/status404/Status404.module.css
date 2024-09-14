@@ -45,7 +45,7 @@
 
 @media(max-width:750px) {
     .wrapper {
-        width: 300px;
+        width: 250px;
         font-size: 12pt;
     }
 }

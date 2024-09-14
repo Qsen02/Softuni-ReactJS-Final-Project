@@ -110,15 +110,15 @@
 
 @media(max-width:750px) {
     .homeHeader {
-        width: 300px;
+        width: 250px;
         font-size: 12pt;
     }
     .homeBody {
-        width: 300px;
+        width: 250px;
         font-size: 12pt;
     }
     .homeBody article {
-        width: 300px;
+        width: 250px;
         font-size: 12pt;
     }
     .homeBody article img {

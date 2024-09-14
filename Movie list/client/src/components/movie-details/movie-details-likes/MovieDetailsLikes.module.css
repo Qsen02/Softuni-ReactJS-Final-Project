@@ -72,3 +72,25 @@
     background-color: rgb(200, 200, 7);
     color: black;
 }
+
+@media(max-width:750px) {
+    .modal section {
+        width: 250px;
+        margin-top: -300px;
+        font-size: 12pt;
+    }
+    .modal section article {
+        width: 200px;
+        height: 40px;
+    }
+    .modal section button {
+        font-size: 14pt;
+    }
+    .modal section article img {
+        width: 30px;
+        height: 30px;
+    }
+    .modal section article p {
+        margin-top: -23px;
+    }
+}
