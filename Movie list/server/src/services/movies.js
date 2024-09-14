@@ -46,16 +46,19 @@ async function likeMovie(movie, user) {
     await Movies.findByIdAndUpdate(movie._id.toString(), { $push: { likes: user._id } });
 }
 
-async function unlikeMovie(movieId, user) {
-    await Movies.findByIdAndUpdate(movieId, { $pull: { likes: user._id } });
+async function unlikeMovie(movie, user) {
+    await Users.findByIdAndUpdate(user._id.toString(), { $pull: { likedMovies: movie._id } });
+    await Movies.findByIdAndUpdate(movie._id.toString(), { $pull: { likes: user._id } });
 }
 
-async function saveMovie(movieId, user) {
-    await Movies.findByIdAndUpdate(movieId, { $push: { saves: user._id } });
+async function saveMovie(movie, user) {
+    await Users.findByIdAndUpdate(user._id.toString(), { $push: { savedMovies: movie._id } });
+    await Movies.findByIdAndUpdate(movie._id.toString(), { $push: { saves: user._id } });
 }
 
-async function unsaveMovie(movieId, user) {
-    await Movies.findByIdAndUpdate(movieId, { $pull: { saves: user._id } });
+async function unsaveMovie(movie, user) {
+    await Users.findByIdAndUpdate(user._id.toString(), { $pull: { savedMovies: movie._id } });
+    await Movies.findByIdAndUpdate(movie._id.toString(), { $pull: { saves: user._id } });
 }
 
 async function checkMovieId(movieId) {

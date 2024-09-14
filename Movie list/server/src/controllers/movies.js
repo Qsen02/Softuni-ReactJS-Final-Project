@@ -95,11 +95,11 @@ movieRouter.post("/:movieId/like", async(req, res) => {
     const movieId = req.params.movieId;
     const user = req.user;
     const isValid = await checkMovieId(movieId);
+    const movie = req.body;
     if (!isValid) {
         return res.status(404).json({ message: "Resource not found!" });
     }
-    const oldMovie = await getMovieById(movieId).lean();
-    await likeMovie(oldMovie, user);
+    await likeMovie(movie, user);
     const newMovie = await getMovieById(movieId).lean();
     res.json(newMovie);
 })
@@ -108,36 +108,39 @@ movieRouter.post("/:movieId/unlike", async(req, res) => {
     const movieId = req.params.movieId;
     const user = req.user;
     const isValid = await checkMovieId(movieId);
+    const movie = req.body;
     if (!isValid) {
         return res.status(404).json({ message: "Resource not found!" });
     }
-    await unlikeMovie(movieId, user);
-    const movie = await getMovieById(movieId).lean()
-    res.json(movie);
+    await unlikeMovie(movie, user);
+    const newMovie = await getMovieById(movieId).lean()
+    res.json(newMovie);
 })
 
 movieRouter.post("/:movieId/save", async(req, res) => {
     const movieId = req.params.movieId;
     const user = req.user;
     const isValid = await checkMovieId(movieId);
+    const movie = req.body;
     if (!isValid) {
         return res.status(404).json({ message: "Resource not found!" });
     }
-    await saveMovie(movieId, user);
-    const movie = await getMovieById(movieId).lean()
-    res.json(movie);
+    await saveMovie(movie, user);
+    const newMovie = await getMovieById(movieId).lean()
+    res.json(newMovie);
 })
 
 movieRouter.post("/:movieId/unsave", async(req, res) => {
     const movieId = req.params.movieId;
     const user = req.user;
     const isValid = await checkMovieId(movieId);
+    const movie = req.body;
     if (!isValid) {
         return res.status(404).json({ message: "Resource not found!" });
     }
-    await unsaveMovie(movieId, user);
-    const movie = await getMovieById(movieId).lean()
-    res.json(movie);
+    await unsaveMovie(movie, user);
+    const newMovie = await getMovieById(movieId).lean()
+    res.json(newMovie);
 })
 
 movieRouter.get("/top/movies", async(req, res) => {
