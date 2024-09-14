@@ -30,11 +30,13 @@ async function createMovie(data, user) {
     const newMovie = new Movies(data);
     newMovie.ownerId = user._id;
     await newMovie.save();
+    await Users.findByIdAndUpdate(user._id.toString(), { $push: { createdMovies: newMovie._id } });
     return newMovie;
 }
 
-async function deleteMovie(movieId) {
-    await Movies.findByIdAndDelete(movieId);
+async function deleteMovie(movie, user) {
+    await Movies.findByIdAndDelete(movie._id.toString());
+    await Users.findByIdAndUpdate(user._id.toString(), { $pull: { createdMovies: movie._id } })
 }
 
 async function editMovie(movieId, data) {

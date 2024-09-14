@@ -84,10 +84,12 @@ movieRouter.put("/:movieId",
 movieRouter.delete("/:movieId", async(req, res) => {
     const movieId = req.params.movieId;
     const isValid = await checkMovieId(movieId);
+    const user = req.user;
     if (!isValid) {
         return res.status(404).json({ message: "Resource not found!" });
     }
-    await deleteMovie(movieId);
+    const movie = await getMovieById(movieId).lean();
+    await deleteMovie(movie, user);
     res.status(200).json({ message: "Record was deleted successfully!" });
 })
 
