@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createComment, deleteComment, editComment, getCommentById } from "../api/commentService";
+import { createComment, deleteComment,getCommentById } from "../api/commentService";
 import { useNavigate } from "react-router-dom";
 
 export function useCreateComment() {
@@ -16,7 +16,7 @@ export function useDeleteComment() {
     return deletingComment;
 }
 
-export function useGetOneComment(initialvalues: {}, commentId: string|undefined) {
+export function useGetOneComment(initialvalues: {content:string,username:string}, commentId: string|undefined) {
     const [comment, setComment] = useState(initialvalues);
     const navigate = useNavigate();
 

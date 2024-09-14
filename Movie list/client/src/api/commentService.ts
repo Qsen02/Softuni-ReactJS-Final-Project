@@ -3,7 +3,8 @@ import { del, get, post, put } from "./api";
 const endpoint = "comments";
 
 export async function getCommentById(commentId:string|undefined) {
-    return await get(`${endpoint}/${commentId}`);
+    const comment=await get(`${endpoint}/${commentId}`)
+    return comment as {content:string,username:string};
 }
 
 export async function createComment(movieId:string|undefined, data:{}) {
