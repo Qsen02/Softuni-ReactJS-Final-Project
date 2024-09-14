@@ -18,6 +18,25 @@ const userSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    profileImage: {
+        type: String,
+        default: ""
+    },
+    likedMovies: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "Movies",
+        default: []
+    },
+    savedMovies: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "Movies",
+        default: []
+    },
+    createdMovies: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "Movies",
+        default: []
     }
 })
 

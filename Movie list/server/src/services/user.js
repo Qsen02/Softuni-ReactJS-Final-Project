@@ -32,7 +32,7 @@ async function login(username, password) {
 }
 
 function getUserById(id) {
-    const user = Users.findById(id);
+    const user = Users.findById(id).populate("likedMovies").populate("savedMovies").populate("createdMovies");
     return user;
 }
 

@@ -1,4 +1,5 @@
 const { Movies } = require("../models/movies");
+const { Users } = require("../models/users");
 
 function getAllMovies() {
     const movies = Movies.find();
@@ -40,8 +41,9 @@ async function editMovie(movieId, data) {
     await Movies.findByIdAndUpdate(movieId, { $set: data });
 }
 
-async function likeMovie(movieId, user) {
-    await Movies.findByIdAndUpdate(movieId, { $push: { likes: user._id } });
+async function likeMovie(movie, user) {
+    await Users.findByIdAndUpdate(user._id.toString(), { $push: { likedMovies: movie._id } });
+    await Movies.findByIdAndUpdate(movie._id.toString(), { $push: { likes: user._id } });
 }
 
 async function unlikeMovie(movieId, user) {

@@ -98,9 +98,10 @@ movieRouter.post("/:movieId/like", async(req, res) => {
     if (!isValid) {
         return res.status(404).json({ message: "Resource not found!" });
     }
-    await likeMovie(movieId, user);
-    const movie = await getMovieById(movieId).lean()
-    res.json(movie);
+    const oldMovie = await getMovieById(movieId).lean();
+    await likeMovie(oldMovie, user);
+    const newMovie = await getMovieById(movieId).lean();
+    res.json(newMovie);
 })
 
 movieRouter.post("/:movieId/unlike", async(req, res) => {
