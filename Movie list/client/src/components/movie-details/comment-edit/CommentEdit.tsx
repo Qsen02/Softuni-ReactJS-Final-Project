@@ -16,7 +16,7 @@ export default function CommentEdit({
     setMovie
 }: CommentEditProps) {
     const { movieId, commentId } = useParams();
-    const { comment } = useGetOneComment({ content: "", username: "" }, commentId);
+    const { comment } = useGetOneComment({ content: "", username: "",likes:[] }, commentId);
     const navigate = useNavigate();
     const [errMsg, setErrMsg] = useState("");
 

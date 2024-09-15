@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createComment, deleteComment,getCommentById } from "../api/commentService";
+import { createComment, deleteComment, getCommentById, likeComment, unlikeComment } from "../api/commentService";
 import { useNavigate } from "react-router-dom";
 
 export function useCreateComment() {
@@ -16,7 +16,7 @@ export function useDeleteComment() {
     return deletingComment;
 }
 
-export function useGetOneComment(initialvalues: {content:string,username:string}, commentId: string|undefined) {
+export function useGetOneComment(initialvalues: { content: string, username: string, likes:[] }, commentId: string | undefined) {
     const [comment, setComment] = useState(initialvalues);
     const navigate = useNavigate();
 
@@ -38,4 +38,20 @@ export function useGetOneComment(initialvalues: {content:string,username:string}
     return {
         comment
     }
+}
+
+export function useLikeComment() {
+    async function likingComment(commentId: string | undefined,movieId:string | undefined) {
+        return await likeComment(commentId,movieId);
+    }
+
+    return likingComment;
+}
+
+export function useUnlikeComment() {
+    async function unlikingComment(commentId: string | undefined,movieId:string | undefined) {
+        return await unlikeComment(commentId,movieId);
+    }
+
+    return unlikingComment;
 }

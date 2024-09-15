@@ -11,11 +11,12 @@ type MovieDetailsCommentSectionTypes = {
     comments: [],
     onCreateComment: (values: { content: string }, actions: FormikHelpers<{ content: string }>) => void,
     errMsg: string,
-    movieId:string|undefined
+    movieId:string|undefined,
+    setMovie:React.Dispatch<React.SetStateAction<{}>>
 }
 
 export default function MovieDetailsCommentSection({
-    ownerId, comments, onCreateComment, errMsg,movieId
+    ownerId, comments, onCreateComment, errMsg,movieId,setMovie
 }: MovieDetailsCommentSectionTypes) {
     const { user } = useUserContext();
     return (
@@ -46,6 +47,7 @@ export default function MovieDetailsCommentSection({
                     user={user}
                     likes={(el as { likes: [] }).likes}
                     movieId={movieId}
+                    setMovie={setMovie}
                 />)
                 : <h2>No comments yet</h2>
             }

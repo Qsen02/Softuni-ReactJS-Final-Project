@@ -2,7 +2,7 @@ const { Comments } = require("../models/comments");
 const { Movies } = require("../models/movies");
 
 function getCommentById(commentId) {
-    const comment = Comments.findById(commentId);
+    const comment = Comments.findById(commentId).populate("likes");
     return comment;
 }
 

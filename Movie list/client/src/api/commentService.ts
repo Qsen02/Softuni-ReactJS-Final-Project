@@ -4,7 +4,7 @@ const endpoint = "comments";
 
 export async function getCommentById(commentId:string|undefined) {
     const comment=await get(`${endpoint}/${commentId}`)
-    return comment as {content:string,username:string};
+    return comment as {content:string,username:string,likes:[]};
 }
 
 export async function createComment(movieId:string|undefined, data:{}) {
@@ -19,10 +19,10 @@ export async function editComment(commentId:string|undefined, movieId:string|und
     return await put(`${endpoint}/${commentId}/in/${movieId}`, data);
 }
 
-export async function likeComment(commentId:string) {
-    await post(`${endpoint}/${commentId}/like`, {});
+export async function likeComment(commentId:string|undefined,movieId:string | undefined) {
+    return await post(`${endpoint}/${commentId}/in/${movieId}/like`, {});
 }
 
-export async function unlikeComment(commentId:string) {
-    await post(`${endpoint}/${commentId}/unlike`, {});
+export async function unlikeComment(commentId:string|undefined,movieId:string | undefined) {
+    return await post(`${endpoint}/${commentId}/in/${movieId}/unlike`, {});
 }

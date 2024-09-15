@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../../MovieDetails.module.css";
+import { useLikeComment, useUnlikeComment } from "../../../../hooks/useComments";
 
 type MovieDetailsCommentsType = {
     id: string,
@@ -15,13 +16,43 @@ type MovieDetailsCommentsType = {
         accessToken: string
     } | null | undefined,
     likes: [],
-    movieId:string|undefined
+    movieId: string | undefined,
+    setMovie: React.Dispatch<React.SetStateAction<{}>>
 }
 
 export default function MovieDetailsComments({
-    id, username, content, commentOwnerId, movieOwnerId, user, likes,movieId
+    id, username, content, commentOwnerId, movieOwnerId, user, likes, movieId, setMovie
 }: MovieDetailsCommentsType) {
-    const likesIds = likes.map(el => (el as { _id: string })._id);
+    const navigate = useNavigate();
+    const likeComment = useLikeComment();
+    const unlikeComment = useUnlikeComment();
+
+    async function onLike() {
+        try {
+            const movie = await likeComment(id,movieId);
+            setMovie(movie);
+        } catch (err) {
+            if ((err as { message: string }).message == "Resource not found!") {
+                navigate("/404");
+                return;
+            }
+            return
+        }
+    }
+
+    async function onUnlike() {
+        try {
+            const movie = await unlikeComment(id,movieId);
+            setMovie(movie);
+        } catch (err) {
+            if ((err as { message: string }).message == "Resource not found!") {
+                navigate("/404");
+                return;
+            }
+            return
+        }
+    }
+
     return (
         <section className={commentOwnerId == user?._id ? styles.yourComment : ""}>
             <article className={commentOwnerId == user?._id ? styles.yourComment : ""}>
@@ -36,21 +67,21 @@ export default function MovieDetailsComments({
                 {commentOwnerId == user?._id
                     ? <>
                         <i id={styles.ownerCommentLikes} className="fa-solid fa-thumbs-up"></i>
-                        <p>{likes.length}</p>
+                        <Link to={`/catalog/${movieId}/comment/${id}/likes`}><p>{likes.length}</p></Link>
                     </>
                     : !user
                         ? <>
                             <i id={styles.guestCommentLikes} className="fa-solid fa-thumbs-up"></i>
                             <p>{likes.length}</p>
                         </>
-                        : likesIds.includes(user._id)
+                        : likes.includes(user?._id)
                             ? <>
-                                <i id={styles.commentLikes} className="fa-solid fa-thumbs-up"></i>
-                                <p>{likes.length}</p>
+                                <i onClick={onUnlike} id={styles.commentLikes} className="fa-solid fa-thumbs-up"></i>
+                                <Link to={`/catalog/${movieId}/comment/${id}/likes`}><p>{likes.length}</p></Link>
                             </>
                             : <>
-                                <i id={styles.commentLikes} className="fa-regular fa-thumbs-up"></i>
-                                <p>{likes.length}</p>
+                                <i onClick={onLike} id={styles.commentLikes} className="fa-regular fa-thumbs-up"></i>
+                                <Link to={`/catalog/${movieId}/comment/${id}/likes`}><p>{likes.length}</p></Link>
                             </>
                 }
             </article>

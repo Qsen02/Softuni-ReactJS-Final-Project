@@ -19,11 +19,12 @@ import MovieDetailsLikes from "./movie-details-likes/MovieDetailsLikes";
 import MovieDetailsSaves from "./movie-details-saves/MovieDetailsSaves";
 import CommentDelete from "./comment-delete/CommentDelete";
 import CommentEdit from "./comment-edit/CommentEdit";
+import CommentLikes from "./comment-likes/CommentLikes";
 
 export default function MovieDetails() {
     const { movieId } = useParams();
     const { user } = useUserContext();
-    const { movie, setMovie, loading, setLoading, fetchError, setFetchError } = useGetOneMovie({ likes: [], saves: [], comments: [] }, movieId);
+    const { movie, setMovie, loading, setLoading, fetchError } = useGetOneMovie({ likes: [], saves: [], comments: [] }, movieId);
     const [errMsg, setErrMsg] = useState("");
     const createComment = useCreateComment();
     const navigate=useNavigate();
@@ -59,6 +60,7 @@ export default function MovieDetails() {
                 <Route path="saves" element={<MovieDetailsSaves curMovie={movie} />} />
                 <Route path="comment/:commentId/delete" element={<CommentDelete setMovie={setMovie}/>}/>
                 <Route path="comment/:commentId/edit" element={<CommentEdit setMovie={setMovie}/>}/>
+                <Route path="comment/:commentId/likes" element={<CommentLikes/>}/>
             </Routes>
             {loading && !fetchError
                 ? <div className={styles.loadingSpinner}></div>
@@ -94,6 +96,7 @@ export default function MovieDetails() {
                         onCreateComment={onCreateComment}
                         errMsg={errMsg}
                         movieId={movieId}
+                        setMovie={setMovie}
                     />
                 </>
                 : <section className={errorStyles.wrapper}>

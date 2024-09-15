@@ -60,26 +60,38 @@ commentRouter.put("/:commentId/in/:movieId", async(req, res) => {
     res.json(movie);
 })
 
-commentRouter.post("/:commentId/like", async(req, res) => {
+commentRouter.post("/:commentId/in/:movieId/like", async(req, res) => {
     const commentId = req.params.commentId;
+    const movieId = req.params.movieId;
     const user = req.user;
     const isValidComment = await checkCommentId(commentId);
     if (!isValidComment) {
+        return res.status(404).json({ message: "Resource not found!" });
+    }
+    const isValidMovie = await checkMovieId(movieId);
+    if (!isValidMovie) {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await likeComment(commentId, user);
-    res.status(200).json({ message: "Record was liked successfully!" });
+    const movie = await getMovieById(movieId).lean()
+    res.status(200).json(movie);
 })
 
-commentRouter.post("/:commentId/unlike", async(req, res) => {
+commentRouter.post("/:commentId/in/:movieId/unlike", async(req, res) => {
     const commentId = req.params.commentId;
+    const movieId = req.params.movieId;
     const user = req.user;
     const isValidComment = await checkCommentId(commentId);
     if (!isValidComment) {
         return res.status(404).json({ message: "Resource not found!" });
     }
+    const isValidMovie = await checkMovieId(movieId);
+    if (!isValidMovie) {
+        return res.status(404).json({ message: "Resource not found!" });
+    }
     await unlikeComment(commentId, user);
-    res.status(200).json({ message: "Record was unliked successfully!" });
+    const movie = await getMovieById(movieId).lean()
+    res.status(200).json(movie);
 })
 
 module.exports = {
