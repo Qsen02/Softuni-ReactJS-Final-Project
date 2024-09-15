@@ -28,7 +28,7 @@ function App() {
                         <Route path="/register" element={<Register />} />
                         <Route path="/catalog/:movieId/*" element={<MovieDetails />} />
                         <Route path="/create" element={<MovieCreate />} />
-                        <Route path="/profile" element={<Profile/>}/>
+                        <Route path="/profile/*" element={<Profile/>}/>
                         <Route path="*" element={<Status404 />} />
                     </Routes>
                 </main>

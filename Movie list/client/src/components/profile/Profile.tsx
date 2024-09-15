@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 
 import { useUserContext } from "../../context/userContext"
 import { useGetOneUser } from "../../hooks/useAuth"
 import { onProfileImageError } from "../../utils/imageError";
 
 import styles from "./Profile.module.css"
+import LikedMovies from "./liked-movies/LikedMovies";
 
 export default function Profile() {
     const initialvalues = {
@@ -21,6 +22,9 @@ export default function Profile() {
 
     return (
         <>
+        <Routes>
+            <Route path="likedMovies" element={<LikedMovies likedMovies={curUser.likedMovies}/>}/>
+        </Routes>
             {curUser.isAdmin
                 ? <>
                     <section className={styles.profileHeader}>
