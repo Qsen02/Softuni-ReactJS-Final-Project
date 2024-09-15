@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+
 import { useUserContext } from "../../context/userContext"
 import { useGetOneUser } from "../../hooks/useAuth"
 import { onProfileImageError } from "../../utils/imageError";
+
+import styles from "./Profile.module.css"
 
 export default function Profile() {
     const initialvalues = {
@@ -20,21 +23,23 @@ export default function Profile() {
         <>
             {curUser.isAdmin
                 ? <>
-                    <section>
+                    <section className={styles.profileHeader}>
                         <img src={curUser.profileImage} alt={curUser.username} onError={onProfileImageError} />
                         <h2>{curUser.username}</h2>
                         <h3>{curUser.email}</h3>
                         <p>Created movies: {curUser.createdMovies.length}</p>
                         <button>Edit profile</button>
                     </section>
-                    <Link to="/profile/createdMovies">
-                        <section>
-                            <p>Created Movies</p>
-                        </section>
-                    </Link>
+                    <section className={styles.profileBody}>
+                        <Link to="/profile/createdMovies">
+                            <article>
+                                <p>Created Movies</p>
+                            </article>
+                        </Link>
+                    </section>
                 </>
                 : <>
-                    <section>
+                    <section className={styles.profileHeader}>
                         <img src={curUser.profileImage} alt={curUser.username} onError={onProfileImageError} />
                         <h2>{curUser.username}</h2>
                         <h3>{curUser.email}</h3>
@@ -42,16 +47,18 @@ export default function Profile() {
                         <p>Liked movies count: {curUser.likedMovies.length}</p>
                         <button>Edit profile</button>
                     </section>
-                    <Link to="/profile/savedMovies">
-                        <section>
-                            <p>Saved movies</p>
-                        </section>
-                    </Link>
-                    <Link to="/profile/likedMovies">
-                        <section>
-                            <p>Liked Movies</p>
-                        </section>
-                    </Link>
+                    <section className={styles.profileBody}>
+                        <Link to="/profile/savedMovies">
+                            <article>
+                                <p>Saved movies</p>
+                            </article>
+                        </Link>
+                        <Link to="/profile/likedMovies">
+                            <article>
+                                <p>Liked Movies</p>
+                            </article>
+                        </Link>
+                    </section>
                 </>
             }
         </>
