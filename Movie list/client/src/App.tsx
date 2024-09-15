@@ -11,6 +11,7 @@ import Register from "./components/register/Register"
 import Status404 from "./components/status404/Status404"
 import MovieDetails from "./components/movie-details/MoviesDetails"
 import MovieCreate from "./components/movie-create/MovieCreate"
+import Profile from "./components/profile/Profile"
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
                         <Route path="/register" element={<Register />} />
                         <Route path="/catalog/:movieId/*" element={<MovieDetails />} />
                         <Route path="/create" element={<MovieCreate />} />
+                        <Route path="/profile" element={<Profile/>}/>
                         <Route path="*" element={<Status404 />} />
                     </Routes>
                 </main>
