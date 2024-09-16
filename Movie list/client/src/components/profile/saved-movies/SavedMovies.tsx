@@ -1,15 +1,14 @@
-import LikedMoviesDetails from "./liked-movies-details/LikedMoviesDetails";
-
-import styles from "../ProfileMovies.module.css"
+import styles from "../ProfileMovies.module.css";
 import { useNavigate } from "react-router-dom";
+import SavedMoviesDetails from "./saved-movies-details/SavedMoviesDetails";
 
-type LikedMoviesProps = {
-    likedMovies: []
+type SavedMoviesProps = {
+    savedMovies: []
 }
 
-export default function LikedMovies({
-    likedMovies
-}: LikedMoviesProps) {
+export default function SavedMovies({
+    savedMovies
+}: SavedMoviesProps) {
     const navigate=useNavigate();
 
     function onBack(){
@@ -21,8 +20,8 @@ export default function LikedMovies({
             <button onClick={onBack}>X</button>
             <h1>Your liked movies</h1>
             <section className={styles.catalogContent}>
-                    {likedMovies.length > 0
-                        ? likedMovies.map(el => <LikedMoviesDetails
+                    {savedMovies.length > 0
+                        ? savedMovies.map(el => <SavedMoviesDetails
                             key={(el as {_id:string})._id}
                             id={(el as {_id:string})._id}
                             title={(el as {title:string}).title}

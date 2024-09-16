@@ -24,17 +24,6 @@ export async function logout() {
     await get(`${endpoint}/logout`);
 }
 
-type getUserParams = {
-    savedMovies: [],
-    createdMovies: [],
-    likedMovies: [],
-    profileImage:"",
-    username:"",
-    email:"",
-    isAdmin:boolean
-}
-
 export async function getUserById(userId: string|undefined) {
-    const user = await get(`${endpoint}/${userId}`);
-    return user as getUserParams;
+    return await get(`${endpoint}/${userId}`);
 }

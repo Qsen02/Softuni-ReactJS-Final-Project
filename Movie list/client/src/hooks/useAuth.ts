@@ -18,17 +18,7 @@ export function useRegister() {
     return registration;
 }
 
-type getUserHookParams = {
-    savedMovies: [],
-    createdMovies: [],
-    likedMovies: [],
-    profileImage:"",
-    username:"",
-    email:"",
-    isAdmin:boolean
-}
-
-export function useGetOneUser(initialvalues: getUserHookParams, userId: string|undefined) {
+export function useGetOneUser(initialvalues: {}, userId: string|undefined) {
     const [curUser, setCurUser] = useState(initialvalues);
     const navigate = useNavigate();
 
@@ -39,7 +29,7 @@ export function useGetOneUser(initialvalues: getUserHookParams, userId: string|u
                 setCurUser(user);
             } catch (err) {
                 if ((err as { message: string }).message == "Resource not found!") {
-                    navigate(`404`);
+                    navigate(`/404`);
                     return;
                 }
                 return;
