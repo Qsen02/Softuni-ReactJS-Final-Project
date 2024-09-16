@@ -1,4 +1,4 @@
-import { get, post } from "./api"
+import { get, post, put } from "./api"
 
 const endpoint = "users";
 
@@ -26,4 +26,8 @@ export async function logout() {
 
 export async function getUserById(userId: string|undefined) {
     return await get(`${endpoint}/${userId}`);
+}
+
+export async function editUser(userId:string|undefined,data:{}){
+    return await put(`${endpoint}/${userId}/edit`,data);
 }

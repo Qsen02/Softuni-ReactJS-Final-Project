@@ -8,10 +8,11 @@ import styles from "./Profile.module.css"
 import LikedMovies from "./liked-movies/LikedMovies";
 import SavedMovies from "./saved-movies/SavedMovies";
 import CreatedMovies from "./created-movies/CreatedMovies";
+import ProfileEdit from "./profile-edit/ProfileEdit";
 
 export default function Profile() {
     const { user } = useUserContext();
-    const { curUser } = useGetOneUser({likedMovies:[],savedMovies:[],createdMovies:[]}, user?._id);
+    const { curUser ,setCurUser} = useGetOneUser({likedMovies:[],savedMovies:[],createdMovies:[]}, user?._id);
 
     return (
         <>
@@ -19,6 +20,7 @@ export default function Profile() {
             <Route path="likedMovies" element={<LikedMovies likedMovies={(curUser as {likedMovies:[]}).likedMovies}/>}/>
             <Route path="savedMovies" element={<SavedMovies savedMovies={(curUser as {savedMovies:[]}).savedMovies}/>}/>
             <Route path="createdMovies" element={<CreatedMovies createdMovies={(curUser as {createdMovies:[]}).createdMovies}/>}/>
+            <Route path=":userId/edit" element={<ProfileEdit user={curUser} setUser={setCurUser}/>}/>
         </Routes>
             {(curUser as {isAdmin:boolean}).isAdmin
                 ? <>
@@ -27,7 +29,7 @@ export default function Profile() {
                         <h2>{(curUser as {username:string}).username}</h2>
                         <h3>{(curUser as {email:string}).email}</h3>
                         <p>Created movies: {(curUser as {createdMovies:[]}).createdMovies.length}</p>
-                        <button>Edit profile</button>
+                        <Link to={`/profile/${(curUser as {_id:string})._id}/edit`}><button>Edit profile</button></Link>
                     </section>
                     <section className={styles.profileBody}>
                         <Link to="/profile/createdMovies">
@@ -44,7 +46,7 @@ export default function Profile() {
                         <h3>{(curUser as {email:string}).email}</h3>
                         <p>Saved movies count: {(curUser as {savedMovies:[]}).savedMovies.length}</p>
                         <p>Liked movies count: {(curUser as {likedMovies:[]}).likedMovies.length}</p>
-                        <button>Edit profile</button>
+                        <Link to={`/profile/${(curUser as {_id:string})._id}/edit`}><button>Edit profile</button></Link>
                     </section>
                     <section className={styles.profileBody}>
                         <Link to="/profile/savedMovies">

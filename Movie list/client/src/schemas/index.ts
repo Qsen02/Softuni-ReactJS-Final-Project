@@ -22,3 +22,9 @@ export const createMovieSchema=yup.object().shape({
     year:yup.number().min(1960,"Year must be between 1960 and 2030!").max(2030,"Year must be between 1960 and 2030!").required("Year is required!"),
     description:yup.string().min(10,"Description must be between 10 and 200 characters!").max(200,"Description must be between 10 and 200 characters!").required("Description is required!")
 })
+
+export const editUserSchema=yup.object().shape({
+    profileImage:yup.string().email().matches(/^https?:\/\//,"Image must be valid URL!"),
+    username:yup.string().min(3,"Username mut be at least 3 characters long!").required("Username is required!"),
+    email:yup.string().min(3,"Email mut be at least 3 characters long!").email("Email must be valid email!").required("Email is required!"),
+})

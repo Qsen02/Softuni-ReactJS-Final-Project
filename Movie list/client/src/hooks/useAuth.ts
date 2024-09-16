@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUserById, login, resigter } from "../api/userService"
+import { editUser, getUserById, login, resigter } from "../api/userService"
 import { useNavigate } from "react-router-dom";
 
 export function useLogin() {
@@ -37,5 +37,13 @@ export function useGetOneUser(initialvalues: {}, userId: string|undefined) {
         })()
     }, [userId])
 
-    return {curUser}
+    return {curUser,setCurUser}
+}
+
+export function useEditUser() {
+    async function editingUser(userId:string|undefined,data: {}) {
+        return await editUser(userId,data);
+    }
+
+    return editingUser;
 }
