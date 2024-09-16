@@ -7,6 +7,7 @@ import { onProfileImageError } from "../../utils/imageError";
 import styles from "./Profile.module.css"
 import LikedMovies from "./liked-movies/LikedMovies";
 import SavedMovies from "./saved-movies/SavedMovies";
+import CreatedMovies from "./created-movies/CreatedMovies";
 
 export default function Profile() {
     const { user } = useUserContext();
@@ -17,6 +18,7 @@ export default function Profile() {
         <Routes>
             <Route path="likedMovies" element={<LikedMovies likedMovies={(curUser as {likedMovies:[]}).likedMovies}/>}/>
             <Route path="savedMovies" element={<SavedMovies savedMovies={(curUser as {savedMovies:[]}).savedMovies}/>}/>
+            <Route path="createdMovies" element={<CreatedMovies createdMovies={(curUser as {createdMovies:[]}).createdMovies}/>}/>
         </Routes>
             {(curUser as {isAdmin:boolean}).isAdmin
                 ? <>
