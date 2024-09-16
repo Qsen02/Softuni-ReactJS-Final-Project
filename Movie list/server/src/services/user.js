@@ -45,9 +45,21 @@ async function checkUserId(id) {
     return true;
 }
 
+async function editUser(userId, image, username, email, password) {
+    await Users.findByIdAndUpdate(userId, {
+        $set: {
+            image: image,
+            username: username,
+            email: email,
+            password: await bcrypt.hash(password, 10),
+        }
+    });
+}
+
 module.exports = {
     register,
     login,
     getUserById,
-    checkUserId
+    checkUserId,
+    editUser
 }
