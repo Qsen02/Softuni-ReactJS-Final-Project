@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { editUser, getUserById, login, resigter } from "../api/userService"
+import { changePassword, editUser, getUserById, login, resigter } from "../api/userService"
 import { useNavigate } from "react-router-dom";
 
 export function useLogin() {
@@ -46,4 +46,12 @@ export function useEditUser() {
     }
 
     return editingUser;
+}
+
+export function useChangePassword() {
+    async function changingPassword(userId:string|undefined,data: {}) {
+        return await changePassword(userId,data);
+    }
+
+    return changingPassword;
 }

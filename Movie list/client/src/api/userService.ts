@@ -31,3 +31,7 @@ export async function getUserById(userId: string|undefined) {
 export async function editUser(userId:string|undefined,data:{}){
     return await put(`${endpoint}/${userId}/edit`,data);
 }
+
+export async function changePassword(userId:string|undefined,data:{}){
+    return await put(`${endpoint}/${userId}/change/password`,data);
+}
