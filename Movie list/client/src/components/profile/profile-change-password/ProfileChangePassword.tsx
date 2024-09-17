@@ -27,8 +27,7 @@ export default function ProfileChangePassword({
             const user = await changePassword(userId, { newPassword });
             actions.resetForm();
             setCurUser(user);
-            navigate("/profile");
-            alert("Your password changed successfully!");
+            navigate("/profile/successfullyChanged");
         } catch (err) {
             if (((err as { message: string }).message).includes("[")) {
                 setErrMessage(JSON.parse((err as { message: string }).message));

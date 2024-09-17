@@ -10,6 +10,7 @@ import SavedMovies from "./saved-movies/SavedMovies";
 import CreatedMovies from "./created-movies/CreatedMovies";
 import ProfileEdit from "./profile-edit/ProfileEdit";
 import ProfileChangePassword from "./profile-change-password/ProfileChangePassword";
+import SuccessfullyChangedPassword from "./successfully-changed-password/SuccessfullyChangedPassword";
 
 export default function Profile() {
     const { user } = useUserContext();
@@ -23,6 +24,7 @@ export default function Profile() {
             <Route path="createdMovies" element={<CreatedMovies createdMovies={(curUser as {createdMovies:[]}).createdMovies}/>}/>
             <Route path=":userId/edit" element={<ProfileEdit user={curUser} setUser={setCurUser}/>}/>
             <Route path=":userId/changePassword" element={<ProfileChangePassword setCurUser={setCurUser}/>}/>
+            <Route path="successfullyChanged" element={<SuccessfullyChangedPassword/>}/>
         </Routes>
             {(curUser as {isAdmin:boolean}).isAdmin
                 ? <>
