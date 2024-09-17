@@ -6,7 +6,6 @@ import { onProfileImageError } from "../../../../utils/imageError";
 
 type MovieDetailsCommentsType = {
     id: string,
-    username: string,
     content: string,
     commentOwnerId: string,
     movieOwnerId: string,
@@ -23,7 +22,7 @@ type MovieDetailsCommentsType = {
 }
 
 export default function MovieDetailsComments({
-    id, username, content, commentOwnerId, movieOwnerId, user, likes, movieId, setMovie
+    id, content, commentOwnerId, movieOwnerId, user, likes, movieId, setMovie
 }: MovieDetailsCommentsType) {
     const navigate = useNavigate();
     const likeComment = useLikeComment();
@@ -60,7 +59,7 @@ export default function MovieDetailsComments({
         <section className={commentOwnerId == user?._id ? styles.yourComment : ""}>
             <article className={commentOwnerId == user?._id ? styles.yourComment : ""}>
                 <img src={(curUser as {profileImage:string}).profileImage} alt={user?.username} onError={onProfileImageError}/>
-                <h3 className={commentOwnerId == movieOwnerId ? styles.owner : ""}>{username}</h3>
+                <h3 className={commentOwnerId == movieOwnerId ? styles.owner : ""}>{(curUser as {username:string}).username}</h3>
                 {commentOwnerId == user?._id
                     ? <>
                         <Link to={`/catalog/${movieId}/comment/${id}/delete`}><i className="fa-solid fa-trash"></i></Link>

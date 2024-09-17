@@ -40,7 +40,6 @@ export default function MovieDetailsCommentSection({
                 ? comments.map(el => <MovieDetailsComments
                     key={(el as { _id: string })._id}
                     id={(el as { _id: string })._id}
-                    username={(el as { username: string }).username}
                     content={(el as { content: string }).content}
                     commentOwnerId={(el as { ownerId: string }).ownerId}
                     movieOwnerId={ownerId}
