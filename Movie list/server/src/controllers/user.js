@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { body, validationResult } = require("express-validator");
-const { register, checkUserId, getUserById, login, editUser } = require("../services/user");
+const { register, checkUserId, getUserById, login, editUser, changePassword } = require("../services/user");
 const { setToken } = require("../services/token");
 
 const userRouter = Router();
@@ -58,11 +58,9 @@ userRouter.get("/:userId", async(req, res) => {
 })
 
 userRouter.put("/:userId/edit",
-    body("image").trim().matches(/^https?:\/\//),
+    body("profileImage").trim().matches(/^https?:\/\//),
     body("username").trim().isLength({ min: 3 }),
     body("email").trim().isEmail().isLength({ min: 3 }),
-    body("password").trim().matches(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;"'<>,.?\/~`|-]).{6,}$/),
-    body("repass").trim().custom((value, { req }) => req.body.password == value),
     async(req, res) => {
         const fields = req.body;
         const userId = req.params.userId;
@@ -75,9 +73,32 @@ userRouter.put("/:userId/edit",
             if (results.errors.length) {
                 throw new Error("Your data is not in valid format!");
             }
-            await editUser(userId, fields.image, fields.username, fields.email, fields.password);
+            await editUser(userId, fields.profileImage, fields.username, fields.email);
             const user = await getUserById(userId).lean();
             res.json(user);
+        } catch (err) {
+            return res.status(400).json({ message: err.message })
+        }
+    })
+
+userRouter.put("/:userId/change/password",
+    body("newPassword").trim().matches(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;"'<>,.?\/~`|-]).{6,}$/),
+    async(req, res) => {
+        const fields = req.body;
+        const userId = req.params.userId;
+        const isValid = await checkUserId(userId);
+        if (!isValid) {
+            return res.status(404).json({ message: "Resource not found!" });
+        }
+        try {
+            const results = validationResult(req);
+            if (results.errors.length) {
+                throw new Error("Your data is not in valid format!");
+            }
+            const user = await getUserById(userId).lean();
+            await changePassword(fields.newPassword, user);
+            const newUser = await getUserById(userId).lean();
+            res.json(newUser);
         } catch (err) {
             return res.status(400).json({ message: err.message })
         }

@@ -45,15 +45,22 @@ async function checkUserId(id) {
     return true;
 }
 
-async function editUser(userId, image, username, email, password) {
+async function editUser(userId, image, username, email) {
     await Users.findByIdAndUpdate(userId, {
         $set: {
-            image: image,
+            profileImage: image,
             username: username,
             email: email,
-            password: await bcrypt.hash(password, 10),
         }
     });
+}
+
+async function changePassword(newPassword, user) {
+    const isEqual = await bcrypt.compare(newPassword, user.password);
+    if (isEqual) {
+        throw new Error("Old password can't be new password!");
+    }
+    await Users.findByIdAndUpdate(user._id.toString(), { $set: { password: await bcrypt.hash(newPassword, 10) } });
 }
 
 module.exports = {
@@ -61,5 +68,6 @@ module.exports = {
     login,
     getUserById,
     checkUserId,
-    editUser
+    editUser,
+    changePassword
 }
