@@ -199,10 +199,19 @@
     margin-bottom: -25px;
 }
 
-.commentWrapper section article h2 {
+.commentWrapper section article img {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    top: -15px;
+}
+
+.commentWrapper section article h3 {
     display: inline-block;
     text-align: left;
     margin-top: -50px;
+    margin-left: 60px;
 }
 
 .commentWrapper section p {

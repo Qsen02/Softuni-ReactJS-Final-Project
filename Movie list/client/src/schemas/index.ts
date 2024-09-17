@@ -24,7 +24,7 @@ export const createMovieSchema=yup.object().shape({
 })
 
 export const editUserSchema=yup.object().shape({
-    profileImage:yup.string().email().matches(/^https?:\/\//,"Image must be valid URL!"),
+    profileImage:yup.string().matches(/^https?:\/\//,"Image must be valid URL!"),
     username:yup.string().min(3,"Username mut be at least 3 characters long!").required("Username is required!"),
-    email:yup.string().min(3,"Email mut be at least 3 characters long!").email("Email must be valid email!").required("Email is required!"),
+    email:yup.string().email().min(3,"Email mut be at least 3 characters long!").email("Email must be valid email!").required("Email is required!"),
 })

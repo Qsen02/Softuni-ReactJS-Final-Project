@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../../MovieDetails.module.css";
 import { useLikeComment, useUnlikeComment } from "../../../../hooks/useComments";
+import { useGetOneUser } from "../../../../hooks/useAuth";
+import { onProfileImageError } from "../../../../utils/imageError";
 
 type MovieDetailsCommentsType = {
     id: string,
@@ -26,6 +28,7 @@ export default function MovieDetailsComments({
     const navigate = useNavigate();
     const likeComment = useLikeComment();
     const unlikeComment = useUnlikeComment();
+    const {curUser}=useGetOneUser({},commentOwnerId);
 
     async function onLike() {
         try {
@@ -56,7 +59,8 @@ export default function MovieDetailsComments({
     return (
         <section className={commentOwnerId == user?._id ? styles.yourComment : ""}>
             <article className={commentOwnerId == user?._id ? styles.yourComment : ""}>
-                <h2 className={commentOwnerId == movieOwnerId ? styles.owner : ""}>{username}</h2>
+                <img src={(curUser as {profileImage:string}).profileImage} alt={user?.username} onError={onProfileImageError}/>
+                <h3 className={commentOwnerId == movieOwnerId ? styles.owner : ""}>{username}</h3>
                 {commentOwnerId == user?._id
                     ? <>
                         <Link to={`/catalog/${movieId}/comment/${id}/delete`}><i className="fa-solid fa-trash"></i></Link>
