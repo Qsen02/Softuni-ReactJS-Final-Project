@@ -51,7 +51,7 @@ body {
 }
 
 .navigation li a:hover {
-    animation: coloring 0.7s;
+    animation: coloring 1s;
     animation-fill-mode: forwards;
 }
 

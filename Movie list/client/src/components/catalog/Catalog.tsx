@@ -60,6 +60,13 @@ export default function Catalog() {
                                     : <h2 className={styles.errorMessage}>No movies yet</h2>
                     }
                 </section>
+                <div className={styles.pagination}>
+                    <p>1 of 2</p>
+                    <button>&lt;</button>
+                    <button>&lt;&lt;</button>
+                    <button>&gt;&gt;</button>
+                    <button>&gt;</button>
+                </div>
             </section>
         </>
     )

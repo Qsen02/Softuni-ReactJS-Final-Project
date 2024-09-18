@@ -20,7 +20,7 @@ export const createMovieSchema = yup.object().shape({
     genre: yup.string().min(3, "Genre must be at least 3 characters long!").required("Genre is required!"),
     image: yup.string().matches(/^https?:\/\//, "Image must be valid URL!").required("Image is required!"),
     year: yup.number().min(1960, "Year must be between 1960 and 2030!").max(2030, "Year must be between 1960 and 2030!").required("Year is required!"),
-    description: yup.string().min(10, "Description must be between 10 and 200 characters!").max(200, "Description must be between 10 and 200 characters!").required("Description is required!")
+    description: yup.string().min(10, "Description must be between 10 and 1000 characters!").max(1000, "Description must be between 10 and 1000 characters!").required("Description is required!")
 })
 
 export const editUserSchema = yup.object().shape({

@@ -7,6 +7,27 @@
     }
 }
 
+@keyframes coloring {
+    0% {
+        color: lightgrey
+    }
+    20% {
+        color: rgb(225, 224, 224)
+    }
+    40% {
+        color: rgb(230, 230, 230)
+    }
+    60% {
+        color: rgb(240, 240, 240)
+    }
+    80% {
+        color: rgb(250, 250, 250)
+    }
+    100% {
+        color: rgb(255, 255, 255)
+    }
+}
+
 .catalogForm {
     display: block;
     margin: 0 auto;
@@ -83,7 +104,7 @@
 .catalogContent section article img {
     height: 300px;
     width: 300px;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .catalogContent section article button {
@@ -132,6 +153,56 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
+}
+
+.pagination {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 100px;
+    margin-top: 10px;
+    max-width: 300px;
+    height: 70px;
+    border-radius: 30px;
+    background-color: rgb(29, 29, 29);
+}
+
+.pagination button {
+    display: inline;
+    background-color: rgb(29, 29, 29);
+    color: lightgrey;
+    border: none;
+    font-size: 20pt;
+    height: 30px;
+    width: 30px;
+    margin-top: 18px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.pagination button:nth-child(3) {
+    margin-right: 80px;
+}
+
+.pagination button:last-child {
+    margin-right: 20px;
+}
+
+.pagination p {
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    left: 126px;
+    top: 0;
+}
+
+.pagination button:hover {
+    animation: coloring 1s;
+    animation-fill-mode: forwards;
+}
+
+.invisible {
+    visibility: hidden;
 }
 
 @media(max-width:1300px) {
@@ -189,5 +260,17 @@
     }
     .loadingSpinner {
         top: 50%;
+    }
+    .pagination {
+        max-width: 250px;
+        height: 50px;
+    }
+    .pagination p {
+        left: 90px;
+    }
+    .pagination button {
+        font-size: 16pt;
+        margin-left: 5px;
+        margin-top: 12px;
     }
 }
