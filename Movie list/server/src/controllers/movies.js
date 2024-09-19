@@ -25,7 +25,9 @@ movieRouter.get("/search/:query", async(req, res) => {
         query = "";
     }
     const results = await searchMovie(query).lean();
-    res.json(results);
+    const allMovies = await getAllMovies().lean();
+    const maxPage = Number(Math.ceil(allMovies.length / 3));
+    res.json({ results, maxPage });
 })
 
 movieRouter.get("/page/:pageNumber", async(req, res) => {

@@ -24,7 +24,7 @@ export async function getTopMovies() {
 
 export async function searchMovies(query: string) {
     const movies = await get(`${endpoint}/search/${query}`);
-    return movies as [];
+    return movies as {results:[],maxPage:number};
 }
 
 export async function createMovie(data: {}) {

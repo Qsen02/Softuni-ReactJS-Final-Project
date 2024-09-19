@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { useGetAllMovies, useSearchMovies } from "../../hooks/useMovies"
+import { useGetAllMovies, usePagination, useSearchMovies } from "../../hooks/useMovies"
 
 import CatalogContent from "./catalog-content/CatalogContent";
 
@@ -11,6 +11,8 @@ export default function Catalog() {
     const { movies, setMovies, loading, setLoading, fetchError, setFetchError,maxPage,setMaxPage } = useGetAllMovies([]);
     const searchMovies = useSearchMovies();
     const [isSearched, setIsSearched] = useState(false);
+    const [searchedResults,setSerchedResults]=useState([]);
+    const {paginationHandler,page,setPage}=usePagination(isSearched,maxPage,setMovies,setLoading,searchedResults,setSerchedResults)
 
     async function onSearch(values: { title: string }) {
         let title = values.title;
@@ -19,8 +21,10 @@ export default function Catalog() {
                 title = "empty";
             }
             setLoading(true);
-            const results = await searchMovies(title);
-            setMovies(results);
+            const data = await searchMovies(title);
+            setMovies(data.results);
+            setSerchedResults(data.results);
+            setMaxPage(data.maxPage)
             setIsSearched(true);
             setLoading(false);
         } catch (err) {
