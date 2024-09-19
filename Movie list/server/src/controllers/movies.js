@@ -31,7 +31,9 @@ movieRouter.get("/search/:query", async(req, res) => {
 movieRouter.get("/page/:pageNumber", async(req, res) => {
     const page = req.params.pageNumber;
     const movies = await pagination(page).lean();
-    res.json(movies);
+    const allMovies = await getAllMovies().lean();
+    const maxPage = Number(Math.ceil(allMovies.length / 3));
+    res.json({ movies, maxPage });
 })
 
 movieRouter.post("/",
@@ -39,7 +41,7 @@ movieRouter.post("/",
     body("genre").isLength({ min: 2 }),
     body("image").matches(/^https?:\/\//),
     body("year").isInt({ min: 1960, max: 2030 }),
-    body("description").isLength({ min: 10, max: 200 }),
+    body("description").isLength({ min: 10, max: 1000 }),
     async(req, res) => {
         const fields = req.body;
         const user = req.user;
@@ -60,7 +62,7 @@ movieRouter.put("/:movieId",
     body("genre").isLength({ min: 2 }),
     body("image").matches(/^https?:\/\//),
     body("year").isInt({ min: 1960, max: 2030 }),
-    body("description").isLength({ min: 10, max: 200 }),
+    body("description").isLength({ min: 10, max: 1000 }),
     async(req, res) => {
         const movieId = req.params.movieId;
         const fields = req.body;

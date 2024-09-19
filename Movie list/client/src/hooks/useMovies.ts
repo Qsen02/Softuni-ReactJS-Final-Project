@@ -49,13 +49,15 @@ export function useGetAllMovies(initialvalues: []) {
     const [movies, setMovies] = useState<CutomHookType>(initialvalues);
     const [loading, setLoading] = useState(false);
     const [fetchError, setFetchError] = useState(false);
+    const [maxPage,setMaxPage]=useState(1);
 
     useEffect(() => {
         (async () => {
             try {
                 setLoading(true);
-                const movies = await getAllMovies();
-                setMovies(movies);
+                const curMovies = await getAllMovies();
+                setMovies(curMovies.movies);
+                setMaxPage(curMovies.maxPage);
                 setLoading(false);
             } catch (err) {
                 setFetchError(true);
@@ -65,7 +67,7 @@ export function useGetAllMovies(initialvalues: []) {
     }, [])
 
     return {
-        movies, setMovies, loading, setLoading, fetchError, setFetchError
+        movies, setMovies, loading, setLoading, fetchError, setFetchError,maxPage,setMaxPage
     }
 }
 

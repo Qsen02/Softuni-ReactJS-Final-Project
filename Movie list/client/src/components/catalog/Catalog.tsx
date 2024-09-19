@@ -8,7 +8,7 @@ import CustomInput from "../../commons/CustomInput";
 import { useState } from "react";
 
 export default function Catalog() {
-    const { movies, setMovies, loading, setLoading, fetchError, setFetchError } = useGetAllMovies([]);
+    const { movies, setMovies, loading, setLoading, fetchError, setFetchError,maxPage,setMaxPage } = useGetAllMovies([]);
     const searchMovies = useSearchMovies();
     const [isSearched, setIsSearched] = useState(false);
 
@@ -61,7 +61,7 @@ export default function Catalog() {
                     }
                 </section>
                 <div className={styles.pagination}>
-                    <p>1 of 2</p>
+                    <p>1 of {maxPage}</p>
                     <button>&lt;</button>
                     <button>&lt;&lt;</button>
                     <button>&gt;&gt;</button>

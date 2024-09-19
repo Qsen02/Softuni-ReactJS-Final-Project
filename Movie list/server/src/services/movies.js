@@ -17,8 +17,8 @@ function searchMovie(query) {
 }
 
 function pagination(page) {
-    const skipCount = Number(page) * 6;
-    return Movies.find().skip(skipCount).limit(6);
+    const skipCount = Number(page) * 3;
+    return Movies.find().skip(skipCount).limit(3);
 }
 
 function getTopThree() {
