@@ -46,7 +46,7 @@ export function useGetTopMovies(initialvalues: []) {
     }
 }
 
-export function useGetAllMovies(initialvalues: []) {
+export function useGetAllMovies(initialvalues: [],isSearched:boolean) {
     const [movies, setMovies] = useState<CutomHookType>(initialvalues);
     const [loading, setLoading] = useState(false);
     const [fetchError, setFetchError] = useState(false);
@@ -57,7 +57,18 @@ export function useGetAllMovies(initialvalues: []) {
             try {
                 setLoading(true);
                 const curMovies = await getAllMovies();
-                setMovies(curMovies.movies);
+                const movies:[] = [];
+                if(isSearched){
+                    for (let i = 0; i < 3; i++) {
+                        if (curMovies.movies[i] == undefined) {
+                            break;
+                        }
+                        movies.push(curMovies.movies[i]);
+                    }
+                    setMovies(movies);
+                }else{
+                    setMovies(curMovies.movies);
+                }
                 setMaxPage(curMovies.maxPage);
                 setLoading(false);
             } catch (err) {
@@ -65,7 +76,7 @@ export function useGetAllMovies(initialvalues: []) {
                 return;
             }
         })()
-    }, [])
+    }, [isSearched])
 
     return {
         movies, setMovies, loading, setLoading, fetchError, setFetchError, maxPage, setMaxPage

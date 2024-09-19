@@ -1,18 +1,18 @@
 import { Form, Formik } from "formik";
-import { useGetAllMovies, usePagination, useSearchMovies } from "../../hooks/useMovies"
-
-import CatalogContent from "./catalog-content/CatalogContent";
-
-import styles from "./Catalog.module.css"
-import CustomInput from "../../commons/CustomInput";
 import { useState } from "react";
 
+import { useGetAllMovies, usePagination, useSearchMovies } from "../../hooks/useMovies";
+import CatalogContent from "./catalog-content/CatalogContent";
+import CustomInput from "../../commons/CustomInput";
+
+import styles from "./Catalog.module.css";
+
 export default function Catalog() {
-    const { movies, setMovies, loading, setLoading, fetchError, setFetchError,maxPage,setMaxPage } = useGetAllMovies([]);
     const searchMovies = useSearchMovies();
     const [isSearched, setIsSearched] = useState(false);
-    const [searchedResults,setSerchedResults]=useState([]);
-    const {paginationHandler,page,setPage}=usePagination(isSearched,maxPage,setMovies,setLoading,searchedResults,setSerchedResults)
+    const [searchedResults, setSerchedResults] = useState<[]>([]);
+    const { movies, setMovies, loading, setLoading, fetchError, setFetchError, maxPage, setMaxPage } = useGetAllMovies([],isSearched);
+    const { paginationHandler, page, setPage } = usePagination(isSearched, maxPage, setMovies, setLoading, searchedResults, setSerchedResults)
 
     async function onSearch(values: { title: string }) {
         let title = values.title;
@@ -24,14 +24,30 @@ export default function Catalog() {
             const data = await searchMovies(title);
             setMovies(data.results);
             setSerchedResults(data.results);
-            setMaxPage(data.maxPage)
             setIsSearched(true);
+            setMaxPage(data.maxPage);
+            setPage(0);
             setLoading(false);
         } catch (err) {
             setFetchError(true);
             return;
         }
 
+    }
+
+    function nextPage() {
+        paginationHandler(page + 1);
+    }
+
+    function previousPage() {
+        paginationHandler(page - 1);
+    }
+
+    function firstPage() {
+        paginationHandler(0);
+    }
+    function lastPage() {
+        paginationHandler(maxPage - 1);
     }
 
     return (
@@ -64,13 +80,16 @@ export default function Catalog() {
                                     : <h2 className={styles.errorMessage}>No movies yet</h2>
                     }
                 </section>
-                <div className={styles.pagination}>
-                    <p>1 of {maxPage}</p>
-                    <button>&lt;</button>
-                    <button>&lt;&lt;</button>
-                    <button>&gt;&gt;</button>
-                    <button>&gt;</button>
-                </div>
+                {movies.length > 0
+                    ? <div className={styles.pagination}>
+                        <p>{page + 1} of {maxPage}</p>
+                        <button onClick={firstPage}>&lt;&lt;</button>
+                        <button onClick={previousPage} className={page + 1 == 1 ? styles.invisible : ""}>&lt;</button>
+                        <button onClick={nextPage} className={page + 1 == maxPage ? styles.invisible : ""}>&gt;</button>
+                        <button onClick={lastPage}>&gt;&gt;</button>
+                    </div>
+                    : ""
+                }
             </section>
         </>
     )
