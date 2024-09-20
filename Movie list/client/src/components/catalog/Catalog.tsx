@@ -11,7 +11,7 @@ export default function Catalog() {
     const searchMovies = useSearchMovies();
     const [isSearched, setIsSearched] = useState(false);
     const [searchedResults, setSerchedResults] = useState<[]>([]);
-    const { movies, setMovies, loading, setLoading, fetchError, setFetchError, maxPage, setMaxPage } = useGetAllMovies([],isSearched);
+    const { movies, setMovies, loading, setLoading, fetchError, setFetchError, maxPage, setMaxPage } = useGetAllMovies([], isSearched);
     const { paginationHandler, page, setPage } = usePagination(isSearched, maxPage, setMovies, setLoading, searchedResults, setSerchedResults)
 
     async function onSearch(values: { title: string }) {
@@ -22,7 +22,7 @@ export default function Catalog() {
             }
             setLoading(true);
             const data = await searchMovies(title);
-            setMovies(data.results);
+            setMovies({ type: "search", payload: data.results });
             setSerchedResults(data.results);
             setIsSearched(true);
             setMaxPage(data.maxPage);

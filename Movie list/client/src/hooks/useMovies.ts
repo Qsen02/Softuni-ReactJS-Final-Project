@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import { useState } from "react";
 import { createMovie, deleteMovie, editMovie, getAllMovies, getMovieById, getTopMovies, likeMovie, pagination, saveMovie, searchMovies, unlikeMovie, unsaveMovie } from "../api/movieService";
 import { useNavigate } from "react-router-dom";
+import { moviesReducer } from "../reducers/catalog";
 
 type CutomHookType = [
     {
@@ -11,6 +12,18 @@ type CutomHookType = [
         image: string
     }
 ] | []
+
+type actionType = {
+    type: string,
+    payload: [
+        {
+            _id: string,
+            title: string,
+            genre: string,
+            image: string
+        }
+    ] | []
+}
 
 export function useGetTopMovies(initialvalues: []) {
     type CutomHookType = [
@@ -46,8 +59,8 @@ export function useGetTopMovies(initialvalues: []) {
     }
 }
 
-export function useGetAllMovies(initialvalues: [],isSearched:boolean) {
-    const [movies, setMovies] = useState<CutomHookType>(initialvalues);
+export function useGetAllMovies(initialvalues: [], isSearched: boolean) {
+    const [movies, setMovies] = useReducer<CutomHookType>(moviesReducer, initialvalues);
     const [loading, setLoading] = useState(false);
     const [fetchError, setFetchError] = useState(false);
     const [maxPage, setMaxPage] = useState(1);
@@ -57,18 +70,7 @@ export function useGetAllMovies(initialvalues: [],isSearched:boolean) {
             try {
                 setLoading(true);
                 const curMovies = await getAllMovies();
-                const movies:[] = [];
-                if(isSearched){
-                    for (let i = 0; i < 3; i++) {
-                        if (curMovies.movies[i] == undefined) {
-                            break;
-                        }
-                        movies.push(curMovies.movies[i]);
-                    }
-                    setMovies(movies);
-                }else{
-                    setMovies(curMovies.movies);
-                }
+                setMovies({ type: "getAll", payload: curMovies.movies });
                 setMaxPage(curMovies.maxPage);
                 setLoading(false);
             } catch (err) {
@@ -191,24 +193,24 @@ export function useUnsaveMovie() {
 export function usePagination(
     isSearched: boolean,
     maxPage: number,
-    setMovieHandler: React.Dispatch<React.SetStateAction<CutomHookType>>,
+    setMovieHandler: React.Dispatch<React.SetStateAction<actionType>>,
     loadingHandler: React.Dispatch<React.SetStateAction<boolean>>,
     searchedResults: [],
-    setSearchedResults:  React.Dispatch<React.SetStateAction<[]>>) {
+    setSearchedResults: React.Dispatch<React.SetStateAction<[]>>) {
 
     const [page, setPage] = useState(0);
 
-    async function paginationHandler(page:number) {
+    async function paginationHandler(page: number) {
         setPage(oldvalue => page);
         loadingHandler(true);
         if (!isSearched) {
             const data = await pagination(page);
-            setMovieHandler(data.movies);
+            setMovieHandler({ type: "getNext", payload: data.movies });
         } else {
             const curResults = [...searchedResults];
             const movies = [];
             for (let i = 0; i < maxPage; i++) {
-                const curMovies:[] = [];
+                const curMovies: [] = [];
                 for (let j = 0; j < 3; j++) {
                     const movie = curResults.shift();
                     if (movie == undefined) {
@@ -218,7 +220,7 @@ export function usePagination(
                 }
                 movies.push(curMovies);
             }
-            setMovieHandler(movies[page]);
+            setMovieHandler({ type: "getNext", payload: movies[page] });
             setSearchedResults(oldvalue => [...searchedResults]);
         }
         loadingHandler(false);
