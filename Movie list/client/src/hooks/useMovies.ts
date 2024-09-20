@@ -59,7 +59,7 @@ export function useGetTopMovies(initialvalues: []) {
     }
 }
 
-export function useGetAllMovies(initialvalues: [], isSearched: boolean) {
+export function useGetAllMovies(initialvalues: []) {
     const [movies, setMovies] = useReducer<CutomHookType>(moviesReducer, initialvalues);
     const [loading, setLoading] = useState(false);
     const [fetchError, setFetchError] = useState(false);
@@ -78,7 +78,7 @@ export function useGetAllMovies(initialvalues: [], isSearched: boolean) {
                 return;
             }
         })()
-    }, [isSearched])
+    }, [])
 
     return {
         movies, setMovies, loading, setLoading, fetchError, setFetchError, maxPage, setMaxPage
