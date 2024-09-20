@@ -4,7 +4,7 @@ import { createMovie, deleteMovie, editMovie, getAllMovies, getMovieById, getTop
 import { useNavigate } from "react-router-dom";
 import { moviesReducer } from "../reducers/catalog";
 
-type CutomHookType = [
+type CustomHookType = [
     {
         _id: string,
         title: string,
@@ -60,7 +60,7 @@ export function useGetTopMovies(initialvalues: []) {
 }
 
 export function useGetAllMovies(initialvalues: []) {
-    const [movies, setMovies] = useReducer<CutomHookType>(moviesReducer, initialvalues);
+    const [movies, setMovies] = useReducer(moviesReducer, initialvalues);
     const [loading, setLoading] = useState(false);
     const [fetchError, setFetchError] = useState(false);
     const [maxPage, setMaxPage] = useState(1);

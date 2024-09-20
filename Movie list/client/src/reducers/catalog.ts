@@ -1,5 +1,5 @@
 type actionType={
-    type:string,
+    type:"getAll"|"search"|"getNext",
     payload:[
         {
             _id: string,
