@@ -22,11 +22,11 @@ async function register(username, email, password) {
 async function login(username, password) {
     const user = await Users.findOne({ username }).lean();
     if (!user) {
-        throw new Error("Username or password dont't match!");
+        throw new Error("Username or password don't match!");
     }
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
-        throw new Error("Username or password dont't match!");
+        throw new Error("Username or password don't match!");
     }
     return user;
 }
