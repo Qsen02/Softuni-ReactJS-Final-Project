@@ -5,22 +5,22 @@ import { useNavigate } from "react-router-dom";
 import { moviesReducer } from "../reducers/catalog";
 
 type ColectionOfMovies = {
-        _id: string,
-        title: string,
-        genre: string,
-        image: string
-    }[]
+    _id: string,
+    title: string,
+    genre: string,
+    image: string
+}[]
 
 
 type ActionType = {
     type: string,
     payload: {
-            _id: string,
-            title: string,
-            genre: string,
-            image: string
-        }[]
-    }
+        _id: string,
+        title: string,
+        genre: string,
+        image: string
+    }[]
+}
 
 type OneMovie = {
     _id: string,
@@ -62,7 +62,7 @@ export function useGetTopMovies(initialvalues: []) {
 }
 
 export function useGetAllMovies(initialvalues: []) {
-    const [movies, setMovies] = useReducer<ColectionOfMovies,[]>(moviesReducer, initialvalues);
+    const [movies, setMovies] = useReducer(moviesReducer, initialvalues);
     const [loading, setLoading] = useState(false);
     const [fetchError, setFetchError] = useState(false);
     const [maxPage, setMaxPage] = useState(1);
@@ -185,8 +185,8 @@ export function usePagination(
     maxPage: number,
     setMovieHandler: React.Dispatch<React.SetStateAction<ActionType>>,
     loadingHandler: React.Dispatch<React.SetStateAction<boolean>>,
-    searchedResults: [],
-    setSearchedResults: React.Dispatch<React.SetStateAction<[]>>) {
+    searchedResults: {}[],
+    setSearchedResults: React.Dispatch<React.SetStateAction<{}[]>>) {
 
     const [page, setPage] = useState(0);
 
@@ -198,20 +198,20 @@ export function usePagination(
             setMovieHandler({ type: "getNext", payload: data.movies });
         } else {
             const curResults = [...searchedResults];
-            const movies = [];
+            const movies: { _id: string, title: string, genre: string, image: string }[][] = [];
             for (let i = 0; i < maxPage; i++) {
-                const curMovies: [] = [];
+                const curMovies: ColectionOfMovies = [];
                 for (let j = 0; j < 3; j++) {
-                    const movie = curResults.shift();
+                    const movie= curResults.shift();
                     if (movie == undefined) {
                         break;
                     }
-                    curMovies.push(movie);
+                    curMovies.push(movie as { _id: string, title: string, genre: string, image: string } );
                 }
                 movies.push(curMovies);
             }
             setMovieHandler({ type: "getNext", payload: movies[page] });
-            setSearchedResults(oldvalue => [...searchedResults]);
+            setSearchedResults(oldvalue=> [...searchedResults]);
         }
         loadingHandler(false);
     }
