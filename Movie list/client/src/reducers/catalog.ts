@@ -1,16 +1,14 @@
-type actionType={
+type ActionType={
     type:"getAll"|"search"|"getNext",
-    payload:[
-        {
+    payload:{
             _id: string,
             title: string,
             genre: string,
             image: string
-        }
-    ] | []
+        }[]
 }
 
-export function moviesReducer(state:[], action:actionType) {
+export function moviesReducer(state:[], action:ActionType):ActionType["payload"]|[] {
     switch (action.type) {
         case "getAll":
             return action.payload.slice();

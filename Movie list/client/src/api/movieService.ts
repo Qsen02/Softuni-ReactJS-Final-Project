@@ -1,15 +1,22 @@
 import { get, post, del, put } from "./api";
 
+type ColectionOfMovies = {
+    _id: string,
+    title: string,
+    genre: string,
+    image: string
+}[]
+
 const endpoint = "movies";
 
 export async function getAllMovies() {
     const movies = await get(`${endpoint}/page/0`)
-    return movies as { movies: [], maxPage: number };
+    return movies as { movies: {}[], maxPage: number };
 }
 
 export async function pagination(page: number) {
     const movies = await get(`${endpoint}/page/${page}`)
-    return movies as { movies: [], maxPage: number };
+    return movies as { movies: ColectionOfMovies, maxPage: number };
 }
 
 export async function getMovieById(movieId: string | undefined) {
@@ -24,7 +31,7 @@ export async function getTopMovies() {
 
 export async function searchMovies(query: string) {
     const movies = await get(`${endpoint}/search/${query}`);
-    return movies as {results:[],maxPage:number};
+    return movies as {results:ColectionOfMovies,maxPage:number};
 }
 
 export async function createMovie(data: {}) {
