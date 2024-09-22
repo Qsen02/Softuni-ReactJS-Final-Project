@@ -1,7 +1,7 @@
 # Gaming club
 This is web site for posting publications related to games.
 # Technologies
--Front-end: React, react-router-dom library and Formik with Yup.
+-Front-end: React with JavaScript, react-router-dom library and Formik with Yup.
 
 -Back-end: Express and MongoDB database, express-validator, json-web-token and bcrypt.
 # API Reference
