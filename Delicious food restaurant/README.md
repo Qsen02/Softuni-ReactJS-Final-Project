@@ -1,7 +1,7 @@
 # Delicious food restaurant
 Web site for ordering food for home or office.
 # Technologies
-Front-end: React, Formik and react-router-dom
+Front-end: React with JavaScript, Formik and react-router-dom
 
 Back-end: Express with mongoDB database
 # API Reference:
