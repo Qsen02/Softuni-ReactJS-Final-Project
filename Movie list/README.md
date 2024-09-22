@@ -3,7 +3,7 @@ This is app for publications related to movies.
 # Technologie stack
 Back-end: Express.js and MongoDB
 
-Front-end: React with typescript
+Front-end: React with TypeScript
 # API Reference:
 Base URL: http://localhost:3000
 
