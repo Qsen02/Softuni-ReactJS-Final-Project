@@ -5,6 +5,7 @@ const { session } = require("../middlewares/session");
 function expressConfig(app) {
     app.use(setCors());
     app.use(session());
+    app.use("/images", express.static("images"));
     app.use(express.json());
 }
 

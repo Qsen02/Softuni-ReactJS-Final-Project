@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { getAllMovies, checkMovieId, getMovieById, searchMovie, pagination, createMovie, editMovie, deleteMovie, likeMovie, unlikeMovie, saveMovie, unsaveMovie, getTopThree } = require("../services/movies");
 const { body, validationResult } = require("express-validator");
+const { upload } = require("../config/multer");
 
 const movieRouter = Router();
 
@@ -40,18 +41,19 @@ movieRouter.get("/page/:pageNumber", async(req, res) => {
 movieRouter.post("/",
     body("title").isLength({ min: 3 }),
     body("genre").isLength({ min: 2 }),
-    body("image").matches(/^https?:\/\//),
     body("year").isInt({ min: 1960, max: 2030 }),
     body("description").isLength({ min: 10, max: 1000 }),
+    upload.single("image"),
     async(req, res) => {
         const fields = req.body;
         const user = req.user;
+        const imageName = req.image.filename
         try {
             const results = validationResult(req);
             if (results.errors.length) {
                 throw new Error("Your data is not in valid format!");
             }
-            const newMovie = await createMovie(fields, user);
+            const newMovie = await createMovie(fields, user, imageName);
             res.json(newMovie);
         } catch (err) {
             return res.status(400).json({ message: err.message })
