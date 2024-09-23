@@ -12,6 +12,9 @@ import Status404 from "./components/status404/Status404"
 import MovieDetails from "./components/movie-details/MoviesDetails"
 import MovieCreate from "./components/movie-create/MovieCreate"
 import Profile from "./components/profile/Profile"
+import GuestComponent from "./commons/GuestGuard"
+import UserGuard from "./commons/UserGuard"
+import AdminGuard from "./commons/AdminGuard"
 
 function App() {
 
@@ -21,14 +24,20 @@ function App() {
                 <Header />
                 <main>
                     <Routes>
+                        <Route element={<GuestComponent />}>
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/register" element={<Register />} />
+                        </Route>
+                        <Route element={<UserGuard />}>
+                            <Route path="/profile/*" element={<Profile />} />
+                            <Route path="/logout" element={<Logout />} />
+                        </Route>
+                        <Route element={<AdminGuard />}>
+                            <Route path="/create" element={<MovieCreate />} />
+                        </Route>
                         <Route path="/" element={<Home />} />
                         <Route path="/catalog" element={<Catalog />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/logout" element={<Logout />} />
-                        <Route path="/register" element={<Register />} />
                         <Route path="/catalog/:movieId/*" element={<MovieDetails />} />
-                        <Route path="/create" element={<MovieCreate />} />
-                        <Route path="/profile/*" element={<Profile/>}/>
                         <Route path="*" element={<Status404 />} />
                     </Routes>
                 </main>

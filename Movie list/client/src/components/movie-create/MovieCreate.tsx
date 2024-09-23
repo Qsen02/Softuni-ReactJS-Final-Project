@@ -28,7 +28,7 @@ export default function MovieCreate() {
         const year = values.year;
         const description = values.description;
         try {
-            await createMovie({ title, genre, image, year, description })
+            await createMovie({title,genre,image,year,description})
             actions.resetForm();
             navigate("/catalog");
         } catch (err) {
@@ -62,7 +62,7 @@ export default function MovieCreate() {
                         }
                         <CustomInput label="Title" type="text" name="title" placeholder="Enter movie title..." />
                         <CustomInput label="Genre" type="text" name="genre" placeholder="Enter movie genre..." />
-                        <CustomInput label="Image" type="text" name="image" placeholder="Enter valid image URL..." />
+                        <CustomInput label="Image" type="text" name="image" placeholder="Enter valid URL..."/>
                         <CustomInput label="Year" type="number" name="year" placeholder="Enter valid movie year..." />
                         <CustomTextarea label="Description" type="text" name="description" placeholder="Enter good description..." />
                         <button type="submit">Submit</button>

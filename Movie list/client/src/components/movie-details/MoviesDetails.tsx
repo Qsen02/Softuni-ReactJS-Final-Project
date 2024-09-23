@@ -20,6 +20,9 @@ import MovieDetailsSaves from "./movie-details-saves/MovieDetailsSaves";
 import CommentDelete from "./comment-delete/CommentDelete";
 import CommentEdit from "./comment-edit/CommentEdit";
 import CommentLikes from "./comment-likes/CommentLikes";
+import AdminGuard from "../../commons/AdminGuard";
+import UserProfileGuard from "../../commons/UserProfileGuard";
+import UserGuard from "../../commons/UserGuard";
 
 export default function MovieDetails() {
     const { movieId } = useParams();
@@ -27,7 +30,7 @@ export default function MovieDetails() {
     const { movie, setMovie, loading, setLoading, fetchError } = useGetOneMovie({ likes: [], saves: [], comments: [] }, movieId);
     const [errMsg, setErrMsg] = useState("");
     const createComment = useCreateComment();
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
     async function onCreateComment(values: { content: string }, actions: FormikHelpers<{ content: string }>) {
         const content = values.content;
@@ -37,12 +40,12 @@ export default function MovieDetails() {
             }
             setErrMsg("");
             setLoading(true);
-            const movie = await createComment(movieId, { username:user?.username,content });
+            const movie = await createComment(movieId, { username: user?.username, content });
             setMovie(movie);
             actions.resetForm();
             setLoading(false);
         } catch (err) {
-            if((err as { message: string }).message=="Resource not found!"){
+            if ((err as { message: string }).message == "Resource not found!") {
                 navigate("/404");
                 return;
             }
@@ -54,13 +57,17 @@ export default function MovieDetails() {
     return (
         <>
             <Routes>
-                <Route path="delete" element={<MovieDelete curMovie={movie} />} />
-                <Route path="edit" element={<MovieEdit setMovie={setMovie} curMovie={movie} />} />
-                <Route path="likes" element={<MovieDetailsLikes curMovie={movie} />} />
-                <Route path="saves" element={<MovieDetailsSaves curMovie={movie} />} />
-                <Route path="comment/:commentId/delete" element={<CommentDelete setMovie={setMovie}/>}/>
-                <Route path="comment/:commentId/edit" element={<CommentEdit setMovie={setMovie}/>}/>
-                <Route path="comment/:commentId/likes" element={<CommentLikes/>}/>
+                <Route element={<AdminGuard />}>
+                    <Route path="delete" element={<MovieDelete curMovie={movie} />} />
+                    <Route path="edit" element={<MovieEdit setMovie={setMovie} curMovie={movie} />} />
+                </Route>
+                <Route element={<UserGuard />}>
+                    <Route path="likes" element={<MovieDetailsLikes curMovie={movie} />} />
+                    <Route path="saves" element={<MovieDetailsSaves curMovie={movie} />} />
+                    <Route path="comment/:commentId/delete" element={<CommentDelete setMovie={setMovie} />} />
+                    <Route path="comment/:commentId/edit" element={<CommentEdit setMovie={setMovie} />} />
+                    <Route path="comment/:commentId/likes" element={<CommentLikes />} />
+                </Route>
             </Routes>
             {loading && !fetchError
                 ? <div className={styles.loadingSpinner}></div>

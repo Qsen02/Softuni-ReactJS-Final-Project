@@ -5,6 +5,7 @@ import { useGetOneUser } from "../../hooks/useAuth"
 import { onProfileImageError } from "../../utils/imageError";
 
 import styles from "./Profile.module.css"
+
 import LikedMovies from "./liked-movies/LikedMovies";
 import SavedMovies from "./saved-movies/SavedMovies";
 import CreatedMovies from "./created-movies/CreatedMovies";
@@ -12,6 +13,8 @@ import ProfileEdit from "./profile-edit/ProfileEdit";
 import ProfileChangePassword from "./profile-change-password/ProfileChangePassword";
 import SuccessfullyChangedPassword from "./successfully-changed-password/SuccessfullyChangedPassword";
 import FullImage from "./full-image/FullImage";
+import AdminGuard from "../../commons/AdminGuard";
+import UserProfileGuard from "../../commons/UserProfileGuard";
 
 export default function Profile() {
     const { user } = useUserContext();
@@ -20,9 +23,13 @@ export default function Profile() {
     return (
         <>
             <Routes>
-                <Route path="likedMovies" element={<LikedMovies likedMovies={(curUser as { likedMovies: [] }).likedMovies} />} />
-                <Route path="savedMovies" element={<SavedMovies savedMovies={(curUser as { savedMovies: [] }).savedMovies} />} />
-                <Route path="createdMovies" element={<CreatedMovies createdMovies={(curUser as { createdMovies: [] }).createdMovies} />} />
+                <Route element={<UserProfileGuard />}>
+                    <Route path="likedMovies" element={<LikedMovies likedMovies={(curUser as { likedMovies: [] }).likedMovies} />} />
+                    <Route path="savedMovies" element={<SavedMovies savedMovies={(curUser as { savedMovies: [] }).savedMovies} />} />
+                </Route>
+                <Route element={<AdminGuard />}>
+                    <Route path="createdMovies" element={<CreatedMovies createdMovies={(curUser as { createdMovies: [] }).createdMovies} />} />
+                </Route>
                 <Route path=":userId/edit" element={<ProfileEdit user={curUser} setUser={setCurUser} />} />
                 <Route path=":userId/changePassword" element={<ProfileChangePassword setCurUser={setCurUser} />} />
                 <Route path="successfullyChanged" element={<SuccessfullyChangedPassword />} />
