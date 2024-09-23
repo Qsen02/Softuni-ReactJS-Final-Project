@@ -26,10 +26,9 @@ function getTopThree() {
     return movies;
 }
 
-async function createMovie(data, user, imageName) {
+async function createMovie(data, user) {
     const newMovie = new Movies(data);
     newMovie.ownerId = user._id;
-    newMovie.image = `http://localhost:3000/images/${imageName}`;
     await newMovie.save();
     await Users.findByIdAndUpdate(user._id.toString(), { $push: { createdMovies: newMovie._id } });
     return newMovie;
