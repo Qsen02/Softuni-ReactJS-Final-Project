@@ -15,6 +15,7 @@ import Profile from "./components/profile/Profile"
 import GuestComponent from "./commons/GuestGuard"
 import UserGuard from "./commons/UserGuard"
 import AdminGuard from "./commons/AdminGuard"
+import ErrorBoundry from "./components/ErrorBoundary"
 
 function App() {
 
@@ -23,23 +24,25 @@ function App() {
             <UserContextProvider>
                 <Header />
                 <main>
-                    <Routes>
-                        <Route element={<GuestComponent />}>
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/register" element={<Register />} />
-                        </Route>
-                        <Route element={<UserGuard />}>
-                            <Route path="/profile/*" element={<Profile />} />
-                            <Route path="/logout" element={<Logout />} />
-                        </Route>
-                        <Route element={<AdminGuard />}>
-                            <Route path="/create" element={<MovieCreate />} />
-                        </Route>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/catalog" element={<Catalog />} />
-                        <Route path="/catalog/:movieId/*" element={<MovieDetails />} />
-                        <Route path="*" element={<Status404 />} />
-                    </Routes>
+                    <ErrorBoundry>
+                        <Routes>
+                            <Route element={<GuestComponent />}>
+                                <Route path="/login" element={<Login />} />
+                                <Route path="/register" element={<Register />} />
+                            </Route>
+                            <Route element={<UserGuard />}>
+                                <Route path="/profile/*" element={<Profile />} />
+                                <Route path="/logout" element={<Logout />} />
+                            </Route>
+                            <Route element={<AdminGuard />}>
+                                <Route path="/create" element={<MovieCreate />} />
+                            </Route>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/catalog" element={<Catalog />} />
+                            <Route path="/catalog/:movieId/*" element={<MovieDetails />} />
+                            <Route path="*" element={<Status404 />} />
+                        </Routes>
+                    </ErrorBoundry>
                 </main>
                 <Footer />
             </UserContextProvider>

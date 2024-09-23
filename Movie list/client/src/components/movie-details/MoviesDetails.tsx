@@ -21,7 +21,6 @@ import CommentDelete from "./comment-delete/CommentDelete";
 import CommentEdit from "./comment-edit/CommentEdit";
 import CommentLikes from "./comment-likes/CommentLikes";
 import AdminGuard from "../../commons/AdminGuard";
-import UserProfileGuard from "../../commons/UserProfileGuard";
 import UserGuard from "../../commons/UserGuard";
 
 export default function MovieDetails() {
