@@ -6,7 +6,8 @@ type User = {
     username: string,
     email: string,
     isAdmin: boolean,
-    accessToken:string
+    accessToken:string,
+    profileImage:string
 } | null
 
 export function usePresistedState(initialvalues: User) {

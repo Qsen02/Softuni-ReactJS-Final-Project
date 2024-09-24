@@ -2,9 +2,26 @@ import { del, get, post, put } from "./api";
 
 const endpoint = "comments";
 
+type AnswerType = {
+    _id:string,
+    username: string,
+    content: string,
+    ownerId: string,
+    likes: {}[]
+}
+
+type CommentType = {
+    username: string,
+    content: string,
+    ownerId: string,
+    movieId: string,
+    likes: {}[],
+    answers: AnswerType[]
+}
+
 export async function getCommentById(commentId:string|undefined) {
     const comment=await get(`${endpoint}/${commentId}`)
-    return comment as {content:string,username:string,likes:[]};
+    return comment as CommentType;
 }
 
 export async function createComment(movieId:string|undefined, data:{}) {

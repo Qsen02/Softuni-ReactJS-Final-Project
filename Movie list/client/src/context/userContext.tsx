@@ -8,10 +8,11 @@ type User = {
     username: string,
     email: string,
     isAdmin: boolean,
-    accessToken:string
+    accessToken: string,
+    profileImage: string
 } | null
 
-type UserContextType ={
+type UserContextType = {
     user: User | null;
     setUserState: (user: User) => void;
     clearUserState: () => Promise<void>;
@@ -19,34 +20,34 @@ type UserContextType ={
 
 const UserContext = createContext<UserContextType | null>(null);
 
-export default function UserContextProvider(props:{children:React.ReactNode}) {
+export default function UserContextProvider(props: { children: React.ReactNode }) {
 
-    const {user, setCurUser} = usePresistedState(null);
+    const { user, setCurUser } = usePresistedState(null);
 
     function setUserState(user: User) {
         setCurUser(user);
         setUserData(user);
     }
 
-    async function clearUserState(){
+    async function clearUserState() {
         await logout();
         clearUserData();
         setCurUser(null);
     }
 
     return (
-        <UserContext.Provider value={{user,setUserState,clearUserState}}>
+        <UserContext.Provider value={{user, setUserState, clearUserState }}>
             {props.children}
         </UserContext.Provider>
     )
 }
 
-export function useUserContext(){
-    const context=useContext(UserContext);
+export function useUserContext() {
+    const context = useContext(UserContext);
 
     return {
-        user:context?.user,
-        setUserState:context?.setUserState,
-        clearUserState:context?.clearUserState
+        user: context?.user,
+        setUserState: context?.setUserState,
+        clearUserState: context?.clearUserState
     }
 }
