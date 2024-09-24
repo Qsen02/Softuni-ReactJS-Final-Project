@@ -1,6 +1,11 @@
 const { Answers } = require("../models/answer");
 const { Comments } = require("../models/comments");
 
+function getAnswerById(answerId) {
+    const answer = Answers.findById(answerId);
+    return answer;
+}
+
 async function createAnswer(data, user, commentId) {
     const newAnswer = new Answers(data);
     newAnswer.ownerId = user._id;
@@ -21,6 +26,10 @@ async function likeAnswer(user, answerId) {
     await Answers.findByIdAndUpdate(answerId, { $push: { likes: user._id } });
 }
 
+async function unlikeAnswer(user, answerId) {
+    await Answers.findByIdAndUpdate(answerId, { $pull: { likes: user._id } });
+}
+
 async function checkAnswerId(answerId) {
     const answers = await Answers.find().lean();
     const isValid = answers.find(el => el._id.toString() == answerId);
@@ -31,9 +40,11 @@ async function checkAnswerId(answerId) {
 }
 
 module.exports = {
+    getAnswerById,
     createAnswer,
     deleteAnswer,
     editAnswer,
     checkAnswerId,
-    likeAnswer
+    likeAnswer,
+    unlikeAnswer
 }
