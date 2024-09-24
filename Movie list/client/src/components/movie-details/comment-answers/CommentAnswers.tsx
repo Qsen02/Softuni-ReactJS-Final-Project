@@ -1,17 +1,33 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+
 import { useGetOneComment } from "../../../hooks/useComments";
 import { useUserContext } from "../../../context/userContext";
 import AnswerDetails from "./answer-details/AnswerDetails";
 
+import styles from "../comment-answers/CommentAnswers.module.css"
+
 export default function CommentAnswers() {
-    const {user}=useUserContext();
-    const { commentId } = useParams();
+    const { user } = useUserContext();
+    const { movieId, commentId } = useParams();
     const { comment } = useGetOneComment({ username: "", content: "", ownerId: "", movieId: "", likes: [], answers: [] }, commentId);
+    const navigate = useNavigate();
+
+    function onBack() {
+        try {
+            navigate(`/catalog/${movieId}`);
+        } catch (err) {
+            if ((err as { message: string }).message == "Resource not found!") {
+                navigate("/404");
+                return;
+            }
+            return;
+        }
+    }
 
     return (
-        <div>
+        <div className={styles.modal}>
             <section>
-                <button>X</button>
+                <button onClick={onBack}>X</button>
                 <h2>Answers to {comment.username}</h2>
                 <form>
                     <input type="text" name="content" placeholder="Enter answer..." />
