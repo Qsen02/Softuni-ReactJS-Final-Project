@@ -44,9 +44,10 @@ export default function MovieDetailsCommentSection({
                     commentOwnerId={(el as { ownerId: string }).ownerId}
                     movieOwnerId={ownerId}
                     user={user}
-                    likes={(el as { likes: [] }).likes}
+                    likes={(el as { likes: {}[] }).likes}
                     movieId={movieId}
                     setMovie={setMovie}
+                    answers={(el as {answers:{}[]}).answers}
                 />)
                 : <h2>No comments yet</h2>
             }

@@ -191,6 +191,33 @@
     background-color: rgb(44, 44, 44);
 }
 
+.commentWrapper section div {
+    position: relative;
+    display: block;
+    width: 750px;
+    font-size: 14pt;
+}
+
+.commentWrapper section div i {
+    font-size: 18pt;
+    cursor: pointer;
+}
+
+.commentWrapper section div a {
+    color: white;
+    text-decoration: none;
+}
+
+.commentWrapper section div i:hover {
+    color: yellow;
+}
+
+.commentWrapper section div p {
+    position: absolute;
+    top: -15px;
+    left: 40px;
+}
+
 .commentWrapper section article {
     position: relative;
     display: block;
@@ -227,6 +254,10 @@
     margin-left: 15px;
     font-size: 18pt;
     cursor: pointer;
+}
+
+.commentWrapper section article i:hover {
+    color: yellow;
 }
 
 .commentWrapper .owner {
@@ -372,5 +403,8 @@
     }
     .errorMessage {
         font-size: 10pt;
+    }
+    .commentWrapper section div i {
+        font-size: 14pt;
     }
 }

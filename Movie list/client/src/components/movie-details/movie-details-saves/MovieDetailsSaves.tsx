@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import styles from "../movie-details-likes/MovieDetailsLikes.module.css"
+
 import SavesDetails from "./saves-details/SavesDetails";
 
 type MovieDetailsSavesProps = {
