@@ -93,6 +93,7 @@
     font-size: 16pt;
     color: white;
     padding: 10px;
+    padding-top: 0;
     text-align: left;
     word-wrap: break-word;
 }
@@ -103,9 +104,70 @@
     height: 50px;
     border-radius: 50%;
     margin-right: 20px;
+    margin-bottom: -15px;
 }
 
 .modal section section article h3 {
-    margin-top: -30px;
     display: inline-block;
+}
+
+.errorMessage {
+    color: red;
+    font-size: 12pt;
+    text-align: center;
+}
+
+.modal .yourAnswer {
+    background-color: rgb(75, 73, 73);
+}
+
+.modal section section article div .content {
+    position: static;
+    display: block;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.modal section section article a {
+    color: white;
+}
+
+.modal section section article i {
+    display: inline-block;
+    margin-left: 15px;
+    font-size: 18pt;
+    cursor: pointer;
+}
+
+.modal section article #delete:hover,
+.modal section article #edit:hover {
+    color: yellow;
+}
+
+.modal section section article #ownerAnswerLikes {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+    cursor: default;
+}
+
+.modal section section article #guestAnswerLikes {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+    cursor: default;
+}
+
+.modal #answerLikes {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+}
+
+.modal section section article>p,
+.modal section section article a>p {
+    position: absolute;
+    right: 35px;
+    top: 23px;
+    font-size: 14pt;
 }

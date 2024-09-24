@@ -2,10 +2,12 @@ import { useNavigate, useParams } from "react-router-dom"
 
 import { useGetOneComment } from "../../../hooks/useComments";
 import AnswerDetails from "./answer-details/AnswerDetails";
+import { useUserContext } from "../../../context/userContext";
 
 import styles from "../comment-answers/CommentAnswers.module.css"
 
 export default function CommentAnswers() {
+    const { user } = useUserContext();
     const { movieId, commentId } = useParams();
     const { comment } = useGetOneComment({ username: "", content: "", ownerId: "", movieId: "", likes: [], answers: [] }, commentId);
     const navigate = useNavigate();
@@ -27,10 +29,13 @@ export default function CommentAnswers() {
             <section>
                 <button onClick={onBack}>X</button>
                 <h2>Answers to {comment.username}</h2>
-                <form>
-                    <input type="text" name="content" placeholder="Enter answer..." />
-                    <button type="submit">Submit</button>
-                </form>
+                {user
+                    ? <form>
+                        <input type="text" name="content" placeholder="Enter answer..." />
+                        <button type="submit">Submit</button>
+                    </form>
+                    : ""
+                }
                 <section>
                     {comment.answers.length == 0
                         ? <h3>No answers yet</h3>
@@ -39,7 +44,8 @@ export default function CommentAnswers() {
                             id={el._id}
                             username={el.username}
                             content={el.content}
-                            owner={el.ownerId}
+                            movieId={movieId}
+                            commentId={commentId}
                         />)
                     }
                 </section>

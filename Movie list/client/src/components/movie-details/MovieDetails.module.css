@@ -256,7 +256,8 @@
     cursor: pointer;
 }
 
-.commentWrapper section article i:hover {
+.commentWrapper section article #delete:hover,
+.commentWrapper section article #edit:hover {
     color: yellow;
 }
 

@@ -65,8 +65,8 @@ export default function MovieDetailsComments({
                 <h3 className={commentOwnerId == movieOwnerId ? styles.owner : ""}>{(curUser as { username: string }).username}</h3>
                 {commentOwnerId == user?._id
                     ? <>
-                        <Link to={`/catalog/${movieId}/comment/${id}/delete`}><i className="fa-solid fa-trash"></i></Link>
-                        <Link to={`/catalog/${movieId}/comment/${id}/edit`}><i className="fa-solid fa-pen-to-square"></i></Link>
+                        <Link to={`/catalog/${movieId}/comment/${id}/delete`} id={styles.delete}><i className="fa-solid fa-trash"></i></Link>
+                        <Link to={`/catalog/${movieId}/comment/${id}/edit`} id={styles.edit}><i className="fa-solid fa-pen-to-square"></i></Link>
                     </>
                     : ""
                 }
