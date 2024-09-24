@@ -2,7 +2,7 @@ const { Answers } = require("../models/answer");
 const { Comments } = require("../models/comments");
 
 function getAnswerById(answerId) {
-    const answer = Answers.findById(answerId);
+    const answer = Answers.findById(answerId).populate("ownerId");
     return answer;
 }
 

@@ -1,13 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom"
 
 import { useGetOneComment } from "../../../hooks/useComments";
-import { useUserContext } from "../../../context/userContext";
 import AnswerDetails from "./answer-details/AnswerDetails";
 
 import styles from "../comment-answers/CommentAnswers.module.css"
 
 export default function CommentAnswers() {
-    const { user } = useUserContext();
     const { movieId, commentId } = useParams();
     const { comment } = useGetOneComment({ username: "", content: "", ownerId: "", movieId: "", likes: [], answers: [] }, commentId);
     const navigate = useNavigate();
@@ -41,7 +39,7 @@ export default function CommentAnswers() {
                             id={el._id}
                             username={el.username}
                             content={el.content}
-                            profileImage={user?.profileImage}
+                            owner={el.ownerId}
                         />)
                     }
                 </section>

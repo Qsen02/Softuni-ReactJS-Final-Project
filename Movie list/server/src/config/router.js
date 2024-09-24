@@ -1,4 +1,4 @@
-const { answerRouter } = require("../controllers/asnwers");
+const { answerRouter } = require("../controllers/answers");
 const { commentRouter } = require("../controllers/comments");
 const { movieRouter } = require("../controllers/movies");
 const { userRouter } = require("../controllers/user");

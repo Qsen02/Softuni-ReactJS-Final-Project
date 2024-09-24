@@ -2,11 +2,20 @@ import { del, get, post, put } from "./api";
 
 const endpoint = "comments";
 
+type User = {
+    _id: string,
+    username: string,
+    email: string,
+    isAdmin: boolean,
+    accessToken: string,
+    profileImage: string
+}
+
 type AnswerType = {
     _id:string,
     username: string,
     content: string,
-    ownerId: string,
+    ownerId: User,
     likes: {}[]
 }
 
