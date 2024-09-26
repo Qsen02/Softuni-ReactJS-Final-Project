@@ -23,6 +23,7 @@ import CommentLikes from "./comment-likes/CommentLikes";
 import AdminGuard from "../../commons/AdminGuard";
 import UserGuard from "../../commons/UserGuard";
 import CommentAnswers from "./comment-answers/CommentAnswers";
+import AnswerDelete from "./answer-delete/AnswerDelete";
 
 export default function MovieDetails() {
     const { movieId } = useParams();
@@ -67,6 +68,7 @@ export default function MovieDetails() {
                     <Route path="comment/:commentId/delete" element={<CommentDelete setMovie={setMovie} />} />
                     <Route path="comment/:commentId/edit" element={<CommentEdit setMovie={setMovie} />} />
                     <Route path="comment/:commentId/likes" element={<CommentLikes />} />
+                    <Route path="comment/:commentId/answer/:answerId/delete" element={<AnswerDelete/>}/>
                 </Route>
                 <Route path="comment/:commentId/answers" element={<CommentAnswers/>}/>
             </Routes>

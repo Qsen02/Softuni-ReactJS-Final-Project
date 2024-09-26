@@ -39,8 +39,7 @@ answerRouter.delete("/:answerId/in/:commentId", async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await deleteAnswer(answerId, commentId);
-    const comment = await getCommentById(commentId).lean();
-    res.json(comment);
+    res.json({ message: "Record deleted successfully!" });
 })
 
 answerRouter.put("/:answerId/in/:commentId", async(req, res) => {

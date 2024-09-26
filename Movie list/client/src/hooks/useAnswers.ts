@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { createAnswer, getAnswerById } from "../api/answerService"
+import { createAnswer, deleteAnswer, getAnswerById } from "../api/answerService"
 
 type User = {
     _id: string,
@@ -44,9 +44,17 @@ export function useGetOneAnswer(initialvalues: AnswerType, answerId: string) {
 }
 
 export function useCreateAnswer() {
-    async function creatingAnswer(data: {}, commentId: string|undefined) {
+    async function creatingAnswer(data: {}, commentId: string | undefined) {
         return await createAnswer(data, commentId)
     }
 
     return creatingAnswer;
+}
+
+export function useDeleteAnswer() {
+    async function deletingAnswer(answerId: string | undefined, commentId: string | undefined) {
+        return await deleteAnswer(answerId, commentId)
+    }
+
+    return deletingAnswer;
 }
