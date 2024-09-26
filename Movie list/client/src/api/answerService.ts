@@ -28,7 +28,7 @@ type CommentType = {
     answers: AnswerType[]
 }
 
-export async function getAnswerById(answerId: string) {
+export async function getAnswerById(answerId: string | undefined) {
     const answer = await get(`${endpoint}/${answerId}`);
     return answer as AnswerType;
 }
@@ -42,17 +42,17 @@ export async function deleteAnswer(answerId: string | undefined, commentId: stri
     await del(`${endpoint}/${answerId}/in/${commentId}`);
 }
 
-export async function editAnswer(answerId: string, commentId: string, data: {}) {
+export async function editAnswer(answerId: string | undefined, commentId: string | undefined, data: {}) {
     const comment = await put(`${endpoint}/${answerId}/in/${commentId}`, data);
     return comment as CommentType;
 }
 
-export async function likeAnswer(answerId: string, commentId: string) {
+export async function likeAnswer(answerId: string | undefined, commentId: string | undefined) {
     const comment = await post(`${endpoint}/${answerId}/in/${commentId}/like`, {});
     return comment as CommentType;
 }
 
-export async function unlikeAnswer(answerId: string, commentId: string) {
+export async function unlikeAnswer(answerId: string | undefined, commentId: string | undefined) {
     const comment = await post(`${endpoint}/${answerId}/in/${commentId}/unlike`, {});
     return comment as CommentType;
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { createAnswer, deleteAnswer, getAnswerById } from "../api/answerService"
+import { createAnswer, deleteAnswer, editAnswer, getAnswerById } from "../api/answerService"
 
 type User = {
     _id: string,
@@ -19,7 +19,7 @@ type AnswerType = {
     likes: {}[]
 }
 
-export function useGetOneAnswer(initialvalues: AnswerType, answerId: string) {
+export function useGetOneAnswer(initialvalues: AnswerType, answerId: string|undefined) {
     const [answer, setAnswer] = useState<AnswerType>(initialvalues);
     const navigate = useNavigate();
 
@@ -57,4 +57,12 @@ export function useDeleteAnswer() {
     }
 
     return deletingAnswer;
+}
+
+export function useEditAnswer() {
+    async function editingAnswer(answerId: string | undefined, commentId: string | undefined,data:{}) {
+        return await editAnswer(answerId, commentId,data)
+    }
+
+    return editingAnswer;
 }

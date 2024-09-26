@@ -41,7 +41,7 @@ export default function AnswerDetails({
             {answer.ownerId._id == user?._id
                 ? <>
                     <Link to={`/catalog/${movieId}/comment/${commentId}/answer/${id}/delete`} id={styles.delete}><i className="fa-solid fa-trash"></i></Link>
-                    <Link to={`/catalog/${movieId}/comment/${commentId}/asnwer/${id}/edit`} id={styles.edit}><i className="fa-solid fa-pen-to-square"></i></Link>
+                    <Link to={`/catalog/${movieId}/comment/${commentId}/answer/${id}/edit`} id={styles.edit}><i className="fa-solid fa-pen-to-square"></i></Link>
                 </>
                 : ""
             }
