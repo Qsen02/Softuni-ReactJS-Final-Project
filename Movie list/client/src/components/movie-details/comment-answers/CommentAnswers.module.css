@@ -80,12 +80,15 @@
 }
 
 .modal section section {
+    display: block;
+    margin: 0 auto;
     width: 750px;
     margin-top: 20px;
 }
 
 .modal section section article {
     position: relative;
+    display: block;
     margin: 0 auto;
     width: 750px;
     border-radius: 15px;
@@ -171,4 +174,62 @@
     right: 35px;
     top: 23px;
     font-size: 14pt;
+}
+
+@media(max-width:750px) {
+    .modal section {
+        width: 300px;
+        font-size: 12pt;
+    }
+    .modal section>button {
+        font-size: 14pt;
+        top: 5px;
+        right: 7px;
+    }
+    .modal section form {
+        margin: 0 auto;
+        width: 250px;
+    }
+    .modal section form input {
+        display: block;
+        margin: 0 auto;
+        width: 200px;
+        height: 20px;
+        font-size: 12pt;
+    }
+    .modal section form input::placeholder {
+        font-size: 12pt;
+    }
+    .modal section form button {
+        display: block;
+        margin: 0 auto;
+        margin-top: 10px;
+        width: 70px;
+        height: 30px;
+        font-size: 14pt;
+    }
+    .modal section section {
+        width: 250px;
+    }
+    .modal section section article {
+        font-size: 12pt;
+        width: 250px;
+    }
+    .modal section section article img {
+        width: 30px;
+        height: 30px;
+        margin-bottom: -5px;
+        margin-right: 10px;
+    }
+    .errorMessage {
+        font-size: 10pt;
+    }
+    .modal section section article i {
+        font-size: 14pt;
+        margin-left: 10px;
+    }
+    .modal section section article>p,
+    .modal section section article a>p {
+        font-size: 12pt;
+    }
 }

@@ -25,6 +25,7 @@ export default function CommentAnswers() {
             if (!content) {
                 throw new Error("Please, fill the field!");
             }
+            setErrMessage("");
             const comment = await createAnswer({content,username:user?.username},commentId);
             setComment(comment);
             actions.resetForm();
