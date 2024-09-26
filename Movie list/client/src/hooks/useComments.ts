@@ -62,7 +62,7 @@ export function useGetOneComment(initialvalues: CommentType, commentId: string |
     }, [commentId])
 
     return {
-        comment
+        comment,setComment
     }
 }
 

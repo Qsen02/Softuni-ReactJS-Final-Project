@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { getAnswerById } from "../api/answerService"
+import { createAnswer, getAnswerById } from "../api/answerService"
 
 type User = {
     _id: string,
@@ -38,7 +38,15 @@ export function useGetOneAnswer(initialvalues: AnswerType, answerId: string) {
         })()
     }, [answerId])
 
-    return{
+    return {
         answer
     }
+}
+
+export function useCreateAnswer() {
+    async function creatingAnswer(data: {}, commentId: string|undefined) {
+        return await createAnswer(data, commentId)
+    }
+
+    return creatingAnswer;
 }

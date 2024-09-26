@@ -33,7 +33,7 @@ export async function getAnswerById(answerId: string) {
     return answer as AnswerType;
 }
 
-export async function createAnswer(data: {}, commentId: string) {
+export async function createAnswer(data: {}, commentId: string|undefined) {
     const comment=await post(`${endpoint}/in/comment/${commentId}`,data);
     return comment as CommentType;
 }

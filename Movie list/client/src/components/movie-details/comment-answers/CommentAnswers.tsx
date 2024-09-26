@@ -1,16 +1,38 @@
 import { useNavigate, useParams } from "react-router-dom"
+import { Form, Formik, FormikHelpers } from "formik";
+import { useState } from "react";
 
 import { useGetOneComment } from "../../../hooks/useComments";
-import AnswerDetails from "./answer-details/AnswerDetails";
 import { useUserContext } from "../../../context/userContext";
+import { useCreateAnswer } from "../../../hooks/useAnswers";
+
+import CustomInput from "../../../commons/CustomInput";
+import AnswerDetails from "./answer-details/AnswerDetails";
 
 import styles from "../comment-answers/CommentAnswers.module.css"
 
 export default function CommentAnswers() {
     const { user } = useUserContext();
     const { movieId, commentId } = useParams();
-    const { comment } = useGetOneComment({ username: "", content: "", ownerId: "", movieId: "", likes: [], answers: [] }, commentId);
+    const { comment, setComment } = useGetOneComment({ username: "", content: "", ownerId: "", movieId: "", likes: [], answers: [] }, commentId);
     const navigate = useNavigate();
+    const createAnswer = useCreateAnswer();
+    const [errMessage, setErrMessage] = useState("");
+
+    async function onAnswer(values: { content: string }, actions: FormikHelpers<{ content: string }>) {
+        const content = values.content;
+        try {
+            if (!content) {
+                throw new Error("Please, fill the field!");
+            }
+            const comment = await createAnswer({content,username:user?.username},commentId);
+            setComment(comment);
+            actions.resetForm();
+        } catch (err) {
+            setErrMessage((err as { message: string }).message);
+            return;
+        }
+    }
 
     function onBack() {
         try {
@@ -30,10 +52,18 @@ export default function CommentAnswers() {
                 <button onClick={onBack}>X</button>
                 <h2>Answers to {comment.username}</h2>
                 {user
-                    ? <form>
-                        <input type="text" name="content" placeholder="Enter answer..." />
-                        <button type="submit">Submit</button>
-                    </form>
+                    ? <Formik initialValues={{ content: "" }} onSubmit={onAnswer}>
+                        {
+                            (props) => (
+                                <Form>
+                                    {errMessage ? <p className={styles.errorMessage}>{errMessage}</p> : ""}
+                                    <CustomInput type="text" name="content" placeholder="Enter answer..." />
+                                    <button type="submit">Submit</button>
+                                </Form>
+                            )
+
+                        }
+                    </Formik>
                     : ""
                 }
                 <section>
@@ -50,6 +80,6 @@ export default function CommentAnswers() {
                     }
                 </section>
             </section>
-        </div>
+        </div >
     )
 }
