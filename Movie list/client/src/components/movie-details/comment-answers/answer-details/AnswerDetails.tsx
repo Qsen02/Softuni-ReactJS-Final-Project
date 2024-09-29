@@ -36,6 +36,7 @@ export default function AnswerDetails({
     const likeAnswer = useLikeAnswer();
     const unlikeAnswer = useUnlikeAnswer();
     const navigate=useNavigate();
+    const answerLikes=answer.likes.map(el=>(el as {_id:string})._id);
 
     async function onLike() {
         try {
@@ -86,14 +87,14 @@ export default function AnswerDetails({
                         <i id={styles.guestAnswerLikes} className="fa-solid fa-thumbs-up"></i>
                         <p>{answer.likes.length}</p>
                     </>
-                    : answer.likes.includes(user?._id)
+                    : answerLikes.includes(user?._id)
                         ? <>
                             <i onClick={onUnlike} id={styles.answerLikes} className="fa-solid fa-thumbs-up"></i>
-                            <Link to={`/catalog/${movieId}/comment/${id}/likes`}><p>{answer.likes.length}</p></Link>
+                            <Link to={`/catalog/${movieId}/comment/${commentId}/answer/${id}/likes`}><p>{answer.likes.length}</p></Link>
                         </>
                         : <>
                             <i onClick={onLike} id={styles.answerLikes} className="fa-regular fa-thumbs-up"></i>
-                            <Link to={`/catalog/${movieId}/comment/${id}/likes`}><p>{answer.likes.length}</p></Link>
+                            <Link to={`/catalog/${movieId}/comment/${commentId}/answer/${id}/likes`}><p>{answer.likes.length}</p></Link>
                         </>
             }
             <div className={styles.content}>
