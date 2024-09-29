@@ -201,7 +201,7 @@ export function usePagination(
             const movies: { _id: string, title: string, genre: string, image: string }[][] = [];
             for (let i = 0; i < maxPage; i++) {
                 const curMovies: ColectionOfMovies = [];
-                for (let j = 0; j < 3; j++) {
+                for (let j = 0; j < 6; j++) {
                     const movie= curResults.shift();
                     if (movie == undefined) {
                         break;

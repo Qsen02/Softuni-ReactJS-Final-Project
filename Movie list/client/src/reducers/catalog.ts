@@ -14,7 +14,7 @@ export function moviesReducer(state:[], action:ActionType):ActionType["payload"]
             return action.payload.slice();
         case "search":
             const games = [];
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 6; i++) {
                 if (action.payload[i] == undefined) {
                     break;
                 }
