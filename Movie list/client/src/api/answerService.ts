@@ -47,12 +47,12 @@ export async function editAnswer(answerId: string | undefined, commentId: string
     return comment as CommentType;
 }
 
-export async function likeAnswer(answerId: string | undefined, commentId: string | undefined) {
-    const comment = await post(`${endpoint}/${answerId}/in/${commentId}/like`, {});
-    return comment as CommentType;
+export async function likeAnswer(answerId: string , commentId: string | undefined) {
+    const answer = await post(`${endpoint}/${answerId}/in/${commentId}/like`, {});
+    return answer as AnswerType;
 }
 
-export async function unlikeAnswer(answerId: string | undefined, commentId: string | undefined) {
-    const comment = await post(`${endpoint}/${answerId}/in/${commentId}/unlike`, {});
-    return comment as CommentType;
+export async function unlikeAnswer(answerId: string, commentId: string | undefined) {
+    const answer = await post(`${endpoint}/${answerId}/in/${commentId}/unlike`, {});
+    return answer as AnswerType;
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { createAnswer, deleteAnswer, editAnswer, getAnswerById } from "../api/answerService"
+import { createAnswer, deleteAnswer, editAnswer, getAnswerById, likeAnswer, unlikeAnswer } from "../api/answerService"
 
 type User = {
     _id: string,
@@ -39,7 +39,7 @@ export function useGetOneAnswer(initialvalues: AnswerType, answerId: string|unde
     }, [answerId])
 
     return {
-        answer
+        answer,setAnswer
     }
 }
 
@@ -65,4 +65,18 @@ export function useEditAnswer() {
     }
 
     return editingAnswer;
+}
+
+export function useLikeAnswer(){
+    async function likingAnswer(answerId:string,commentId:string |undefined){
+        return await likeAnswer(answerId,commentId);
+    }
+    return likingAnswer;
+}
+
+export function useUnlikeAnswer(){
+    async function unlikingAnswer(answerId:string,commentId:string |undefined){
+        return await unlikeAnswer(answerId,commentId);
+    }
+    return unlikingAnswer;
 }

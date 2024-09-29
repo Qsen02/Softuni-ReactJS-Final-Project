@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useUserContext } from "../../../../context/userContext";
-import { useGetOneAnswer } from "../../../../hooks/useAnswers"
+import { useGetOneAnswer, useLikeAnswer, useUnlikeAnswer } from "../../../../hooks/useAnswers"
 import { onProfileImageError } from "../../../../utils/imageError"
 
 import styles from "../CommentAnswers.module.css";
@@ -31,8 +31,39 @@ export default function AnswerDetails({
         },
         likes: []
     }
-    const { answer } = useGetOneAnswer(initialvalues, id);
+    const { answer,setAnswer } = useGetOneAnswer(initialvalues, id);
     const { user } = useUserContext();
+    const likeAnswer = useLikeAnswer();
+    const unlikeAnswer = useUnlikeAnswer();
+    const navigate=useNavigate();
+
+    async function onLike() {
+        try {
+            const answer = await likeAnswer(id, commentId);
+            setAnswer(answer);
+            navigate(`/catalog/${movieId}/comment/${commentId}/answers`);
+        } catch (err) {
+            if ((err as { message: string }).message == "Resource not found!") {
+                navigate("/404");
+                return;
+            }
+            return;
+        }
+    }
+
+    async function onUnlike() {
+        try {
+            const answer = await unlikeAnswer(id, commentId);
+            setAnswer(answer);
+            navigate(`/catalog/${movieId}/comment/${commentId}/answers`);
+        } catch (err) {
+            if ((err as { message: string }).message == "Resource not found!") {
+                navigate("/404");
+                return;
+            }
+            return;
+        }
+    }
 
     return (
         <article className={answer.ownerId._id == user?._id ? styles.yourAnswer : ""}>
@@ -57,11 +88,11 @@ export default function AnswerDetails({
                     </>
                     : answer.likes.includes(user?._id)
                         ? <>
-                            <i id={styles.answerLikes} className="fa-solid fa-thumbs-up"></i>
+                            <i onClick={onUnlike} id={styles.answerLikes} className="fa-solid fa-thumbs-up"></i>
                             <Link to={`/catalog/${movieId}/comment/${id}/likes`}><p>{answer.likes.length}</p></Link>
                         </>
                         : <>
-                            <i id={styles.answerLikes} className="fa-regular fa-thumbs-up"></i>
+                            <i onClick={onLike} id={styles.answerLikes} className="fa-regular fa-thumbs-up"></i>
                             <Link to={`/catalog/${movieId}/comment/${id}/likes`}><p>{answer.likes.length}</p></Link>
                         </>
             }

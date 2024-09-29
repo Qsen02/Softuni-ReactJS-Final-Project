@@ -55,8 +55,7 @@ answerRouter.put("/:answerId/in/:commentId", async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await editAnswer(fields, answerId);
-    const comment = await getCommentById(commentId).lean();
-    res.json(comment);
+    res.status(200).json({ message: "Record edited successfully!" });
 })
 
 answerRouter.post("/:answerId/in/:commentId/like", async(req, res) => {
@@ -72,8 +71,8 @@ answerRouter.post("/:answerId/in/:commentId/like", async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await likeAnswer(user, answerId);
-    const comment = await getCommentById(commentId).lean();
-    res.json(comment);
+    const answer = await getAnswerById(answerId).lean();
+    res.json(answer);
 })
 
 answerRouter.post("/:answerId/in/:commentId/unlike", async(req, res) => {
@@ -89,8 +88,8 @@ answerRouter.post("/:answerId/in/:commentId/unlike", async(req, res) => {
         return res.status(404).json({ message: "Resource not found!" });
     }
     await unlikeAnswer(user, answerId);
-    const comment = await getCommentById(commentId).lean();
-    res.json(comment);
+    const answer = await getAnswerById(answerId).lean();
+    res.json(answer);
 })
 
 module.exports = {
