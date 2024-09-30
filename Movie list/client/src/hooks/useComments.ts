@@ -44,25 +44,30 @@ export function useDeleteComment() {
 
 export function useGetOneComment(initialvalues: CommentType, commentId: string | undefined) {
     const [comment, setComment] = useState<CommentType>(initialvalues);
+    const [loading,setLoading]=useState(false);
+    const [fetchError,setFetchError]=useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         (async () => {
             try {
+                setLoading(true);
                 const comment = await getCommentById(commentId);
                 setComment(comment);
+                setLoading(false);
             } catch (err) {
                 if ((err as { message: string }).message == "Resource not found!") {
                     navigate("/404");
                     return;
                 }
+                setFetchError(true);
                 return;
             }
         })()
     }, [commentId])
 
     return {
-        comment,setComment
+        comment,setComment,loading,setLoading,fetchError,setFetchError
     }
 }
 

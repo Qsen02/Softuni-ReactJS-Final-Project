@@ -14,7 +14,7 @@ import styles from "../comment-answers/CommentAnswers.module.css"
 export default function CommentAnswers() {
     const { user } = useUserContext();
     const { movieId, commentId } = useParams();
-    const { comment, setComment } = useGetOneComment({ username: "", content: "", ownerId: "", movieId: "", likes: [], answers: [] }, commentId);
+    const { comment, setComment, loading, setLoading, fetchError, setFetchError } = useGetOneComment({ username: "", content: "", ownerId: "", movieId: "", likes: [], answers: [] }, commentId);
     const navigate = useNavigate();
     const createAnswer = useCreateAnswer();
     const [errMessage, setErrMessage] = useState("");
@@ -25,10 +25,12 @@ export default function CommentAnswers() {
             if (!content) {
                 throw new Error("Please, fill the field!");
             }
+            setLoading(true);
             setErrMessage("");
-            const comment = await createAnswer({content,username:user?.username},commentId);
+            const comment = await createAnswer({ content, username: user?.username }, commentId);
             setComment(comment);
             actions.resetForm();
+            setLoading(false);
         } catch (err) {
             setErrMessage((err as { message: string }).message);
             return;
@@ -43,44 +45,55 @@ export default function CommentAnswers() {
                 navigate("/404");
                 return;
             }
+            setFetchError(true);
             return;
         }
     }
 
     return (
-        <div className={styles.modal}>
-            <section>
-                <button onClick={onBack}>X</button>
-                <h2>Answers to {comment.username}</h2>
-                {user
-                    ? <Formik initialValues={{ content: "" }} onSubmit={onAnswer}>
-                        {
-                            (props) => (
-                                <Form>
-                                    {errMessage ? <p className={styles.errorMessage}>{errMessage}</p> : ""}
-                                    <CustomInput type="text" name="content" placeholder="Enter answer..." />
-                                    <button type="submit">Submit</button>
-                                </Form>
-                            )
-
-                        }
-                    </Formik>
-                    : ""
-                }
+        <>
+            {loading && !fetchError
+                ? <div className={styles.loadingSpinner}></div>
+                : ""
+            }
+            <div className={styles.modal}>
                 <section>
-                    {comment.answers.length == 0
-                        ? <h3>No answers yet</h3>
-                        : comment.answers.map(el => <AnswerDetails
-                            key={el._id}
-                            id={el._id}
-                            username={el.username}
-                            content={el.content}
-                            movieId={movieId}
-                            commentId={commentId}
-                        />)
+                    <button onClick={onBack}>X</button>
+                    <h2>Answers to {comment.username}</h2>
+                    {user
+                        ? <Formik initialValues={{ content: "" }} onSubmit={onAnswer}>
+                            {
+                                (props) => (
+                                    <Form>
+                                        {errMessage ? <p className={styles.errorMessage}>{errMessage}</p> : ""}
+                                        <CustomInput type="text" name="content" placeholder="Enter answer..." />
+                                        <button type="submit">Submit</button>
+                                    </Form>
+                                )
+
+                            }
+                        </Formik>
+                        : ""
                     }
+                    <section>
+                        {comment.answers.length == 0 && !loading && !fetchError
+                            ? <h3>No answers yet</h3>
+                            : loading && !fetchError
+                                ? <h3>Answers loading...</h3>
+                                : fetchError
+                                    ? <h3>Answers can't be loaded, please try again later.</h3>
+                                    : comment.answers.map(el => <AnswerDetails
+                                        key={el._id}
+                                        id={el._id}
+                                        username={el.username}
+                                        content={el.content}
+                                        movieId={movieId}
+                                        commentId={commentId}
+                                    />)
+                        }
+                    </section>
                 </section>
-            </section>
-        </div >
+            </div>
+        </>
     )
 }

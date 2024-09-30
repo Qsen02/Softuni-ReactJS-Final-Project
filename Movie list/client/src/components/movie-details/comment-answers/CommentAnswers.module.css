@@ -1,3 +1,27 @@
+@keyframes rotating {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loadingSpinner {
+    position: fixed;
+    top: 42%;
+    left: 47%;
+    width: 70px;
+    height: 70px;
+    border: inset 10px white;
+    border-radius: 50%;
+    animation: rotating;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    z-index: 1001;
+}
+
 .modal {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.7);
