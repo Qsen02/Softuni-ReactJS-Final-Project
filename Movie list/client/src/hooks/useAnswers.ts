@@ -21,25 +21,30 @@ type AnswerType = {
 
 export function useGetOneAnswer(initialvalues: AnswerType, answerId: string|undefined) {
     const [answer, setAnswer] = useState<AnswerType>(initialvalues);
+    const [loading,setLoading]=useState(false);
+    const [fetchError,setFetchError]=useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         (async () => {
             try {
+                setLoading(true);
                 const answer = await getAnswerById(answerId);
                 setAnswer(answer);
+                setLoading(false);
             } catch (err) {
                 if ((err as { message: string }).message == "Resource not found!") {
                     navigate("/404");
                     return;
                 }
+                setFetchError(true);
                 return;
             }
         })()
     }, [answerId])
 
     return {
-        answer,setAnswer
+        answer,setAnswer,loading,setLoading,fetchError,setFetchError
     }
 }
 
