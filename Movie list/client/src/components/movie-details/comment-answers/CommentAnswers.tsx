@@ -9,6 +9,7 @@ import CustomInput from "../../../commons/CustomInput";
 import AnswerDetails from "./answer-details/AnswerDetails";
 
 import styles from "../comment-answers/CommentAnswers.module.css"
+import { getMovieById } from "../../../api/movieService";
 
 type User = {
     _id: string,
@@ -20,11 +21,12 @@ type User = {
 } | null
 
 type CommentAnswersProps={
-    user:User|undefined
+    user:User|undefined,
+    setMovie: React.Dispatch<React.SetStateAction<{}>>
 }
 
 export default function CommentAnswers({
-    user
+    user,setMovie
 }:CommentAnswersProps) {
     const { movieId, commentId } = useParams();
     const { comment, setComment, loading, setLoading, fetchError, setFetchError } = useGetOneComment({ username: "", content: "", ownerId: "", movieId: "", likes: [], answers: [] }, commentId);
@@ -50,8 +52,10 @@ export default function CommentAnswers({
         }
     }
 
-    function onBack() {
+    async function onBack() {
         try {
+            const movie=await getMovieById(movieId);
+            setMovie(movie);
             navigate(`/catalog/${movieId}`);
         } catch (err) {
             if ((err as { message: string }).message == "Resource not found!") {
