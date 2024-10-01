@@ -3,7 +3,6 @@ import { Form, Formik, FormikHelpers } from "formik";
 import { useState } from "react";
 
 import { useGetOneComment } from "../../../hooks/useComments";
-import { useUserContext } from "../../../context/userContext";
 import { useCreateAnswer } from "../../../hooks/useAnswers";
 
 import CustomInput from "../../../commons/CustomInput";
@@ -11,8 +10,22 @@ import AnswerDetails from "./answer-details/AnswerDetails";
 
 import styles from "../comment-answers/CommentAnswers.module.css"
 
-export default function CommentAnswers() {
-    const { user } = useUserContext();
+type User = {
+    _id: string,
+    username: string,
+    email: string,
+    isAdmin: boolean,
+    accessToken: string,
+    profileImage: string
+} | null
+
+type CommentAnswersProps={
+    user:User|undefined
+}
+
+export default function CommentAnswers({
+    user
+}:CommentAnswersProps) {
     const { movieId, commentId } = useParams();
     const { comment, setComment, loading, setLoading, fetchError, setFetchError } = useGetOneComment({ username: "", content: "", ownerId: "", movieId: "", likes: [], answers: [] }, commentId);
     const navigate = useNavigate();

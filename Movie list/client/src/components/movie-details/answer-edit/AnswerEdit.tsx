@@ -1,14 +1,29 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Formik, Form, FormikHelpers } from "formik";
+import { useState } from "react";
 
 import { useEditAnswer, useGetOneAnswer } from "../../../hooks/useAnswers"
-import { useUserContext } from "../../../context/userContext";
+
 import CustomInput from "../../../commons/CustomInput";
-import { useState } from "react";
 
 import styles from "../../FormsAndErrors.module.css"
 
-export default function AnswerEdit() {
+type User = {
+    _id: string,
+    username: string,
+    email: string,
+    isAdmin: boolean,
+    accessToken: string,
+    profileImage: string
+} | null
+
+type AnswerEditProps={
+    curUser:User|undefined
+}
+
+export default function AnswerEdit({
+    curUser
+}:AnswerEditProps) {
     const initialvalues = {
         _id: "",
         username: "",
@@ -25,7 +40,6 @@ export default function AnswerEdit() {
     }
     const { movieId, commentId, answerId } = useParams();
     const { answer } = useGetOneAnswer(initialvalues, answerId);
-    const { user } = useUserContext();
     const [errMessage, setErrMessage] = useState("");
     const editAnswer = useEditAnswer();
     const navigate = useNavigate();
@@ -36,7 +50,7 @@ export default function AnswerEdit() {
             if (!content) {
                 throw new Error("Please, fill the field!");
             }
-            await editAnswer(answerId, commentId, { username: user?.username, content });
+            await editAnswer(answerId, commentId, { username: curUser?.username, content });
             navigate(`/catalog/${movieId}/comment/${commentId}/answers`);
         } catch (err) {
             setErrMessage((err as { message: string }).message);

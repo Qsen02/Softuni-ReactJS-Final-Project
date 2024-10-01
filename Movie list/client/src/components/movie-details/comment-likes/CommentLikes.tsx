@@ -7,7 +7,7 @@ import styles from "../movie-details-likes/MovieDetailsLikes.module.css";
 
 export default function CommentLikes() {
     const { movieId, commentId } = useParams();
-    const { comment, loading, fetchError, setFetchError } = useGetOneComment({ content: "", username: "", likes: [] }, commentId);
+    const { comment, loading, fetchError, setFetchError } = useGetOneComment({content: "", username: "", likes: [],ownerId:"",movieId:"",answers:[] }, commentId);
     const navigate = useNavigate();
 
     function onBack() {

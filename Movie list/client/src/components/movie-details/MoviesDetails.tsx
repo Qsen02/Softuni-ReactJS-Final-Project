@@ -71,10 +71,10 @@ export default function MovieDetails() {
                     <Route path="comment/:commentId/edit" element={<CommentEdit setMovie={setMovie} />} />
                     <Route path="comment/:commentId/likes" element={<CommentLikes />} />
                     <Route path="comment/:commentId/answer/:answerId/delete" element={<AnswerDelete/>}/>
-                    <Route path="comment/:commentId/answer/:answerId/edit" element={<AnswerEdit/>}/>
+                    <Route path="comment/:commentId/answer/:answerId/edit" element={<AnswerEdit curUser={user}/>}/>
                     <Route path="comment/:commentId/answer/:answerId/likes" element={<AnswerLikes/>}/>
                 </Route>
-                <Route path="comment/:commentId/answers" element={<CommentAnswers/>}/>
+                <Route path="comment/:commentId/answers" element={<CommentAnswers user={user}/>}/>
             </Routes>
             {loading && !fetchError
                 ? <div className={styles.loadingSpinner}></div>
