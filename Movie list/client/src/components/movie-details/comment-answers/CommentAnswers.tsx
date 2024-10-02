@@ -4,12 +4,12 @@ import { useState } from "react";
 
 import { useGetOneComment } from "../../../hooks/useComments";
 import { useCreateAnswer } from "../../../hooks/useAnswers";
+import { getMovieById } from "../../../api/movieService";
 
 import CustomInput from "../../../commons/CustomInput";
 import AnswerDetails from "./answer-details/AnswerDetails";
 
 import styles from "../comment-answers/CommentAnswers.module.css"
-import { getMovieById } from "../../../api/movieService";
 
 type User = {
     _id: string,
