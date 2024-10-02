@@ -12,19 +12,19 @@
         color: lightgrey
     }
     20% {
-        color: rgb(225, 224, 224)
+        color: rgb(250, 248, 194)
     }
     40% {
-        color: rgb(230, 230, 230)
+        color: rgb(251, 247, 137)
     }
     60% {
-        color: rgb(240, 240, 240)
+        color: rgb(245, 245, 90)
     }
     80% {
-        color: rgb(250, 250, 250)
+        color: rgb(243, 243, 49)
     }
     100% {
-        color: rgb(255, 255, 255)
+        color: yellow
     }
 }
 

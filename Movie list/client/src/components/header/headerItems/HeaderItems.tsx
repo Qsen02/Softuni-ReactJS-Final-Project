@@ -10,7 +10,7 @@ export default function HeaderItems({
 }: HeaderItemsProps) {
     return (
         <li><NavLink
-            style={({ isActive }) => isActive ? { color: "white" } : {}}
+            style={({ isActive }) => isActive ? { color: "yellow" } : {}}
             to={link}
         >
             {name}
